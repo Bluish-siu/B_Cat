@@ -825,7 +825,7 @@ function classify(text){
 
 /* ===== ARC face: image model with lip sync (falls back to the particle head if nova.webp is missing) =====
    Face landmarks are in the image's own pixels (1024 x 1024). Adjust if you swap the image. */
-const FACE = { mouthY:770, mouthX:512, mouthW:250, jawX0:300, jawX1:724, jawBottom:930, eyes:[[378,478],[648,478]], focusY:560 };
+const FACE = { baseW:1599, mouthY:497, mouthX:800, mouthW:118, maxOpen:14, jawX0:672, jawX1:928, jawBottom:600, eyes:[[713,340],[873,340]], eyeW:72, eyeH:28, focusY:420, eyeGlow:false, blink:true };
 const mouth = { open:0, speaking:false, bursts:[], lastWord:0, lastTick:0 };
 function mouthSyllables(word){
   const n = Math.max(1, Math.min(4, (String(word).match(/[aeiouy]+/gi) || []).length));
@@ -1024,6 +1024,7 @@ function unlockVoice(e){
   const cv = $('#novaCv'), ctx = cv.getContext('2d');
   const img = new Image();
   const jaw = document.createElement('canvas'), jctx = jaw.getContext('2d');
+  let lidColor = null;
   img.onload = () => { window.__novaImg = true; requestAnimationFrame(frame); };
   img.src = 'nova.webp';
   function level(now){
@@ -1038,7 +1039,7 @@ function unlockVoice(e){
   function frame(now){
     const dpr = Math.min(2, devicePixelRatio || 1), b = cv.getBoundingClientRect(), W = b.width, H = b.height;
     if (cv.width !== Math.round(W*dpr) || cv.height !== Math.round(H*dpr)) { cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr); }
-    const k = img.naturalWidth / 1024, IW = img.naturalWidth, IH = img.naturalHeight;
+    const k = img.naturalWidth / FACE.baseW, IW = img.naturalWidth, IH = img.naturalHeight;
     const t = now / 1000, open = level(now);
     const s = Math.max(W / IW, H / IH) * 1.04;
     let ox = (W - IW*s) / 2, oy = H/2 - FACE.focusY*k*s;
@@ -1047,12 +1048,13 @@ function unlockVoice(e){
     ctx.setTransform(dpr*s, 0, 0, dpr*s, dpr*ox, dpr*oy);
     ctx.drawImage(img, 0, 0);
 
-    const my = FACE.mouthY*k, mx = FACE.mouthX*k, mw = FACE.mouthW*k, d = open * 26 * k;
+    const my = FACE.mouthY*k, mx = FACE.mouthX*k, mw = FACE.mouthW*k, d = open * FACE.maxOpen * k;
     if (d > 0.4) {
       // mouth cavity
       const g = ctx.createRadialGradient(mx, my + d/2, 0, mx, my + d/2, mw/2);
-      g.addColorStop(0, 'rgba(150,120,255,.55)'); g.addColorStop(.35, 'rgba(40,14,70,.95)'); g.addColorStop(1, 'rgba(8,4,16,.98)');
+      g.addColorStop(0, 'rgba(92,30,38,.96)'); g.addColorStop(.6, 'rgba(48,12,20,.97)'); g.addColorStop(1, 'rgba(22,6,10,.98)');
       ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(mx, my + d/2, mw/2 * (0.85 + open*0.1), d/2 + 2*k, 0, 0, Math.PI*2); ctx.fill();
+      if (open > 0.3) { ctx.fillStyle = `rgba(238,232,228,${Math.min(.85, (open - .3) * 1.6)})`; ctx.beginPath(); ctx.ellipse(mx, my + d*0.16, mw*0.2, Math.max(1, d*0.16), 0, 0, Math.PI*2); ctx.fill(); }
       // jaw: the area below the lips is redrawn lower, compressing toward the chin; sides feathered
       const jx0 = FACE.jawX0*k, jx1 = FACE.jawX1*k, jb = FACE.jawBottom*k, jw = jx1 - jx0, jh = jb - my;
       jaw.width = Math.ceil(jw); jaw.height = Math.ceil(jh);
@@ -1064,10 +1066,28 @@ function unlockVoice(e){
       jctx.fillStyle = fx; jctx.fillRect(0, 0, jw, jh);
       ctx.drawImage(jaw, jx0, my);
     }
-    // eyes glow brighter while she talks
+    if (FACE.blink) {
+      if (!lidColor) {
+        try { const c = document.createElement('canvas'); c.width = c.height = 1; const cc = c.getContext('2d'); const [ex, ey] = FACE.eyes[0];
+          cc.drawImage(img, ex*k, (ey - FACE.eyeH)*k, 1, 1, 0, 0, 1, 1); const p = cc.getImageData(0, 0, 1, 1).data; lidColor = `rgb(${p[0]},${p[1]},${p[2]})`; }
+        catch { lidColor = 'rgb(226,184,166)'; }
+      }
+      const cyc = now % 4300;
+      if (cyc < 150) {
+        const amt = Math.sin(Math.PI * cyc / 150);
+        for (const [ex, ey] of FACE.eyes) {
+          const w = FACE.eyeW*k/2, h = FACE.eyeH*k/2, x = ex*k, y = ey*k;
+          ctx.save(); ctx.beginPath(); ctx.ellipse(x, y, w, h, 0, 0, Math.PI*2); ctx.clip();
+          ctx.fillStyle = lidColor; ctx.fillRect(x - w, y - h, w*2, h*2*amt);
+          ctx.strokeStyle = 'rgba(45,28,28,.55)'; ctx.lineWidth = 2*k; ctx.beginPath(); ctx.moveTo(x - w, y - h + h*2*amt); ctx.lineTo(x + w, y - h + h*2*amt); ctx.stroke();
+          ctx.restore();
+        }
+      }
+    }
+    // eyes glow brighter while she talks (robot faces only)
     ctx.globalCompositeOperation = 'lighter';
     const talk = Math.min(1, open * 1.6 + (mouth.speaking ? .25 : 0));
-    for (const [ex, ey] of FACE.eyes) {
+    if (FACE.eyeGlow) for (const [ex, ey] of FACE.eyes) {
       const gx = ex*k, gy = ey*k, r = 95*k;
       const eg = ctx.createRadialGradient(gx, gy, 0, gx, gy, r);
       eg.addColorStop(0, `rgba(170,230,255,${0.10 + talk*0.35 + Math.sin(t*2)*0.04})`); eg.addColorStop(1, 'rgba(170,230,255,0)');
@@ -1076,7 +1096,7 @@ function unlockVoice(e){
     // slow scan line across the face
     const sy = ((t * 0.18) % 1.4 - 0.2) * IH;
     const sg = ctx.createLinearGradient(0, sy - 40*k, 0, sy + 40*k);
-    sg.addColorStop(0, 'rgba(201,162,255,0)'); sg.addColorStop(.5, 'rgba(201,162,255,.10)'); sg.addColorStop(1, 'rgba(201,162,255,0)');
+    sg.addColorStop(0, 'rgba(201,162,255,0)'); sg.addColorStop(.5, 'rgba(201,162,255,.05)'); sg.addColorStop(1, 'rgba(201,162,255,0)');
     ctx.fillStyle = sg; ctx.fillRect(0, sy - 40*k, IW, 80*k);
     ctx.globalCompositeOperation = 'source-over';
     requestAnimationFrame(frame);
