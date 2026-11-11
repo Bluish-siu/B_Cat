@@ -241,7 +241,7 @@ p{margin:0}
 .anat>*{min-width:0}
 .anat-vis{position:sticky;top:110px;height:440px;perspective:1100px;display:grid;place-items:center}
 .planes{position:relative;width:min(360px,80%);aspect-ratio:1.25/1;transform-style:preserve-3d;transform:rotateX(58deg) rotateZ(-38deg)}
-.pl{position:absolute;inset:0;border-radius:16px;border:1px solid var(--line2);background:linear-gradient(135deg,rgba(25,28,35,.95),rgba(16,18,23,.95));transition:transform .6s cubic-bezier(.3,.7,.2,1),border-color .4s,box-shadow .4s;display:grid;padding:14px;align-content:start;gap:8px}
+.pl{position:absolute;inset:0;border-radius:16px;border:1px solid var(--line2);background:linear-gradient(135deg,rgba(36,22,58,.96),rgba(19,11,31,.96));transition:transform .6s cubic-bezier(.3,.7,.2,1),border-color .4s,box-shadow .4s;display:grid;padding:14px;align-content:start;gap:8px}
 .pl .lbl{font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;color:var(--muted)}
 .pl .mock{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .pl .mock i{height:16px;border-radius:4px;background:rgba(255,255,255,.06)}
@@ -276,7 +276,7 @@ p{margin:0}
 .ring-stage{height:420px;perspective:1400px;position:relative;cursor:grab;user-select:none;touch-action:pan-y}
 .ring-stage:active{cursor:grabbing}
 .ring{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
-.ic-card{position:absolute;width:230px;height:300px;left:-115px;top:-150px;border-radius:18px;border:1px solid var(--line2);background:linear-gradient(170deg,#1b1d27,#111218 70%);padding:22px;display:grid;grid-template-rows:auto auto 1fr auto;gap:12px;backface-visibility:hidden;cursor:pointer;transition:border-color .2s}
+.ic-card{position:absolute;width:230px;height:300px;left:-115px;top:-150px;border-radius:18px;border:1px solid var(--line2);background:linear-gradient(170deg,#24163a,#130b1f 72%);padding:22px;overflow:hidden;display:grid;grid-template-rows:auto auto 1fr auto;gap:12px;backface-visibility:hidden;cursor:pointer;transition:border-color .2s}
 .ic-card:hover{border-color:var(--accent)}
 .ic-card .t{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;display:flex;align-items:center;gap:6px;color:var(--c)}
 .ic-card .t::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c)}
@@ -478,6 +478,15 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
 @media(max-width:1000px){.lab-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:540px){.lab-grid{grid-template-columns:1fr}}
 .ring-cta{display:flex;justify-content:center;margin-top:28px}
+
+/* restored pieces, in brand colours */
+.ic-card::after{content:"";position:absolute;right:-30px;top:-30px;width:86px;height:86px;border-radius:50%;background:var(--c);opacity:.22;pointer-events:none}
+.ic-card h3{font-weight:500}
+.pl .sw{display:flex;align-items:center;gap:6px}
+.pl .sw i{width:20px;height:20px;border-radius:50%;border:1px solid rgba(255,255,255,.25)}
+.pl .sw b{margin-left:auto;font-family:var(--f-display);font-size:22px;font-weight:600;color:#e6d2ff}
+.pl-brand{background:linear-gradient(135deg,rgba(66,6,107,.97),rgba(36,12,62,.97))!important}
+#idea-lab .ring-stage{margin-top:8px}
 </style>
 </head>
 <body>
@@ -663,6 +672,35 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
   </div>
 </section>
 
+<!-- SCALE -->
+<section class="sec rule" id="scale">
+  <div class="wrap scale">
+    <div class="txt">
+      <p class="eyebrow">Built for scale</p>
+      <h2 class="h2">Ready for your<br><span class="acc">biggest day.</span></h2>
+      <p>Diwali offers, launch days and viral reels bring sudden crowds. We build every app and platform to stay fast under that load, and we keep watching it after launch.</p>
+      <ul class="ticklist">
+        <li><div><b>Autoscaling</b><span>Capacity grows during a rush and shrinks overnight, so cloud bills follow real demand.</span></div></li>
+        <li><div><b>Load testing before launch</b><span>We simulate peak traffic before real customers arrive.</span></div></li>
+        <li><div><b>Releases without downtime</b><span>Automated deploys with instant rollback. Ship updates any day.</span></div></li>
+        <li><div><b>24/7 monitoring</b><span>Uptime checks, error tracking and alerts that reach our team first.</span></div></li>
+        <li><div><b>Security and backups</b><span>Encrypted data, daily backups and a tested recovery plan.</span></div></li>
+        <li><div><b>Lean cloud bills</b><span>Monthly reviews that keep AWS, Google Cloud or Azure costs in check.</span></div></li>
+      </ul>
+    </div>
+    <div class="card sim">
+      <div class="sim-h"><span>● LIVE SIMULATION · A FESTIVE SALE DAY, AUTOSCALING</span><b id="clock">00:00</b></div>
+      <canvas id="simCv" aria-label="Simulated traffic and servers over 24 hours"></canvas>
+      <div class="sim-stats">
+        <div><small>Requests / sec</small><b id="stReq">0</b></div>
+        <div><small>App servers</small><b id="stSrv">2</b></div>
+        <div><small>P95 response</small><b id="stP95">60ms</b></div>
+        <div><small>Status</small><b id="stStatus">steady</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- LEAN -->
 <section class="sec rule">
   <div class="wrap">
@@ -699,6 +737,29 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
   </div>
 </section>
 
+<!-- ANATOMY -->
+<section class="sec rule">
+  <div class="wrap anat" id="anat">
+    <div class="anat-vis" aria-hidden="true">
+      <div class="planes" id="planes">
+        <div class="pl" data-i="4" style="--c:var(--ok)"><span class="lbl">CLOUD &amp; DEVOPS</span><div class="mock"><i></i><i></i><i></i></div></div>
+        <div class="pl" data-i="3" style="--c:var(--accent)"><span class="lbl">AI &amp; DATA</span><div class="mock"><i></i><i></i><i></i></div></div>
+        <div class="pl" data-i="2" style="--c:var(--cyan)"><span class="lbl">APIS &amp; ERP LOGIC</span><div class="mock"><i></i><i></i><i></i></div></div>
+        <div class="pl" data-i="1" style="--c:var(--warm)"><span class="lbl">WEB · MOBILE · 3D</span><div class="mock"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+        <div class="pl pl-brand" data-i="0" style="--c:#e6d2ff"><span class="lbl">BRAND &amp; IDENTITY</span><div class="sw"><i style="background:#42066b"></i><i style="background:#8b5cf6"></i><i style="background:#c9a2ff"></i><i style="background:#f6efff"></i><b>Aa</b></div></div>
+      </div>
+    </div>
+    <div class="anat-list">
+      <div class="intro"><p class="eyebrow">Inside a product</p><h2 class="h2">Five layers.<br><span class="acc">One reaction.</span></h2><p>Keep scrolling and a product comes apart, layer by layer. Most teams own one or two of these. We own all five, starting with the brand.</p></div>
+      <div class="al" data-i="0" style="--c:#e6d2ff"><span class="k">● 01 · Brand &amp; identity</span><h3>How you're remembered</h3><p>Name, logo, colours and voice, set before a single screen is designed.</p></div>
+      <div class="al" data-i="1" style="--c:var(--warm)"><span class="k">● 02 · Web, mobile &amp; 3D</span><h3>What customers touch</h3><p>Websites, Android and iOS apps and 3D experiences that look and feel like one brand.</p></div>
+      <div class="al" data-i="2" style="--c:var(--cyan)"><span class="k">● 03 · APIs &amp; ERP logic</span><h3>How the business runs</h3><p>Secure APIs, ERP workflows, payments and integrations behind the scenes.</p></div>
+      <div class="al" data-i="3" style="--c:var(--accent)"><span class="k">● 04 · AI &amp; data</span><h3>What makes it smart</h3><p>RAG assistants, AI agents, AI content and AEO/GEO on your own data.</p></div>
+      <div class="al" data-i="4" style="--c:var(--ok)"><span class="k">● 05 · Cloud &amp; DevOps</span><h3>What keeps it running</h3><p>Autoscaling, automated releases and round-the-clock monitoring.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- SERVICES -->
 <section class="sec rule" id="services">
   <div class="wrap">
@@ -722,12 +783,13 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
   <div class="wrap">
     <div class="head">
       <div class="head-l"><p class="eyebrow">Idea Lab</p><h2 class="h2">Ideas ready<br><span class="acc">to catalyse.</span></h2></div>
-      <p class="lead">Twelve projects our clients ask about most. Filter by what you need, then open any card to see how we'd build it.</p>
+      <p class="lead">Twelve projects our clients ask about most. Filter by what you need, spin the ring, and open any card to see how we'd build it.</p>
     </div>
     <div class="lab-filters" id="labFilters" role="toolbar" aria-label="Filter ideas by type"></div>
-    <div class="lab-grid" id="labGrid"></div>
-    <div class="ring-cta"><a class="btn" href="#idea-checker">Check your own idea →</a></div>
   </div>
+  <div class="ring-stage" id="ringStage"><div class="ring" id="ring"></div></div>
+  <p class="ring-cap">drag to spin · tap a card for the build plan</p>
+  <div class="ring-cta"><a class="btn" href="#idea-checker">Check your own idea →</a></div>
 </section>
 
 <!-- CHECKER -->
@@ -1296,6 +1358,77 @@ fill($('#mq1'),L1); fill($('#mq2'),L2);
   new IntersectionObserver(es => { if (!seen && es[0].isIntersecting) { seen = true; timer = setTimeout(() => show('after'), 1200); } }, { threshold: .5 }).observe($('.vis-card'));
 })();
 
+/* ===== Scale simulation ===== */
+(() => {
+  const cv=$('#simCv'), ctx=cv.getContext('2d'); let W,H,dpr;
+  function size(){ dpr=Math.min(2,devicePixelRatio||1); const b=cv.getBoundingClientRect(); W=b.width; H=b.height; cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+  size(); addEventListener('resize', size);
+  const traffic = m => { const h=m/60; let v=2+3*Math.exp(-((h-11)**2)/8)+5*Math.exp(-((h-20)**2)/3); if(h>19.6&&h<20.4) v+=4; return v; }; // k req/s, sale spike at 8pm
+  const hist=[]; let minute=0;
+  const nodes=[{x:.1,y:.5,l:'Users'},{x:.3,y:.5,l:'Edge / CDN'},{x:.48,y:.5,l:'Load balancer'},{x:.86,y:.22,l:'Cache'},{x:.86,y:.5,l:'Database'},{x:.86,y:.78,l:'Queue'}];
+  const dots=[];
+  function step(){
+    minute=(minute+6)%1440; const v=traffic(minute); hist.push(v); if(hist.length>240) hist.shift();
+    const servers=Math.max(2,Math.ceil(v/2.2)); const p95=Math.round(55+v*2+Math.random()*8);
+    const hh=String(Math.floor(minute/60)).padStart(2,'0'), mm=String(minute%60).padStart(2,'0');
+    $('#clock').textContent=`${hh}:${mm}`; $('#stReq').textContent=(v).toFixed(1)+'k'; $('#stSrv').textContent=servers; $('#stP95').textContent=p95+'ms';
+    $('#stStatus').textContent = v>9 ? 'festive rush' : v>5 ? 'busy' : 'steady';
+    for(let i=0;i<Math.round(v/2);i++) dots.push({t:0,lane:Math.floor(Math.random()*3)});
+    return servers;
+  }
+  let servers=2; for(let i=0;i<120;i++) servers=step();
+  setInterval(()=>{ servers=step(); }, reduce?100000:250);
+  const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const ACC=css('--accent'), OK=css('--ok'), MUTED=css('--muted'), LINE='rgba(201,162,255,.22)', INK=css('--ink');
+  function box(x,y,w,h,label,col){ ctx.strokeStyle=col||LINE; ctx.fillStyle='rgba(27,17,41,.96)'; ctx.lineWidth=1; ctx.beginPath(); ctx.roundRect(x-w/2,y-h/2,w,h,7); ctx.fill(); ctx.stroke(); ctx.fillStyle=INK; ctx.font='500 11px Geist, system-ui'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(label,x,y); }
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    const gh=H*0.62; // graph area top
+    // connections
+    ctx.strokeStyle=LINE; ctx.lineWidth=1;
+    const P=n=>[n.x*W,n.y*gh];
+    const [ux,uy]=P(nodes[0]),[ex,ey]=P(nodes[1]),[lx,ly]=P(nodes[2]);
+    ctx.beginPath(); ctx.moveTo(ux,uy); ctx.lineTo(lx,ly); ctx.stroke();
+    // server column
+    const sx=W*0.67, rows=Math.min(servers,8), sh=Math.min(26,(gh-30)/8);
+    for(let i=0;i<rows;i++){ const y=gh/2+(i-(rows-1)/2)*(sh+4); ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(sx-30,y); ctx.stroke(); for(const k of [3,4,5]){const [tx,ty]=P(nodes[k]); ctx.beginPath(); ctx.moveTo(sx+30,y); ctx.lineTo(tx-38,ty); ctx.stroke();} }
+    // traffic dots
+    for(const d of dots){ d.t+=0.02; const x=ux+(lx-ux)*d.t, y=uy+(d.lane-1)*10*Math.sin(d.t*Math.PI); ctx.fillStyle=ACC; ctx.globalAlpha=1-d.t; ctx.fillRect(x,y,2.5,2.5); }
+    ctx.globalAlpha=1; while(dots.length&&dots[0].t>=1) dots.shift(); if(dots.length>200) dots.splice(0,dots.length-200);
+    for(let i=0;i<rows;i++){ const y=gh/2+(i-(rows-1)/2)*(sh+4); ctx.fillStyle='rgba(201,162,255,.14)'; ctx.strokeStyle=ACC; ctx.beginPath(); ctx.roundRect(sx-30,y-sh/2,60,sh,5); ctx.fill(); ctx.stroke(); ctx.fillStyle=ACC; ctx.font='10px "Geist Mono", monospace'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('app-'+(i+1),sx,y); }
+    if(servers>8){ ctx.fillStyle=MUTED; ctx.font='10px "Geist Mono", monospace'; ctx.fillText('+'+(servers-8)+' more',sx,gh-6); }
+    box(ux,uy,62,30,'Users'); box(ex,ey,70,30,'Edge / CDN'); box(lx,ly,84,30,'Load balancer',ACC);
+    for(const k of [3,4,5]){const [x,y]=P(nodes[k]); box(x,y,76,28,nodes[k].l);}
+    ctx.fillStyle=MUTED; ctx.font='10px "Geist Mono", monospace'; ctx.textAlign='left'; ctx.fillText('AUTOSCALING APP TIER',sx-40,12);
+    // traffic graph
+    const top=gh+18, bh=H-top-10; ctx.strokeStyle='rgba(255,255,255,.06)'; ctx.beginPath(); ctx.moveTo(12,top+bh); ctx.lineTo(W-12,top+bh); ctx.stroke();
+    ctx.fillStyle=ACC; ctx.font='10px "Geist Mono", monospace'; ctx.fillText('traffic',14,top-4); ctx.fillStyle=OK; ctx.fillText('app servers',64,top-4);
+    const max=14, xs=i=>12+(W-24)*i/239;
+    ctx.beginPath(); hist.forEach((v,i)=>{const x=xs(i), y=top+bh-(v/max)*bh; i?ctx.lineTo(x,y):ctx.moveTo(x,y);});
+    ctx.strokeStyle=ACC; ctx.lineWidth=1.6; ctx.stroke();
+    ctx.lineTo(xs(hist.length-1),top+bh); ctx.lineTo(xs(0),top+bh); ctx.closePath(); ctx.fillStyle='rgba(201,162,255,.12)'; ctx.fill();
+    ctx.beginPath(); hist.forEach((v,i)=>{const s=Math.max(2,Math.ceil(v/2.2)); const x=xs(i), y=top+bh-(s*2.2/max)*bh; i?ctx.lineTo(x,y):ctx.moveTo(x,y);});
+    ctx.strokeStyle=OK; ctx.setLineDash([3,3]); ctx.lineWidth=1; ctx.stroke(); ctx.setLineDash([]);
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* ===== Anatomy: five layers separate on scroll ===== */
+(() => {
+  const sec = $('#anat'); if (!sec) return;
+  const pls = [...document.querySelectorAll('.pl')], items = [...document.querySelectorAll('.al')], n = items.length;
+  const set = a => { pls.forEach(pl => pl.classList.toggle('on', +pl.dataset.i === a)); items.forEach(it => it.classList.toggle('on', +it.dataset.i === a)); };
+  function upd(){
+    const r = sec.getBoundingClientRect(), vh = innerHeight;
+    const p = Math.min(1, Math.max(0, (vh * 0.7 - r.top) / (r.height * 0.8)));
+    pls.forEach(pl => { const i = +pl.dataset.i; pl.style.transform = `translateZ(${((n - 1 - i) * (10 + p * 46)).toFixed(1)}px)`; });
+    set(Math.min(n - 1, Math.floor(p * n)));
+  }
+  addEventListener('scroll', upd, { passive: true }); upd();
+  items.forEach(it => it.addEventListener('mouseenter', () => set(+it.dataset.i)));
+})();
+
 /* ===== Idea Lab ideas ===== */
 const IDEAS=[
  ['GEO','#c9a2ff','Get named by ChatGPT','Learn how AI assistants describe your category, then become the brand they recommend.',['AI visibility audit','Citation and mention building','Monthly AI-answer tracking']],
@@ -1312,26 +1445,39 @@ const IDEAS=[
  ['BRAND','#c9a2ff','Brand identity in a week','Name check, logo, colours, type and a brand book your whole team can use.',['Logo and identity','Brand book','Social templates']]
 ];
 $('#ideaCount').textContent=IDEAS.length;
-/* Idea Lab: filterable grid of idea cards */
+/* Idea Lab: 3D ring of idea cards, rebuilt by the category filters */
 (() => {
-  const grid = $('#labGrid'), bar = $('#labFilters');
+  const ring = $('#ring'), stage = $('#ringStage'), bar = $('#labFilters');
+  let list = IDEAS.map((_, i) => i), ang = 0, vel = reduce ? 0 : -0.08, drag = false, lx = 0, moved = 0;
+  const radius = () => { const small = innerWidth < 600, card = small ? 215 : 255; return Math.max(small ? 240 : 330, list.length * card / (2 * Math.PI)); };
+  function build(){
+    ring.innerHTML = '';
+    list.forEach((idx, k) => {
+      const it = IDEAS[idx], c = document.createElement('button');
+      c.type = 'button'; c.className = 'ic-card'; c.style.setProperty('--c', it[1]); c.dataset.i = idx;
+      c.innerHTML = `<span class="t">${it[0]}</span><h3>${it[2]}</h3><p>${it[3]}</p><span class="x">See the build plan →</span>`;
+      ring.appendChild(c);
+    });
+    layout();
+  }
+  function layout(){ const R = radius(), n = ring.children.length; [...ring.children].forEach((c, k) => { c.style.transform = `rotateY(${k * 360 / n}deg) translateZ(${R}px)`; }); }
   const cats = ['All', ...new Set(IDEAS.map(i => i[0]))];
-  cats.forEach((c, n) => {
+  cats.forEach((cat, n) => {
     const b = document.createElement('button');
-    b.type = 'button'; b.textContent = c === 'All' ? 'ALL IDEAS' : c; b.setAttribute('aria-pressed', n === 0);
+    b.type = 'button'; b.textContent = cat === 'All' ? 'ALL IDEAS' : cat; b.setAttribute('aria-pressed', n === 0);
     b.addEventListener('click', () => {
       bar.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
-      grid.querySelectorAll('.lab-card').forEach(card => { card.hidden = c !== 'All' && card.dataset.cat !== c; });
+      list = IDEAS.map((_, i) => i).filter(i => cat === 'All' || IDEAS[i][0] === cat);
+      ang = 0; build();
     });
     bar.appendChild(b);
   });
-  IDEAS.forEach((it, i) => {
-    const card = document.createElement('button');
-    card.type = 'button'; card.className = 'lab-card'; card.dataset.cat = it[0]; card.style.setProperty('--c', it[1]);
-    card.innerHTML = `<span class="t">${it[0]}</span><h3>${it[2]}</h3><p>${it[3]}</p><span class="x">See the build plan →</span>`;
-    card.addEventListener('click', () => openIdea(i));
-    grid.appendChild(card);
-  });
+  build(); addEventListener('resize', layout);
+  (function tick(){ if (!drag) { ang += vel; vel += ((reduce ? 0 : -0.08) - vel) * 0.02; } ring.style.transform = `translateZ(-${radius()}px) rotateY(${ang}deg)`; requestAnimationFrame(tick); })();
+  stage.addEventListener('pointerdown', e => { drag = true; lx = e.clientX; moved = 0; });
+  addEventListener('pointermove', e => { if (!drag) return; const dx = e.clientX - lx; lx = e.clientX; moved += Math.abs(dx); ang += dx * 0.25; vel = dx * 0.25; });
+  addEventListener('pointerup', () => { drag = false; });
+  ring.addEventListener('click', e => { const c = e.target.closest('.ic-card'); if (!c || moved > 6) return; openIdea(+c.dataset.i); });
 })();
 const modal=$('#modal'); let curIdea=null;
 function openIdea(i){ const it=IDEAS[i]; curIdea=it; $('#mTag').textContent=it[0]; $('#mTitle').textContent=it[2]; $('#mDesc').textContent=it[3]; $('#mList').innerHTML=it[4].map(x=>`<li>${x}</li>`).join(''); modal.hidden=false; $('#mAsk').focus(); }
