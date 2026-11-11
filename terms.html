@@ -4,6 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Terms of Use | Branding Catalyst</title>
+<script>try{if(!sessionStorage.getItem('bcIntro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro-pending')}catch(e){}</script>
+<style>
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-out .32s cubic-bezier(.4,0,.2,1) both}
+::view-transition-new(root){animation:vt-in .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes vt-out{to{opacity:0;transform:translateY(-12px)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(20px)}}
+header .logo{view-transition-name:brand-logo}
+html.intro-pending::after{content:"";position:fixed;inset:0;z-index:9999;background:#0d0716;animation:introFailsafe .4s 3s forwards}
+@keyframes introFailsafe{to{opacity:0;visibility:hidden}}
+@media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+</style>
+
 <meta name="description" content="Terms for using the Branding Catalyst website, ARC assistant, idea checker and estimates.">
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -96,5 +109,6 @@ footer a{color:var(--muted)}
 </main>
 <footer><div class="wrap"><span>© 2026 Branding Catalyst Pvt Ltd · Mumbai, India</span><span><a href="index.html">Home</a> · <a href="careers.html">Careers</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></span></div></footer>
 <script src="leads.js" defer></script>
+<script src="fx.js" defer></script>
 </body>
 </html>

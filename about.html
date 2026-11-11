@@ -4,6 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>About Branding Catalyst</title>
+<script>try{if(!sessionStorage.getItem('bcIntro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro-pending')}catch(e){}</script>
+<style>
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-out .32s cubic-bezier(.4,0,.2,1) both}
+::view-transition-new(root){animation:vt-in .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes vt-out{to{opacity:0;transform:translateY(-12px)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(20px)}}
+header .logo{view-transition-name:brand-logo}
+html.intro-pending::after{content:"";position:fixed;inset:0;z-index:9999;background:#0d0716;animation:introFailsafe .4s 3s forwards}
+@keyframes introFailsafe{to{opacity:0;visibility:hidden}}
+@media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+</style>
+
 <meta name="description" content="Branding Catalyst is a Mumbai studio that builds brands, apps, ERP systems, websites, 3D experiences and AI products as one team. Meet our founder, Abhishek Trivedi.">
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -256,6 +269,18 @@ html.lenis-smooth{scroll-behavior:auto!important}
 .scroll-prog{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:2px;z-index:90;pointer-events:none}
 .scroll-prog i{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#8b5cf6,#c9a2ff,#f2a7c3);box-shadow:0 0 10px rgba(201,162,255,.7)}
 @media(prefers-reduced-motion:reduce){.rv-on .rv:not(.in){opacity:1}.scroll-prog{display:none}}
+
+/* About intro: 3D logo */
+.hero-split{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(24px,4vw,56px);align-items:center}
+.hero-split>*{min-width:0}
+.logo3d{position:relative;aspect-ratio:1;width:100%;max-width:440px;justify-self:center;display:grid;place-items:center}
+.logo3d::before{content:"";position:absolute;inset:6%;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.38),transparent 66%)}
+.logo3d canvas{position:absolute;inset:0;width:100%;height:100%}
+.logo3d-flat{position:relative;width:44%;height:auto;transition:opacity .5s}
+.logo3d.is-3d .logo3d-flat{opacity:0}
+.logo3d-hint{position:absolute;bottom:2%;font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+@media(hover:none){.logo3d-hint{display:none}}
+@media(max-width:860px){.hero-split{grid-template-columns:1fr}.logo3d{max-width:300px}}
 </style>
 </head>
 <body>
@@ -288,10 +313,12 @@ html.lenis-smooth{scroll-behavior:auto!important}
 <main>
 <!-- HERO -->
 <section class="hero">
-  <div class="wrap">
+  <div class="wrap hero-split"><div>
     <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><span>About</span></nav>
     <h1>Brands, products and AI, <span class="acc">built by one team.</span></h1>
     <p>Branding Catalyst is a studio based in <b>Mumbai</b>. We shape how a business looks, sounds and gets found, then build the apps, ERP systems, websites and AI that run it, all with <b>Catalyst Engine</b>, our AI-powered way of working.</p>
+  </div>
+  <div class="logo3d" role="img" aria-label="The Branding Catalyst logo in 3D"><svg class="logo3d-flat" viewBox="0 0 96 100" aria-hidden="true"><use href="#bcMark"/></svg><span class="logo3d-hint">move your mouse</span></div>
   </div>
 </section>
 
@@ -614,5 +641,6 @@ document.querySelectorAll('.mnav a').forEach(a => a.addEventListener('click', ()
 })();
 </script>
 <script src="leads.js" defer></script>
+<script src="fx.js" defer></script>
 </body>
 </html>

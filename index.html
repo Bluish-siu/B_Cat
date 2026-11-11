@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" href="logo.png">
 <title>Branding Catalyst</title>
+<script>try{if(!sessionStorage.getItem('bcIntro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro-pending')}catch(e){}</script>
+<style>
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-out .32s cubic-bezier(.4,0,.2,1) both}
+::view-transition-new(root){animation:vt-in .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes vt-out{to{opacity:0;transform:translateY(-12px)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(20px)}}
+header .logo{view-transition-name:brand-logo}
+html.intro-pending::after{content:"";position:fixed;inset:0;z-index:9999;background:#0d0716;animation:introFailsafe .4s 3s forwards}
+@keyframes introFailsafe{to{opacity:0;visibility:hidden}}
+@media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+</style>
+</head>
+<body>
+
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Branding Catalyst builds AI products, Android and iOS apps, ERP systems, websites and 3D web experiences with Catalyst Engine. Tell ARC your idea.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -690,9 +705,47 @@ html.lenis-smooth{scroll-behavior:auto!important}
 .scroll-prog{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:2px;z-index:90;pointer-events:none}
 .scroll-prog i{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#8b5cf6,#c9a2ff,#f2a7c3);box-shadow:0 0 10px rgba(201,162,255,.7)}
 @media(prefers-reduced-motion:reduce){.rv-on .rv:not(.in){opacity:1}.scroll-prog{display:none}}
+
+/* ===== Brand Lab ===== */
+.bl{display:grid;grid-template-columns:.8fr 1.6fr;gap:20px;align-items:start}
+.bl>*{min-width:0}
+.bl-controls{padding:24px;display:grid;gap:12px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(170deg,var(--surface),var(--bg2))}
+.bl-controls label,.bl-l{font-size:13px;color:var(--muted)}
+.bl-controls input{width:100%;background:rgba(13,7,22,.7);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:500 17px var(--f-body);padding:12px 14px}
+.bl-controls input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.bl-vibes{display:flex;flex-wrap:wrap;gap:8px}
+.bl-vibes button{font:500 13.5px var(--f-body);padding:8px 14px;border-radius:99px;border:1px solid var(--line2);background:transparent;color:var(--muted);cursor:pointer}
+.bl-vibes button:hover{color:var(--ink);border-color:var(--accent)}
+.bl-vibes button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#2a0446}
+.bl-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.bl-note{font-size:12.5px;color:var(--dim)}
+.bl-out{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}
+.bl-out>*{min-width:0}
+.bl-card{border-radius:20px;padding:24px;display:grid;gap:14px;align-content:start;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.bl-top{display:flex;align-items:center;gap:14px;min-width:0}
+.bl-mono{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;font-size:26px;flex:none}
+.bl-name{font-size:clamp(24px,2.6vw,34px);line-height:1.05;overflow-wrap:anywhere;min-width:0}
+.bl-tag{font-size:16px;opacity:.85}
+.bl-ui{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bl-btn{padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600}
+.bl-pill{padding:5px 11px;border-radius:99px;font-size:12px;font-weight:600}
+.bl-post{border-radius:14px;padding:18px;min-height:110px;display:grid;align-content:space-between;gap:12px}
+.bl-post span{font-size:20px;line-height:1.15}
+.bl-post i{height:4px;width:46px;border-radius:4px}
+.bl-side{display:grid;gap:14px;align-content:start}
+.bl-sw{display:grid;gap:8px}
+.bl-chip{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;border:1px solid var(--line);background:rgba(13,7,22,.5);color:var(--ink);cursor:pointer;text-align:left;font:inherit}
+.bl-chip:hover{border-color:var(--accent)}
+.bl-chip i{width:34px;height:34px;border-radius:9px;border:1px solid rgba(255,255,255,.15)}
+.bl-chip b{font-weight:500;font-size:14px}
+.bl-chip span{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.bl-fonts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bl-fonts div{padding:10px 12px;border-radius:12px;border:1px solid var(--line);display:grid;gap:2px;min-width:0}
+.bl-fonts small{font-family:var(--f-mono);font-size:10.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.12em}
+.bl-fonts b{font-size:18px;font-weight:600;color:var(--ink);overflow-wrap:anywhere}
+@media(max-width:1000px){.bl{grid-template-columns:1fr}}
+@media(max-width:620px){.bl-out{grid-template-columns:1fr}}
 </style>
-</head>
-<body>
 
 <div class="ambient" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="dots"></span><span class="sparks"><i style="--x:7%;--d:18s;--w:0s;--z:2px;--sw:-12px"></i><i style="--x:68%;--d:25s;--w:-3.7s;--z:3px;--sw:17px"></i><i style="--x:29%;--d:32s;--w:-7.4s;--z:4px;--sw:-22px"></i><i style="--x:90%;--d:23s;--w:-11.1s;--z:2px;--sw:27px"></i><i style="--x:51%;--d:30s;--w:-14.8s;--z:3px;--sw:-32px"></i><i style="--x:12%;--d:21s;--w:-18.5s;--z:4px;--sw:37px"></i><i style="--x:73%;--d:28s;--w:-2.2s;--z:2px;--sw:-12px"></i><i style="--x:34%;--d:19s;--w:-5.9s;--z:3px;--sw:17px"></i><i style="--x:95%;--d:26s;--w:-9.6s;--z:4px;--sw:-22px"></i><i style="--x:56%;--d:33s;--w:-13.3s;--z:2px;--sw:27px"></i><i style="--x:17%;--d:24s;--w:-17s;--z:3px;--sw:-32px"></i><i style="--x:78%;--d:31s;--w:-0.7s;--z:4px;--sw:37px"></i><i style="--x:39%;--d:22s;--w:-4.4s;--z:2px;--sw:-12px"></i><i style="--x:0%;--d:29s;--w:-8.1s;--z:3px;--sw:17px"></i><i style="--x:61%;--d:20s;--w:-11.8s;--z:4px;--sw:-22px"></i><i style="--x:22%;--d:27s;--w:-15.5s;--z:2px;--sw:27px"></i></span></div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -1058,6 +1111,27 @@ html.lenis-smooth{scroll-behavior:auto!important}
         <div class="bx-tags"><span>Three.js</span><span>WebGL</span><span>WebAR</span></div>
         <button class="bx-go" type="button" data-ask="A 3D product configurator for our website with live pricing">Plan with ARC →</button>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND LAB -->
+<section class="sec rule" id="brand-lab">
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l"><p class="eyebrow">Brand Lab</p><h2 class="h2">Try a brand<br><span class="acc">on for size.</span></h2></div>
+      <p class="lead">Type a business name and pick a vibe. You'll get a starter colour palette and font pairing in seconds. Our Brand Studio turns it into a full identity.</p>
+    </div>
+    <div class="bl" id="brandLab">
+      <div class="bl-controls">
+        <label for="blName">Business name</label>
+        <input id="blName" value="Chai Corner" maxlength="32" autocomplete="off">
+        <span class="bl-l">Vibe</span>
+        <div class="bl-vibes" id="blVibes" role="group" aria-label="Brand vibe"></div>
+        <div class="bl-actions"><button class="btn" type="button" id="blShuffle">↻ Shuffle</button><button class="btn btn-w" type="button" id="blCta" data-lead data-lead-service="Branding" data-lead-source="Brand Lab">Get the full brand kit →</button></div>
+        <p class="bl-note">A quick starter concept, made in your browser. Tap a colour to copy it.</p>
+      </div>
+      <div class="bl-out" id="blOut" aria-live="polite"></div>
     </div>
   </div>
 </section>
@@ -1973,5 +2047,6 @@ io.observe($('#steps'));
 })();
 </script>
 <script src="leads.js" defer></script>
+<script src="fx.js" defer></script>
 </body>
 </html>
