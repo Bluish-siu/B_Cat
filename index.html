@@ -200,7 +200,7 @@ p{margin:0}
 .sim{position:sticky;top:90px;padding:0;overflow:hidden}
 .sim-h{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--muted)}
 .sim-h b{font-size:15px;color:var(--ok);letter-spacing:0;font-weight:500;font-variant-numeric:tabular-nums}
-.sim canvas{display:block;width:100%;height:340px}
+.sim canvas{display:block;width:100%;height:420px}
 .sim-stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
 .sim-stats div{padding:14px 18px;border-right:1px solid var(--line);min-width:0}
 .sim-stats div:last-child{border-right:0}
@@ -613,6 +613,15 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
 .head-l{position:relative}
 .head-l::before{content:"";position:absolute;left:-60px;top:-50px;width:340px;height:220px;background:radial-gradient(closest-side,rgba(139,92,246,.18),transparent);pointer-events:none;z-index:-1}
 @media(prefers-reduced-motion:reduce){.ambient .sparks{display:none}}
+
+/* richer scale simulation */
+.sim{box-shadow:0 30px 80px -40px rgba(139,92,246,.6);border-color:rgba(201,162,255,.22)}
+.sim-h .live{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:8px;vertical-align:middle;animation:livePulse 1.6s infinite}
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(111,207,151,.6)}70%{box-shadow:0 0 0 8px rgba(111,207,151,0)}100%{box-shadow:0 0 0 0 rgba(111,207,151,0)}}
+.sim-stats #stStatus{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;font-size:16px}
+.sbar{display:block;height:3px;margin-top:8px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+.sbar b{display:block;height:100%;width:100%;background:var(--ok);transition:width .3s,background .3s}
+@media(max-width:560px){.sim canvas{height:360px}}
 </style>
 </head>
 <body>
@@ -816,13 +825,13 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
       </ul>
     </div>
     <div class="card sim">
-      <div class="sim-h"><span>● LIVE SIMULATION · A FESTIVE SALE DAY, AUTOSCALING</span><b id="clock">00:00</b></div>
+      <div class="sim-h"><span><i class="live"></i>LIVE SIMULATION · A FESTIVE SALE DAY, AUTOSCALING</span><b id="clock">00:00</b></div>
       <canvas id="simCv" aria-label="Simulated traffic and servers over 24 hours"></canvas>
       <div class="sim-stats">
         <div><small>Requests / sec</small><b id="stReq">0</b></div>
         <div><small>App servers</small><b id="stSrv">2</b></div>
         <div><small>P95 response</small><b id="stP95">60ms</b></div>
-        <div><small>Status</small><b id="stStatus">steady</b></div>
+        <div><small>Status</small><b id="stStatus">steady</b><i class="sbar"><b id="stBar"></b></i></div>
       </div>
     </div>
   </div>
@@ -1565,58 +1574,123 @@ fill($('#mq1'),L1); fill($('#mq2'),L2);
   new IntersectionObserver(es => { if (!seen && es[0].isIntersecting) { seen = true; timer = setTimeout(() => show('after'), 1200); } }, { threshold: .5 }).observe($('.vis-card'));
 })();
 
-/* ===== Scale simulation ===== */
+/* ===== Scale simulation: a festive sale day, autoscaling ===== */
 (() => {
-  const cv=$('#simCv'), ctx=cv.getContext('2d'); let W,H,dpr;
-  function size(){ dpr=Math.min(2,devicePixelRatio||1); const b=cv.getBoundingClientRect(); W=b.width; H=b.height; cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+  const cv = $('#simCv'); if (!cv) return;
+  const ctx = cv.getContext('2d');
+  let W = 0, H = 0;
+  function size(){ const dpr = Math.min(2, devicePixelRatio || 1), b = cv.getBoundingClientRect(); W = b.width; H = b.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
   size(); addEventListener('resize', size);
-  const traffic = m => { const h=m/60; let v=2+3*Math.exp(-((h-11)**2)/8)+5*Math.exp(-((h-20)**2)/3); if(h>19.6&&h<20.4) v+=4; return v; }; // k req/s, sale spike at 8pm
-  const hist=[]; let minute=0;
-  const nodes=[{x:.1,y:.5,l:'Users'},{x:.3,y:.5,l:'Edge / CDN'},{x:.48,y:.5,l:'Load balancer'},{x:.86,y:.22,l:'Cache'},{x:.86,y:.5,l:'Database'},{x:.86,y:.78,l:'Queue'}];
-  const dots=[];
-  function step(){
-    minute=(minute+6)%1440; const v=traffic(minute); hist.push(v); if(hist.length>240) hist.shift();
-    const servers=Math.max(2,Math.ceil(v/2.2)); const p95=Math.round(55+v*2+Math.random()*8);
-    const hh=String(Math.floor(minute/60)).padStart(2,'0'), mm=String(minute%60).padStart(2,'0');
-    $('#clock').textContent=`${hh}:${mm}`; $('#stReq').textContent=(v).toFixed(1)+'k'; $('#stSrv').textContent=servers; $('#stP95').textContent=p95+'ms';
-    $('#stStatus').textContent = v>9 ? 'festive rush' : v>5 ? 'busy' : 'steady';
-    for(let i=0;i<Math.round(v/2);i++) dots.push({t:0,lane:Math.floor(Math.random()*3)});
-    return servers;
+  const C = { acc:'#c9a2ff', ok:'#6fcf97', cyan:'#7fd6e8', pink:'#f2a7c3', violet:'#9aa3f5', amber:'#f2c27a', ink:'#f1edf7', dim:'#8a80a3', box:'rgba(27,17,41,.96)' };
+  // traffic in thousands of requests/sec over a festive day: lunch bump, then the 8 pm sale spike
+  const traffic = m => { const h = m / 60; let v = 1.5 + 2.3 * Math.exp(-((h - 13) ** 2) / 3) + 6.4 * Math.exp(-((h - 20.7) ** 2) / 2.4); if (h >= 20 && h < 20.5) v += 3.4 * (1 - (h - 20) / 0.5); return Math.max(.6, v + Math.sin(m / 17) * .25); };
+  const EVENTS = [{ m: 13 * 60, label: 'Lunch rush' }, { m: 20 * 60, label: 'Sale goes live' }];
+  const SLOTS = 8, GH = () => H * 0.64;
+  let minute = 0, servers = 2, target = 2, n = 0, v = 1.5;
+  const born = new Array(SLOTS).fill(-1e9), hist = [], packets = [];
+  const N = { users:[.075,.5], edge:[.215,.5], lb:[.36,.5], cache:[.795,.17], db:[.795,.5], r1:[.94,.36], r2:[.94,.64], q:[.795,.84], wk:[.94,.84] };
+  const P = (x, y) => ({ x: x * W, y: y * GH() });
+  const pt = k => P(...N[k]);
+  const slot = i => P(.535 + (i % 2) * .085, .2 + Math.floor(i / 2) * .2);
+
+  function spawn(){
+    const ap = slot(Math.floor(Math.random() * servers)), u = pt('users');
+    const path = [{ x: u.x + (Math.random() - .5) * 34, y: u.y + (Math.random() - .5) * 70 }, pt('edge'), pt('lb'), ap];
+    const r = Math.random(); let col = C.acc;
+    if (r < .45) { path.push(pt('cache')); col = C.cyan; }
+    else if (r < .8) { path.push(pt('db')); col = C.violet; if (Math.random() < .4) path.push(pt(Math.random() < .5 ? 'r1' : 'r2')); }
+    else { path.push(pt('q'), pt('wk')); col = C.pink; }
+    packets.push({ path, seg: 0, t: 0, sp: .025 + Math.random() * .02, col });
   }
-  let servers=2; for(let i=0;i<120;i++) servers=step();
-  setInterval(()=>{ servers=step(); }, reduce?100000:250);
-  const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-  const ACC=css('--accent'), OK=css('--ok'), MUTED=css('--muted'), LINE='rgba(201,162,255,.22)', INK=css('--ink');
-  function box(x,y,w,h,label,col){ ctx.strokeStyle=col||LINE; ctx.fillStyle='rgba(27,17,41,.96)'; ctx.lineWidth=1; ctx.beginPath(); ctx.roundRect(x-w/2,y-h/2,w,h,7); ctx.fill(); ctx.stroke(); ctx.fillStyle=INK; ctx.font='500 11px Geist, system-ui'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(label,x,y); }
-  function frame(){
-    ctx.clearRect(0,0,W,H);
-    const gh=H*0.62; // graph area top
-    // connections
-    ctx.strokeStyle=LINE; ctx.lineWidth=1;
-    const P=n=>[n.x*W,n.y*gh];
-    const [ux,uy]=P(nodes[0]),[ex,ey]=P(nodes[1]),[lx,ly]=P(nodes[2]);
-    ctx.beginPath(); ctx.moveTo(ux,uy); ctx.lineTo(lx,ly); ctx.stroke();
-    // server column
-    const sx=W*0.67, rows=Math.min(servers,8), sh=Math.min(26,(gh-30)/8);
-    for(let i=0;i<rows;i++){ const y=gh/2+(i-(rows-1)/2)*(sh+4); ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(sx-30,y); ctx.stroke(); for(const k of [3,4,5]){const [tx,ty]=P(nodes[k]); ctx.beginPath(); ctx.moveTo(sx+30,y); ctx.lineTo(tx-38,ty); ctx.stroke();} }
-    // traffic dots
-    for(const d of dots){ d.t+=0.02; const x=ux+(lx-ux)*d.t, y=uy+(d.lane-1)*10*Math.sin(d.t*Math.PI); ctx.fillStyle=ACC; ctx.globalAlpha=1-d.t; ctx.fillRect(x,y,2.5,2.5); }
-    ctx.globalAlpha=1; while(dots.length&&dots[0].t>=1) dots.shift(); if(dots.length>200) dots.splice(0,dots.length-200);
-    for(let i=0;i<rows;i++){ const y=gh/2+(i-(rows-1)/2)*(sh+4); ctx.fillStyle='rgba(201,162,255,.14)'; ctx.strokeStyle=ACC; ctx.beginPath(); ctx.roundRect(sx-30,y-sh/2,60,sh,5); ctx.fill(); ctx.stroke(); ctx.fillStyle=ACC; ctx.font='10px "Geist Mono", monospace'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('app-'+(i+1),sx,y); }
-    if(servers>8){ ctx.fillStyle=MUTED; ctx.font='10px "Geist Mono", monospace'; ctx.fillText('+'+(servers-8)+' more',sx,gh-6); }
-    box(ux,uy,62,30,'Users'); box(ex,ey,70,30,'Edge / CDN'); box(lx,ly,84,30,'Load balancer',ACC);
-    for(const k of [3,4,5]){const [x,y]=P(nodes[k]); box(x,y,76,28,nodes[k].l);}
-    ctx.fillStyle=MUTED; ctx.font='10px "Geist Mono", monospace'; ctx.textAlign='left'; ctx.fillText('AUTOSCALING APP TIER',sx-40,12);
-    // traffic graph
-    const top=gh+18, bh=H-top-10; ctx.strokeStyle='rgba(255,255,255,.06)'; ctx.beginPath(); ctx.moveTo(12,top+bh); ctx.lineTo(W-12,top+bh); ctx.stroke();
-    ctx.fillStyle=ACC; ctx.font='10px "Geist Mono", monospace'; ctx.fillText('traffic',14,top-4); ctx.fillStyle=OK; ctx.fillText('app servers',64,top-4);
-    const max=14, xs=i=>12+(W-24)*i/239;
-    ctx.beginPath(); hist.forEach((v,i)=>{const x=xs(i), y=top+bh-(v/max)*bh; i?ctx.lineTo(x,y):ctx.moveTo(x,y);});
-    ctx.strokeStyle=ACC; ctx.lineWidth=1.6; ctx.stroke();
-    ctx.lineTo(xs(hist.length-1),top+bh); ctx.lineTo(xs(0),top+bh); ctx.closePath(); ctx.fillStyle='rgba(201,162,255,.12)'; ctx.fill();
-    ctx.beginPath(); hist.forEach((v,i)=>{const s=Math.max(2,Math.ceil(v/2.2)); const x=xs(i), y=top+bh-(s*2.2/max)*bh; i?ctx.lineTo(x,y):ctx.moveTo(x,y);});
-    ctx.strokeStyle=OK; ctx.setLineDash([3,3]); ctx.lineWidth=1; ctx.stroke(); ctx.setLineDash([]);
-    if(!reduce) requestAnimationFrame(frame);
+  function step(){
+    minute = (minute + 6) % 1440; v = traffic(minute); n++;
+    target = Math.max(2, Math.min(SLOTS, Math.ceil(v / 1.5)));
+    if (n % 3 === 0 && servers !== target) { if (servers < target) { born[servers] = performance.now(); servers++; } else servers--; }
+    hist.push({ v, s: servers, m: minute }); if (hist.length > 240) hist.shift();
+    const hh = String(Math.floor(minute / 60)).padStart(2, '0'), mm = String(minute % 60).padStart(2, '0');
+    $('#clock').textContent = `${hh}:${mm}`; $('#stReq').textContent = v.toFixed(1) + 'k'; $('#stSrv').textContent = servers;
+    $('#stP95').textContent = Math.round(48 + v * 2.6 + (servers < target ? 24 : 0) + Math.random() * 6) + 'ms';
+    let label, color, prog;
+    if (servers < target) { label = `scaling up · ${servers}→${target}`; color = C.amber; prog = servers / target; }
+    else if (servers > target) { label = `scaling down · ${servers}→${target}`; color = C.cyan; prog = target / servers; }
+    else if (v > 8) { label = 'festive rush'; color = C.pink; prog = 1; }
+    else { label = 'steady'; color = C.ok; prog = 1; }
+    const st = $('#stStatus'), bar = $('#stBar'); st.textContent = label; st.style.color = color;
+    if (bar) { bar.style.width = (prog * 100).toFixed(0) + '%'; bar.style.background = color; }
+  }
+  for (let i = 0; i < 230; i++) step();          // fill a day of history, ending late morning
+  setInterval(step, reduce ? 1e9 : 260);
+
+  function link(a, b, alpha){ ctx.strokeStyle = `rgba(201,162,255,${alpha})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+  function node(p, w, h, title, sub, col, glow, ghost){
+    ctx.save();
+    if (ghost) { ctx.setLineDash([4, 4]); ctx.strokeStyle = 'rgba(201,162,255,.2)'; ctx.fillStyle = 'rgba(27,17,41,.35)'; }
+    else { ctx.strokeStyle = col; ctx.fillStyle = C.box; if (glow) { ctx.shadowColor = col; ctx.shadowBlur = 18; } }
+    ctx.lineWidth = 1.3; ctx.beginPath(); ctx.roundRect(p.x - w / 2, p.y - h / 2, w, h, 9); ctx.fill(); ctx.stroke(); ctx.restore();
+    if (ghost) return;
+    const small = W < 560;
+    ctx.fillStyle = C.ink; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = `600 ${small ? 9.5 : 12}px Lexend, system-ui, sans-serif`;
+    const showSub = sub && !small;
+    ctx.fillText(title, p.x, showSub ? p.y - 7 : p.y);
+    if (showSub) { ctx.fillStyle = C.dim; ctx.font = '9.5px "Geist Mono", monospace'; ctx.fillText(sub, p.x, p.y + 9); }
+  }
+  function label(text, x, y, col, align){ ctx.fillStyle = col || C.dim; ctx.font = '9.5px "Geist Mono", monospace'; ctx.textAlign = align || 'left'; ctx.textBaseline = 'alphabetic'; ctx.fillText(text, x, y); }
+
+  function frame(now){
+    const gh = GH(), bw = Math.max(58, Math.min(100, W * .115)), bh = W < 560 ? 26 : 38, sw = Math.max(42, Math.min(64, W * .075));
+    ctx.clearRect(0, 0, W, H);
+    label('USERS', pt('users').x - 18, 16); label('AUTOSCALING APP TIER', slot(0).x - sw / 2, 16); label('DATA & JOBS', pt('cache').x - bw / 2, 16);
+    // links
+    link(pt('users'), pt('edge'), .25); link(pt('edge'), pt('lb'), .3);
+    for (let i = 0; i < SLOTS; i++) { const s = slot(i), on = i < servers; link(pt('lb'), s, on ? .25 : .05); if (on) { link(s, pt('cache'), .1); link(s, pt('db'), .1); link(s, pt('q'), .1); } }
+    link(pt('db'), pt('r1'), .28); link(pt('db'), pt('r2'), .28); link(pt('q'), pt('wk'), .28);
+    // user crowd grows with traffic
+    const u = pt('users'), crowd = Math.round(14 + v * 5);
+    for (let i = 0; i < crowd; i++) {
+      const a = i * 2.399 + now / 2600 * (1 + (i % 3) * .35), r = 6 + (i * 37) % 28;
+      ctx.globalAlpha = .45 + .45 * Math.sin(now / 480 + i); ctx.fillStyle = i % 6 === 0 ? C.pink : C.acc;
+      ctx.beginPath(); ctx.arc(u.x + Math.cos(a) * r * .9, u.y + Math.sin(a) * r * 1.6, 1.8, 0, 7); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    // requests flowing through the system
+    if (!reduce) { if (Math.random() < v / 6.5) spawn(); if (Math.random() < v / 13) spawn(); }
+    for (const k of packets) {
+      k.t += k.sp; if (k.t >= 1) { k.t = 0; k.seg++; }
+      if (k.seg >= k.path.length - 1) { k.done = true; continue; }
+      const a = k.path[k.seg], b = k.path[k.seg + 1], x = a.x + (b.x - a.x) * k.t, y = a.y + (b.y - a.y) * k.t;
+      ctx.fillStyle = k.col; ctx.shadowColor = k.col; ctx.shadowBlur = 8; ctx.beginPath(); ctx.arc(x, y, 2.4, 0, 7); ctx.fill(); ctx.shadowBlur = 0;
+    }
+    for (let i = packets.length - 1; i >= 0; i--) if (packets[i].done) packets.splice(i, 1);
+    if (packets.length > 260) packets.splice(0, packets.length - 260);
+    // nodes
+    node(pt('edge'), bw, bh, 'Edge', 'CDN · firewall', C.cyan);
+    node(pt('lb'), bw, bh, 'Load balancer', 'routes traffic', C.acc, v > 8);
+    for (let i = 0; i < SLOTS; i++) { const on = i < servers; node(slot(i), sw, 24, `app-${i + 1}`, null, C.ok, on && (now - born[i] < 1800 || v > 8), !on); }
+    node(pt('cache'), bw, bh, 'Cache', 'fast reads', C.cyan);
+    node(pt('db'), bw, bh, 'Database', 'primary', C.violet);
+    node(pt('r1'), bw * .82, bh, 'Replica', 'reads', C.violet);
+    node(pt('r2'), bw * .82, bh, 'Replica', 'reads', C.violet);
+    node(pt('q'), bw, bh, 'Queue', 'orders · events', C.pink);
+    node(pt('wk'), bw * .82, bh, 'Workers', 'emails · invoices', C.pink);
+    // 24-hour graph: traffic area, app-server steps, event markers
+    const top = gh + 30, gb = H - 12, gHt = gb - top, max = 12.5, xs = i => 14 + (W - 28) * i / 239;
+    label('traffic', 14, top - 10, C.acc); label('app servers', 66, top - 10, C.ok); label('24 h', W - 14, top - 10, C.dim, 'right');
+    ctx.strokeStyle = 'rgba(201,162,255,.1)'; ctx.beginPath(); ctx.moveTo(14, gb); ctx.lineTo(W - 14, gb); ctx.stroke();
+    if (hist.length > 1) {
+      ctx.beginPath(); hist.forEach((h, i) => { const x = xs(i), y = gb - Math.min(1, h.v / max) * gHt; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+      ctx.strokeStyle = C.acc; ctx.lineWidth = 1.8; ctx.stroke();
+      ctx.lineTo(xs(hist.length - 1), gb); ctx.lineTo(xs(0), gb); ctx.closePath();
+      const g = ctx.createLinearGradient(0, top, 0, gb); g.addColorStop(0, 'rgba(201,162,255,.35)'); g.addColorStop(1, 'rgba(201,162,255,0)'); ctx.fillStyle = g; ctx.fill();
+      ctx.beginPath(); hist.forEach((h, i) => { const x = xs(i), y = gb - (h.s * 1.5 / max) * gHt; if (i) { ctx.lineTo(x, gb - (hist[i - 1].s * 1.5 / max) * gHt); ctx.lineTo(x, y); } else ctx.moveTo(x, y); });
+      ctx.strokeStyle = C.ok; ctx.setLineDash([3, 3]); ctx.lineWidth = 1; ctx.stroke(); ctx.setLineDash([]);
+      hist.forEach((h, i) => { const ev = EVENTS.find(e => e.m === h.m); if (!ev) return; const x = xs(i);
+        ctx.strokeStyle = 'rgba(242,167,195,.55)'; ctx.setLineDash([2, 3]); ctx.beginPath(); ctx.moveTo(x, top); ctx.lineTo(x, gb); ctx.stroke(); ctx.setLineDash([]);
+        label(ev.label, Math.min(x + 4, W - 90), top + 10, C.pink); });
+      const last = hist[hist.length - 1], lx = xs(hist.length - 1), ly = gb - Math.min(1, last.v / max) * gHt;
+      ctx.fillStyle = C.acc; ctx.shadowColor = C.acc; ctx.shadowBlur = 12; ctx.beginPath(); ctx.arc(lx, ly, 3.5, 0, 7); ctx.fill(); ctx.shadowBlur = 0;
+    }
+    if (!reduce) requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
 })();
