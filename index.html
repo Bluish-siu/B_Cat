@@ -761,7 +761,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
       <li><a href="services.html">Services</a></li><li><a href="scale.html">Scale</a></li>
       <li><a href="#visibility">AI Visibility</a></li>
       <li><a href="#idea-lab">Idea Lab</a></li>
-      <li><a href="#idea-checker">Idea Checker</a></li>
+      <li><a href="check.html">Idea Checker</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -770,7 +770,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span></button>
   </div>
   <div class="wrap mnav">
-    <a href="#engine">Catalyst Engine</a><a href="services.html">Services</a><a href="scale.html">Scale</a><a href="#visibility">AI Visibility</a><a href="#idea-lab">Idea Lab</a><a href="#idea-checker">Idea Checker</a><a href="about.html">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+    <a href="#engine">Catalyst Engine</a><a href="services.html">Services</a><a href="scale.html">Scale</a><a href="#visibility">AI Visibility</a><a href="#idea-lab">Idea Lab</a><a href="check.html">Idea Checker</a><a href="about.html">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
   </div>
 </header>
 
@@ -1157,6 +1157,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
       <p class="eyebrow">Idea checker</p>
       <h2 class="h2">Have an idea?<br><span class="acc">Test it in 60 seconds.</span></h2>
       <p>Get a feasibility score, timeline, team size and tech stack straight away. Then spin the wheel for a launch discount.</p>
+      <p><a class="acc" href="check.html">Open the full Idea Checker, with features, roadmap and price →</a></p>
     </div>
     <div>
       <form class="card" id="chkForm">
@@ -1231,7 +1232,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
         <form class="sub" id="subForm"><input id="subEmail" type="email" placeholder="you@company.com" aria-label="Email for updates"><button class="btn btn-w" type="submit">Subscribe</button></form>
       </div>
       <div><h4>Services</h4><ul><li><a href="services.html#ai-agents">Artificial Intelligence</a></li><li><a href="services.html#aeo">AEO, GEO &amp; Growth</a></li><li><a href="services.html#mobile">Mobile Apps</a></li><li><a href="services.html#erp">ERP Systems</a></li><li><a href="services.html#web">Websites &amp; Platforms</a></li><li><a href="services.html#3d">3D Web</a></li></ul></div>
-      <div><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="careers.html">Careers</a></li><li><a href="#engine">Catalyst Engine</a></li><li><a href="#visibility">AI Visibility</a></li><li><a href="#idea-lab">Idea Lab</a></li><li><a href="#idea-checker">Idea Checker</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="careers.html">Careers</a></li><li><a href="#engine">Catalyst Engine</a></li><li><a href="#visibility">AI Visibility</a></li><li><a href="#idea-lab">Idea Lab</a></li><li><a href="check.html">Idea Checker</a></li><li><a href="#faq">FAQ</a></li></ul></div>
       <div><h4>Connect</h4><ul><li><span class="ph">hello@[yourdomain]</span></li><li><a href="tel:+919004629888">+91 90046 29888</a></li><li><a href="https://www.instagram.com/branding_catalyst" target="_blank" rel="noopener">Instagram ↗</a></li><li><a href="https://in.linkedin.com/company/branding-cataly" target="_blank" rel="noopener">LinkedIn ↗</a></li><li><a href="https://www.youtube.com/@brandingcatalyst" target="_blank" rel="noopener">YouTube ↗</a></li></ul></div>
     </div>
     <div class="legal"><span>© 2026 Branding Catalyst Pvt Ltd. All rights reserved.</span><span><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></span></div>
@@ -1280,7 +1281,7 @@ const FEATURES = [ // add-ons detected inside the idea
   {re:/video|stream|\blive class|course|reels?\b/, label:'Video streaming and courses', weeks:2, stack:['Mux or AWS IVS']},
   {re:/loyalty|points|reward|referral|cashback/, label:'Loyalty points and referrals', weeks:1},
   {re:/admin|dashboard|analytics|report/, label:'Admin dashboard and reports', weeks:1.5},
-  {re:/voice|phone call|\bcalls\b|speech|receptionist/, label:'Voice AI for phone calls', weeks:2, stack:['Speech-to-text + TTS'], roles:['AI engineer']},
+  {re:/\bvoice|phone call|\bcalls\b|speech|receptionist/, label:'Voice AI for phone calls', weeks:2, stack:['Speech-to-text + TTS'], roles:['AI engineer']},
   {re:/photo|image|\bscan|camera|vision|\bocr\b|x-?ray/, label:'Image recognition from photos', weeks:2.5, stack:['Vision model'], roles:['ML engineer']},
   {re:/forecast|predict|recommend|personali/, label:'Predictions and recommendations', weeks:2.5, stack:['Python ML (scikit-learn)'], roles:['ML engineer']},
   {re:/hindi|marathi|tamil|telugu|bengali|gujarati|kannada|regional|multilingual|languages?\b/, label:'Multilingual support', weeks:1},

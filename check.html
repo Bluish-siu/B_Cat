@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Idea Checker | Branding Catalyst</title>
+<script>try{if(!sessionStorage.getItem('bcIntro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro-pending')}catch(e){}</script>
+<style>
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-out .32s cubic-bezier(.4,0,.2,1) both}
+::view-transition-new(root){animation:vt-in .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes vt-out{to{opacity:0;transform:translateY(-12px)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(20px)}}
+header .logo{view-transition-name:brand-logo}
+html.intro-pending::after{content:"";position:fixed;inset:0;z-index:9999;background:#0d0716;animation:introFailsafe .4s 3s forwards}
+@keyframes introFailsafe{to{opacity:0;visibility:hidden}}
+@media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+</style>
+<meta name="description" content="Free idea checker from Branding Catalyst: describe your app, website, ERP or AI idea and get a feasibility score, timeline, team, tech stack and roadmap in a minute.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+:root{color-scheme:dark;--bg:#0d0716;--bg2:#130b1f;--surface:#1b1129;--surface2:#23163a;--brand:#42066b;--line:rgba(201,162,255,.10);--line2:rgba(201,162,255,.19);--ink:#f1edf7;--muted:#a79fbb;--dim:#716885;--accent:#c9a2ff;--accent-soft:rgba(201,162,255,.12);--ok:#6fcf97;--f-display:"Lexend","Helvetica Neue",Arial,system-ui,sans-serif;--f-body:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;--f-mono:"Geist Mono",ui-monospace,Consolas,monospace;--wrap:1200px;--r:18px}
+*{box-sizing:border-box}[hidden]{display:none!important}img{max-width:100%}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;margin:0;text-wrap:balance;letter-spacing:-.025em}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.sec{padding-block:clamp(64px,9vw,112px);position:relative}
+.sec+.sec::before{content:"";position:absolute;top:0;left:50%;width:min(1200px,92%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(201,162,255,.4),transparent)}
+.eyebrow{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(201,162,255,.18)}
+.h2{font-size:clamp(30px,4.2vw,48px);line-height:1.1}
+.acc{color:var(--accent)}
+.lead{color:var(--muted);font-size:17px;max-width:58ch}
+.head{display:grid;grid-template-columns:1fr 1fr;gap:24px 64px;align-items:end;margin-bottom:clamp(36px,5vw,56px)}
+.head>*{min-width:0}.head-l{display:grid;gap:16px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500;padding:12px 18px;border-radius:10px;border:1px solid var(--line2);background:transparent;cursor:pointer;white-space:nowrap;transition:border-color .2s,transform .2s,background .2s}
+.btn:hover{border-color:rgba(255,255,255,.3)}
+.btn-w{background:linear-gradient(135deg,#f6efff,#dcc4ff);color:var(--brand);border-color:transparent}
+.btn-w:hover{transform:translateY(-1px)}
+.card{background:linear-gradient(170deg,var(--surface),var(--bg2));border:1px solid var(--line);border-radius:var(--r)}
+/* nav + footer */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:70;background:rgba(13,7,22,.94);border-bottom:1px solid var(--line)}
+.nav .wrap{height:66px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:center;gap:10px}.logo svg{width:28px;height:29px;flex:none}
+.wm{font-family:"Lexend",var(--f-display);font-size:19px;letter-spacing:-.02em;line-height:1}.wm b{font-weight:600;color:#fff}.wm em{font-style:normal;font-weight:300;color:var(--accent)}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:14.5px;color:var(--muted)}
+.nav ul a:hover,.nav ul a[aria-current]{color:var(--ink)}
+@media(max-width:1020px){.nav ul{display:none}}
+footer{border-top:1px solid var(--line);padding-block:28px;color:var(--dim);font-size:13.5px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
+/* hero */
+.hero{padding-block:clamp(56px,8vw,100px) clamp(40px,6vw,64px);position:relative;overflow:hidden}
+.hero h1{font-size:clamp(42px,6.6vw,88px);line-height:1;margin:18px 0;max-width:15ch}
+.hero .lead{font-size:18px;max-width:64ch}
+.hero .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.jump a{font-size:13px;padding:6px 12px;border-radius:99px;border:1px solid var(--line2);color:var(--muted);display:inline-flex;align-items:center;gap:7px}
+.jump a::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+.jump a:hover{color:var(--ink);border-color:var(--c)}
+
+/* idea checker page */
+.ph{color:var(--accent);border-bottom:1px dashed var(--accent)}
+.muted{color:var(--muted)}
+.steps{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.steps li{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--dim);padding:7px 13px 7px 8px;border-radius:99px;border:1px solid var(--line)}
+.steps li::before{counter-increment:st;content:counter(st);display:grid;place-items:center;width:20px;height:20px;border-radius:50%;font:500 11px var(--f-mono);background:rgba(255,255,255,.06)}
+.steps{counter-reset:st}
+.steps li.cur{color:var(--ink);border-color:rgba(201,162,255,.5);background:rgba(139,92,246,.14)}
+.steps li.cur::before{background:var(--accent);color:#1a0730}
+.steps li.done{color:var(--muted)}
+.steps li.done::before{content:"✓";background:rgba(111,207,151,.2);color:var(--ok)}
+.ck{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(20px,3vw,36px);align-items:start}
+.ck>*{min-width:0}
+#ckForm{display:grid;gap:26px;padding:clamp(20px,3vw,30px);background:var(--surface)}
+.q{display:grid;gap:12px;min-width:0}
+.q>label,.q>.ql{font-family:var(--f-display);font-size:18px;font-weight:500}
+.q>label i,.q>.ql i{font-style:normal;color:var(--dim);font-family:var(--f-mono);font-size:12px;margin-left:6px;font-weight:400}
+#ckIdea{width:100%;min-height:120px;resize:vertical;background:var(--bg);border:1px solid var(--line2);border-radius:12px;padding:14px 16px;font-size:16px;line-height:1.5}
+#ckIdea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(201,162,255,.15)}
+.exrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--dim)}
+.chip,.tog,.opt{font-size:13.5px;padding:7px 13px;border-radius:99px;border:1px solid var(--line2);background:rgba(27,17,41,.7);cursor:pointer;transition:border-color .2s,background .2s,color .2s}
+.chip:hover,.tog:hover,.opt:hover{border-color:var(--accent)}
+.tog.on{background:rgba(139,92,246,.22);border-color:rgba(201,162,255,.6);color:var(--ink)}
+.tog.on::before{content:"✓ ";color:var(--ok)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.opt{border-radius:12px;padding:12px 14px;text-align:left;display:grid;gap:3px}
+.opt b{font-weight:500;font-size:14.5px}
+.opt span{font-size:12.5px;color:var(--dim)}
+.opt.on{border-color:var(--accent);background:rgba(139,92,246,.18)}
+.opt.auto b::after{content:"auto";font:400 10px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-left:8px}
+.togs{display:flex;flex-wrap:wrap;gap:8px}
+.live{position:sticky;top:96px;padding:22px;display:grid;gap:16px;background:linear-gradient(160deg,rgba(66,6,107,.35),transparent 60%),var(--surface)}
+.live-h{display:flex;justify-content:space-between;align-items:center;font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.live-h i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:8px;animation:livePulse 1.6s infinite}
+@keyframes livePulse{50%{opacity:.3}}
+.la{display:grid;gap:6px;padding-top:14px;border-top:1px solid var(--line)}
+.la small{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.la b{font-weight:500;font-size:16px}
+.la-feats{display:flex;flex-wrap:wrap;gap:6px}
+.la-feats span{font-size:12px;padding:3px 9px;border-radius:7px;background:rgba(255,255,255,.06);border:1px solid var(--line)}
+.la-feats i{font-size:13px;color:var(--dim)}
+#laCx[data-v=Easy]{color:var(--ok)}#laCx[data-v=Medium]{color:var(--accent)}#laCx[data-v=Complex]{color:var(--warm)}#laCx[data-v=x]{color:var(--warm)}
+.dbar{height:5px;border-radius:9px;background:rgba(255,255,255,.07);overflow:hidden}
+.dbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--accent));transition:width .4s}
+@media(max-width:900px){.ck{grid-template-columns:1fr}.live{position:relative;top:0}}
+#ckRes{scroll-margin-top:90px}
+.res{padding:clamp(20px,3vw,32px);display:grid;gap:22px;margin-top:22px}
+.res-top{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center}
+.res-top>*{min-width:0}
+.res h3{font-size:clamp(22px,2.6vw,30px);letter-spacing:-.02em;margin:6px 0}
+.ring{position:relative;width:110px;height:110px;display:grid;place-items:center;align-content:center}
+.ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8}
+.ring-bg{stroke:rgba(255,255,255,.08)}
+.ring-fg{stroke-linecap:round;stroke-dasharray:302;stroke-dashoffset:302;transition:stroke-dashoffset 1.2s ease}
+.ring b{font:500 30px var(--f-display);line-height:1}
+.ring small{font:400 11px var(--f-mono);color:var(--dim)}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.res-grid div{padding:16px 18px;border-right:1px solid var(--line);display:grid;gap:4px;min-width:0}
+.res-grid div:last-child{border-right:0}
+.res-grid small,.res-sec small,.price small{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.res-grid b{font-weight:500;font-size:18px}
+.res-grid em{font-style:normal;font-size:13px;color:var(--muted)}
+@media(max-width:620px){.res-grid{grid-template-columns:1fr}.res-grid div{border-right:0;border-bottom:1px solid var(--line)}.res-grid div:last-child{border-bottom:0}.res-top{grid-template-columns:1fr}}
+.res-sec{display:grid;gap:10px}
+.tagrow{display:flex;flex-wrap:wrap;gap:6px}
+.tagrow span{font-family:var(--f-mono);font-size:12px;padding:4px 10px;border-radius:99px;border:1px solid var(--line2)}
+.road{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:rd}
+.road li{display:grid;gap:3px;padding-left:18px;border-left:2px solid var(--accent)}
+.road li:nth-child(2){border-color:var(--cyan)}.road li:nth-child(3){border-color:var(--warm)}
+.road b{font-weight:500}
+.road p{color:var(--muted);font-size:14.5px}
+.ai-note{font-size:14.5px;color:var(--muted);padding:12px 16px;border-radius:12px;background:rgba(139,92,246,.1);border:1px solid rgba(201,162,255,.2)}
+.ai-note b{color:var(--accent);font-weight:500}
+.unlock{display:grid;gap:16px;padding-top:20px;border-top:1px solid var(--line)}
+.unlock h4{font:500 20px var(--f-display);margin-bottom:4px}
+#ckLead{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:10px}
+#ckLead input{min-width:0;background:var(--bg);border:1px solid var(--line2);border-radius:10px;padding:12px 14px;font-size:15px}
+#ckLead input:focus{outline:none;border-color:var(--accent)}
+#ckLead .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+#ckLead .err{grid-column:1/-1;color:var(--warm);font-size:13.5px;min-height:1em}
+@media(max-width:860px){#ckLead{grid-template-columns:1fr}}
+.price{display:grid;gap:4px}
+.price b{font:500 clamp(26px,3vw,34px) var(--f-display);letter-spacing:-.02em}
+.price em{font-style:normal;font-size:13px;color:var(--dim)}
+.wheel-box{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;border-top:1px solid var(--line);padding-top:16px}
+.wheel-box canvas{width:150px;height:150px;transition:transform 3.2s cubic-bezier(.15,.8,.1,1)}
+.wheel-wrap{position:relative;width:150px;height:150px}
+.wheel-wrap::after{content:"";position:absolute;left:50%;top:-6px;transform:translateX(-50%);border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+.wheel-box p{color:var(--muted);font-size:14px}
+.wheel-box b{color:var(--ok);font-weight:500}
+@media(max-width:460px){.wheel-box{grid-template-columns:1fr;justify-items:start}}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.how .card{padding:22px;display:grid;gap:8px;align-content:start;min-width:0}
+.how .k{font-family:var(--f-mono);font-size:11.5px;color:var(--accent);letter-spacing:.1em}
+.how h3{font-size:19px}
+.how p{color:var(--muted);font-size:14.5px}
+@media(max-width:860px){.how{grid-template-columns:1fr}}
+/* faq + cta */
+.qa{border-top:1px solid var(--line);max-width:900px}
+.qa details{border-bottom:1px solid var(--line)}
+.qa summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-size:17px;font-weight:500}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";color:var(--muted);font-size:20px;line-height:1;transition:transform .25s}
+.qa details[open] summary::after{transform:rotate(45deg)}
+.qa details p{color:var(--muted);padding-bottom:20px;max-width:70ch}
+.cta{padding:clamp(28px,5vw,52px);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;background:radial-gradient(90% 140% at 100% 0%,rgba(201,162,255,.16),transparent 60%),linear-gradient(170deg,var(--surface),var(--bg2))}
+.cta>div{display:grid;gap:12px;max-width:560px;min-width:0}
+.cta h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1}
+.cta p{color:var(--muted)}
+.cta .row{display:flex;gap:10px;flex-wrap:wrap}
+@media(max-width:860px){.head{grid-template-columns:1fr}}
+@media(min-width:1440px){:root{--wrap:1320px}body{font-size:17px}.svc-layout{grid-template-columns:270px 1fr}}
+@media(min-width:1800px){:root{--wrap:1480px}body{font-size:18px}}
+
+/* ===== Ambient background: drifting purple glows, dot grid and rising sparks behind every section ===== */
+.ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;--s1:0;--c1:1;--s2:0;--c2:1}
+.ambient .blob{position:absolute;border-radius:50%;filter:none;will-change:transform}
+.ambient .b1{width:62vmax;height:62vmax;left:-18vmax;top:-12vmax;background:radial-gradient(circle,rgba(66,6,107,.95),transparent 68%);opacity:.75;transform:translate3d(calc(var(--s1) * 22vw),calc(var(--c1) * 10vh),0);animation:drift1 28s ease-in-out infinite alternate}
+.ambient .b2{width:42vmax;height:42vmax;right:-14vmax;top:22vh;background:radial-gradient(circle,rgba(139,92,246,.6),transparent 68%);opacity:.4;transform:translate3d(calc(var(--c2) * -18vw),calc(var(--s2) * 16vh),0);animation:drift2 34s ease-in-out infinite alternate}
+.ambient .b3{width:34vmax;height:34vmax;left:30vw;bottom:-16vmax;background:radial-gradient(circle,rgba(201,162,255,.45),transparent 68%);opacity:.28;transform:translate3d(calc(var(--s2) * 20vw),calc(var(--c1) * -8vh),0);animation:drift3 40s ease-in-out infinite alternate}
+@keyframes drift1{to{translate:6vw 8vh;scale:1.08}}
+@keyframes drift2{to{translate:-8vw -6vh;scale:.92}}
+@keyframes drift3{to{translate:-6vw -10vh;scale:1.12}}
+.ambient .dots{position:absolute;inset:0;background-image:radial-gradient(rgba(201,162,255,.09) 1px,transparent 1.6px);background-size:28px 28px;-webkit-mask-image:radial-gradient(120% 90% at 50% 50%,#000 30%,transparent 85%);mask-image:radial-gradient(120% 90% at 50% 50%,#000 30%,transparent 85%)}
+.ambient .sparks i{position:absolute;bottom:-12px;left:var(--x);width:var(--z,4px);height:var(--z,4px);border-radius:50%;background:#c9a2ff;box-shadow:0 0 10px 1px rgba(201,162,255,.8);opacity:0;animation:rise var(--d) linear var(--w) infinite}
+@keyframes rise{0%{transform:translate(0,0);opacity:0}10%{opacity:.75}50%{transform:translate(var(--sw,20px),-55vh)}90%{opacity:.45}100%{transform:translate(0,-112vh);opacity:0}}
+/* glowing dividers instead of flat lines */
+.rule{border-top-color:transparent;position:relative}
+.rule::before{content:"";position:absolute;top:-1px;left:50%;width:min(1200px,92%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(201,162,255,.45),transparent)}
+/* soft glow behind each section heading */
+.head-l{position:relative}
+.head-l::before{content:"";position:absolute;left:-60px;top:-50px;width:340px;height:220px;background:radial-gradient(closest-side,rgba(139,92,246,.18),transparent);pointer-events:none;z-index:-1}
+@media(prefers-reduced-motion:reduce){.ambient .sparks{display:none}}
+
+
+/* ===== Smooth scrolling (Lenis), reveal-on-scroll, progress bar ===== */
+html.lenis,html.lenis body{height:auto}
+html.lenis-smooth{scroll-behavior:auto!important}
+.lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
+.lenis [data-lenis-prevent]{overscroll-behavior:contain}
+.rv-on .rv:not(.in){opacity:0}
+.rv.in{animation:rvIn .95s cubic-bezier(.2,.75,.2,1) var(--rd,0s) both}
+@keyframes rvIn{from{opacity:0;translate:0 34px;}to{opacity:1;translate:none}}
+.scroll-prog{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:2px;z-index:90;pointer-events:none}
+.scroll-prog i{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#8b5cf6,#c9a2ff,#f2a7c3);box-shadow:0 0 10px rgba(201,162,255,.7)}
+@media(prefers-reduced-motion:reduce){.rv-on .rv:not(.in){opacity:1}.scroll-prog{display:none}}
+
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="dots"></span><span class="sparks"><i style="--x:7%;--d:18s;--w:0s;--z:2px;--sw:-12px"></i><i style="--x:68%;--d:25s;--w:-3.7s;--z:3px;--sw:17px"></i><i style="--x:29%;--d:32s;--w:-7.4s;--z:4px;--sw:-22px"></i><i style="--x:90%;--d:23s;--w:-11.1s;--z:2px;--sw:27px"></i><i style="--x:51%;--d:30s;--w:-14.8s;--z:3px;--sw:-32px"></i><i style="--x:12%;--d:21s;--w:-18.5s;--z:4px;--sw:37px"></i><i style="--x:73%;--d:28s;--w:-2.2s;--z:2px;--sw:-12px"></i><i style="--x:34%;--d:19s;--w:-5.9s;--z:3px;--sw:17px"></i><i style="--x:95%;--d:26s;--w:-9.6s;--z:4px;--sw:-22px"></i><i style="--x:56%;--d:33s;--w:-13.3s;--z:2px;--sw:27px"></i><i style="--x:17%;--d:24s;--w:-17s;--z:3px;--sw:-32px"></i><i style="--x:78%;--d:31s;--w:-0.7s;--z:4px;--sw:37px"></i><i style="--x:39%;--d:22s;--w:-4.4s;--z:2px;--sw:-12px"></i><i style="--x:0%;--d:29s;--w:-8.1s;--z:3px;--sw:17px"></i><i style="--x:61%;--d:20s;--w:-11.8s;--z:4px;--sw:-22px"></i><i style="--x:22%;--d:27s;--w:-15.5s;--z:2px;--sw:27px"></i></span></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<mask id="bcCut" maskUnits="userSpaceOnUse" x="0" y="0" width="96" height="100"><rect width="96" height="100" fill="#fff"/><circle cx="46" cy="50" r="20" fill="#000"/><rect x="46" y="41.5" width="40" height="17" fill="#000"/><rect x="70" y="36.5" width="6" height="5" fill="#000"/><circle cx="70" cy="36.5" r="5" fill="#fff"/><rect x="70" y="58.5" width="6" height="5" fill="#000"/><circle cx="70" cy="63.5" r="5" fill="#fff"/><rect x="64" y="38.5" width="3.2" height="3" fill="#000"/><circle cx="67.2" cy="38.5" r="3" fill="#fff"/><rect x="64" y="58.5" width="3.2" height="3" fill="#000"/><circle cx="67.2" cy="61.5" r="3" fill="#fff"/></mask>
+<symbol id="bcMark" viewBox="0 0 96 100"><path d="M14 8H41A34 34 0 0 1 75 42V58A34 34 0 0 1 41 92H14Q6 92 6 84V16Q6 8 14 8Z" fill="#fff" mask="url(#bcCut)"/><circle cx="85" cy="50" r="7" fill="#c9a2ff"/></symbol></defs></svg>
+
+<header class="nav"><div class="wrap">
+  <a class="logo" href="index.html" aria-label="Branding Catalyst home"><svg viewBox="0 0 96 100" aria-hidden="true"><use href="#bcMark"/></svg><span class="wm"><b>Branding</b><em>Catalyst</em></span></a>
+  <ul><li><a href="services.html">Services</a></li><li><a href="scale.html">Scale</a></li><li><a href="check.html" aria-current="page">Idea Checker</a></li><li><a href="about.html">About</a></li><li><a href="careers.html">Careers</a></li><li><a href="index.html#faq">FAQ</a></li></ul>
+  <button class="btn btn-w" type="button" data-lead data-lead-source="Idea Checker header">Start a project →</button>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <p class="eyebrow">Free idea checker</p>
+  <h1>Will your idea <span class="acc">work?</span></h1>
+  <p class="lead">Describe it in a sentence or two. ARC reads it as you type and, in about a minute, gives you a feasibility score, timeline, team, tech stack and a phased roadmap. Then unlock your price range and spin for a launch discount.</p>
+  <ol class="steps" aria-label="Progress"><li>Describe</li><li>Analyse</li><li>Your result</li><li>Unlock price</li><li>Spin &amp; save</li></ol>
+</div></section>
+
+<section class="sec" style="padding-top:clamp(20px,3vw,40px)"><div class="wrap">
+  <div class="ck">
+    <form class="card" id="ckForm" novalidate>
+      <div class="q"><label for="ckIdea">1. Describe your idea</label>
+        <textarea id="ckIdea" placeholder="e.g. An app where customers order groceries from local shops, pay with UPI and track delivery live."></textarea>
+        <div class="exrow" id="ckEx" aria-label="Examples"></div>
+      </div>
+      <div class="q"><span class="ql">2. Where should it run? <i>auto-detected</i></span>
+        <div class="opts" id="ckPlat">
+          <button type="button" class="opt" data-p="web"><b>Website / web app</b><span>Runs in any browser</span></button>
+          <button type="button" class="opt" data-p="mobile"><b>Mobile app</b><span>Android + iOS</span></button>
+          <button type="button" class="opt" data-p="both"><b>Web + mobile</b><span>One backend, both apps</span></button>
+          <button type="button" class="opt" data-p="ai"><b>AI tool / assistant</b><span>Chat, voice or agent</span></button>
+        </div>
+      </div>
+      <div class="q"><span class="ql">3. Features <i>auto-detected · tap to adjust</i></span><div class="togs" id="ckFeat"></div></div>
+      <div class="q"><span class="ql">4. What stage are you at?</span>
+        <div class="opts" id="ckStage">
+          <button type="button" class="opt" data-s="mvp"><b>MVP / first launch</b><span>Core features, launch fast</span></button>
+          <button type="button" class="opt" data-s="grow"><b>Growing business</b><span>Polish, scale, analytics</span></button>
+          <button type="button" class="opt" data-s="ent"><b>Enterprise</b><span>Security, audits, high traffic</span></button>
+        </div>
+      </div>
+      <button class="btn btn-w" type="submit" style="justify-self:start">Check my idea →</button>
+    </form>
+    <aside class="card live" aria-live="polite">
+      <div class="live-h"><span><i></i>Live analysis</span><span>ARC</span></div>
+      <div class="la"><small>Platform</small><b id="laPlat">—</b></div>
+      <div class="la"><small>Features detected · <span id="laCount">0</span></small><div class="la-feats" id="laFeats"></div></div>
+      <div class="la"><small>Complexity</small><b id="laCx">—</b></div>
+      <div class="la"><small>Detail level</small><b id="laDetail">—</b><div class="dbar"><i id="laDetailBar"></i></div></div>
+      <div class="la"><small>Price estimate</small><b id="laPrice">🔒 Unlocks after your result</b></div>
+    </aside>
+  </div>
+  <div id="ckRes" hidden></div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="head"><div class="head-l"><p class="eyebrow">How it works</p><h2 class="h2">Not a guess.<br><span class="acc">Our delivery data.</span></h2></div>
+  <p class="lead">The checker uses the same building blocks we use to plan real projects, then a person on our team reviews every idea you send.</p></div>
+  <div class="how">
+    <div class="card"><span class="k">01 · READ</span><h3>It spots what you need</h3><p>Payments, bookings, maps, chat, AI, 3D, ERP modules. Each one adds known effort, roles and tools to your plan.</p></div>
+    <div class="card"><span class="k">02 · SIZE</span><h3>It sizes the build</h3><p>Your platform and stage set the timeline and team, from a lean MVP to an enterprise rollout with security reviews.</p></div>
+    <div class="card"><span class="k">03 · CONFIRM</span><h3>We make it real</h3><p>On a free scoping call we turn the estimate into a fixed price, milestones and a start date.</p></div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="head"><div class="head-l"><p class="eyebrow">FAQ</p><h2 class="h2">About the <span class="acc">checker.</span></h2></div></div>
+  <div class="qa">
+    <details open><summary>How accurate is the estimate?</summary><p>It is a first estimate based on the features you describe. Most real projects land inside the range. We confirm a fixed price and timeline after a free scoping call.</p></details>
+    <details><summary>Is my idea kept private?</summary><p>Your idea is only sent to us if you unlock your price. We use it to prepare your scoping call and never share it. We are happy to sign an NDA before you share more detail.</p></details>
+    <details><summary>Is the discount real?</summary><p>Yes. Mention the discount you won on your scoping call and we apply it to your first milestone. One spin per idea.</p></details>
+    <details><summary>My idea is unusual. Can you still build it?</summary><p>Probably. If the checker misses something, describe it on a call. We build AI agents, ERPs, mobile apps, 3D experiences and much more.</p></details>
+  </div>
+</div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap">
+  <div class="card cta"><div><h2>Prefer to talk it through?</h2><p>Book a free 30-minute scoping call. Bring your idea, we bring a plan.</p></div>
+  <div class="row"><button class="btn btn-w" type="button" data-lead data-lead-idea="#ckIdea" data-lead-source="Idea Checker call to action">Book a scoping call →</button><a class="btn" href="services.html">See all services</a></div></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Branding Catalyst Pvt Ltd · Mumbai, India</span><span><a href="index.html">Home</a> · <a href="services.html">Services</a> · <a href="scale.html">Scale</a> · <a href="check.html">Idea Checker</a> · <a href="about.html">About</a> · <a href="careers.html">Careers</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></span></div></footer>
+
+<script>
+/* ===== Idea Checker page: describe → analyse → result → unlock → spin ===== */
+(() => {
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const goTo = el => window.bcScrollTo ? window.bcScrollTo(el) : el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const PRODUCTS = [ // what is being built (base effort in weeks)
+  {id:'erp',   name:'Custom ERP system',        re:/\berp\b|inventory|warehouse|manufactur|factory|production|payroll|purchase order|stock|tally/, weeks:6, roles:['Project lead','Full-stack engineer','Full-stack engineer','QA engineer'], stack:['React','Node.js or Django','PostgreSQL']},
+  {id:'three', name:'3D web experience',        re:/\b3d\b|configurator|showroom|walkthrough|webgl|\bar\b|try-?on|virtual tour/, weeks:4, roles:['3D artist','WebGL engineer','UI designer'], stack:['Three.js','WebGL','React']},
+  {id:'rag',   name:'AI assistant on your data',re:/chat ?bot|\bbots?\b|assistant|\brag\b|documents?|manuals?|\bpdfs?\b|knowledge|\bfaqs?\b|receptionist|support agent/, weeks:3, roles:['AI engineer','Backend engineer'], stack:['LLM APIs (GPT / Claude / Gemini)','Vector database','Python']},
+  {id:'agent', name:'AI agent and automation',  re:/\bagents?\b|automat|workflow|lead gen|outreach/, weeks:3, roles:['AI engineer','Backend engineer'], stack:['LLM APIs','n8n or custom workers','Python']},
+  {id:'growth',name:'AI search and brand growth',re:/\baeo\b|\bgeo\b|chatgpt|perplexity|gemini|ai search|cited|visibility|\bseo\b|\brank|marketing|social media|content/, weeks:2, roles:['Growth strategist','Content lead','AEO/GEO engineer'], stack:['Schema.org','Search Console + AI-answer tracking','AI content pipeline']},
+  {id:'brand', name:'Brand identity',           re:/\bbrand(ing)?\b|\blogo\b|identity|brand book/, weeks:2, roles:['Brand designer'], stack:['Figma','Brand guidelines']},
+  {id:'mobile',name:'Mobile app',               re:/\bapps?\b|android|\bios\b|iphone|mobile|play ?store|app store/, weeks:5, roles:['Project lead','Mobile engineer','Mobile engineer','Backend engineer','UI designer'], stack:['Flutter or React Native','Node.js','PostgreSQL','Firebase (push)']},
+  {id:'web',   name:'Web platform',             re:/website|\bsite\b|\bweb\b|portal|saas|platform|landing page|e-?commerce|online store/, weeks:3, roles:['Web engineer','UI designer'], stack:['Next.js','Headless CMS','Vercel']}
+];
+const FEATURES = [ // add-ons detected inside the idea
+  {re:/\bpay\b|\bpays\b|payment|checkout|upi|razorpay|stripe|subscription|wallet|membership/, label:'Online payments (UPI, cards, wallets)', weeks:1, stack:['Razorpay']},
+  {re:/\bbook|appointment|\bslots?\b|reservation|schedul/, label:'Bookings with time slots and reminders', weeks:1.5},
+  {re:/deliver|\bride|driver|tracking|\bmaps?\b|location|gps|near ?by/, label:'Live location and order tracking', weeks:2, stack:['Google Maps API']},
+  {re:/\bchat\b|messag|inbox/, label:'In-app chat', weeks:1.5, stack:['WebSockets']},
+  {re:/whatsapp/, label:'WhatsApp integration', weeks:1, stack:['WhatsApp Business API']},
+  {re:/notif|remind|alert|\bpush\b/, label:'Push and SMS notifications', weeks:0.5},
+  {re:/marketplace|multi-?vendor|sellers?\b|vendors/, label:'Multi-vendor marketplace with seller panel', weeks:3, roles:['Full-stack engineer']},
+  {re:/\bshop|\bstore\b|\bcart\b|catalog|\borders?\b|grocery|e-?commerce/, label:'Product catalogue, cart and orders', weeks:2},
+  {re:/video|stream|\blive class|course|reels?\b/, label:'Video streaming and courses', weeks:2, stack:['Mux or AWS IVS']},
+  {re:/loyalty|points|reward|referral|cashback/, label:'Loyalty points and referrals', weeks:1},
+  {re:/admin|dashboard|analytics|report/, label:'Admin dashboard and reports', weeks:1.5},
+  {re:/\bvoice|phone call|\bcalls\b|speech|receptionist/, label:'Voice AI for phone calls', weeks:2, stack:['Speech-to-text + TTS'], roles:['AI engineer']},
+  {re:/photo|image|\bscan|camera|vision|\bocr\b|x-?ray/, label:'Image recognition from photos', weeks:2.5, stack:['Vision model'], roles:['ML engineer']},
+  {re:/forecast|predict|recommend|personali/, label:'Predictions and recommendations', weeks:2.5, stack:['Python ML (scikit-learn)'], roles:['ML engineer']},
+  {re:/hindi|marathi|tamil|telugu|bengali|gujarati|kannada|regional|multilingual|languages?\b/, label:'Multilingual support', weeks:1},
+  {re:/\bgst\b|invoice|billing|accounts\b|accounting|finance/, label:'GST-ready billing and accounts', weeks:2},
+  {re:/\bhr\b|payroll|attendance|employees?\b|\bstaff\b/, label:'HR, attendance and payroll', weeks:2},
+  {re:/\bcrm\b|\bleads?\b|sales pipeline|follow-?up/, label:'CRM and lead follow-ups', weeks:1.5},
+  {re:/\biot\b|sensors?\b|machine data/, label:'IoT sensor data integration', weeks:3, roles:['IoT engineer'], stack:['MQTT']},
+  {re:/fitness|health|doctor|clinic|patient|medical/, label:'Health records with privacy controls', weeks:1.5},
+  {re:/school|student|teacher|tutor|learning/, label:'Student, teacher and class management', weeks:1.5},
+  {re:/content|blog|posts?\b|reel script|calendar/, label:'AI content calendar in your brand voice', weeks:1},
+  {re:/chatgpt|perplexity|gemini|\baeo\b|\bgeo\b|cited|ai search/, label:'AI-search visibility audit and citations', weeks:1}
+];
+const uniq = a => [...new Set(a)];
+const fmtW = w => Math.round(w) <= 1 ? '1 week' : `${Math.round(w)} weeks`;
+
+
+/* EDIT: your average cost per build-week in rupees. Leave 0 to show a placeholder instead of a price. */
+const WEEK_RATE_INR = 0;
+const DISCOUNTS = [5, 10, 15, 20, 25, 50], WEIGHTS = [30, 30, 20, 12, 6, 2];
+const PLATFORMS = { web: 'Website / web app', mobile: 'Mobile app (Android + iOS)', both: 'Web + mobile apps', ai: 'AI tool / assistant' };
+const STAGES = { mvp: { k: 0.85, label: 'MVP' }, grow: { k: 1.15, label: 'Growing business' }, ent: { k: 1.5, label: 'Enterprise' } };
+const IMPOSSIBLE = /time ?machine|teleport|perpetual motion|read (people'?s )?minds|mind ?reading|guarantee(d)? lottery|predict lottery|immortal|travel faster than light/;
+const EXAMPLES = [
+  ['Salon booking app', 'A mobile app where customers book salon appointments, pay with UPI and collect loyalty points, with an admin dashboard for every branch.'],
+  ['AI receptionist', 'An AI receptionist for our clinic that answers phone calls in Hindi and English, books appointments and sends WhatsApp reminders.'],
+  ['3D sofa configurator', 'A 3D configurator on our website where shoppers change sofa fabric and size, see the price update live and order online.'],
+  ['Factory ERP', 'An ERP for our factory covering inventory, purchase orders, GST invoices, attendance and payroll, with reports for the owner.'],
+  ['Teleport app', 'An app that teleports parcels from Mumbai to Delhi instantly.']
+];
+
+const st = { platform: null, feats: new Set(), touched: new Set(), stage: 'mvp', est: null, unlocked: false, spun: false };
+const ta = $('#ckIdea');
+
+// examples
+$('#ckEx').innerHTML = EXAMPLES.map((e, i) => `<button type="button" class="chip" data-i="${i}">${e[0]}</button>`).join('');
+$('#ckEx').addEventListener('click', e => { const b = e.target.closest('[data-i]'); if (!b) return; ta.value = EXAMPLES[b.dataset.i][1]; st.touched.clear(); st.platform = null; analyse(); ta.focus(); });
+
+// platform + stage
+$('#ckPlat').addEventListener('click', e => { const b = e.target.closest('[data-p]'); if (!b) return; st.platform = b.dataset.p; paint(); });
+$('#ckStage').addEventListener('click', e => { const b = e.target.closest('[data-s]'); if (!b) return; st.stage = b.dataset.s; paint(); });
+// features
+$('#ckFeat').innerHTML = FEATURES.map((f, i) => `<button type="button" class="tog" data-f="${i}">${f.label}</button>`).join('');
+$('#ckFeat').addEventListener('click', e => { const b = e.target.closest('[data-f]'); if (!b) return; const i = +b.dataset.f; st.touched.add(i); st.feats.has(i) ? st.feats.delete(i) : st.feats.add(i); paint(); });
+
+function guessPlatform(t) {
+  const has = id => PRODUCTS.find(p => p.id === id).re.test(id === 'mobile' ? t.replace(/whatsapp/g, ' ') : t);
+  if ((has('rag') || has('agent')) && !/android|\bios\b|mobile/.test(t)) return 'ai';
+  if (has('mobile') && /website|web ?app|\bweb\b|portal/.test(t)) return 'both';
+  if (has('mobile')) return 'mobile';
+  return 'web';
+}
+function analyse() {
+  const t = ' ' + ta.value.toLowerCase() + ' ';
+  FEATURES.forEach((f, i) => { if (st.touched.has(i)) return; f.re.test(t) ? st.feats.add(i) : st.feats.delete(i); });
+  paint();
+}
+function estimate() {
+  const t = ' ' + ta.value.toLowerCase() + ' ', plat = st.platform || guessPlatform(t);
+  const byId = id => PRODUCTS.find(p => p.id === id);
+  let prods = PRODUCTS.filter(p => ['erp', 'three', 'growth', 'brand', 'agent'].includes(p.id) && p.re.test(t));
+  const platProds = { web: ['web'], mobile: ['mobile'], both: ['web', 'mobile'], ai: ['rag'] }[plat].map(byId);
+  // an ERP or 3D build on the web already includes the web platform
+  if (!(plat === 'web' && prods.some(p => ['erp', 'three'].includes(p.id)))) prods = [...platProds, ...prods];
+  if (plat === 'ai' && prods.some(p => p.id === 'agent')) prods = prods.filter(p => p.id !== 'rag' || /document|knowledge|faq|receptionist|support/.test(t));
+  const feats = [...st.feats].map(i => FEATURES[i]), stage = STAGES[st.stage];
+  const base = prods.reduce((s, p) => s + p.weeks, 0), extra = feats.reduce((s, f) => s + f.weeks, 0);
+  const lo = Math.max(2, (base * 0.8 + extra * 0.6) * stage.k), hi = lo * 1.4 + 1;
+  let roles = uniq([...prods.flatMap(p => p.roles), ...feats.flatMap(f => f.roles || [])]);
+  if (st.stage !== 'mvp') roles = uniq([...roles, 'QA engineer']);
+  if (st.stage === 'ent') roles = uniq([...roles, 'DevOps engineer', 'Security reviewer']);
+  const stack = uniq([...prods.flatMap(p => p.stack), ...feats.flatMap(f => f.stack || [])]).slice(0, 8);
+  const risky = feats.filter(f => /IoT|Image|Predictions|Voice/.test(f.label)).length;
+  const words = ta.value.trim().split(/\s+/).filter(Boolean).length;
+  const impossible = IMPOSSIBLE.test(t);
+  let score = Math.round(97 - prods.length * 2 - feats.length * 1.2 - risky * 3 - (st.stage === 'ent' ? 3 : 0) - (words < 8 ? 6 : 0));
+  score = impossible ? 12 : Math.max(62, Math.min(97, score));
+  const name = impossible ? 'Not buildable (yet)' : prods.slice(0, 3).map(p => p.name).join(' + ');
+  const cx = hi > 16 ? ['Complex', 'large, phased build'] : hi > 9 ? ['Medium', 'medium build'] : ['Easy', 'compact build'];
+  return { plat, prods, feats, lo, hi, roles, stack, risky, words, impossible, score, name, cx };
+}
+const fmtR = n => '₹' + (n >= 1e5 ? (n / 1e5).toFixed(n >= 1e6 ? 0 : 1).replace(/\.0$/, '') + ' lakh' : Math.round(n / 1000) + 'k');
+
+function paint() {
+  const e = st.est = estimate(), empty = !ta.value.trim();
+  $$('#ckPlat [data-p]').forEach(b => { b.classList.toggle('on', b.dataset.p === e.plat); b.classList.toggle('auto', !st.platform && b.dataset.p === e.plat); });
+  $$('#ckStage [data-s]').forEach(b => b.classList.toggle('on', b.dataset.s === st.stage));
+  $$('#ckFeat [data-f]').forEach(b => b.classList.toggle('on', st.feats.has(+b.dataset.f)));
+  // live analysis
+  $('#laPlat').textContent = PLATFORMS[e.plat];
+  $('#laCount').textContent = e.feats.length;
+  $('#laFeats').innerHTML = empty ? '<i>Start typing, ARC is reading along…</i>' : e.feats.length ? e.feats.map(f => `<span>${esc(f.label)}</span>`).join('') : '<i>No add-ons spotted yet. Mention payments, bookings, chat, maps…</i>';
+  $('#laCx').textContent = empty ? '—' : e.impossible ? 'Beyond today’s physics' : e.cx[0];
+  $('#laCx').dataset.v = e.impossible ? 'x' : e.cx[0];
+  const lvl = e.words < 8 ? ['Add more detail', 25] : e.words < 20 ? ['Good', 65] : ['Great', 100];
+  $('#laDetail').textContent = empty ? '—' : lvl[0]; $('#laDetailBar').style.width = (empty ? 0 : lvl[1]) + '%';
+  $('#laPrice').innerHTML = st.unlocked ? priceHTML(e) : '🔒 Unlocks after your result';
+  steps(st.unlocked ? (st.spun ? 5 : 4) : $('#ckRes').hidden ? (empty ? 1 : 2) : 3);
+}
+function steps(n) { $$('.steps li').forEach((li, i) => { li.classList.toggle('done', i < n - 1); li.classList.toggle('cur', i === n - 1); }); }
+function priceHTML(e) {
+  if (e.impossible) return 'Not applicable';
+  if (!WEEK_RATE_INR) return '<span class="ph">₹[set your weekly rate]</span>';
+  return `${fmtR(e.lo * WEEK_RATE_INR)} – ${fmtR(e.hi * WEEK_RATE_INR)}`;
+}
+ta.addEventListener('input', () => { clearTimeout(ta._t); ta._t = setTimeout(analyse, 120); });
+
+// result
+$('#ckForm').addEventListener('submit', ev => {
+  ev.preventDefault();
+  if (!ta.value.trim()) { ta.focus(); return; }
+  const e = estimate(), res = $('#ckRes');
+  st.spun = false;
+  res.hidden = false;
+  if (e.impossible) {
+    res.innerHTML = `<div class="card res"><div class="res-top">${ring(e.score)}<div><p class="eyebrow">Your result</p><h3>${e.name}</h3><p class="muted">We love the ambition, but this one needs a breakthrough in physics before it needs an app. Want to build the closest real thing, such as same-day delivery with live tracking? Try describing that instead.</p></div></div></div>`;
+    paint(); goTo(res); return;
+  }
+  const core = uniq([...e.feats.map(f => f.label), ...e.prods.flatMap(p => CORE[p.id] || [])]);
+  const p1 = core.slice(0, 4), p2 = core.slice(4, 8);
+  const team = e.roles.map(r => `<span>${esc(r)}</span>`).join('');
+  res.innerHTML = `<div class="card res">
+    <div class="res-top">${ring(e.score)}<div><p class="eyebrow">Your result · ${esc(STAGES[st.stage].label)}</p><h3>${esc(e.name)}</h3><p class="muted">${e.score >= 85 ? 'Very buildable. This is the kind of product we ship regularly.' : e.score >= 75 ? 'Buildable, with a few parts that need careful planning.' : 'Buildable in phases. We would de-risk the hardest parts first.'}</p></div></div>
+    <div class="res-grid">
+      <div><small>Timeline</small><b>${fmtW(e.lo)} – ${fmtW(e.hi)}</b><em>${e.cx[1]}</em></div>
+      <div><small>Team</small><b>${e.roles.length} specialists</b><em>plus a project lead you talk to</em></div>
+      <div><small>Complexity</small><b>${e.cx[0]}</b><em>${e.feats.length} features detected</em></div>
+    </div>
+    <div class="res-sec"><small>Who builds it</small><div class="tagrow">${team}</div></div>
+    <div class="res-sec"><small>Suggested stack</small><div class="tagrow">${e.stack.map(s => `<span>${esc(s)}</span>`).join('')}</div></div>
+    <div class="res-sec"><small>Roadmap</small><ol class="road">
+      <li><b>Phase 1 · Launch</b><p>${esc(p1.join(', '))}</p></li>
+      ${p2.length ? `<li><b>Phase 2 · Grow</b><p>${esc(p2.join(', '))}</p></li>` : ''}
+      <li><b>${p2.length ? 'Phase 3' : 'Phase 2'} · Get found</b><p>AEO and GEO so ChatGPT, Gemini and Perplexity recommend you, plus analytics to see what customers use.</p></li>
+    </ol></div>
+    <p class="ai-note"><b>AI-first:</b> we use AI for planning, code review, testing and content, which is part of why these timelines are shorter than a traditional agency’s.</p>
+    <div class="unlock" id="ckUnlock">
+      <div><h4>Unlock your price range and discount</h4><p class="muted">Tell us where to send it. We’ll also WhatsApp you a short summary of this plan.</p></div>
+      <form id="ckLead" novalidate>
+        <input name="name" placeholder="Your name" autocomplete="name" required>
+        <input name="phone" placeholder="WhatsApp number" inputmode="tel" autocomplete="tel" required>
+        <input name="email" placeholder="Email" type="email" autocomplete="email" required>
+        <input name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+        <button class="btn btn-w" type="submit">Unlock my price →</button>
+        <p class="err" id="ckErr" role="alert"></p>
+      </form>
+    </div>
+  </div>`;
+  $('#ckLead').addEventListener('submit', unlock);
+  paint();
+  requestAnimationFrame(() => requestAnimationFrame(() => { const c = res.querySelector('.ring-fg'); if (c) c.style.strokeDashoffset = 302 * (1 - e.score / 100); }));
+  goTo(res);
+});
+const CORE = {
+  erp: ['Inventory and stock tracking', 'Purchase and sales orders', 'Role-based access per department'],
+  three: ['Interactive 3D model with colour and part swaps', 'Live price updates', 'Runs on phones, no app needed'],
+  rag: ['Answers from your documents, with sources', 'Hand-off to a person when unsure', 'Admin panel to update knowledge'],
+  agent: ['Automated workflow with approvals', 'Connections to your existing tools', 'Activity log and alerts'],
+  growth: ['AI-search visibility audit', 'Answer-first pages with schema markup', 'Monthly AI-mention report'],
+  brand: ['Logo and visual identity', 'Brand book and voice guide', 'Social media templates'],
+  mobile: ['Phone OTP sign-up', 'Push notifications', 'Play Store and App Store release'],
+  web: ['Responsive pages for every device', 'Easy content editing', 'SEO and AEO-ready structure']
+};
+function ring(score) {
+  const col = score >= 80 ? 'var(--ok)' : score >= 50 ? 'var(--accent)' : 'var(--warm)';
+  return `<div class="ring"><svg viewBox="0 0 110 110" aria-hidden="true"><circle cx="55" cy="55" r="48" class="ring-bg"/><circle cx="55" cy="55" r="48" class="ring-fg" style="stroke:${col}"/></svg><b>${score}</b><small>/100</small></div>`;
+}
+
+async function unlock(ev) {
+  ev.preventDefault();
+  const f = ev.target, v = n => f.elements[n].value.trim(), err = $('#ckErr'), btn = f.querySelector('button');
+  if (!v('name')) return err.textContent = 'Enter your name.';
+  if (!/^\+?[\d\s-]{8,16}$/.test(v('phone'))) return err.textContent = 'Enter a valid WhatsApp number.';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) return err.textContent = 'Enter a valid email address.';
+  err.textContent = ''; btn.disabled = true; btn.textContent = 'Unlocking…';
+  const e = st.est;
+  const summary = `${e.name} · ${PLATFORMS[e.plat]} · ${STAGES[st.stage].label} · ${fmtW(e.lo)}–${fmtW(e.hi)} · features: ${e.feats.map(x => x.label).join(', ') || 'none detected'}`;
+  try {
+    await fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'project', name: v('name'), phone: v('phone'), email: v('email'), service: e.name, budget: '', message: `Idea: ${ta.value.trim()}\n\nChecker result: ${summary}`, website: v('website'), source: 'Idea Checker page', page: location.pathname }) });
+  } catch (_) { /* the price still unlocks; the WhatsApp link below is the backup channel */ }
+  st.unlocked = true;
+  const wa = 'https://wa.me/919004629888?text=' + encodeURIComponent(`Hi Branding Catalyst, I'm ${v('name')}. I checked my idea on your site:\n${ta.value.trim()}\n\nResult: ${summary}`);
+  $('#ckUnlock').innerHTML = `<div class="price"><small>Estimated price range</small><b>${priceHTML(e)}</b><em>Indicative. We confirm a fixed price after a free scoping call.</em></div>
+    <div class="wheel-box"><div class="wheel-wrap"><canvas id="wheel" width="300" height="300"></canvas></div><div style="display:grid;gap:10px"><p id="wheelTxt">Spin once for a launch discount of up to ${Math.max(...DISCOUNTS)}% off your first milestone.</p><button class="btn btn-w" id="spin" type="button" style="justify-self:start">Spin the wheel</button></div></div>
+    <a class="btn" href="${wa}" target="_blank" rel="noopener">Send this plan on WhatsApp →</a>`;
+  drawWheel(); $('#spin').addEventListener('click', spin); paint();
+}
+function drawWheel() {
+  const cv = $('#wheel'), x = cv.getContext('2d'), n = DISCOUNTS.length, cols = ['#c9a2ff', '#7fd6e8', '#f2a7c3', '#6fcf97', '#f2c27a', '#b9a3f5'];
+  for (let i = 0; i < n; i++) {
+    const a0 = -Math.PI / 2 + i * 2 * Math.PI / n - Math.PI / n, a1 = a0 + 2 * Math.PI / n;
+    x.beginPath(); x.moveTo(150, 150); x.arc(150, 150, 146, a0, a1); x.closePath(); x.fillStyle = cols[i]; x.fill(); x.strokeStyle = '#0c0a12'; x.lineWidth = 3; x.stroke();
+    x.save(); x.translate(150, 150); x.rotate(a0 + Math.PI / n + Math.PI / 2); x.fillStyle = '#0c0a12'; x.font = '600 26px Geist, system-ui'; x.textAlign = 'center'; x.fillText(DISCOUNTS[i] + '%', 0, -100); x.restore();
+  }
+  x.beginPath(); x.arc(150, 150, 22, 0, 7); x.fillStyle = '#0c0a12'; x.fill();
+}
+function spin() {
+  if (st.spun) return; st.spun = true;
+  let r = Math.random() * 100, k = 0; for (; k < DISCOUNTS.length; k++) { r -= WEIGHTS[k]; if (r <= 0) break; } k = Math.min(k, DISCOUNTS.length - 1);
+  $('#wheel').style.transform = `rotate(${360 * 6 - k * (360 / DISCOUNTS.length)}deg)`; $('#spin').disabled = true;
+  setTimeout(() => { $('#wheelTxt').innerHTML = `You unlocked <b>${DISCOUNTS[k]}% off</b> your first milestone. Mention it on your scoping call.`; paint(); }, reduce ? 0 : 3300);
+}
+
+// ?idea= from other pages (e.g. the homepage checker or ARC)
+const q = new URLSearchParams(location.search).get('idea');
+if (q) ta.value = q.slice(0, 600);
+analyse();
+})();
+</script>
+<script>
+/* highlight the service in view in the side index */
+(() => { const links = [...document.querySelectorAll('.svc-index a')]; if (!links.length || !('IntersectionObserver' in window)) return;
+  const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { links.forEach(a => a.classList.remove('on')); const a = map.get(e.target.id); if (a) a.classList.add('on'); } }), { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('.svc-block').forEach(b => io.observe(b)); })();
+/* ambient background follows the scroll */
+(() => { const a = document.querySelector('.ambient'); if (!a) return; let q = false;
+  const upd = () => { const y = scrollY; a.style.setProperty('--s1', Math.sin(y / 700).toFixed(3)); a.style.setProperty('--c1', Math.cos(y / 900).toFixed(3)); a.style.setProperty('--s2', Math.sin(y / 1100 + 1).toFixed(3)); a.style.setProperty('--c2', Math.cos(y / 800 + 2).toFixed(3)); q = false; };
+  addEventListener('scroll', () => { if (!q) { q = true; requestAnimationFrame(upd); } }, { passive: true }); upd(); })();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script>
+/* ===== Smooth scrolling, reveal-on-scroll and scroll progress =====
+   Uses Lenis for eased wheel/trackpad scrolling. Phones keep native touch scrolling.
+   Everything here is skipped for visitors who prefer reduced motion. */
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const NAV_OFFSET = -84;
+
+  // let inner scroll areas (chat log, popups, wide tables) scroll on their own
+  document.querySelectorAll('#term, .modal, .cmp-wrap, .vis-body').forEach(el => el.setAttribute('data-lenis-prevent', ''));
+
+  // 1) smooth wheel scrolling
+  let lenis = null;
+  if (!reduce && typeof Lenis !== 'undefined') {
+    lenis = new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 0.9, touchMultiplier: 1.2, syncTouch: false });
+    window.bcScrollTo = el => lenis.scrollTo(el, { offset: NAV_OFFSET, duration: 1.2 });
+    window.__lenis = lenis;
+    const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+  }
+  // in-page links glide to their section and stop below the sticky menu
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href*="#"]'); if (!a || e.defaultPrevented) return;
+    const url = new URL(a.getAttribute('href'), location.href);
+    if (url.pathname !== location.pathname || !url.hash || url.hash === '#') return;
+    const target = document.querySelector(url.hash); if (!target) return;
+    e.preventDefault();
+    if (lenis) lenis.scrollTo(target, { offset: NAV_OFFSET, duration: 1.4 });
+    else window.scrollTo({ top: target.getBoundingClientRect().top + scrollY + NAV_OFFSET, behavior: reduce ? 'auto' : 'smooth' });
+    history.replaceState(null, '', url.hash);
+  });
+  // arriving from another page with a #section in the address
+  if (location.hash && lenis) { const t = document.querySelector(location.hash); if (t) setTimeout(() => lenis.scrollTo(t, { offset: NAV_OFFSET, immediate: true }), 60); }
+
+  // 2) scroll progress bar
+  const bar = document.createElement('div'); bar.className = 'scroll-prog'; bar.setAttribute('aria-hidden', 'true'); bar.innerHTML = '<i></i>';
+  document.body.appendChild(bar);
+  const fill = bar.firstChild;
+  const prog = () => { const max = document.documentElement.scrollHeight - innerHeight; fill.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`; };
+  addEventListener('scroll', prog, { passive: true }); addEventListener('resize', prog); prog();
+
+  // 3) reveal sections as they scroll into view
+  if (reduce || !('IntersectionObserver' in window)) return;
+  const SEL = [
+    '.head', '.feat .card', '.svc-block', '.how .card', '.ai3 .card', '.models .card', '.bundles .card', '.cluster-head', '.gl .card', '.nm', '.vis .txt', '.vis-card', '.scale .txt', '.sim', '.lean > *', '.three',
+    '.al', '.bx', '.lab-filters', '.ring-stage', '.chk > *', '.strip > .card', '.st', '.faq .txt', '.qa details', '.cta',
+    '.eq .el', '.eq .op', '.eq .react', '.logos .cap',
+    '.story .l', '.story .r p', '.prin .card', '.founder', '.studios .st', '.stack-txt', '.sphere'
+  ].join(',');
+  const els = [...document.querySelectorAll(SEL)].filter(el => !el.closest('.hero') && !el.parentElement.closest('.rv'));
+  const firstFold = innerHeight * 0.92;
+  els.forEach(el => {
+    if (el.getBoundingClientRect().top < firstFold) return;          // already on screen: leave as is
+    const sibs = [...el.parentElement.children].filter(c => els.includes(c));
+    el.style.setProperty('--rd', Math.min(sibs.indexOf(el), 6) * 70 + 'ms');
+    el.classList.add('rv');
+  });
+  document.documentElement.classList.add('rv-on');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+})();
+</script>
+<script src="leads.js" defer></script>
+<script src="fx.js" defer></script>
+</body>
+</html>
