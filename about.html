@@ -197,6 +197,21 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
 .head-l{position:relative}
 .head-l::before{content:"";position:absolute;left:-60px;top:-50px;width:340px;height:220px;background:radial-gradient(closest-side,rgba(139,92,246,.18),transparent);pointer-events:none;z-index:-1}
 @media(prefers-reduced-motion:reduce){.ambient .sparks{display:none}}
+
+/* Founder capsule: the round photo is the left end, the panel extends right (stacks on phones) */
+.founder.capsule{--d:clamp(260px,28vw,360px);display:flex;align-items:center;overflow:visible;grid-template-columns:none}
+.capsule .f-circle{position:relative;flex:none;width:var(--d);height:var(--d);z-index:2}
+.capsule .f-ring{position:absolute;inset:0;border-radius:50%}
+.capsule .f-pic{inset:8px}
+.capsule .f-body{flex:1;min-width:0;min-height:var(--d);margin-left:calc(var(--d) / -2);padding:34px clamp(24px,4vw,48px) 34px calc(var(--d) / 2 + clamp(24px,3vw,44px));border:1px solid var(--line2);border-left:0;border-radius:0 26px 26px 0;background:radial-gradient(80% 120% at 0% 50%,rgba(139,92,246,.22),transparent 60%),linear-gradient(165deg,var(--surface),var(--bg2));display:grid;align-content:center;gap:14px;position:relative;z-index:1}
+.capsule .f-body h3{font-size:clamp(28px,3.2vw,40px)}
+.capsule .f-loc{justify-self:start;background:transparent}
+@media(max-width:860px){
+  .founder.capsule{--d:clamp(200px,58vw,260px);flex-direction:column}
+  .capsule .f-body{width:100%;min-height:0;margin:calc(var(--d) / -2) 0 0;padding:calc(var(--d) / 2 + 26px) 22px 28px;border-left:1px solid var(--line2);border-top:0;border-radius:0 0 26px 26px;background:radial-gradient(120% 80% at 50% 0%,rgba(139,92,246,.22),transparent 60%),linear-gradient(165deg,var(--surface),var(--bg2));text-align:center;justify-items:center}
+  .capsule .f-loc{justify-self:center}
+  .capsule .tags,.capsule .f-links{justify-content:center}
+}
 </style>
 </head>
 <body>
@@ -288,18 +303,16 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
       <div class="head-l"><p class="eyebrow">Leadership</p><h2 class="h2">The founder of<br><span class="acc">Branding Catalyst.</span></h2></div>
       <p class="lead">Branding Catalyst Pvt Ltd is led from Mumbai. Every project has a senior lead from the first call to launch day.</p>
     </div>
-    <article class="card founder">
-      <div class="f-photo">
-        <div class="f-portrait">
-          <div class="f-ring" aria-hidden="true"></div>
-          <div class="f-pic"><img src="founder.webp" alt="Abhishek Trivedi, founder of Branding Catalyst, speaking at an event" width="788" height="826" loading="lazy"></div>
-          <div class="f-orbit" aria-hidden="true"><span></span></div>
-        </div>
-        <span class="f-loc">Mumbai, Maharashtra, India</span>
+    <article class="founder capsule">
+      <div class="f-circle">
+        <div class="f-ring" aria-hidden="true"></div>
+        <div class="f-pic"><img src="founder.webp" alt="Abhishek Trivedi, founder of Branding Catalyst, speaking at an event" width="788" height="826" loading="lazy"></div>
+        <div class="f-orbit" aria-hidden="true"><span></span></div>
       </div>
       <div class="f-body">
         <span class="f-role">FOUNDER · BRANDING CATALYST PVT LTD</span>
         <h3>Abhishek Trivedi</h3>
+        <span class="f-loc">Mumbai, Maharashtra, India</span>
         <p>Abhishek founded Branding Catalyst to give businesses <b>one partner for brand, software and growth</b>. He leads the company's direction and works closely with clients to turn their ideas into brands and products that last.</p>
         <p class="ph">[Add 2–3 lines from Abhishek's LinkedIn: background, years of experience, industries served, notable work or speaking.]</p>
         <div class="tags"><span>Branding</span><span>AI products</span><span>Growth</span><span>Strategy</span></div>
