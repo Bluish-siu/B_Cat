@@ -109,6 +109,8 @@
     let started = false;
     const io = new IntersectionObserver(es => { if (es[0].isIntersecting && !started) { started = true; io.disconnect(); start(); } }, { rootMargin: '200px' });
     io.observe(box);
+    // backup in case the visibility signal never arrives (e.g. a tab opened in the background)
+    setTimeout(() => { if (started) return; const r = box.getBoundingClientRect(); if (r.top < innerHeight + 200 && r.bottom > -200) { started = true; io.disconnect(); start(); } }, 1200);
     async function start(){
       let THREE;
       try { THREE = await import('https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js'); } catch { return; }   // keeps the flat logo
@@ -184,7 +186,7 @@
     function palette(vibe, r){
       const j = (n) => (r() - .5) * n; let h = r() * 360;
       switch (vibe) {
-        case 'bold':    return [hsl(h, 85 + j(8), 50 + j(6)), hsl(h + 180, 80, 52 + j(6)), hsl(h + 40, 95, 58), hsl(h, 40, 10), hsl(h, 30, 96)];
+        case 'bold':    return [hsl(h, 82 + j(8), 48 + j(6)), hsl(h + 200, 55, 36 + j(6)), hsl(h + 35, 95, 60), hsl(h, 40, 10), hsl(h, 30, 96)];
         case 'calm':    h = 150 + r() * 90; return [hsl(h, 35 + j(8), 45), hsl(h + 30, 30, 62), hsl(h - 30, 45, 72), hsl(h, 25, 15), hsl(h, 25, 96)];
         case 'luxury':  h = r() < .7 ? 250 + r() * 90 : r() * 20; return [hsl(h, 45, 22 + j(6)), hsl(h, 20, 36), hsl(40 + j(10), 62, 56), hsl(h, 30, 8), hsl(40, 30, 95)];
         case 'playful': return [hsl(h, 90, 60), hsl(h + 120, 85, 62), hsl(h + 240, 90, 66), hsl(h, 45, 18), hsl(h, 60, 97)];
