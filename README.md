@@ -58,7 +58,7 @@ ARC answers in two ways:
 
 `careers.html` lists open roles from the `JOBS` list near the bottom of the file. To post a job, copy the example in the comment above `const JOBS = [];`, fill it in, and push. Remove it when the role is filled. With no roles, the page shows "No open roles right now" and still accepts general applications.
 
-Applications open WhatsApp with the applicant's details pre-filled and are recorded at `api/lead.js` (type `application`), the same way as project leads. Fill in the careers email placeholder on the page.
+Applications open WhatsApp with the applicant's details pre-filled and are recorded at `api/lead.js` (type `application`), the same way as project leads. Applicants can also email hr@brandingcatalyst.in (shown on the page).
 
 ## ARC lip sync
 
