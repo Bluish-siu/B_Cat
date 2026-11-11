@@ -180,6 +180,9 @@ html.lenis-smooth{scroll-behavior:auto!important}
 .lenis [data-lenis-prevent]{overscroll-behavior:contain}
 .rv-on .rv:not(.in){opacity:0}
 .rv.in{animation:rvIn .95s cubic-bezier(.2,.75,.2,1) var(--rd,0s) both}
+.rv.in.up{animation-name:rvInUp}
+.rv.in.now{animation:none}
+@keyframes rvInUp{from{opacity:0;translate:0 -34px}to{opacity:1;translate:none}}
 @keyframes rvIn{from{opacity:0;translate:0 34px;}to{opacity:1;translate:none}}
 .scroll-prog{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:2px;z-index:90;pointer-events:none}
 .scroll-prog i{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#8b5cf6,#c9a2ff,#f2a7c3);box-shadow:0 0 10px rgba(201,162,255,.7)}
@@ -499,16 +502,25 @@ html.lenis-smooth{scroll-behavior:auto!important}
   const els = [...document.querySelectorAll(SEL)].filter(el => !el.closest('.hero') && !el.parentElement.closest('.rv'));
   const firstFold = innerHeight * 0.92;
   els.forEach(el => {
-    if (el.getBoundingClientRect().top < firstFold) return;          // already on screen: leave as is
+    if (el.getBoundingClientRect().top < firstFold) el.classList.add('in', 'now'); // on screen at load: show now, animate on later passes
     const sibs = [...el.parentElement.children].filter(c => els.includes(c));
     el.style.setProperty('--rd', Math.min(sibs.indexOf(el), 6) * 70 + 'ms');
     el.classList.add('rv');
   });
   document.documentElement.classList.add('rv-on');
   const io = new IntersectionObserver(entries => {
-    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    entries.forEach(en => {
+      const el = en.target;
+      if (!en.isIntersecting || el.classList.contains('in')) return;
+      el.classList.toggle('up', en.boundingClientRect.top < innerHeight * 0.4); // entering from the top = scrolling up
+      el.classList.add('in');
+    });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  // reset once fully off screen, so the animation plays again on the way back
+  const out = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (!en.isIntersecting) en.target.classList.remove('in', 'now', 'up'); });
+  }, { threshold: 0 });
+  document.querySelectorAll('.rv').forEach(el => { io.observe(el); out.observe(el); });
 })();
 </script>
 <script src="leads.js" defer></script>

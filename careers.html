@@ -165,6 +165,15 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 @media(max-width:560px){.orbit{width:min(280px,70vw);margin-block:40px 24px}.r2{inset:4%}.arm i{font-size:10.5px;padding:4px 9px}}
 @media(prefers-reduced-motion:reduce){.ring,.arm i,.core-ring{animation:none}}
 </style>
+<style>
+.rv-on .rv:not(.in){opacity:0}
+.rv.in{animation:rvIn .95s cubic-bezier(.2,.75,.2,1) var(--rd,0s) both}
+.rv.in.up{animation-name:rvInUp}
+.rv.in.now{animation:none}
+@keyframes rvIn{from{opacity:0;translate:0 34px}to{opacity:1;translate:none}}
+@keyframes rvInUp{from{opacity:0;translate:0 -34px}to{opacity:1;translate:none}}
+@media(prefers-reduced-motion:reduce){.rv-on .rv:not(.in){opacity:1}}
+</style>
 </head>
 <body>
 <div class="ambient" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="dots"></span><span class="sparks"><i style="--x:7%;--d:18s;--w:0s;--z:2px;--sw:-12px"></i><i style="--x:68%;--d:25s;--w:-3.7s;--z:3px;--sw:17px"></i><i style="--x:29%;--d:32s;--w:-7.4s;--z:4px;--sw:-22px"></i><i style="--x:90%;--d:23s;--w:-11.1s;--z:2px;--sw:27px"></i><i style="--x:51%;--d:30s;--w:-14.8s;--z:3px;--sw:-32px"></i><i style="--x:12%;--d:21s;--w:-18.5s;--z:4px;--sw:37px"></i><i style="--x:73%;--d:28s;--w:-2.2s;--z:2px;--sw:-12px"></i><i style="--x:34%;--d:19s;--w:-5.9s;--z:3px;--sw:17px"></i><i style="--x:95%;--d:26s;--w:-9.6s;--z:4px;--sw:-22px"></i><i style="--x:56%;--d:33s;--w:-13.3s;--z:2px;--sw:27px"></i><i style="--x:17%;--d:24s;--w:-17s;--z:3px;--sw:-32px"></i><i style="--x:78%;--d:31s;--w:-0.7s;--z:4px;--sw:37px"></i><i style="--x:39%;--d:22s;--w:-4.4s;--z:2px;--sw:-12px"></i><i style="--x:0%;--d:29s;--w:-8.1s;--z:3px;--sw:17px"></i><i style="--x:61%;--d:20s;--w:-11.8s;--z:4px;--sw:-22px"></i><i style="--x:22%;--d:27s;--w:-15.5s;--z:2px;--sw:27px"></i></span></div>
@@ -328,6 +337,18 @@ const JOBS = [];
   const lenis = new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 0.9 }); window.__lenis = lenis;
   const raf = t => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf);
   document.addEventListener('click', e => { const a = e.target.closest('a[href^="#"]'); if (!a || a.getAttribute('href') === '#') return; const t = document.querySelector(a.getAttribute('href')); if (!t) return; e.preventDefault(); lenis.scrollTo(t, { offset: -84 }); });
+})();
+</script>
+<script>
+/* reveal-on-scroll, both directions */
+(() => { if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const els = [...document.querySelectorAll('main .head, main .why .card, main .roles, main .steps > *, main .apply > *')].filter(el => !el.closest('.hero'));
+  els.forEach(el => { const sibs = [...el.parentElement.children].filter(c => els.includes(c)); el.style.setProperty('--rd', Math.min(sibs.indexOf(el), 6) * 70 + 'ms');
+    if (el.getBoundingClientRect().top < innerHeight * 0.92) el.classList.add('in', 'now'); el.classList.add('rv'); });
+  document.documentElement.classList.add('rv-on');
+  const io = new IntersectionObserver(es => es.forEach(en => { const el = en.target; if (!en.isIntersecting || el.classList.contains('in')) return; el.classList.toggle('up', en.boundingClientRect.top < innerHeight * 0.4); el.classList.add('in'); }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  const out = new IntersectionObserver(es => es.forEach(en => { if (!en.isIntersecting) en.target.classList.remove('in', 'now', 'up'); }), { threshold: 0 });
+  els.forEach(el => { io.observe(el); out.observe(el); });
 })();
 </script>
 <script src="leads.js" defer></script>
