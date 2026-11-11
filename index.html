@@ -58,7 +58,7 @@ p{margin:0}
 .card{background:linear-gradient(180deg,var(--surface),var(--bg2));border:1px solid var(--line);border-radius:var(--r)}
 
 /* NAV */
-.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:70;background:rgba(13,7,22,.78);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:70;background:rgba(13,7,22,.78);background-color:rgba(13,7,22,.94);border-bottom:1px solid var(--line)}
 .nav .wrap{height:66px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em}
 .logo svg{width:34px;height:28px;flex:none}
@@ -596,7 +596,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
 
 /* ===== Ambient background: drifting purple glows, dot grid and rising sparks behind every section ===== */
 .ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;--s1:0;--c1:1;--s2:0;--c2:1}
-.ambient .blob{position:absolute;border-radius:50%;filter:blur(80px);will-change:transform}
+.ambient .blob{position:absolute;border-radius:50%;filter:none;will-change:transform}
 .ambient .b1{width:62vmax;height:62vmax;left:-18vmax;top:-12vmax;background:radial-gradient(circle,rgba(66,6,107,.95),transparent 68%);opacity:.75;transform:translate3d(calc(var(--s1) * 22vw),calc(var(--c1) * 10vh),0);animation:drift1 28s ease-in-out infinite alternate}
 .ambient .b2{width:42vmax;height:42vmax;right:-14vmax;top:22vh;background:radial-gradient(circle,rgba(139,92,246,.6),transparent 68%);opacity:.4;transform:translate3d(calc(var(--c2) * -18vw),calc(var(--s2) * 16vh),0);animation:drift2 34s ease-in-out infinite alternate}
 .ambient .b3{width:34vmax;height:34vmax;left:30vw;bottom:-16vmax;background:radial-gradient(circle,rgba(201,162,255,.45),transparent 68%);opacity:.28;transform:translate3d(calc(var(--s2) * 20vw),calc(var(--c1) * -8vh),0);animation:drift3 40s ease-in-out infinite alternate}
@@ -686,7 +686,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
 .lenis [data-lenis-prevent]{overscroll-behavior:contain}
 .rv-on .rv:not(.in){opacity:0}
 .rv.in{animation:rvIn .95s cubic-bezier(.2,.75,.2,1) var(--rd,0s) both}
-@keyframes rvIn{from{opacity:0;translate:0 34px;filter:blur(4px)}to{opacity:1;translate:none;filter:none}}
+@keyframes rvIn{from{opacity:0;translate:0 34px}to{opacity:1;translate:none}}
 .scroll-prog{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:2px;z-index:90;pointer-events:none}
 .scroll-prog i{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#8b5cf6,#c9a2ff,#f2a7c3);box-shadow:0 0 10px rgba(201,162,255,.7)}
 @media(prefers-reduced-motion:reduce){.rv-on .rv:not(.in){opacity:1}.scroll-prog{display:none}}
@@ -1477,8 +1477,11 @@ function unlockVoice(e){
     mouth.open += (target - mouth.open) * (target > mouth.open ? 0.55 : 0.3);
     return mouth.open;
   }
+  let faceOn = true, faceWait = false;
+  new IntersectionObserver(es => { faceOn = es[0].isIntersecting; if (faceOn && faceWait) { faceWait = false; requestAnimationFrame(frame); } }, { rootMargin: '200px' }).observe(cv);
   function frame(now){
-    const dpr = Math.min(2, devicePixelRatio || 1), b = cv.getBoundingClientRect(), W = b.width, H = b.height;
+    if (!faceOn) { faceWait = true; return; }
+    const dpr = Math.min(1.5, devicePixelRatio || 1), b = cv.getBoundingClientRect(), W = b.width, H = b.height;
     if (cv.width !== Math.round(W*dpr) || cv.height !== Math.round(H*dpr)) { cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr); }
     const k = img.naturalWidth / FACE.baseW, IW = img.naturalWidth, IH = img.naturalHeight;
     const t = now / 1000, open = level(now);
@@ -1690,7 +1693,7 @@ fill($('#mq1'),L1); fill($('#mq2'),L2);
     if (bar) { bar.style.width = (prog * 100).toFixed(0) + '%'; bar.style.background = color; }
   }
   for (let i = 0; i < 230; i++) step();          // fill a day of history, ending late morning
-  setInterval(step, reduce ? 1e9 : 260);
+  setInterval(() => { if (typeof simOn === 'undefined' || simOn) step(); }, reduce ? 1e9 : 260);
 
   function link(a, b, alpha){ ctx.strokeStyle = `rgba(201,162,255,${alpha})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
   function node(p, w, h, title, sub, col, glow, ghost){
@@ -1709,7 +1712,10 @@ fill($('#mq1'),L1); fill($('#mq2'),L2);
   }
   function label(text, x, y, col, align){ ctx.fillStyle = col || C.dim; ctx.font = '9.5px "Geist Mono", monospace'; ctx.textAlign = align || 'left'; ctx.textBaseline = 'alphabetic'; ctx.fillText(text, x, y); }
 
+  let simOn = true, simWait = false;
+  new IntersectionObserver(es => { simOn = es[0].isIntersecting; if (simOn && simWait) { simWait = false; requestAnimationFrame(frame); } }, { rootMargin: '200px' }).observe(cv);
   function frame(now){
+    if (!simOn) { simWait = true; return; }
     const gh = GH(), bw = W < 520 ? W * .15 : Math.max(60, Math.min(104, W * .125)), bh = W < 560 ? 26 : 38, sw = W < 520 ? W * .11 : Math.max(42, Math.min(64, W * .075));
     ctx.clearRect(0, 0, W, H);
     label('USERS', pt('users').x - 18, 16); label(W < 520 ? 'APP TIER' : 'AUTOSCALING APP TIER', slot(0).x - sw / 2, 16); label(W < 520 ? 'DATA' : 'DATA & JOBS', pt('cache').x - bw / 2, 16);
@@ -1731,7 +1737,7 @@ fill($('#mq1'),L1); fill($('#mq2'),L2);
       k.t += k.sp; if (k.t >= 1) { k.t = 0; k.seg++; }
       if (k.seg >= k.path.length - 1) { k.done = true; continue; }
       const a = k.path[k.seg], b = k.path[k.seg + 1], x = a.x + (b.x - a.x) * k.t, y = a.y + (b.y - a.y) * k.t;
-      ctx.fillStyle = k.col; ctx.shadowColor = k.col; ctx.shadowBlur = 8; ctx.beginPath(); ctx.arc(x, y, 2.4, 0, 7); ctx.fill(); ctx.shadowBlur = 0;
+      ctx.fillStyle = k.col; ctx.globalAlpha = .25; ctx.beginPath(); ctx.arc(x, y, 6, 0, 7); ctx.fill(); ctx.globalAlpha = 1; ctx.beginPath(); ctx.arc(x, y, 2.4, 0, 7); ctx.fill();
     }
     for (let i = packets.length - 1; i >= 0; i--) if (packets[i].done) packets.splice(i, 1);
     if (packets.length > 260) packets.splice(0, packets.length - 260);
@@ -1777,7 +1783,7 @@ fill($('#mq1'),L1); fill($('#mq2'),L2);
     pls.forEach(pl => { const i = +pl.dataset.i; pl.style.transform = `translateZ(${((n - 1 - i) * (10 + p * 46)).toFixed(1)}px)`; });
     set(Math.min(n - 1, Math.floor(p * n)));
   }
-  addEventListener('scroll', upd, { passive: true }); upd();
+  let q = false; addEventListener('scroll', () => { if (!q) { q = true; requestAnimationFrame(() => { q = false; upd(); }); } }, { passive: true }); upd();
   items.forEach(it => it.addEventListener('mouseenter', () => set(+it.dataset.i)));
 })();
 
@@ -1838,7 +1844,10 @@ $('#ideaCount').textContent=IDEAS.length;
     bar.appendChild(b);
   });
   build(); addEventListener('resize', layout);
-  (function tick(){ if (!drag) { ang += vel; vel += ((reduce ? 0 : -0.08) - vel) * 0.02; } ring.style.transform = `translateZ(-${radius()}px) rotateY(${ang}deg)`; requestAnimationFrame(tick); })();
+  let ringOn = true, ringWait = false;
+  new IntersectionObserver(es => { ringOn = es[0].isIntersecting; if (ringOn && ringWait) { ringWait = false; requestAnimationFrame(tick); } }, { rootMargin: '200px' }).observe(stage);
+  function tick(){ if (!ringOn) { ringWait = true; return; } if (!drag) { ang += vel; vel += ((reduce ? 0 : -0.08) - vel) * 0.02; } ring.style.transform = `translateZ(-${radius()}px) rotateY(${ang}deg)`; requestAnimationFrame(tick); }
+  tick();
   stage.addEventListener('pointerdown', e => { drag = true; lx = e.clientX; moved = 0; });
   addEventListener('pointermove', e => { if (!drag) return; const dx = e.clientX - lx; lx = e.clientX; moved += Math.abs(dx); ang += dx * 0.25; vel = dx * 0.25; });
   addEventListener('pointerup', () => { drag = false; });
@@ -1914,7 +1923,7 @@ $('#subForm').addEventListener('submit',e=>{ e.preventDefault(); const b=e.targe
   // 1) smooth wheel scrolling
   let lenis = null;
   if (!reduce && typeof Lenis !== 'undefined') {
-    lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, wheelMultiplier: 0.95, touchMultiplier: 1.2 });
+    lenis = new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 0.9, touchMultiplier: 1.2, syncTouch: false });
     window.__lenis = lenis;
     const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);

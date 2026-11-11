@@ -52,7 +52,7 @@ p{margin:0}
 .card{background:linear-gradient(180deg,var(--surface),var(--bg2));border:1px solid var(--line);border-radius:var(--r)}
 
 /* NAV */
-.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:70;background:rgba(13,7,22,.78);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:70;background:rgba(13,7,22,.78);background-color:rgba(13,7,22,.94);border-bottom:1px solid var(--line)}
 .nav .wrap{height:66px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .logo{display:flex;align-items:center;gap:10px}
 .logo svg{width:34px;height:28px;flex:none}
@@ -180,7 +180,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
 
 /* ===== Ambient background: drifting purple glows, dot grid and rising sparks behind every section ===== */
 .ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;--s1:0;--c1:1;--s2:0;--c2:1}
-.ambient .blob{position:absolute;border-radius:50%;filter:blur(80px);will-change:transform}
+.ambient .blob{position:absolute;border-radius:50%;filter:none;will-change:transform}
 .ambient .b1{width:62vmax;height:62vmax;left:-18vmax;top:-12vmax;background:radial-gradient(circle,rgba(66,6,107,.95),transparent 68%);opacity:.75;transform:translate3d(calc(var(--s1) * 22vw),calc(var(--c1) * 10vh),0);animation:drift1 28s ease-in-out infinite alternate}
 .ambient .b2{width:42vmax;height:42vmax;right:-14vmax;top:22vh;background:radial-gradient(circle,rgba(139,92,246,.6),transparent 68%);opacity:.4;transform:translate3d(calc(var(--c2) * -18vw),calc(var(--s2) * 16vh),0);animation:drift2 34s ease-in-out infinite alternate}
 .ambient .b3{width:34vmax;height:34vmax;left:30vw;bottom:-16vmax;background:radial-gradient(circle,rgba(201,162,255,.45),transparent 68%);opacity:.28;transform:translate3d(calc(var(--s2) * 20vw),calc(var(--c1) * -8vh),0);animation:drift3 40s ease-in-out infinite alternate}
@@ -252,7 +252,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
 .lenis [data-lenis-prevent]{overscroll-behavior:contain}
 .rv-on .rv:not(.in){opacity:0}
 .rv.in{animation:rvIn .95s cubic-bezier(.2,.75,.2,1) var(--rd,0s) both}
-@keyframes rvIn{from{opacity:0;translate:0 34px;filter:blur(4px)}to{opacity:1;translate:none;filter:none}}
+@keyframes rvIn{from{opacity:0;translate:0 34px}to{opacity:1;translate:none}}
 .scroll-prog{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:2px;z-index:90;pointer-events:none}
 .scroll-prog i{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#8b5cf6,#c9a2ff,#f2a7c3);box-shadow:0 0 10px rgba(201,162,255,.7)}
 @media(prefers-reduced-motion:reduce){.rv-on .rv:not(.in){opacity:1}.scroll-prog{display:none}}
@@ -564,7 +564,7 @@ document.querySelectorAll('.mnav a').forEach(a => a.addEventListener('click', ()
   // 1) smooth wheel scrolling
   let lenis = null;
   if (!reduce && typeof Lenis !== 'undefined') {
-    lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, wheelMultiplier: 0.95, touchMultiplier: 1.2 });
+    lenis = new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 0.9, touchMultiplier: 1.2, syncTouch: false });
     window.__lenis = lenis;
     const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);
