@@ -1588,7 +1588,7 @@ fill($('#mq1'),L1); fill($('#mq2'),L2);
   const SLOTS = 8, GH = () => H * 0.64;
   let minute = 0, servers = 2, target = 2, n = 0, v = 1.5;
   const born = new Array(SLOTS).fill(-1e9), hist = [], packets = [];
-  const N = { users:[.06,.5], edge:[.2,.5], lb:[.355,.5], cache:[.795,.17], db:[.795,.5], r1:[.94,.36], r2:[.94,.64], q:[.795,.84], wk:[.94,.84] };
+  const N = { users:[.06,.5], edge:[.2,.5], lb:[.355,.5], cache:[.78,.17], db:[.78,.5], r1:[.915,.36], r2:[.915,.64], q:[.78,.84], wk:[.915,.84] };
   const P = (x, y) => ({ x: x * W, y: y * GH() });
   const pt = k => P(...N[k]);
   const slot = i => P(.535 + (i % 2) * .085, .2 + Math.floor(i / 2) * .2);
