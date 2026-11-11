@@ -181,7 +181,7 @@
     function palette(vibe, r){
       const j = (n) => (r() - .5) * n; let h = r() * 360;
       switch (vibe) {
-        case 'bold':    return [hsl(h, 82 + j(8), 48 + j(6)), hsl(h + 200, 55, 36 + j(6)), hsl(h + 35, 95, 60), hsl(h, 40, 10), hsl(h, 30, 96)];
+        case 'bold':    return [hsl(h, 82 + j(8), 48 + j(6)), hsl(h - 25, 62, 30 + j(6)), hsl(h + 160, 92, 58), hsl(h, 40, 10), hsl(h, 30, 96)];
         case 'calm':    h = 150 + r() * 90; return [hsl(h, 35 + j(8), 45), hsl(h + 30, 30, 62), hsl(h - 30, 45, 72), hsl(h, 25, 15), hsl(h, 25, 96)];
         case 'luxury':  h = r() < .7 ? 250 + r() * 90 : r() * 20; return [hsl(h, 45, 22 + j(6)), hsl(h, 20, 36), hsl(40 + j(10), 62, 56), hsl(h, 30, 8), hsl(40, 30, 95)];
         case 'playful': return [hsl(h, 90, 60), hsl(h + 120, 85, 62), hsl(h + 240, 90, 66), hsl(h, 45, 18), hsl(h, 60, 97)];
