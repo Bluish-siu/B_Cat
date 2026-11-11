@@ -212,6 +212,15 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
   .capsule .f-loc{justify-self:center}
   .capsule .tags,.capsule .f-links{justify-content:center}
 }
+
+/* founder bio: quote and timeline */
+.f-quote{margin:2px 0 0;font-family:var(--f-display);font-weight:500;font-size:clamp(18px,1.8vw,22px);line-height:1.35;color:var(--accent);border-left:2px solid var(--accent);padding-left:14px}
+.f-time{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.f-time li{display:grid;gap:2px;padding:9px 11px;border-radius:12px;border:1px solid var(--line2);background:rgba(13,7,22,.45);text-align:left}
+.f-time b{font-family:var(--f-mono);font-size:12px;font-weight:500;color:var(--accent)}
+.f-time span{font-size:12.5px;line-height:1.35;color:var(--muted)}
+@media(max-width:860px){.capsule .f-quote{border-left:0;padding-left:0}.f-time{width:100%}}
+@media(max-width:520px){.f-time{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -272,8 +281,8 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
 <section class="sec rule" style="padding-block:clamp(48px,7vw,80px)">
   <div class="wrap">
     <div class="nums">
-      <div class="nm"><b>[X]<sup>+</sup></b><span>brands and businesses served</span></div>
-      <div class="nm"><b>[X]<sup>+</sup></b><span>apps, ERPs and websites launched</span></div>
+      <div class="nm"><b>2019</b><span>founded in Mumbai, growing since</span></div>
+      <div class="nm"><b>50<sup>+</sup></b><span>projects for national and international clients</span></div>
       <div class="nm"><b>6</b><span>disciplines under one roof</span></div>
       <div class="nm"><b>1<sup>wk</sup></b><span>between working demos on every build</span></div>
     </div>
@@ -313,11 +322,16 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
         <span class="f-role">FOUNDER · BRANDING CATALYST PVT LTD</span>
         <h3>Abhishek Trivedi</h3>
         <span class="f-loc">Mumbai, Maharashtra, India</span>
-        <p>Abhishek founded Branding Catalyst to give businesses <b>one partner for brand, software and growth</b>. He leads the company's direction and works closely with clients to turn their ideas into brands and products that last.</p>
-        <p class="ph">[Add 2–3 lines from Abhishek's LinkedIn: background, years of experience, industries served, notable work or speaking.]</p>
-        <div class="tags"><span>Branding</span><span>AI products</span><span>Growth</span><span>Strategy</span></div>
+        <blockquote class="f-quote">“Be the catalyst where you see a slow reaction.”</blockquote>
+        <p>Abhishek started out as a tech freelancer in 2017, designing for startups and building apps, and turned that into <b>Branding Catalyst</b> in 2019. Since then he has led <b>50+ projects for national and international clients</b>, been featured in newspapers for technology built on government projects, and speaks as an industry expert at colleges.</p>
+        <ol class="f-time" aria-label="Career timeline">
+          <li><b>2017</b><span>Tech freelancer, KJ Somaiya campus company</span></li>
+          <li><b>2019</b><span>Founded Branding Catalyst</span></li>
+          <li><b>2021–23</b><span>Founder, VIBRANCY</span></li>
+        </ol>
+        <div class="tags"><span>Branding</span><span>Technology</span><span>Project management</span><span>Speaker</span></div>
         <div class="f-links">
-          <a class="btn" href="https://in.linkedin.com/company/branding-cataly" target="_blank" rel="noopener">Branding Catalyst on LinkedIn ↗</a>
+          <a class="btn" href="https://www.linkedin.com/in/abhishek-r-trivedi/" target="_blank" rel="noopener">Connect on LinkedIn ↗</a>
           <a class="btn btn-w" href="index.html#idea-checker">Plan a project with us →</a>
         </div>
       </div>
@@ -494,7 +508,7 @@ document.querySelectorAll('.mnav a').forEach(a => a.addEventListener('click', ()
       body.style.minHeight = '0'; const h = body.offsetHeight; body.style.minHeight = '';
       const d = circle.offsetWidth;
       if (Math.abs(h - d) <= 1 || h < d) break;
-      cap.style.setProperty('--d', Math.min(h, 560) + 'px');
+      cap.style.setProperty('--d', Math.min(h, 640) + 'px');
     }
   }
   fit(); addEventListener('resize', fit);
