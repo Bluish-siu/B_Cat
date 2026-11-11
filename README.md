@@ -11,6 +11,8 @@ It is a single static page with no build step and no backend.
 | `index.html` | The whole site: layout, styles and scripts |
 | `logo.png` | Brand logo, also used as the browser-tab icon |
 | `nova.webp` | Face image for ARC, the AI assistant in the hero |
+| `api/arc.js` | Vercel function that lets ARC answer with Claude |
+| `package.json` | Declares the Anthropic SDK used by `api/arc.js` |
 
 ## Run locally
 
@@ -33,6 +35,16 @@ Upload the three files to any static host (Netlify, Vercel, GitHub Pages, Hostin
 - Set the discount values and odds in `DISCOUNTS` (idea checker wheel).
 - Confirm the guarantee terms in the "Our promise" section.
 - Replace the client logo tiles with real logos, used with permission.
+
+## ARC answers (AI chat)
+
+ARC answers in two ways:
+
+1. **With AI (recommended):** `api/arc.js` is a Vercel serverless function that sends the conversation to Claude and returns ARC's reply. To turn it on, open the Vercel project, go to **Settings → Environment Variables**, add `ANTHROPIC_API_KEY` (create a key at console.anthropic.com), then redeploy.
+   - Optional: set `ARC_MODEL` to pick a different Claude model. The default is `claude-opus-5-5`. A smaller model such as `claude-haiku-5-5` costs less per message.
+   - ARC's facts and tone live in the `SYSTEM` text at the top of `api/arc.js`. Edit it to keep answers accurate.
+   - The endpoint only accepts requests from the site's own pages, and limits message length and history, but anyone visiting the site can still use it. Set a monthly spend limit in the Anthropic Console.
+2. **Built-in fallback:** if the function isn't configured or fails, ARC answers from the built-in knowledge (`KNOW` list in the page script). This covers greetings, services, Catalyst Engine, AEO, GEO, RAG, pricing, timelines, guarantee, tech stack, support and ownership. It also plans any project idea with the estimator.
 
 ## ARC lip sync
 

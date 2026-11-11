@@ -1,0 +1,9 @@
+{
+  "name": "branding-catalyst",
+  "private": true,
+  "type": "module",
+  "description": "Branding Catalyst website with the ARC chat endpoint",
+  "dependencies": {
+    "@anthropic-ai/sdk": "1.3.0"
+  }
+}

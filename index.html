@@ -71,6 +71,7 @@ p{margin:0}
 .burger span{display:block;width:14px;height:1.5px;background:var(--ink);box-shadow:0 5px 0 var(--ink),0 -5px 0 var(--ink)}
 .mnav{display:none;border-top:1px solid var(--line);padding-block:12px 18px}
 .mnav a{display:block;padding:10px 0;color:var(--muted)}
+.nav .mnav{display:none;height:auto}
 .nav.open .mnav{display:block}
 @media(max-width:1020px){.nav ul,.nav .btn-w{display:none}.burger{display:grid}}
 
@@ -849,26 +850,162 @@ function speak(text){ if(!voiceOn) return; try{ const u=new SpeechSynthesisUtter
   u.onend=u.onerror=()=>{ mouth.speaking=false; };
   speechSynthesis.cancel(); speechSynthesis.speak(u);}catch{} }
 try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices(); }catch{}
+/* ===== ARC conversation =====
+   1) Tries the AI endpoint (/api/arc, a Vercel function that calls Claude).
+   2) If that is unavailable, answers from the built-in knowledge below.
+   EDIT the KNOW answers to match your real details. */
+const history = []; // {role:'user'|'assistant', content}
+const KNOW = [
+  { re:/\b(who|what) (are|r) (you|u)\b|your name|\bwhat is arc\b|\bwho is arc\b|\barc\b\??$/i, a:[
+    "I'm ARC, the voice of Catalyst Engine.",
+    "I help you shape a product idea into features, a team and a timeline, and I can answer questions about how Branding Catalyst works."]},
+  { re:/catalyst engine|how (does|do) (it|this|you) work|how do you build|your (ai|model|engine)|private ai/i, a:[
+    "Catalyst Engine is the build system behind Branding Catalyst.",
+    "· It runs on leading AI models such as GPT, Claude and Gemini",
+    "· It adds our build playbooks and a library of ready modules (login, payments, chat, admin)",
+    "· AI agents plan, code and test, and an engineer reviews every release",
+    "That is how we ship faster without cutting corners."]},
+  { re:/branding catalyst|about (you|your company|the company)|who (are|r) you guys|your company/i, a:[
+    "Branding Catalyst is an AI-first studio for brands and software.",
+    "We build AI products, Android and iOS apps, ERP systems, websites and 3D web experiences, and we help brands get recommended by AI search through AEO and GEO."]},
+  { re:/\baeo\b|answer engine/i, a:[
+    "AEO means Answer Engine Optimization.",
+    "We structure your pages and content so AI assistants and voice search use your answer first: answer-first copy, FAQ and schema markup, and clear entity pages."]},
+  { re:/\bgeo\b|generative engine|cited by|recommended by (chatgpt|ai)|ai search/i, a:[
+    "GEO means Generative Engine Optimization.",
+    "We track how ChatGPT, Gemini and Perplexity describe your category, then earn the mentions and citations that get your brand named in their answers."]},
+  { re:/\brag\b|retrieval/i, a:[
+    "RAG lets an AI assistant answer from your own documents and data.",
+    "It finds the right passage first, then answers with a source, so replies stay accurate. We use it for support bots, sales assistants and internal knowledge search."]},
+  { re:/services?|what (do|can) you (do|offer|build|make)|offerings?/i, a:[
+    "Here is what we build:",
+    "· Artificial Intelligence: agents, chatbots, RAG on your data",
+    "· AI search, branding and growth: AEO, GEO, AI content, identity",
+    "· Mobile apps for Android and iOS",
+    "· ERP systems for inventory, sales, HR and accounts",
+    "· Websites and platforms",
+    "· 3D web experiences",
+    "Tell me what you have in mind and I'll plan it."]},
+  { re:/price|pricing|cost|budget|charge|quote|how much|rate card|fees?/i, a:[
+    "Every project gets a fixed quote after a free scoping call, so you know the full price before we start.",
+    "Cost follows scope: a company website is a compact build, while apps and ERPs are medium to large builds.",
+    "Describe your idea and I'll size it, or use the idea checker below for a detailed estimate."]},
+  { re:/how long|how fast|timeline|time ?frame|deadline|how soon|how many weeks/i, a:[
+    "You see a working prototype in the first sprint, then a demo every week.",
+    "Typical ranges: websites 2–4 weeks, AI assistants 4–6 weeks, mobile apps 7–11 weeks, ERPs 8–12 weeks.",
+    "Share your idea for a timeline that fits it."]},
+  { re:/guarantee|refund|money back|milestone|payment terms|risk/i, a:[
+    "We agree scope, price and launch date in writing before work starts.",
+    "You pay per milestone, only after you review and accept it. If the first prototype misses the agreed scope, the prototype fee is refunded."]},
+  { re:/contact|call|meet|meeting|talk to (a )?(human|person|someone)|email|phone|whatsapp number|reach you/i, a:[
+    "Happy to connect you with the team.",
+    "Use the Start a project button at the bottom of this page, or run the idea checker and book a free 30-minute scoping call from there."]},
+  { re:/where (are|r) you|located|location|office|based|city|country/i, a:[
+    "We work with clients across India and abroad, fully remote-friendly, with weekly video demos."]},
+  { re:/tech ?stack|technolog|framework|language|flutter|react|node/i, a:[
+    "We pick the stack per project. Common choices:",
+    "· Mobile: Flutter or React Native",
+    "· Web: Next.js with a headless CMS",
+    "· Backend: Node.js or Django with PostgreSQL",
+    "· AI: GPT, Claude and Gemini APIs with a vector database",
+    "· 3D: Three.js and WebGL"]},
+  { re:/portfolio|case stud|clients?|past work|examples?|previous work/i, a:[
+    "We can walk you through relevant past projects on a scoping call.",
+    "Tell me your industry and idea, and I'll suggest what a similar build looks like."]},
+  { re:/support|maintenance|after launch|hosting|bug fix|updates?/i, a:[
+    "After launch we monitor, fix and keep improving: 24/7 uptime checks, error tracking, security updates and monthly cloud-cost reviews.",
+    "We can also run AEO, GEO and content work to grow your reach."]},
+  { re:/own(ership)?|source code|\bip\b|intellectual property|nda/i, a:[
+    "You own the code and designs we build for you. We hand over the repository and documentation at launch, and we are happy to sign an NDA."]}
+];
+const GREET = /^(hi+|hey+|hello+|hii+|helo|yo|namaste|namaskar|hola|sup|what'?s up|good (morning|afternoon|evening))\b[\s!.,]*(arc|there)?[\s!.,]*$/i;
+const THANKS = /^(thanks?|thank you|thx|ty|great|awesome|cool|nice|ok(ay)?|perfect|got it)\b[\s!.,]*$/i;
+const BYE = /^(bye|goodbye|see you|cya)\b/i;
+const IDEA_WORDS = /\b(apps?|website|site|platform|erp|crm|bots?|chatbot|agents?|portal|dashboard|system|software|store|marketplace|3d|configurator|logo|brand|automation|saas|tool|delivery|booking)\b/i;
+const IDEA_VERBS = /\b(i want|i need|we want|we need|looking for|build|make|create|develop|planning|idea|get my|get our)\b/i;
+const QUESTION_START = /^(what|who|where|why|which|how much|how long|how does|how do|is|are|can you explain)\b/i;
+
+function localReply(msg){
+  const m = msg.trim(), words = m.split(/\s+/).length;
+  if (GREET.test(m)) return { lines:["Hey, good to meet you!","I can plan a new product for you, or answer questions about Branding Catalyst. What are you thinking of building?"] };
+  if (THANKS.test(m)) return { lines:["Glad that helps. Anything else you'd like to know, or another idea to plan?"] };
+  if (BYE.test(m)) return { lines:["Thanks for stopping by. Come back any time you have an idea to build!"] };
+  const known = KNOW.find(k => k.re.test(m));
+  const isIdea = IDEA_WORDS.test(m) && (words >= 4 || IDEA_VERBS.test(m) || (!QUESTION_START.test(m) && !/\?\s*$/.test(m)));
+  if (known && (QUESTION_START.test(m) || !isIdea)) return { lines: known.a };
+  if (isIdea || (IDEA_VERBS.test(m) && words >= 4)) {
+    const c = classify(m), an = /^[aeiou]/i.test(c.name) ? 'an' : 'a';
+    const opener = /^(do|can|could|will) (you|u)\b/i.test(m) ? `Yes, we do. A typical build is ${an} ${c.name} project.` : `Great idea. That's ${an} ${c.name} project.`;
+    return { plan:true, lines:[
+      opener,
+      ...c.feats.slice(0,3).map(f => '· ' + f),
+      `Timeline: ${c.time}.`,
+      `Team: ${c.team}.`
+    ]};
+  }
+  if (known) return { lines: known.a };
+  return { lines:[
+    "I'm not sure I followed that.",
+    "You can ask me about our services, pricing, timelines or how Catalyst Engine works, or describe your idea in a sentence and I'll plan it."
+  ]};
+}
+
+async function aiReply(msg){
+  if (location.protocol === 'file:') return null;
+  try {
+    const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), 20000);
+    const r = await fetch('/api/arc', { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ messages:[...history.slice(-10), { role:'user', content:msg }] }), signal: ctrl.signal });
+    clearTimeout(timer);
+    if (!r.ok) return null;
+    const j = await r.json();
+    return typeof j.reply === 'string' && j.reply.trim() ? j.reply.trim() : null;
+  } catch { return null; }
+}
+
 function line(html){ const d=document.createElement('div'); d.innerHTML=html; term.appendChild(d); term.scrollTop=term.scrollHeight; return d; }
 async function typeInto(el, text, sp=13){ if(reduce){el.textContent=text;return} for(let i=0;i<text.length;i++){ el.textContent+=text[i]; if(!voiceOn) mouthTick(text[i]); if(i%2===0){ term.scrollTop=term.scrollHeight; await wait(sp);} } }
-async function say(text){ speak(text); energy=1; const d=line('<span class="p">arc&gt;</span> <span class="n"></span>'); await typeInto(d.lastElementChild,text); energy=.25; }
+// Speaks the whole reply once (so lip sync follows one continuous voice) and types it line by line.
+async function sayLines(lines){
+  const clean = lines.map(s => s.replace(/\*\*/g,'').trim()).filter(Boolean);
+  speak(clean.map(s => s.replace(/^[·•\-*]\s*/,'')).join('. ').replace(/\.\.+/g,'.'));
+  energy = 1;
+  for (const s of clean) {
+    const bullet = /^[·•\-*]\s*/.test(s);
+    const d = bullet ? line('<span class="n">  · </span><span class="n"></span>') : line('<span class="p">arc&gt;</span> <span class="n"></span>');
+    await typeInto(d.lastElementChild, s.replace(/^[·•\-*]\s*/,''), bullet ? 8 : 13);
+  }
+  energy = .25;
+}
+async function say(text){ await sayLines([text]); }
 setInterval(()=>{ waveBars.forEach(b=>b.style.height=(3+Math.random()*11*energy)+'px'); energy*=.96; },110);
 
-async function ask(idea){
-  idea = idea.trim(); if(busy||!idea) return; busy=true;
-  line(`<span class="p">you&gt;</span> <span class="u">${esc(idea)}</span>`);
-  tag.classList.add('busy'); await wait(600);
-  const c = classify(idea);
-  await say(`Great idea. That's a ${c.name} project.`);
-  for(const f of c.feats.slice(0,3)){ const d=line('<span class="n">  · </span><span class="n"></span>'); await typeInto(d.lastElementChild,f,7); }
-  await say(`Timeline: ${c.time}. Team: ${c.team}.`);
-  line('<span class="p">arc&gt;</span> <span class="n">Want a detailed estimate? <a href="#idea-checker">Check this idea →</a></span>');
-  $('#chkIn').value = idea; tag.classList.remove('busy'); busy=false;
+async function ask(msg){
+  msg = msg.trim(); if(busy||!msg) return; busy=true;
+  line(`<span class="p">you&gt;</span> <span class="u">${esc(msg)}</span>`);
+  tag.classList.add('busy');
+  const thinking = line('<span class="p">arc&gt;</span> <span class="n">…</span>');
+  const [ai] = await Promise.all([aiReply(msg), wait(450)]);
+  thinking.remove();
+  let lines, plan = false;
+  if (ai) { lines = ai.split(/\n+/); plan = IDEA_WORDS.test(msg) && /week/i.test(ai); }
+  else { const r = localReply(msg); lines = r.lines; plan = !!r.plan; }
+  history.push({ role:'user', content:msg }, { role:'assistant', content:lines.join('\n') });
+  await sayLines(lines);
+  if (plan) { line('<span class="p">arc&gt;</span> <span class="n">Want a detailed estimate? <a href="#idea-checker">Check this idea →</a></span>'); $('#chkIn').value = msg; }
+  tag.classList.remove('busy'); busy=false;
 }
 $('#askForm').addEventListener('submit', e => { e.preventDefault(); const v=$('#askIn').value; $('#askIn').value=''; ask(v); });
 document.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => ask(b.textContent)));
 $('#ctaNova').addEventListener('click', () => setTimeout(()=>$('#askIn').focus({preventScroll:true}),600));
-(async()=>{ await say("Hey, I'm ARC from Branding Catalyst. What would you like to build today?"); })();
+const INTRO = [
+  "Hi, I'm ARC, the voice of Catalyst Engine.",
+  "Catalyst Engine is the AI build system Branding Catalyst uses to plan, design, code, test and launch brands, apps, ERPs and AI products.",
+  "Tell me your idea and I'll map out features, a team and a timeline. Or ask me anything about our services, pricing or how we work."
+];
+let introDone = false;
+(async()=>{ busy = true; await sayLines(INTRO); busy = false; introDone = true; })();
+muteBtn.addEventListener('click', () => { if (voiceOn && introDone && !busy) { busy = true; sayLines(["Voice on. I'm ARC. Ask me anything, or tell me your idea."]).then(()=>busy=false); } });
 
 (() => {
   const cv = $('#novaCv'), ctx = cv.getContext('2d');
