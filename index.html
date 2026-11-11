@@ -622,6 +622,29 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
 .sbar{display:block;height:3px;margin-top:8px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
 .sbar b{display:block;height:100%;width:100%;background:var(--ok);transition:width .3s,background .3s}
 @media(max-width:560px){.sim canvas{height:360px}}
+
+/* ===== Responsive fixes (phone, tablet, desktop) ===== */
+html{overflow-x:clip}
+input,select,textarea{min-width:0}
+#idea-lab{overflow:hidden}
+.askwrap{grid-template-columns:minmax(0,1fr)}
+.ask input{width:0}
+.el small,.react small{font-size:11px}
+.sim-stats small{font-size:10.5px}
+@media(max-width:760px){
+  .hero h1{font-size:clamp(44px,13vw,64px)}
+  .ask .btn{padding:12px 14px}
+  .nums b,.strip b{font-size:clamp(30px,9vw,40px)}
+  .sim-stats b{font-size:16px}
+  .cta{padding:28px}
+}
+@media(max-width:420px){
+  .trend .chip{font-size:12.5px}
+  .vis-form{grid-template-columns:1fr}
+  .vis-form .btn{grid-column:auto}
+  .bx{padding:18px}
+  .el{width:112px}.el b{font-size:34px}
+}
 </style>
 </head>
 <body>
