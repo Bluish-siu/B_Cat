@@ -171,9 +171,30 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
 .legal{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:44px;padding-top:22px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
 @media(max-width:860px){.ft{grid-template-columns:1fr 1fr}.ft .about{grid-column:1/-1}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* ===== Ambient background: drifting purple glows, dot grid and rising sparks behind every section ===== */
+.ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;--s1:0;--c1:1;--s2:0;--c2:1}
+.ambient .blob{position:absolute;border-radius:50%;filter:blur(80px);will-change:transform}
+.ambient .b1{width:62vmax;height:62vmax;left:-18vmax;top:-12vmax;background:radial-gradient(circle,rgba(66,6,107,.95),transparent 68%);opacity:.75;transform:translate3d(calc(var(--s1) * 22vw),calc(var(--c1) * 10vh),0);animation:drift1 28s ease-in-out infinite alternate}
+.ambient .b2{width:42vmax;height:42vmax;right:-14vmax;top:22vh;background:radial-gradient(circle,rgba(139,92,246,.6),transparent 68%);opacity:.4;transform:translate3d(calc(var(--c2) * -18vw),calc(var(--s2) * 16vh),0);animation:drift2 34s ease-in-out infinite alternate}
+.ambient .b3{width:34vmax;height:34vmax;left:30vw;bottom:-16vmax;background:radial-gradient(circle,rgba(201,162,255,.45),transparent 68%);opacity:.28;transform:translate3d(calc(var(--s2) * 20vw),calc(var(--c1) * -8vh),0);animation:drift3 40s ease-in-out infinite alternate}
+@keyframes drift1{to{translate:6vw 8vh;scale:1.08}}
+@keyframes drift2{to{translate:-8vw -6vh;scale:.92}}
+@keyframes drift3{to{translate:-6vw -10vh;scale:1.12}}
+.ambient .dots{position:absolute;inset:0;background-image:radial-gradient(rgba(201,162,255,.09) 1px,transparent 1.6px);background-size:28px 28px;-webkit-mask-image:radial-gradient(120% 90% at 50% 50%,#000 30%,transparent 85%);mask-image:radial-gradient(120% 90% at 50% 50%,#000 30%,transparent 85%)}
+.ambient .sparks i{position:absolute;bottom:-12px;left:var(--x);width:var(--z,4px);height:var(--z,4px);border-radius:50%;background:#c9a2ff;box-shadow:0 0 10px 1px rgba(201,162,255,.8);opacity:0;animation:rise var(--d) linear var(--w) infinite}
+@keyframes rise{0%{transform:translate(0,0);opacity:0}10%{opacity:.75}50%{transform:translate(var(--sw,20px),-55vh)}90%{opacity:.45}100%{transform:translate(0,-112vh);opacity:0}}
+/* glowing dividers instead of flat lines */
+.rule{border-top-color:transparent;position:relative}
+.rule::before{content:"";position:absolute;top:-1px;left:50%;width:min(1200px,92%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(201,162,255,.45),transparent)}
+/* soft glow behind each section heading */
+.head-l{position:relative}
+.head-l::before{content:"";position:absolute;left:-60px;top:-50px;width:340px;height:220px;background:radial-gradient(closest-side,rgba(139,92,246,.18),transparent);pointer-events:none;z-index:-1}
+@media(prefers-reduced-motion:reduce){.ambient .sparks{display:none}}
 </style>
 </head>
 <body>
+<div class="ambient" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="dots"></span><span class="sparks"><i style="--x:7%;--d:18s;--w:0s;--z:2px;--sw:-12px"></i><i style="--x:68%;--d:25s;--w:-3.7s;--z:3px;--sw:17px"></i><i style="--x:29%;--d:32s;--w:-7.4s;--z:4px;--sw:-22px"></i><i style="--x:90%;--d:23s;--w:-11.1s;--z:2px;--sw:27px"></i><i style="--x:51%;--d:30s;--w:-14.8s;--z:3px;--sw:-32px"></i><i style="--x:12%;--d:21s;--w:-18.5s;--z:4px;--sw:37px"></i><i style="--x:73%;--d:28s;--w:-2.2s;--z:2px;--sw:-12px"></i><i style="--x:34%;--d:19s;--w:-5.9s;--z:3px;--sw:17px"></i><i style="--x:95%;--d:26s;--w:-9.6s;--z:4px;--sw:-22px"></i><i style="--x:56%;--d:33s;--w:-13.3s;--z:2px;--sw:27px"></i><i style="--x:17%;--d:24s;--w:-17s;--z:3px;--sw:-32px"></i><i style="--x:78%;--d:31s;--w:-0.7s;--z:4px;--sw:37px"></i><i style="--x:39%;--d:22s;--w:-4.4s;--z:2px;--sw:-12px"></i><i style="--x:0%;--d:29s;--w:-8.1s;--z:3px;--sw:17px"></i><i style="--x:61%;--d:20s;--w:-11.8s;--z:4px;--sw:-22px"></i><i style="--x:22%;--d:27s;--w:-15.5s;--z:2px;--sw:27px"></i></span></div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <mask id="bcCut" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="100"><rect width="120" height="100" fill="#fff"/><path d="M65.6 34.4A22 22 0 1 0 65.6 65.6" fill="none" stroke="#000" stroke-width="15" stroke-linecap="round"/><rect x="62" y="43" width="50" height="14" rx="7" fill="#000"/></mask>
 <symbol id="bcMark" viewBox="0 0 120 100"><path d="M14 4H50A46 46 0 0 1 50 96H14Q4 96 4 86V14Q4 4 14 4Z" fill="#fff" mask="url(#bcCut)"/><circle cx="104" cy="50" r="10" fill="#c9a2ff"/></symbol></defs></svg>
@@ -429,6 +450,14 @@ document.querySelectorAll('.mnav a').forEach(a => a.addEventListener('click', ()
   }
   render();
   addEventListener('resize', render);
+})();
+
+/* ===== Ambient background follows the scroll ===== */
+(() => {
+  const a = document.querySelector('.ambient'); if (!a) return;
+  let queued = false;
+  const upd = () => { const y = scrollY; a.style.setProperty('--s1', Math.sin(y / 700).toFixed(3)); a.style.setProperty('--c1', Math.cos(y / 900).toFixed(3)); a.style.setProperty('--s2', Math.sin(y / 1100 + 1).toFixed(3)); a.style.setProperty('--c2', Math.cos(y / 800 + 2).toFixed(3)); queued = false; };
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(upd); } }, { passive: true }); upd();
 })();
 </script>
 </body>
