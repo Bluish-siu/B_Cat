@@ -413,7 +413,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
       <p class="intro">Catalyst Engine is how we design, code, test and launch products at AI speed. ARC is how you talk to it. Share your idea and get <b>features, a plan, a team and a timeline</b> in seconds, then our engineers build it with <b>a demo every week</b>.</p>
 
       <form class="askwrap" id="askForm">
-        <label for="askIn">Tell ARC your idea. She'll plan it for you.</label>
+        <label for="askIn">Tell ARC your idea. He'll plan it for you.</label>
         <div class="ask">
           <input id="askIn" type="text" autocomplete="off" placeholder="e.g. A loyalty app for my chain of cafés">
           <button class="btn btn-w" type="submit">Ask ARC →</button>
@@ -697,7 +697,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
     <div class="qa">
       <details open><summary>What is Branding Catalyst?</summary><p>An AI-first product and growth studio. We build AI products, Android and iOS apps, ERP systems, websites and 3D web experiences, and we help brands get recommended by AI search through AEO and GEO. We are based in Mumbai and led by our founder, <a href="about.html#founder" class="acc">Abhishek Trivedi</a>.</p></details>
       <details><summary>What is Catalyst Engine?</summary><p>Our build system. It sits on top of leading AI models and adds our playbooks, ready modules and AI agents that plan, code, test and release. Engineers review every release.</p></details>
-      <details><summary>Who is ARC?</summary><p>ARC is the voice of Catalyst Engine. Tell her your idea in plain words and she replies with features, a plan and a timeline. Our team then confirms scope and price with you.</p></details>
+      <details><summary>Who is ARC?</summary><p>ARC is the voice of Catalyst Engine. Tell him your idea in plain words and he replies with features, a plan and a timeline. Our team then confirms scope and price with you.</p></details>
       <details><summary>What are AEO and GEO?</summary><p>AEO (Answer Engine Optimization) makes your content the direct answer in AI assistants and voice search. GEO (Generative Engine Optimization) gets tools like ChatGPT, Gemini and Perplexity to mention and recommend your brand.</p></details>
       <details><summary>What is RAG?</summary><p>Retrieval-Augmented Generation lets an AI assistant answer from your own documents and data, with sources, so its answers stay accurate.</p></details>
       <details><summary>Do you build Android and iOS apps?</summary><p>Yes. We usually build both from one codebase, which saves time and cost, and publish to the Play Store and App Store.</p></details>
@@ -845,7 +845,16 @@ muteBtn.addEventListener('click', () => {
   muteBtn.textContent = voiceOn ? '🔊 Voice on' : '🔇 Voice off';
   if (!voiceOn) try { speechSynthesis.cancel(); } catch {}
 });
-function speak(text){ if(!voiceOn) return; try{ const u=new SpeechSynthesisUtterance(text); const v=speechSynthesis.getVoices().find(v=>/female|zira|samantha|google uk english female|en-in/i.test(v.name+v.lang)); if(v) u.voice=v; u.rate=1.02;
+// Prefers a male English voice. Falls back to the device default at a lower pitch.
+const MALE_VOICES = [/ravi/i, /rishi/i, /hemant/i, /prabhat/i, /en-in.*male(?!.*female)/i, /google uk english male/i, /\bdavid\b/i, /\bmark\b/i, /\bguy\b/i, /\bdaniel\b/i, /\balex\b/i, /\bfred\b/i, /\baaron\b/i, /\barthur\b/i, /\bmale\b/i];
+const FEMALE_VOICE = /female|zira|samantha|heera|veena|karen|moira|tessa|victoria|susan|hazel|aria|jenny|neerja|swara/i;
+function pickMaleVoice(){
+  let voices = []; try { voices = speechSynthesis.getVoices(); } catch {}
+  const english = voices.filter(v => /^en/i.test(v.lang));
+  for (const re of MALE_VOICES) { const v = english.find(x => re.test(x.name + ' ' + x.lang) && !FEMALE_VOICE.test(x.name)); if (v) return v; }
+  return null;
+}
+function speak(text){ if(!voiceOn) return; try{ const u=new SpeechSynthesisUtterance(text); const v=pickMaleVoice(); if(v) u.voice=v; u.rate=1.0; u.pitch=v ? 1 : 0.85;
   u.onstart=()=>{ mouth.speaking=true; };
   u.onboundary=e=>{ if(e.name && e.name!=='word') return; mouth.lastWord=performance.now(); mouthSyllables(text.slice(e.charIndex).split(/\s/)[0]); };
   u.onend=u.onerror=()=>{ mouth.speaking=false; };
@@ -1084,7 +1093,7 @@ function unlockVoice(e){
         }
       }
     }
-    // eyes glow brighter while she talks (robot faces only)
+    // eyes glow brighter while he talks (robot faces only)
     ctx.globalCompositeOperation = 'lighter';
     const talk = Math.min(1, open * 1.6 + (mouth.speaking ? .25 : 0));
     if (FACE.eyeGlow) for (const [ex, ey] of FACE.eyes) {
