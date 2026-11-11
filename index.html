@@ -758,7 +758,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
     </a>
     <ul>
       <li><a href="#engine">Catalyst Engine</a></li>
-      <li><a href="#services">Services</a></li>
+      <li><a href="services.html">Services</a></li>
       <li><a href="#visibility">AI Visibility</a></li>
       <li><a href="#idea-lab">Idea Lab</a></li>
       <li><a href="#idea-checker">Idea Checker</a></li>
@@ -770,7 +770,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span></button>
   </div>
   <div class="wrap mnav">
-    <a href="#engine">Catalyst Engine</a><a href="#services">Services</a><a href="#visibility">AI Visibility</a><a href="#idea-lab">Idea Lab</a><a href="#idea-checker">Idea Checker</a><a href="about.html">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+    <a href="#engine">Catalyst Engine</a><a href="services.html">Services</a><a href="#visibility">AI Visibility</a><a href="#idea-lab">Idea Lab</a><a href="#idea-checker">Idea Checker</a><a href="about.html">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
   </div>
 </header>
 
@@ -1022,7 +1022,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
   <div class="wrap">
     <div class="head">
       <div class="head-l"><p class="eyebrow">What we do</p><h2 class="h2">Everything your brand needs.<br><span class="acc">Under one roof.</span></h2></div>
-      <p class="lead">Six services, one team. Hover a card to see it in action, or ask ARC to plan one for you.</p>
+      <p class="lead">Six services, one team. Hover a card to see it in action, or ask ARC to plan one for you. <a href="services.html" class="acc">See every service in detail →</a></p>
     </div>
 
     <div class="bento">
@@ -1230,7 +1230,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
         <p>An AI-first studio for brands, apps, ERPs and AI products, built with Catalyst Engine and delivered with weekly demos.</p>
         <form class="sub" id="subForm"><input id="subEmail" type="email" placeholder="you@company.com" aria-label="Email for updates"><button class="btn btn-w" type="submit">Subscribe</button></form>
       </div>
-      <div><h4>Services</h4><ul><li><a href="#services">Artificial Intelligence</a></li><li><a href="#services">AEO, GEO &amp; Growth</a></li><li><a href="#services">Mobile Apps</a></li><li><a href="#services">ERP Systems</a></li><li><a href="#services">Websites &amp; Platforms</a></li><li><a href="#services">3D Web</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="services.html#ai-agents">Artificial Intelligence</a></li><li><a href="services.html#aeo">AEO, GEO &amp; Growth</a></li><li><a href="services.html#mobile">Mobile Apps</a></li><li><a href="services.html#erp">ERP Systems</a></li><li><a href="services.html#web">Websites &amp; Platforms</a></li><li><a href="services.html#3d">3D Web</a></li></ul></div>
       <div><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="careers.html">Careers</a></li><li><a href="#engine">Catalyst Engine</a></li><li><a href="#visibility">AI Visibility</a></li><li><a href="#idea-lab">Idea Lab</a></li><li><a href="#idea-checker">Idea Checker</a></li><li><a href="#faq">FAQ</a></li></ul></div>
       <div><h4>Connect</h4><ul><li><span class="ph">hello@[yourdomain]</span></li><li><a href="tel:+919004629888">+91 90046 29888</a></li><li><a href="https://www.instagram.com/branding_catalyst" target="_blank" rel="noopener">Instagram ↗</a></li><li><a href="https://in.linkedin.com/company/branding-cataly" target="_blank" rel="noopener">LinkedIn ↗</a></li><li><a href="https://www.youtube.com/@brandingcatalyst" target="_blank" rel="noopener">YouTube ↗</a></li></ul></div>
     </div>
@@ -1534,6 +1534,8 @@ function unlockVoice(e){
   if (voiceOn && !introSpoken) { introSpoken = true; speak(INTRO.join(' ')); }
 }
 ['pointerdown', 'keydown', 'touchstart'].forEach(t => addEventListener(t, unlockVoice, { capture: true, passive: true }));
+// links like index.html?ask=... (from the Services page) open ARC with that question once his intro has finished
+(() => { const q = new URLSearchParams(location.search).get('ask'); if (!q) return; const go = () => { if (busy || !introDone) return setTimeout(go, 400); ask(q.slice(0, 240)); }; setTimeout(go, 800); })();
 
 (() => {
   const cv = $('#novaCv'), ctx = cv.getContext('2d');
