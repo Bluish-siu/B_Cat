@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scale &amp; Reliability | Branding Catalyst</title>
+<script>try{if(!sessionStorage.getItem('bcIntro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro-pending')}catch(e){}</script>
+<style>
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-out .32s cubic-bezier(.4,0,.2,1) both}
+::view-transition-new(root){animation:vt-in .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes vt-out{to{opacity:0;transform:translateY(-12px)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(20px)}}
+header .logo{view-transition-name:brand-logo}
+html.intro-pending::after{content:"";position:fixed;inset:0;z-index:9999;background:#0d0716;animation:introFailsafe .4s 3s forwards}
+@keyframes introFailsafe{to{opacity:0;visibility:hidden}}
+@media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+</style>
+<meta name="description" content="How Branding Catalyst builds apps, ERPs and platforms that stay fast during festive sales and launch-day rushes: autoscaling, load testing, zero-downtime releases, monitoring and care plans.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+:root{color-scheme:dark;--bg:#0d0716;--bg2:#130b1f;--surface:#1b1129;--surface2:#23163a;--brand:#42066b;--line:rgba(201,162,255,.10);--line2:rgba(201,162,255,.19);--ink:#f1edf7;--muted:#a79fbb;--dim:#716885;--accent:#c9a2ff;--accent-soft:rgba(201,162,255,.12);--ok:#6fcf97;--f-display:"Lexend","Helvetica Neue",Arial,system-ui,sans-serif;--f-body:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;--f-mono:"Geist Mono",ui-monospace,Consolas,monospace;--wrap:1200px;--r:18px}
+*{box-sizing:border-box}[hidden]{display:none!important}img{max-width:100%}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;margin:0;text-wrap:balance;letter-spacing:-.025em}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.sec{padding-block:clamp(64px,9vw,112px);position:relative}
+.sec+.sec::before{content:"";position:absolute;top:0;left:50%;width:min(1200px,92%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(201,162,255,.4),transparent)}
+.eyebrow{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(201,162,255,.18)}
+.h2{font-size:clamp(30px,4.2vw,48px);line-height:1.1}
+.acc{color:var(--accent)}
+.lead{color:var(--muted);font-size:17px;max-width:58ch}
+.head{display:grid;grid-template-columns:1fr 1fr;gap:24px 64px;align-items:end;margin-bottom:clamp(36px,5vw,56px)}
+.head>*{min-width:0}.head-l{display:grid;gap:16px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500;padding:12px 18px;border-radius:10px;border:1px solid var(--line2);background:transparent;cursor:pointer;white-space:nowrap;transition:border-color .2s,transform .2s,background .2s}
+.btn:hover{border-color:rgba(255,255,255,.3)}
+.btn-w{background:linear-gradient(135deg,#f6efff,#dcc4ff);color:var(--brand);border-color:transparent}
+.btn-w:hover{transform:translateY(-1px)}
+.card{background:linear-gradient(170deg,var(--surface),var(--bg2));border:1px solid var(--line);border-radius:var(--r)}
+/* nav + footer */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:70;background:rgba(13,7,22,.94);border-bottom:1px solid var(--line)}
+.nav .wrap{height:66px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:center;gap:10px}.logo svg{width:28px;height:29px;flex:none}
+.wm{font-family:"Lexend",var(--f-display);font-size:19px;letter-spacing:-.02em;line-height:1}.wm b{font-weight:600;color:#fff}.wm em{font-style:normal;font-weight:300;color:var(--accent)}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:14.5px;color:var(--muted)}
+.nav ul a:hover,.nav ul a[aria-current]{color:var(--ink)}
+@media(max-width:1020px){.nav ul{display:none}}
+footer{border-top:1px solid var(--line);padding-block:28px;color:var(--dim);font-size:13.5px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
+/* hero */
+.hero{padding-block:clamp(56px,8vw,100px) clamp(40px,6vw,64px);position:relative;overflow:hidden}
+.hero h1{font-size:clamp(42px,6.6vw,88px);line-height:1;margin:18px 0;max-width:15ch}
+.hero .lead{font-size:18px;max-width:64ch}
+.hero .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.jump a{font-size:13px;padding:6px 12px;border-radius:99px;border:1px solid var(--line2);color:var(--muted);display:inline-flex;align-items:center;gap:7px}
+.jump a::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c)}
+.jump a:hover{color:var(--ink);border-color:var(--c)}
+
+/* scale page */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pillars .card{padding:24px;display:grid;gap:10px;align-content:start;min-width:0}
+.pillars .k{font-family:var(--f-mono);font-size:11.5px;color:var(--c);letter-spacing:.1em}
+.pillars h3{font-size:21px}
+.pillars p{color:var(--muted);font-size:15px}
+.pillars .tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.pillars .tools span{font-family:var(--f-mono);font-size:11px;padding:3px 9px;border-radius:99px;border:1px solid var(--line2)}
+@media(max-width:980px){.pillars{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.pillars{grid-template-columns:1fr}}
+.sim-wrap{display:grid;gap:14px}
+.sim-legend{display:flex;flex-wrap:wrap;gap:14px 22px;font-size:13.5px;color:var(--muted)}
+.sim-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:middle}
+.layers{display:grid;gap:10px;max-width:980px}
+.layer{display:grid;grid-template-columns:200px 1fr auto;gap:18px;align-items:center;padding:18px 22px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(90deg,color-mix(in srgb,var(--c) 14%,transparent),transparent 55%),var(--surface)}
+.layer>*{min-width:0}
+.layer b{font-family:var(--f-display);font-size:18px;font-weight:600}
+.layer p{color:var(--muted);font-size:15px}
+.layer span{font-family:var(--f-mono);font-size:11px;color:var(--c);white-space:nowrap}
+.layer-arrow{justify-self:start;margin-left:96px;color:var(--dim);font-size:14px;line-height:1}
+@media(max-width:760px){.layer{grid-template-columns:1fr;gap:6px}.layer-arrow{margin-left:22px}}
+.playbook{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;position:relative}
+.playbook::before{content:"";position:absolute;left:0;right:0;top:15px;height:2px;background:linear-gradient(90deg,#c9a2ff,#f2a7c3,#7fd6e8)}
+.pb{display:grid;gap:8px;align-content:start;padding-top:34px;position:relative;min-width:0}
+.pb::before{content:"";position:absolute;top:8px;left:0;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);box-shadow:0 0 12px rgba(201,162,255,.6)}
+.pb .when{font-family:var(--f-mono);font-size:12px;color:var(--accent)}
+.pb h3{font-size:18px}
+.pb p{color:var(--muted);font-size:14.5px}
+@media(max-width:980px){.playbook{grid-template-columns:1fr 1fr}.playbook::before{display:none}}
+@media(max-width:520px){.playbook{grid-template-columns:1fr}}
+.india{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.india .card{padding:22px;display:grid;gap:8px;align-content:start;min-width:0}
+.india h3{font-size:18px}
+.india p{color:var(--muted);font-size:14.5px}
+@media(max-width:980px){.india{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.india{grid-template-columns:1fr}}
+.care{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.care div{padding:20px 22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;gap:4px;min-width:0;background:rgba(19,11,31,.6)}
+.care div:nth-child(3n){border-right:0}
+.care div:nth-last-child(-n+3){border-bottom:0}
+.care b{font-weight:500;display:flex;gap:8px}
+.care b::before{content:"✓";color:var(--ok)}
+.care p{color:var(--muted);font-size:14.5px}
+@media(max-width:860px){.care{grid-template-columns:1fr}.care div{border-right:0!important;border-bottom:1px solid var(--line)!important}.care div:last-child{border-bottom:0!important}}
+.stack{display:flex;flex-wrap:wrap;gap:8px}
+.stack span{font-family:var(--f-mono);font-size:12.5px;padding:7px 13px;border-radius:99px;border:1px solid var(--line2);background:rgba(27,17,41,.7)}
+.stack span i{font-style:normal;color:var(--dim);margin-left:6px}
+.sim{position:sticky;top:90px;padding:0;overflow:hidden}
+.sim-h{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--muted)}
+.sim-h b{font-size:15px;color:var(--ok);letter-spacing:0;font-weight:500;font-variant-numeric:tabular-nums}
+.sim canvas{display:block;width:100%;height:420px}
+.sim-stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.sim-stats div{padding:14px 18px;border-right:1px solid var(--line);min-width:0}
+.sim-stats div:last-child{border-right:0}
+.sim-stats small{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
+.sim-stats b{font-size:18px;font-weight:500;font-variant-numeric:tabular-nums}
+#stStatus{color:var(--ok)}
+.sim{box-shadow:0 30px 80px -40px rgba(139,92,246,.6);border-color:rgba(201,162,255,.22)}
+.sim-h .live{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:8px;vertical-align:middle;animation:livePulse 1.6s infinite}
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(111,207,151,.6)}70%{box-shadow:0 0 0 8px rgba(111,207,151,0)}100%{box-shadow:0 0 0 0 rgba(111,207,151,0)}}
+.sim-stats #stStatus{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;font-size:16px}
+.sbar{display:block;height:3px;margin-top:8px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+.sbar b{display:block;height:100%;width:100%;background:var(--ok);transition:width .3s,background .3s}
+.sim-stats small{font-size:10.5px}
+.sim{position:relative;top:0}
+.sim canvas{height:clamp(360px,42vw,520px)}
+@media(max-width:560px){.sim canvas{height:380px}}
+@media(max-width:520px){.sim-stats{grid-template-columns:1fr 1fr}.sim-stats div:nth-child(2){border-right:0}.sim-stats div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+/* faq + cta */
+.qa{border-top:1px solid var(--line);max-width:900px}
+.qa details{border-bottom:1px solid var(--line)}
+.qa summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-size:17px;font-weight:500}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";color:var(--muted);font-size:20px;line-height:1;transition:transform .25s}
+.qa details[open] summary::after{transform:rotate(45deg)}
+.qa details p{color:var(--muted);padding-bottom:20px;max-width:70ch}
+.cta{padding:clamp(28px,5vw,52px);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;background:radial-gradient(90% 140% at 100% 0%,rgba(201,162,255,.16),transparent 60%),linear-gradient(170deg,var(--surface),var(--bg2))}
+.cta>div{display:grid;gap:12px;max-width:560px;min-width:0}
+.cta h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1}
+.cta p{color:var(--muted)}
+.cta .row{display:flex;gap:10px;flex-wrap:wrap}
+@media(max-width:860px){.head{grid-template-columns:1fr}}
+@media(min-width:1440px){:root{--wrap:1320px}body{font-size:17px}.svc-layout{grid-template-columns:270px 1fr}}
+@media(min-width:1800px){:root{--wrap:1480px}body{font-size:18px}}
+
+/* ===== Ambient background: drifting purple glows, dot grid and rising sparks behind every section ===== */
+.ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;--s1:0;--c1:1;--s2:0;--c2:1}
+.ambient .blob{position:absolute;border-radius:50%;filter:none;will-change:transform}
+.ambient .b1{width:62vmax;height:62vmax;left:-18vmax;top:-12vmax;background:radial-gradient(circle,rgba(66,6,107,.95),transparent 68%);opacity:.75;transform:translate3d(calc(var(--s1) * 22vw),calc(var(--c1) * 10vh),0);animation:drift1 28s ease-in-out infinite alternate}
+.ambient .b2{width:42vmax;height:42vmax;right:-14vmax;top:22vh;background:radial-gradient(circle,rgba(139,92,246,.6),transparent 68%);opacity:.4;transform:translate3d(calc(var(--c2) * -18vw),calc(var(--s2) * 16vh),0);animation:drift2 34s ease-in-out infinite alternate}
+.ambient .b3{width:34vmax;height:34vmax;left:30vw;bottom:-16vmax;background:radial-gradient(circle,rgba(201,162,255,.45),transparent 68%);opacity:.28;transform:translate3d(calc(var(--s2) * 20vw),calc(var(--c1) * -8vh),0);animation:drift3 40s ease-in-out infinite alternate}
+@keyframes drift1{to{translate:6vw 8vh;scale:1.08}}
+@keyframes drift2{to{translate:-8vw -6vh;scale:.92}}
+@keyframes drift3{to{translate:-6vw -10vh;scale:1.12}}
+.ambient .dots{position:absolute;inset:0;background-image:radial-gradient(rgba(201,162,255,.09) 1px,transparent 1.6px);background-size:28px 28px;-webkit-mask-image:radial-gradient(120% 90% at 50% 50%,#000 30%,transparent 85%);mask-image:radial-gradient(120% 90% at 50% 50%,#000 30%,transparent 85%)}
+.ambient .sparks i{position:absolute;bottom:-12px;left:var(--x);width:var(--z,4px);height:var(--z,4px);border-radius:50%;background:#c9a2ff;box-shadow:0 0 10px 1px rgba(201,162,255,.8);opacity:0;animation:rise var(--d) linear var(--w) infinite}
+@keyframes rise{0%{transform:translate(0,0);opacity:0}10%{opacity:.75}50%{transform:translate(var(--sw,20px),-55vh)}90%{opacity:.45}100%{transform:translate(0,-112vh);opacity:0}}
+/* glowing dividers instead of flat lines */
+.rule{border-top-color:transparent;position:relative}
+.rule::before{content:"";position:absolute;top:-1px;left:50%;width:min(1200px,92%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(201,162,255,.45),transparent)}
+/* soft glow behind each section heading */
+.head-l{position:relative}
+.head-l::before{content:"";position:absolute;left:-60px;top:-50px;width:340px;height:220px;background:radial-gradient(closest-side,rgba(139,92,246,.18),transparent);pointer-events:none;z-index:-1}
+@media(prefers-reduced-motion:reduce){.ambient .sparks{display:none}}
+
+
+/* ===== Smooth scrolling (Lenis), reveal-on-scroll, progress bar ===== */
+html.lenis,html.lenis body{height:auto}
+html.lenis-smooth{scroll-behavior:auto!important}
+.lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
+.lenis [data-lenis-prevent]{overscroll-behavior:contain}
+.rv-on .rv:not(.in){opacity:0}
+.rv.in{animation:rvIn .95s cubic-bezier(.2,.75,.2,1) var(--rd,0s) both}
+@keyframes rvIn{from{opacity:0;translate:0 34px;}to{opacity:1;translate:none}}
+.scroll-prog{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:2px;z-index:90;pointer-events:none}
+.scroll-prog i{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#8b5cf6,#c9a2ff,#f2a7c3);box-shadow:0 0 10px rgba(201,162,255,.7)}
+@media(prefers-reduced-motion:reduce){.rv-on .rv:not(.in){opacity:1}.scroll-prog{display:none}}
+
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="dots"></span><span class="sparks"><i style="--x:7%;--d:18s;--w:0s;--z:2px;--sw:-12px"></i><i style="--x:68%;--d:25s;--w:-3.7s;--z:3px;--sw:17px"></i><i style="--x:29%;--d:32s;--w:-7.4s;--z:4px;--sw:-22px"></i><i style="--x:90%;--d:23s;--w:-11.1s;--z:2px;--sw:27px"></i><i style="--x:51%;--d:30s;--w:-14.8s;--z:3px;--sw:-32px"></i><i style="--x:12%;--d:21s;--w:-18.5s;--z:4px;--sw:37px"></i><i style="--x:73%;--d:28s;--w:-2.2s;--z:2px;--sw:-12px"></i><i style="--x:34%;--d:19s;--w:-5.9s;--z:3px;--sw:17px"></i><i style="--x:95%;--d:26s;--w:-9.6s;--z:4px;--sw:-22px"></i><i style="--x:56%;--d:33s;--w:-13.3s;--z:2px;--sw:27px"></i><i style="--x:17%;--d:24s;--w:-17s;--z:3px;--sw:-32px"></i><i style="--x:78%;--d:31s;--w:-0.7s;--z:4px;--sw:37px"></i><i style="--x:39%;--d:22s;--w:-4.4s;--z:2px;--sw:-12px"></i><i style="--x:0%;--d:29s;--w:-8.1s;--z:3px;--sw:17px"></i><i style="--x:61%;--d:20s;--w:-11.8s;--z:4px;--sw:-22px"></i><i style="--x:22%;--d:27s;--w:-15.5s;--z:2px;--sw:27px"></i></span></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<mask id="bcCut" maskUnits="userSpaceOnUse" x="0" y="0" width="96" height="100"><rect width="96" height="100" fill="#fff"/><circle cx="46" cy="50" r="20" fill="#000"/><rect x="46" y="41.5" width="40" height="17" fill="#000"/><rect x="70" y="36.5" width="6" height="5" fill="#000"/><circle cx="70" cy="36.5" r="5" fill="#fff"/><rect x="70" y="58.5" width="6" height="5" fill="#000"/><circle cx="70" cy="63.5" r="5" fill="#fff"/><rect x="64" y="38.5" width="3.2" height="3" fill="#000"/><circle cx="67.2" cy="38.5" r="3" fill="#fff"/><rect x="64" y="58.5" width="3.2" height="3" fill="#000"/><circle cx="67.2" cy="61.5" r="3" fill="#fff"/></mask>
+<symbol id="bcMark" viewBox="0 0 96 100"><path d="M14 8H41A34 34 0 0 1 75 42V58A34 34 0 0 1 41 92H14Q6 92 6 84V16Q6 8 14 8Z" fill="#fff" mask="url(#bcCut)"/><circle cx="85" cy="50" r="7" fill="#c9a2ff"/></symbol></defs></svg>
+
+<header class="nav"><div class="wrap">
+  <a class="logo" href="index.html" aria-label="Branding Catalyst home"><svg viewBox="0 0 96 100" aria-hidden="true"><use href="#bcMark"/></svg><span class="wm"><b>Branding</b><em>Catalyst</em></span></a>
+  <ul><li><a href="services.html">Services</a></li><li><a href="scale.html" aria-current="page">Scale</a></li><li><a href="index.html#idea-lab">Idea Lab</a></li><li><a href="about.html">About</a></li><li><a href="careers.html">Careers</a></li><li><a href="index.html#faq">FAQ</a></li></ul>
+  <button class="btn btn-w" type="button" data-lead data-lead-source="Scale header">Start a project →</button>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <p class="eyebrow">Scale &amp; reliability</p>
+  <h1>Ready for your <span class="acc">busiest day.</span></h1>
+  <p class="lead">Diwali offers, launch days, a reel that goes viral at midnight. Busy days are good news, unless the app slows down or goes offline. We build every app, ERP and platform to stay fast under pressure, and we keep watching it after launch.</p>
+  <div class="row"><button class="btn btn-w" type="button" data-lead data-lead-source="Scale hero">Plan something that must scale →</button><a class="btn" href="#sim">Watch the simulation</a></div>
+</div></section>
+
+<section class="sec" id="sim"><div class="wrap sim-wrap">
+  <div class="head"><div class="head-l"><p class="eyebrow">Live simulation</p><h2 class="h2">A festive sale day,<br><span class="acc">in one minute.</span></h2></div>
+  <p class="lead">Watch traffic build through the day, spike when the 8 pm sale goes live, and see app servers switch on to meet it, then switch off again so you stop paying for them. Illustrative, but it is exactly how we set up production systems.</p></div>
+  <div class="card sim">
+    <div class="sim-h"><span><i class="live"></i>LIVE SIMULATION · A FESTIVE SALE DAY, AUTOSCALING</span><b id="clock">00:00</b></div>
+    <canvas id="simCv" aria-label="Simulated traffic and app servers over a festive sale day"></canvas>
+    <div class="sim-stats">
+      <div><small>Requests / sec</small><b id="stReq">0</b></div>
+      <div><small>App servers</small><b id="stSrv">2</b></div>
+      <div><small>P95 response</small><b id="stP95">60ms</b></div>
+      <div><small>Status</small><b id="stStatus">steady</b><i class="sbar"><b id="stBar"></b></i></div>
+    </div>
+  </div>
+  <div class="sim-legend"><span><i style="background:#c9a2ff"></i>Requests through the load balancer</span><span><i style="background:#7fd6e8"></i>Cache hits</span><span><i style="background:#9aa3f5"></i>Database reads and writes</span><span><i style="background:#f2a7c3"></i>Background jobs (orders, emails, invoices)</span></div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="head"><div class="head-l"><p class="eyebrow">What we never skip</p><h2 class="h2">Six habits that keep<br><span class="acc">apps fast and online.</span></h2></div>
+  <p class="lead">None of these are glamorous. All of them are the difference between a great launch and an apology post.</p></div>
+  <div class="pillars">
+    <div class="card" style="--c:#6fcf97"><span class="k">01 · AUTOSCALING</span><h3>Capacity that follows demand</h3><p>Servers are added automatically when traffic jumps and removed when it drops, so a rush never takes you down and quiet nights cost less.</p><div class="tools"><span>AWS Auto Scaling</span><span>Kubernetes</span><span>Vercel</span></div></div>
+    <div class="card" style="--c:#c9a2ff"><span class="k">02 · LOAD TESTING</span><h3>We rehearse the rush</h3><p>Before launch we simulate your peak traffic, find the slow parts and fix them before real customers ever arrive.</p><div class="tools"><span>k6</span><span>Locust</span><span>Lighthouse</span></div></div>
+    <div class="card" style="--c:#7fd6e8"><span class="k">03 · ZERO-DOWNTIME RELEASES</span><h3>Ship any day, safely</h3><p>Automated tests and deploys with instant rollback mean updates go out during business hours without taking the app offline.</p><div class="tools"><span>GitHub Actions</span><span>Docker</span><span>Blue-green deploys</span></div></div>
+    <div class="card" style="--c:#f2a7c3"><span class="k">04 · MONITORING</span><h3>We hear about it first</h3><p>Uptime checks, error tracking and performance alerts reach our team at any hour, usually before your customers notice anything.</p><div class="tools"><span>Grafana</span><span>Sentry</span><span>UptimeRobot</span></div></div>
+    <div class="card" style="--c:#f2c27a"><span class="k">05 · SECURITY &amp; BACKUPS</span><h3>Protected and recoverable</h3><p>Encrypted data, least-privilege access, daily backups and a recovery plan we actually test, not just a checkbox.</p><div class="tools"><span>Cloudflare WAF</span><span>Encrypted backups</span><span>OWASP checks</span></div></div>
+    <div class="card" style="--c:#9aa3f5"><span class="k">06 · COST CONTROL</span><h3>Fast, without waste</h3><p>Caching, right-sized servers and monthly reviews keep your AWS, Google Cloud or Azure bill in line with real usage.</p><div class="tools"><span>Redis</span><span>CDN</span><span>Cost reports</span></div></div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="head"><div class="head-l"><p class="eyebrow">How we build for scale</p><h2 class="h2">Five layers,<br><span class="acc">each with a job.</span></h2></div>
+  <p class="lead">Scale is designed in from the first sprint. Every product we ship follows the same shape, sized to your traffic today and ready for the traffic you're planning for.</p></div>
+  <div class="layers">
+    <div class="layer" style="--c:#7fd6e8"><b>Edge &amp; CDN</b><p>Images, pages and files served from locations close to your users, with a firewall in front.</p><span>FAST FIRST LOAD</span></div>
+    <span class="layer-arrow">↓</span>
+    <div class="layer" style="--c:#c9a2ff"><b>App tier</b><p>Stateless app servers behind a load balancer, so we can add or remove them in seconds.</p><span>AUTOSCALES</span></div>
+    <span class="layer-arrow">↓</span>
+    <div class="layer" style="--c:#9aa3f5"><b>Data</b><p>A primary database with read replicas, plus a cache for the questions everyone asks.</p><span>NO BOTTLENECKS</span></div>
+    <span class="layer-arrow">↓</span>
+    <div class="layer" style="--c:#f2a7c3"><b>Background jobs</b><p>Orders, emails, invoices and AI tasks go to a queue, so customers never wait for them.</p><span>NEVER BLOCKS</span></div>
+    <span class="layer-arrow">↓</span>
+    <div class="layer" style="--c:#6fcf97"><b>Observability</b><p>Logs, metrics and traces across every layer, with alerts tied to what customers feel.</p><span>SEES EVERYTHING</span></div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="head"><div class="head-l"><p class="eyebrow">Launch-day playbook</p><h2 class="h2">Big days are<br><span class="acc">planned, not hoped for.</span></h2></div>
+  <p class="lead">For every launch, sale or campaign we know is coming, we run the same playbook with your team.</p></div>
+  <div class="playbook">
+    <div class="pb"><span class="when">4 weeks before</span><h3>Forecast &amp; load test</h3><p>Estimate peak traffic and test well beyond it.</p></div>
+    <div class="pb"><span class="when">2 weeks before</span><h3>Security review</h3><p>Check access, payments and data handling end to end.</p></div>
+    <div class="pb"><span class="when">1 week before</span><h3>Runbooks &amp; alerts</h3><p>Write who does what if something goes wrong, and tune alerts.</p></div>
+    <div class="pb"><span class="when">Launch day</span><h3>War room</h3><p>Our engineers watch live dashboards with your team.</p></div>
+    <div class="pb"><span class="when">1 week after</span><h3>Review &amp; tune</h3><p>Fix what we learned and bring cloud costs back down.</p></div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="head"><div class="head-l"><p class="eyebrow">Built for India</p><h2 class="h2">Local realities,<br><span class="acc">designed in.</span></h2></div>
+  <p class="lead">Scaling in India has its own patterns. We plan for them from day one.</p></div>
+  <div class="india">
+    <div class="card"><h3>Festive spikes</h3><p>Diwali, Navratri and end-of-season sales can multiply traffic in minutes. We size for those peaks.</p></div>
+    <div class="card"><h3>UPI &amp; payment peaks</h3><p>Reliable checkout with Razorpay and UPI, retries and clear status, even when banks are slow.</p></div>
+    <div class="card"><h3>Patchy mobile networks</h3><p>Lightweight pages, image compression and offline-friendly apps for 4G in a crowded market.</p></div>
+    <div class="card"><h3>Mumbai cloud regions</h3><p>Servers in Indian cloud regions for speed, and data stored in line with Indian data protection rules.</p></div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="head"><div class="head-l"><p class="eyebrow">After launch</p><h2 class="h2">We don't disappear<br><span class="acc">after go-live.</span></h2></div>
+  <p class="lead">Care plans keep your product healthy, secure and fast month after month. <span style="color:var(--dim)">[Confirm which items are in each of your plans.]</span></p></div>
+  <div class="care"><div><b>Uptime and error monitoring</b><p>Alerts reach our team first, day and night.</p></div><div><b>Security patches</b><p>Operating system, framework and library updates applied on a schedule.</p></div><div><b>Daily backups</b><p>Automated, encrypted and restore-tested, not just switched on.</p></div><div><b>Performance reviews</b><p>Monthly checks on speed, slow queries and app size.</p></div><div><b>Cloud cost reviews</b><p>Right-sizing servers so bills follow real traffic.</p></div><div><b>Store and OS updates</b><p>Apps kept current with new Android and iOS releases.</p></div><div><b>Small improvements</b><p>A monthly allowance for tweaks and fixes, no new contract needed.</p></div><div><b>AI-search upkeep</b><p>AEO and GEO checks so you stay visible in AI answers.</p></div><div><b>Clear monthly report</b><p>What happened, what we fixed and what is next, in plain language.</p></div></div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="head"><div class="head-l"><p class="eyebrow">Our scale stack</p><h2 class="h2">Proven tools,<br><span class="acc">picked per project.</span></h2></div>
+  <p class="lead">We use mainstream, well-supported technology, so your product is easy to run, hire for and hand over.</p></div>
+  <div class="stack"><span>AWS<i>Mumbai region</i></span><span>Google Cloud</span><span>Azure</span><span>Vercel</span><span>Cloudflare</span><span>Docker</span><span>Kubernetes</span><span>PostgreSQL</span><span>Redis</span><span>Message queues</span><span>GitHub Actions</span><span>Grafana</span><span>Sentry</span><span>k6<i>load tests</i></span></div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="head"><div class="head-l"><p class="eyebrow">FAQ</p><h2 class="h2">Questions about <span class="acc">scale.</span></h2></div></div>
+  <div class="qa">
+    <details open><summary>Do I need all of this from day one?</summary><p>No. We size the setup to the traffic you have now and design it so it can grow without a rebuild. A new app might start on a simple, low-cost setup and switch on autoscaling when it is needed.</p></details>
+    <details><summary>Can you fix an app that already struggles under load?</summary><p>Yes. We start with an audit and a load test to find the bottlenecks, then fix the biggest ones first, often caching, slow database queries and work that should run in the background.</p></details>
+    <details><summary>Will scaling make my cloud bill explode?</summary><p>Not if it is set up well. Autoscaling adds servers only during a rush and removes them afterwards, and caching reduces how much work each request needs. We review costs monthly.</p></details>
+    <details><summary>Where will my data be hosted?</summary><p>Usually in Indian cloud regions such as AWS Mumbai, or wherever your customers and compliance needs are. We can discuss data residency during scoping.</p></details>
+  </div>
+</div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap">
+  <div class="card cta"><div><h2>Planning something that has to scale?</h2><p>A sale, a launch or an app you expect to grow fast. Tell us about it and we'll plan for the big day.</p></div>
+  <div class="row"><button class="btn btn-w" type="button" data-lead data-lead-source="Scale call to action">Start a project →</button><a class="btn" href="services.html">See all services</a></div></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Branding Catalyst Pvt Ltd · Mumbai, India</span><span><a href="index.html">Home</a> · <a href="services.html">Services</a> · <a href="scale.html">Scale</a> · <a href="about.html">About</a> · <a href="careers.html">Careers</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></span></div></footer>
+
+<script>
+/* traffic simulation (shared with the homepage) */
+(() => { const $ = s => document.querySelector(s); const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* ===== Scale simulation: a festive sale day, autoscaling ===== */
+(() => {
+  const cv = $('#simCv'); if (!cv) return;
+  const ctx = cv.getContext('2d');
+  let W = 0, H = 0;
+  function size(){ const dpr = Math.min(2, devicePixelRatio || 1), b = cv.getBoundingClientRect(); W = b.width; H = b.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  size(); addEventListener('resize', size);
+  const C = { acc:'#c9a2ff', ok:'#6fcf97', cyan:'#7fd6e8', pink:'#f2a7c3', violet:'#9aa3f5', amber:'#f2c27a', ink:'#f1edf7', dim:'#8a80a3', box:'rgba(27,17,41,.96)' };
+  // traffic in thousands of requests/sec over a festive day: lunch bump, then the 8 pm sale spike
+  const traffic = m => { const h = m / 60; let v = 1.5 + 2.3 * Math.exp(-((h - 13) ** 2) / 3) + 6.4 * Math.exp(-((h - 20.7) ** 2) / 2.4); if (h >= 20 && h < 20.5) v += 3.4 * (1 - (h - 20) / 0.5); return Math.max(.6, v + Math.sin(m / 17) * .25); };
+  const EVENTS = [{ m: 13 * 60, label: 'Lunch rush' }, { m: 20 * 60, label: 'Sale goes live' }];
+  const SLOTS = 8, GH = () => H * 0.64;
+  let minute = 0, servers = 2, target = 2, n = 0, v = 1.5;
+  const born = new Array(SLOTS).fill(-1e9), hist = [], packets = [];
+  const WIDE = { users:[.06,.5], edge:[.2,.5], lb:[.355,.5], cache:[.78,.17], db:[.78,.5], r1:[.915,.36], r2:[.915,.64], q:[.78,.84], wk:[.915,.84], s0:.535, s1:.085 };
+  const COMPACT = { users:[.06,.5], edge:[.2,.5], lb:[.37,.5], cache:[.88,.17], db:[.88,.5], r1:[.88,.5], r2:[.88,.5], q:[.88,.84], wk:[.88,.84], s0:.55, s1:.13 };
+  const L = () => (W < 520 ? COMPACT : WIDE);
+  const P = (x, y) => ({ x: x * W, y: y * GH() });
+  const pt = k => P(...L()[k]);
+  const slot = i => P(L().s0 + (i % 2) * L().s1, .2 + Math.floor(i / 2) * .2);
+
+  function spawn(){
+    const ap = slot(Math.floor(Math.random() * servers)), u = pt('users');
+    const path = [{ x: u.x + (Math.random() - .5) * 34, y: u.y + (Math.random() - .5) * 70 }, pt('edge'), pt('lb'), ap];
+    const r = Math.random(); let col = C.acc;
+    if (r < .45) { path.push(pt('cache')); col = C.cyan; }
+    else if (r < .8) { path.push(pt('db')); col = C.violet; if (W >= 520 && Math.random() < .4) path.push(pt(Math.random() < .5 ? 'r1' : 'r2')); }
+    else { path.push(pt('q')); if (W >= 520) path.push(pt('wk')); col = C.pink; }
+    packets.push({ path, seg: 0, t: 0, sp: .025 + Math.random() * .02, col });
+  }
+  function step(){
+    minute = (minute + 6) % 1440; v = traffic(minute); n++;
+    target = Math.max(2, Math.min(SLOTS, Math.ceil(v / 1.5)));
+    if (n % 3 === 0 && servers !== target) { if (servers < target) { born[servers] = performance.now(); servers++; } else servers--; }
+    hist.push({ v, s: servers, m: minute }); if (hist.length > 240) hist.shift();
+    const hh = String(Math.floor(minute / 60)).padStart(2, '0'), mm = String(minute % 60).padStart(2, '0');
+    $('#clock').textContent = `${hh}:${mm}`; $('#stReq').textContent = v.toFixed(1) + 'k'; $('#stSrv').textContent = servers;
+    $('#stP95').textContent = Math.round(48 + v * 2.6 + (servers < target ? 24 : 0) + Math.random() * 6) + 'ms';
+    let label, color, prog;
+    if (servers < target) { label = `scaling up · ${servers}→${target}`; color = C.amber; prog = servers / target; }
+    else if (servers > target) { label = `scaling down · ${servers}→${target}`; color = C.cyan; prog = target / servers; }
+    else if (v > 8) { label = 'festive rush'; color = C.pink; prog = 1; }
+    else { label = 'steady'; color = C.ok; prog = 1; }
+    const st = $('#stStatus'), bar = $('#stBar'); st.textContent = label; st.style.color = color;
+    if (bar) { bar.style.width = (prog * 100).toFixed(0) + '%'; bar.style.background = color; }
+  }
+  for (let i = 0; i < 230; i++) step();          // fill a day of history, ending late morning
+  setInterval(() => { if (typeof simOn === 'undefined' || simOn) step(); }, reduce ? 1e9 : 260);
+
+  function link(a, b, alpha){ ctx.strokeStyle = `rgba(201,162,255,${alpha})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+  function node(p, w, h, title, sub, col, glow, ghost){
+    ctx.save();
+    if (ghost) { ctx.setLineDash([4, 4]); ctx.strokeStyle = 'rgba(201,162,255,.2)'; ctx.fillStyle = 'rgba(27,17,41,.35)'; }
+    else { ctx.strokeStyle = col; ctx.fillStyle = C.box; if (glow) { ctx.shadowColor = col; ctx.shadowBlur = 18; } }
+    ctx.lineWidth = 1.3; ctx.beginPath(); ctx.roundRect(p.x - w / 2, p.y - h / 2, w, h, 9); ctx.fill(); ctx.stroke(); ctx.restore();
+    if (ghost) return;
+    const small = W < 560;
+    ctx.fillStyle = C.ink; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    const fit = (text, start, family) => { let sz = start; do { ctx.font = `${family.startsWith('600') ? '600 ' : ''}${sz}px ${family.replace(/^600 /, '')}`; sz -= .5; } while (sz > 7.5 && ctx.measureText(text).width > w - 10); };
+    const showSub = sub && !small;
+    fit(title, small ? 9.5 : 12, '600 Lexend, system-ui, sans-serif');
+    ctx.fillText(title, p.x, showSub ? p.y - 7 : p.y);
+    if (showSub) { ctx.fillStyle = C.dim; fit(sub, 9.5, '"Geist Mono", monospace'); ctx.fillText(sub, p.x, p.y + 9); }
+  }
+  function label(text, x, y, col, align){ ctx.fillStyle = col || C.dim; ctx.font = '9.5px "Geist Mono", monospace'; ctx.textAlign = align || 'left'; ctx.textBaseline = 'alphabetic'; ctx.fillText(text, x, y); }
+
+  let simOn = true, simWait = false;
+  new IntersectionObserver(es => { simOn = es[0].isIntersecting; if (simOn && simWait) { simWait = false; requestAnimationFrame(frame); } }, { rootMargin: '200px' }).observe(cv);
+  function frame(now){
+    if (!simOn) { simWait = true; return; }
+    const gh = GH(), bw = W < 520 ? W * .15 : Math.max(60, Math.min(104, W * .125)), bh = W < 560 ? 26 : 38, sw = W < 520 ? W * .11 : Math.max(42, Math.min(64, W * .075));
+    ctx.clearRect(0, 0, W, H);
+    label('USERS', pt('users').x - 18, 16); label(W < 520 ? 'APP TIER' : 'AUTOSCALING APP TIER', slot(0).x - sw / 2, 16); label(W < 520 ? 'DATA' : 'DATA & JOBS', pt('cache').x - bw / 2, 16);
+    // links
+    link(pt('users'), pt('edge'), .25); link(pt('edge'), pt('lb'), .3);
+    for (let i = 0; i < SLOTS; i++) { const s = slot(i), on = i < servers; link(pt('lb'), s, on ? .25 : .05); if (on) { link(s, pt('cache'), .1); link(s, pt('db'), .1); link(s, pt('q'), .1); } }
+    if (W >= 520) { link(pt('db'), pt('r1'), .28); link(pt('db'), pt('r2'), .28); link(pt('q'), pt('wk'), .28); }
+    // user crowd grows with traffic
+    const u = pt('users'), crowd = Math.round(14 + v * 5);
+    for (let i = 0; i < crowd; i++) {
+      const a = i * 2.399 + now / 2600 * (1 + (i % 3) * .35), r = 6 + (i * 37) % 28;
+      ctx.globalAlpha = .45 + .45 * Math.sin(now / 480 + i); ctx.fillStyle = i % 6 === 0 ? C.pink : C.acc;
+      ctx.beginPath(); ctx.arc(u.x + Math.cos(a) * r * .9, u.y + Math.sin(a) * r * 1.6, 1.8, 0, 7); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    // requests flowing through the system
+    if (!reduce) { if (Math.random() < v / 6.5) spawn(); if (Math.random() < v / 13) spawn(); }
+    for (const k of packets) {
+      k.t += k.sp; if (k.t >= 1) { k.t = 0; k.seg++; }
+      if (k.seg >= k.path.length - 1) { k.done = true; continue; }
+      const a = k.path[k.seg], b = k.path[k.seg + 1], x = a.x + (b.x - a.x) * k.t, y = a.y + (b.y - a.y) * k.t;
+      ctx.fillStyle = k.col; ctx.globalAlpha = .25; ctx.beginPath(); ctx.arc(x, y, 6, 0, 7); ctx.fill(); ctx.globalAlpha = 1; ctx.beginPath(); ctx.arc(x, y, 2.4, 0, 7); ctx.fill();
+    }
+    for (let i = packets.length - 1; i >= 0; i--) if (packets[i].done) packets.splice(i, 1);
+    if (packets.length > 260) packets.splice(0, packets.length - 260);
+    // nodes
+    node(pt('edge'), bw, bh, 'Edge', 'CDN · firewall', C.cyan);
+    node(pt('lb'), bw, bh, 'Load balancer', 'routes traffic', C.acc, v > 8);
+    for (let i = 0; i < SLOTS; i++) { const on = i < servers; node(slot(i), sw, 24, `app-${i + 1}`, null, C.ok, on && (now - born[i] < 1800 || v > 8), !on); }
+    node(pt('cache'), bw, bh, 'Cache', 'fast reads', C.cyan);
+    node(pt('db'), bw, bh, 'Database', 'primary', C.violet);
+    if (W >= 520) { node(pt('r1'), bw * .82, bh, 'Replica', 'reads', C.violet); node(pt('r2'), bw * .82, bh, 'Replica', 'reads', C.violet); }
+    node(pt('q'), bw, bh, 'Queue', 'orders · events', C.pink);
+    if (W >= 520) node(pt('wk'), bw * .82, bh, 'Workers', 'emails · invoices', C.pink);
+    // 24-hour graph: traffic area, app-server steps, event markers
+    const top = gh + 30, gb = H - 12, gHt = gb - top, max = 12.5, xs = i => 14 + (W - 28) * i / 239;
+    label('traffic', 14, top - 10, C.acc); label('app servers', 66, top - 10, C.ok); label('24 h', W - 14, top - 10, C.dim, 'right');
+    ctx.strokeStyle = 'rgba(201,162,255,.1)'; ctx.beginPath(); ctx.moveTo(14, gb); ctx.lineTo(W - 14, gb); ctx.stroke();
+    if (hist.length > 1) {
+      ctx.beginPath(); hist.forEach((h, i) => { const x = xs(i), y = gb - Math.min(1, h.v / max) * gHt; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+      ctx.strokeStyle = C.acc; ctx.lineWidth = 1.8; ctx.stroke();
+      ctx.lineTo(xs(hist.length - 1), gb); ctx.lineTo(xs(0), gb); ctx.closePath();
+      const g = ctx.createLinearGradient(0, top, 0, gb); g.addColorStop(0, 'rgba(201,162,255,.35)'); g.addColorStop(1, 'rgba(201,162,255,0)'); ctx.fillStyle = g; ctx.fill();
+      ctx.beginPath(); hist.forEach((h, i) => { const x = xs(i), y = gb - (h.s * 1.5 / max) * gHt; if (i) { ctx.lineTo(x, gb - (hist[i - 1].s * 1.5 / max) * gHt); ctx.lineTo(x, y); } else ctx.moveTo(x, y); });
+      ctx.strokeStyle = C.ok; ctx.setLineDash([3, 3]); ctx.lineWidth = 1; ctx.stroke(); ctx.setLineDash([]);
+      hist.forEach((h, i) => { const ev = EVENTS.find(e => e.m === h.m); if (!ev) return; const x = xs(i);
+        ctx.strokeStyle = 'rgba(242,167,195,.55)'; ctx.setLineDash([2, 3]); ctx.beginPath(); ctx.moveTo(x, top); ctx.lineTo(x, gb); ctx.stroke(); ctx.setLineDash([]);
+        label(ev.label, Math.min(x + 4, W - 90), top + 10, C.pink); });
+      const last = hist[hist.length - 1], lx = xs(hist.length - 1), ly = gb - Math.min(1, last.v / max) * gHt;
+      ctx.fillStyle = C.acc; ctx.shadowColor = C.acc; ctx.shadowBlur = 12; ctx.beginPath(); ctx.arc(lx, ly, 3.5, 0, 7); ctx.fill(); ctx.shadowBlur = 0;
+    }
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+})();
+</script>
+<script>
+/* highlight the service in view in the side index */
+(() => { const links = [...document.querySelectorAll('.svc-index a')]; if (!links.length || !('IntersectionObserver' in window)) return;
+  const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { links.forEach(a => a.classList.remove('on')); const a = map.get(e.target.id); if (a) a.classList.add('on'); } }), { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('.svc-block').forEach(b => io.observe(b)); })();
+/* ambient background follows the scroll */
+(() => { const a = document.querySelector('.ambient'); if (!a) return; let q = false;
+  const upd = () => { const y = scrollY; a.style.setProperty('--s1', Math.sin(y / 700).toFixed(3)); a.style.setProperty('--c1', Math.cos(y / 900).toFixed(3)); a.style.setProperty('--s2', Math.sin(y / 1100 + 1).toFixed(3)); a.style.setProperty('--c2', Math.cos(y / 800 + 2).toFixed(3)); q = false; };
+  addEventListener('scroll', () => { if (!q) { q = true; requestAnimationFrame(upd); } }, { passive: true }); upd(); })();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script>
+/* ===== Smooth scrolling, reveal-on-scroll and scroll progress =====
+   Uses Lenis for eased wheel/trackpad scrolling. Phones keep native touch scrolling.
+   Everything here is skipped for visitors who prefer reduced motion. */
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const NAV_OFFSET = -84;
+
+  // let inner scroll areas (chat log, popups, wide tables) scroll on their own
+  document.querySelectorAll('#term, .modal, .cmp-wrap, .vis-body').forEach(el => el.setAttribute('data-lenis-prevent', ''));
+
+  // 1) smooth wheel scrolling
+  let lenis = null;
+  if (!reduce && typeof Lenis !== 'undefined') {
+    lenis = new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 0.9, touchMultiplier: 1.2, syncTouch: false });
+    window.__lenis = lenis;
+    const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+  }
+  // in-page links glide to their section and stop below the sticky menu
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href*="#"]'); if (!a || e.defaultPrevented) return;
+    const url = new URL(a.getAttribute('href'), location.href);
+    if (url.pathname !== location.pathname || !url.hash || url.hash === '#') return;
+    const target = document.querySelector(url.hash); if (!target) return;
+    e.preventDefault();
+    if (lenis) lenis.scrollTo(target, { offset: NAV_OFFSET, duration: 1.4 });
+    else window.scrollTo({ top: target.getBoundingClientRect().top + scrollY + NAV_OFFSET, behavior: reduce ? 'auto' : 'smooth' });
+    history.replaceState(null, '', url.hash);
+  });
+  // arriving from another page with a #section in the address
+  if (location.hash && lenis) { const t = document.querySelector(location.hash); if (t) setTimeout(() => lenis.scrollTo(t, { offset: NAV_OFFSET, immediate: true }), 60); }
+
+  // 2) scroll progress bar
+  const bar = document.createElement('div'); bar.className = 'scroll-prog'; bar.setAttribute('aria-hidden', 'true'); bar.innerHTML = '<i></i>';
+  document.body.appendChild(bar);
+  const fill = bar.firstChild;
+  const prog = () => { const max = document.documentElement.scrollHeight - innerHeight; fill.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`; };
+  addEventListener('scroll', prog, { passive: true }); addEventListener('resize', prog); prog();
+
+  // 3) reveal sections as they scroll into view
+  if (reduce || !('IntersectionObserver' in window)) return;
+  const SEL = [
+    '.head', '.feat .card', '.svc-block', '.pillars .card', '.layer', '.pb', '.india .card', '.care', '.stack', '.ai3 .card', '.models .card', '.bundles .card', '.cluster-head', '.gl .card', '.nm', '.vis .txt', '.vis-card', '.scale .txt', '.sim', '.lean > *', '.three',
+    '.al', '.bx', '.lab-filters', '.ring-stage', '.chk > *', '.strip > .card', '.st', '.faq .txt', '.qa details', '.cta',
+    '.eq .el', '.eq .op', '.eq .react', '.logos .cap',
+    '.story .l', '.story .r p', '.prin .card', '.founder', '.studios .st', '.stack-txt', '.sphere'
+  ].join(',');
+  const els = [...document.querySelectorAll(SEL)].filter(el => !el.closest('.hero') && !el.parentElement.closest('.rv'));
+  const firstFold = innerHeight * 0.92;
+  els.forEach(el => {
+    if (el.getBoundingClientRect().top < firstFold) return;          // already on screen: leave as is
+    const sibs = [...el.parentElement.children].filter(c => els.includes(c));
+    el.style.setProperty('--rd', Math.min(sibs.indexOf(el), 6) * 70 + 'ms');
+    el.classList.add('rv');
+  });
+  document.documentElement.classList.add('rv-on');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+})();
+</script>
+<script src="leads.js" defer></script>
+<script src="fx.js" defer></script>
+</body>
+</html>
