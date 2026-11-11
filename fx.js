@@ -13,15 +13,12 @@
   .bc-intro .skip{position:absolute;bottom:max(24px,env(safe-area-inset-bottom,0px));font:500 12px "Geist Mono",monospace;letter-spacing:.14em;color:rgba(255,255,255,.4)}
   html.intro-pending::after{content:"";position:fixed;inset:0;z-index:9999;background:#0d0716;animation:introFailsafe .4s 3s forwards}
   @keyframes introFailsafe{to{opacity:0;visibility:hidden}}
-  .cur-dot,.cur-ring{position:fixed;left:0;top:0;z-index:10001;pointer-events:none;border-radius:50%;opacity:0;transition:opacity .25s,width .25s,height .25s,margin .25s,background .25s,border-color .25s}
-  .cur-dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:#c9a2ff;box-shadow:0 0 12px rgba(201,162,255,.9)}
-  .cur-ring{width:36px;height:36px;margin:-18px 0 0 -18px;border:1.5px solid rgba(201,162,255,.55);display:grid;place-items:center;font:600 9.5px "Geist Mono",monospace;letter-spacing:.12em;color:#f1edf7;text-transform:uppercase}
-  html.cur-on .cur-dot,html.cur-on .cur-ring{opacity:1}
-  html.cur-on.cur-hover .cur-ring{width:62px;height:62px;margin:-31px 0 0 -31px;background:rgba(201,162,255,.12);border-color:rgba(201,162,255,.9)}
-  html.cur-on.cur-hover .cur-dot{width:4px;height:4px;margin:-2px 0 0 -2px}
-  html.cur-on.cur-drag .cur-ring{width:70px;height:70px;margin:-35px 0 0 -35px;background:rgba(201,162,255,.9);border-color:transparent;color:#2a0446}
-  html.cur-on.cur-text .cur-dot,html.cur-on.cur-text .cur-ring{opacity:0}
-  html.cur-on.cur-down .cur-ring{width:28px;height:28px;margin:-14px 0 0 -14px}
+  .cur-dot{position:fixed;left:0;top:0;z-index:10001;pointer-events:none;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:#c9a2ff;box-shadow:0 0 12px rgba(201,162,255,.9);opacity:0;display:grid;place-items:center;overflow:hidden;font:600 9.5px "Geist Mono",monospace;letter-spacing:.12em;color:#2a0446;text-transform:uppercase;transition:opacity .25s,width .25s,height .25s,margin .25s,box-shadow .25s}
+  html.cur-on .cur-dot{opacity:1}
+  html.cur-on.cur-hover .cur-dot{width:18px;height:18px;margin:-9px 0 0 -9px;box-shadow:0 0 24px rgba(201,162,255,.95)}
+  html.cur-on.cur-drag .cur-dot{width:54px;height:54px;margin:-27px 0 0 -27px}
+  html.cur-on.cur-down .cur-dot{width:6px;height:6px;margin:-3px 0 0 -3px}
+  html.cur-on.cur-text .cur-dot{opacity:0}
   html.has-cursor,html.has-cursor *{cursor:none!important}
   html.has-cursor input,html.has-cursor textarea,html.has-cursor select,html.has-cursor [contenteditable]{cursor:auto!important}
   `;
@@ -74,32 +71,30 @@
   (function cursor(){
     if (reduce || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     const html = document.documentElement;
-    const dot = document.createElement('div'), ring = document.createElement('div');
-    dot.className = 'cur-dot'; ring.className = 'cur-ring'; dot.setAttribute('aria-hidden', 'true'); ring.setAttribute('aria-hidden', 'true');
-    document.body.append(ring, dot); html.classList.add('has-cursor');
-    let x = -100, y = -100, rx = x, ry = y, moving = false;
-    const HOVER = 'a,button,summary,label,select,[data-lead],.chip,.bx,.lab-card,.ic-card,.el,.legend button,.wa-float,.tags span,.role,.st';
-    const DRAG = '.ring-stage,.sphere,.ic-card';
+    const dot = document.createElement('div'); dot.className = 'cur-dot'; dot.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(dot); html.classList.add('has-cursor');
+    let x = -100, y = -100, dx = x, dy = y, moving = false;
+    const HOVER = 'a,button,summary,label,select,[data-lead],.chip,.bx,.lab-card,.el,.legend button,.wa-float,.tags span,.role,.st,.bl-chip';
+    const DRAG = '.ring-stage,.sphere';
     const TEXT = 'input:not([type=checkbox]):not([type=radio]),textarea,[contenteditable]';
     addEventListener('pointermove', e => {
       if (e.pointerType !== 'mouse') return;
       x = e.clientX; y = e.clientY; html.classList.add('cur-on');
       const t = e.target instanceof Element ? e.target : null;
-      const drag = t && t.closest(DRAG), text = t && t.closest(TEXT);
-      html.classList.toggle('cur-text', !!text);
-      html.classList.toggle('cur-drag', !!drag && !text);
+      const text = !!(t && t.closest(TEXT)), drag = !text && !!(t && t.closest(DRAG));
+      html.classList.toggle('cur-text', text);
+      html.classList.toggle('cur-drag', drag);
       html.classList.toggle('cur-hover', !drag && !text && !!(t && t.closest(HOVER)));
-      ring.textContent = drag && !text ? 'drag' : '';
+      dot.textContent = drag ? 'drag' : '';
       if (!moving) { moving = true; requestAnimationFrame(loop); }
     }, { passive: true });
     addEventListener('pointerdown', () => html.classList.add('cur-down'));
     addEventListener('pointerup', () => html.classList.remove('cur-down'));
     document.addEventListener('mouseleave', () => html.classList.remove('cur-on'));
     function loop(){
-      rx += (x - rx) * 0.2; ry += (y - ry) * 0.2;
-      dot.style.transform = `translate3d(${x}px,${y}px,0)`;
-      ring.style.transform = `translate3d(${rx}px,${ry}px,0)`;
-      if (Math.abs(x - rx) > .1 || Math.abs(y - ry) > .1) requestAnimationFrame(loop); else moving = false;
+      dx += (x - dx) * 0.35; dy += (y - dy) * 0.35;
+      dot.style.transform = `translate3d(${dx}px,${dy}px,0)`;
+      if (Math.abs(x - dx) > .1 || Math.abs(y - dy) > .1) requestAnimationFrame(loop); else moving = false;
     }
   })();
 
