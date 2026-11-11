@@ -46,6 +46,14 @@ ARC answers in two ways:
    - The endpoint only accepts requests from the site's own pages, and limits message length and history, but anyone visiting the site can still use it. Set a monthly spend limit in the Anthropic Console.
 2. **Built-in fallback:** if the function isn't configured or fails, ARC answers from the built-in knowledge (`KNOW` list in the page script). This covers greetings, services, Catalyst Engine, AEO, GEO, RAG, pricing, timelines, guarantee, tech stack, support and ownership. It also plans any project idea with the estimator.
 
+## Leads, WhatsApp and legal pages
+
+- **Floating WhatsApp button** on every page opens a chat with +91 90046 29888 (edit `WA_NUMBER` at the top of `leads.js`).
+- **Start a project form**: any button with `data-lead` opens it (homepage and About calls to action, the idea checker's "Book a free scoping call", and ARC's "send it to our team"). Submitting opens WhatsApp with the visitor's details pre-filled and records the lead at `api/lead.js`.
+- **Where leads are recorded**: every lead appears in Vercel → your project → **Logs** (search `LEAD`). To also get each lead by email, add `RESEND_API_KEY` (free at resend.com), `LEAD_TO_EMAIL` and optionally `LEAD_FROM_EMAIL` in Vercel → Settings → Environment Variables, then redeploy.
+- **Newsletter**: the footer signup records emails the same way.
+- **Legal**: `privacy.html` and `terms.html` are drafts for Branding Catalyst Pvt Ltd under India's DPDP Act, 2023. Fill the highlighted items (registered address, email, grievance officer, CIN, GSTIN) and have them reviewed before launch.
+
 ## ARC lip sync
 
 ARC's mouth position comes from the `FACE` settings in the script, measured in the image's own pixels (1024 × 1024):

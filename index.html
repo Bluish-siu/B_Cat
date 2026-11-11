@@ -1142,7 +1142,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
   <div class="wrap">
     <div class="card cta">
       <div><h2>Ready to launch something new?</h2><p>Book a free 30-minute call. Bring the rough idea; we will bring a plan, a price range and a first sketch of the product.</p></div>
-      <div class="row"><a class="btn btn-w" href="#top" id="ctaNova">Start a project →</a><a class="btn" href="#services">Explore services</a></div>
+      <div class="row"><button class="btn btn-w" type="button" data-lead data-lead-source="Homepage call to action">Start a project →</button><a class="btn" href="#top" id="ctaNova">Talk to ARC</a></div>
     </div>
   </div>
 </section>
@@ -1160,7 +1160,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
       <div><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="#engine">Catalyst Engine</a></li><li><a href="#visibility">AI Visibility</a></li><li><a href="#idea-lab">Idea Lab</a></li><li><a href="#idea-checker">Idea Checker</a></li><li><a href="#faq">FAQ</a></li></ul></div>
       <div><h4>Connect</h4><ul><li><span class="ph">hello@[yourdomain]</span></li><li><a href="tel:+919004629888">+91 90046 29888</a></li><li><a href="https://www.instagram.com/branding_catalyst" target="_blank" rel="noopener">Instagram ↗</a></li><li><a href="https://in.linkedin.com/company/branding-cataly" target="_blank" rel="noopener">LinkedIn ↗</a></li><li><a href="https://www.youtube.com/@brandingcatalyst" target="_blank" rel="noopener">YouTube ↗</a></li></ul></div>
     </div>
-    <div class="legal"><span>© 2026 Branding Catalyst. All rights reserved.</span><span>Ideas in. Impact out.</span></div>
+    <div class="legal"><span>© 2026 Branding Catalyst Pvt Ltd. All rights reserved.</span><span><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></span></div>
   </div>
 </footer>
 
@@ -1341,7 +1341,7 @@ const KNOW = [
     "You pay per milestone, only after you review and accept it. If the first prototype misses the agreed scope, the prototype fee is refunded."]},
   { re:/contact|call|meet|meeting|talk to (a )?(human|person|someone)|email|phone|whatsapp number|reach you/i, a:[
     "Happy to connect you with the team.",
-    "Call us on +91 90046 29888, or use the Start a project button at the bottom of this page.",
+    "Tap the green WhatsApp button at the bottom-right, call us on +91 90046 29888, or use the Start a project button at the bottom of this page.",
     "You can also find us on Instagram (@branding_catalyst), LinkedIn and YouTube (@brandingcatalyst)."]},
   { re:/where (are|r) you|located|location|office|based|city|country/i, a:[
     "We are based in Mumbai, Maharashtra, and work with clients across India and abroad, with weekly video demos."]},
@@ -1435,7 +1435,7 @@ async function ask(msg){
   else { const r = localReply(msg); lines = r.lines; plan = !!r.plan; }
   history.push({ role:'user', content:msg }, { role:'assistant', content:lines.join('\n') });
   await sayLines(lines);
-  if (plan) { line('<span class="p">arc&gt;</span> <span class="n">Want a detailed estimate? <a href="#idea-checker">Check this idea →</a></span>'); $('#chkIn').value = msg; }
+  if (plan) { line('<span class="p">arc&gt;</span> <span class="n">Want a detailed estimate? <a href="#idea-checker">Check this idea →</a> or <a href="#" data-lead data-lead-idea="#chkIn" data-lead-source="ARC chat">send it to our team →</a></span>'); $('#chkIn').value = msg; }
   tag.classList.remove('busy'); busy=false;
 }
 $('#askForm').addEventListener('submit', e => { e.preventDefault(); const v=$('#askIn').value; $('#askIn').value=''; ask(v); });
@@ -1871,7 +1871,7 @@ function renderEst(){
    <div><div class="r" style="margin-bottom:8px"><span class="eyebrow">Feasibility</span><b style="font-family:var(--f-mono);font-weight:500">${c.score}/100</b></div><div class="meter"><i></i></div></div>
    <dl class="kv"><dt>Timeline</dt><dd>${c.time}</dd><dt>Team</dt><dd>${c.team}</dd><dt>Stack</dt><dd>${c.stack}</dd><dt>Start with</dt><dd>${c.feats.slice(0,2).join('; ')}</dd></dl>
    <div class="wheel-box"><div class="wheel-wrap"><canvas id="wheel" width="300" height="300"></canvas></div><div style="display:grid;gap:10px"><p id="wheelTxt">Spin once for a launch discount of up to ${Math.max(...DISCOUNTS)}%.</p><button class="btn btn-w" id="spin" type="button" style="justify-self:start">Spin the wheel</button></div></div>
-   <p style="color:var(--dim);font-size:13px">Indicative estimate. We confirm a fixed price and timeline after a free scoping call.</p>`;
+   <p style="color:var(--dim);font-size:13px">Indicative estimate. We confirm a fixed price and timeline after a free scoping call.</p><button class="btn btn-w" type="button" data-lead data-lead-idea="#chkIn" data-lead-source="Idea checker" style="justify-self:start">Book a free scoping call →</button>`;
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ est.querySelector('.meter i').style.width=c.score+'%'; }));
   drawWheel();
   $('#spin').addEventListener('click',spin);
@@ -1898,7 +1898,7 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ [...
 io.observe($('#steps'));
 
 /* ===== Footer subscribe ===== */
-$('#subForm').addEventListener('submit',e=>{ e.preventDefault(); const b=e.target.querySelector('button'); b.textContent='Subscribed ✓'; });
+
 })();
 
 /* ===== Ambient background follows the scroll ===== */
@@ -1972,5 +1972,6 @@ $('#subForm').addEventListener('submit',e=>{ e.preventDefault(); const b=e.targe
   document.querySelectorAll('.rv').forEach(el => io.observe(el));
 })();
 </script>
+<script src="leads.js" defer></script>
 </body>
 </html>
