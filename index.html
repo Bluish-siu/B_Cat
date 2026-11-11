@@ -561,9 +561,9 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
 .kpis div{padding:6px 8px;border-radius:8px;background:var(--surface2);border:1px solid var(--line)}
 .kpis small{display:block;font-family:var(--f-mono);font-size:9.5px;color:var(--dim)}
 .kpis b{font-size:14px;color:var(--c)}
-.bars{height:70px;margin-top:auto;display:flex;align-items:flex-end;gap:6px}
-.bars i{flex:1;height:var(--h);border-radius:4px 4px 1px 1px;background:color-mix(in srgb,var(--c) 75%,transparent);transform-origin:bottom;animation:grow 2.2s ease-in-out infinite alternate}
-.bars i:nth-child(2n){animation-delay:.4s}.bars i:nth-child(3n){animation-delay:.8s}
+.erp-bars{height:70px;margin-top:auto;display:flex;align-items:flex-end;gap:6px}
+.erp-bars i{flex:1;height:var(--h);border-radius:4px 4px 1px 1px;background:color-mix(in srgb,var(--c) 75%,transparent);transform-origin:bottom;animation:grow 2.2s ease-in-out infinite alternate}
+.erp-bars i:nth-child(2n){animation-delay:.4s}.erp-bars i:nth-child(3n){animation-delay:.8s}
 
 /* Browser */
 .viz-browser{display:flex;flex-direction:column;gap:10px}
@@ -925,7 +925,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
         <div class="bx-top"><span>04 · ERP</span><span>erp/</span></div>
         <div class="viz viz-dash" aria-hidden="true">
           <div class="kpis"><div><small>Stock</small><b>OK</b></div><div><small>Orders</small><b>↑</b></div><div><small>GST</small><b>✓</b></div></div>
-          <div class="bars"><i style="--h:42%"></i><i style="--h:65%"></i><i style="--h:50%"></i><i style="--h:78%"></i><i style="--h:60%"></i><i style="--h:90%"></i><i style="--h:72%"></i></div>
+          <div class="erp-bars"><i style="--h:42%"></i><i style="--h:65%"></i><i style="--h:50%"></i><i style="--h:78%"></i><i style="--h:60%"></i><i style="--h:90%"></i><i style="--h:72%"></i></div>
         </div>
         <h3>ERP Systems</h3>
         <p>Inventory, sales, purchase, HR and GST-ready accounts, built around how you work.</p>
