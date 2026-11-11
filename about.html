@@ -203,7 +203,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
 .capsule .f-circle{position:relative;flex:none;width:var(--d);height:var(--d);z-index:2}
 .capsule .f-ring{position:absolute;inset:0;border-radius:50%}
 .capsule .f-pic{inset:8px}
-.capsule .f-body{flex:1;min-width:0;min-height:var(--d);margin-left:calc(var(--d) / -2);padding:34px clamp(24px,4vw,48px) 34px calc(var(--d) / 2 + clamp(24px,3vw,44px));border:1px solid var(--line2);border-left:0;border-radius:0 26px 26px 0;background:radial-gradient(80% 120% at 0% 50%,rgba(139,92,246,.22),transparent 60%),linear-gradient(165deg,var(--surface),var(--bg2));display:grid;align-content:center;gap:14px;position:relative;z-index:1}
+.capsule .f-body{flex:1;min-width:0;min-height:var(--d);margin-left:calc(var(--d) / -2);padding:28px clamp(24px,4vw,48px) 28px calc(var(--d) / 2 + clamp(24px,3vw,44px));border:1px solid var(--line2);border-left:0;border-radius:0 26px 26px 0;background:radial-gradient(80% 120% at 0% 50%,rgba(139,92,246,.22),transparent 60%),linear-gradient(165deg,var(--surface),var(--bg2));display:grid;align-content:center;gap:12px;position:relative;z-index:1}
 .capsule .f-body h3{font-size:clamp(28px,3.2vw,40px)}
 .capsule .f-loc{justify-self:start;background:transparent}
 @media(max-width:860px){
@@ -481,6 +481,24 @@ document.querySelectorAll('.mnav a').forEach(a => a.addEventListener('click', ()
   let queued = false;
   const upd = () => { const y = scrollY; a.style.setProperty('--s1', Math.sin(y / 700).toFixed(3)); a.style.setProperty('--c1', Math.cos(y / 900).toFixed(3)); a.style.setProperty('--s2', Math.sin(y / 1100 + 1).toFixed(3)); a.style.setProperty('--c2', Math.cos(y / 800 + 2).toFixed(3)); queued = false; };
   addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(upd); } }, { passive: true }); upd();
+})();
+
+/* ===== Founder capsule: the photo circle grows to match the panel height (desktop) ===== */
+(() => {
+  const cap = document.querySelector('.founder.capsule'); if (!cap) return;
+  const body = cap.querySelector('.f-body'), circle = cap.querySelector('.f-circle');
+  function fit(){
+    cap.style.removeProperty('--d');
+    if (innerWidth <= 860) return;                       // phones and tablets stack, nothing to match
+    for (let i = 0; i < 4; i++) {
+      body.style.minHeight = '0'; const h = body.offsetHeight; body.style.minHeight = '';
+      const d = circle.offsetWidth;
+      if (Math.abs(h - d) <= 1 || h < d) break;
+      cap.style.setProperty('--d', Math.min(h, 560) + 'px');
+    }
+  }
+  fit(); addEventListener('resize', fit);
+  if (document.fonts) document.fonts.ready.then(fit);
 })();
 </script>
 </body>
