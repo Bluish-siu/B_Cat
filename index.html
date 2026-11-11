@@ -645,6 +645,39 @@ input,select,textarea{min-width:0}
   .bx{padding:18px}
   .el{width:112px}.el b{font-size:34px}
 }
+
+/* ===== Large screens (desktop PCs and big monitors) ===== */
+.hero-grid>div:first-child{container-type:inline-size}
+.hero h1{white-space:nowrap;font-size:clamp(44px,15.6cqi,116px)}
+@media(min-width:1440px){
+  :root{--wrap:1320px}
+  body{font-size:17px}
+  .eyebrow{font-size:12.5px}
+  .h2{font-size:clamp(40px,3.4vw,58px)}
+  .head .lead,.hero .intro,.vis .txt>p,.scale .txt>p,.anat-list .intro p,.formula .head .lead{font-size:18.5px}
+  .hero-sub{font-size:30px}
+  .nav .wrap{height:74px}.nav ul{font-size:15.5px;gap:30px}.wm{font-size:21px}.logo svg{width:38px;height:31px}
+  .chip{font-size:14px}.ask input{font-size:16px}
+  .arc-portal{width:min(480px,92%)}.arc-bar,.arc .nova-term{width:min(580px,100%)}.nova-term{font-size:14px}
+  .planes{width:min(440px,85%)}.anat-vis{height:520px}.al h3{font-size:21px}.al p{font-size:15.5px}
+  .bx h3{font-size:24px}.bx p{font-size:15.5px}.viz{height:170px}.bx-ai .viz,.bx-3d .viz{height:190px}
+  .sim canvas{height:460px}
+  .el{width:170px}.el b{font-size:56px}
+  .ticklist span,.feat p,.gl p,.sv p,.st p,.qa details p{font-size:15.5px}
+  .qa summary{font-size:18.5px}
+}
+@media(min-width:1800px){
+  :root{--wrap:1480px}
+  body{font-size:18px}
+  .h2{font-size:clamp(44px,3.2vw,64px)}
+  .head .lead,.hero .intro,.vis .txt>p,.scale .txt>p,.anat-list .intro p,.formula .head .lead{font-size:19.5px}
+  .hero-sub{font-size:33px}
+  .arc-portal{width:min(540px,92%)}.arc-bar,.arc .nova-term{width:min(640px,100%)}
+  .planes{width:min(500px,85%)}.anat-vis{height:580px}
+  .sim canvas{height:500px}
+  .el{width:190px}.el b{font-size:62px}
+}
+@media(min-width:2400px){:root{--wrap:1720px}body{font-size:19px}}
 </style>
 </head>
 <body>

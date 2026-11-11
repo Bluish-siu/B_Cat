@@ -221,6 +221,29 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
 .f-time span{font-size:12.5px;line-height:1.35;color:var(--muted)}
 @media(max-width:860px){.capsule .f-quote{border-left:0;padding-left:0}.f-time{width:100%}}
 @media(max-width:520px){.f-time{grid-template-columns:1fr}}
+
+/* ===== Large screens (desktop PCs and big monitors) ===== */
+@media(min-width:1440px){
+  :root{--wrap:1320px}
+  body{font-size:17px}
+  .eyebrow{font-size:12.5px}
+  .h2{font-size:clamp(40px,3.4vw,58px)}
+  .hero h1{font-size:clamp(56px,4.8vw,80px)}
+  .hero p,.head .lead,.story .r,.stack-txt .lead{font-size:18.5px}
+  .nav .wrap{height:74px}.nav ul{font-size:15.5px;gap:30px}.wm{font-size:21px}.logo svg{width:38px;height:31px}
+  .prin p,.st p,.f-body p{font-size:16px}.prin h3,.st h3{font-size:22px}
+  .sphere{max-width:680px}.sphere .tag{font-size:15px}
+  .legend b{font-size:17px}
+}
+@media(min-width:1800px){
+  :root{--wrap:1480px}
+  body{font-size:18px}
+  .h2{font-size:clamp(44px,3.2vw,64px)}
+  .hero h1{font-size:clamp(64px,4.6vw,92px)}
+  .hero p,.head .lead,.story .r,.stack-txt .lead{font-size:19.5px}
+  .sphere{max-width:760px}
+}
+@media(min-width:2400px){:root{--wrap:1720px}body{font-size:19px}}
 </style>
 </head>
 <body>
