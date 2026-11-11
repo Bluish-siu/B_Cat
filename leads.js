@@ -16,12 +16,12 @@
 
   /* ---------- styles ---------- */
   const css = `
-  .wa-float{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));z-index:85;display:flex;align-items:center;gap:10px;height:56px;padding:0 18px 0 14px;border-radius:99px;background:#25d366;color:#05301a;font:600 15px var(--f-body,system-ui,sans-serif);text-decoration:none;box-shadow:0 12px 30px -8px rgba(37,211,102,.6),0 0 0 1px rgba(255,255,255,.15) inset;transition:transform .2s,box-shadow .2s}
+  .wa-float{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));z-index:85;display:grid;place-items:center;width:56px;height:56px;padding:0;border-radius:50%;background:#25d366;color:#fff;text-decoration:none;box-shadow:0 12px 30px -8px rgba(37,211,102,.6),0 0 0 1px rgba(255,255,255,.15) inset;transition:transform .2s,box-shadow .2s}
   .wa-float:hover{transform:translateY(-2px);box-shadow:0 16px 36px -8px rgba(37,211,102,.75)}
-  .wa-float svg{width:28px;height:28px;flex:none}
+  .wa-float svg{width:31px;height:31px}
   .wa-float::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:0 0 0 0 rgba(37,211,102,.55);animation:waPulse 2.6s infinite;pointer-events:none}
   @keyframes waPulse{70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
-  @media(max-width:640px){.wa-float{width:56px;padding:0;justify-content:center}.wa-float span{display:none}}
+  @media(max-width:640px){.wa-float{width:52px;height:52px}.wa-float svg{width:28px;height:28px}}
   body.lead-open .wa-float{display:none}
   .lead-modal{position:fixed;inset:0;z-index:95;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(8,4,14,.72);overflow-y:auto}
   .lead-card{position:relative;width:min(560px,100%);margin:auto;padding:clamp(22px,4vw,34px);border-radius:24px;border:1px solid rgba(201,162,255,.25);background:radial-gradient(90% 60% at 100% 0%,rgba(139,92,246,.22),transparent 60%),#17101f;color:var(--ink,#f1edf7);box-shadow:0 40px 100px -30px rgba(0,0,0,.8);display:grid;gap:14px}
@@ -63,7 +63,8 @@
   float.className = 'wa-float'; float.target = '_blank'; float.rel = 'noopener';
   float.href = wa("Hi Branding Catalyst! I'd like to discuss a project.");
   float.setAttribute('aria-label', 'Chat with Branding Catalyst on WhatsApp');
-  float.innerHTML = WA_ICON + '<span>Chat with us</span>';
+  float.title = 'Chat with us on WhatsApp';
+  float.innerHTML = WA_ICON;
   document.body.appendChild(float);
 
   /* ---------- "Start a project" form ---------- */
