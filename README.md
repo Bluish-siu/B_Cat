@@ -54,6 +54,12 @@ ARC answers in two ways:
 - **Newsletter**: the footer signup records emails the same way.
 - **Legal**: `privacy.html` and `terms.html` are drafts for Branding Catalyst Pvt Ltd under India's DPDP Act, 2023. Fill the highlighted items (registered address, email, grievance officer, CIN, GSTIN) and have them reviewed before launch.
 
+## Careers page
+
+`careers.html` lists open roles from the `JOBS` list near the bottom of the file. To post a job, copy the example in the comment above `const JOBS = [];`, fill it in, and push. Remove it when the role is filled. With no roles, the page shows "No open roles right now" and still accepts general applications.
+
+Applications open WhatsApp with the applicant's details pre-filled and are recorded at `api/lead.js` (type `application`), the same way as project leads. Fill in the careers email placeholder on the page.
+
 ## ARC lip sync
 
 ARC's mouth position comes from the `FACE` settings in the script, measured in the image's own pixels (1024 × 1024):

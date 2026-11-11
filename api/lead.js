@@ -1,4 +1,4 @@
-// Lead endpoint (Vercel serverless function).
+// Lead endpoint (Vercel serverless function): project enquiries, newsletter signups and job applications.
 // The website's forms POST here. Every lead is written to the Vercel logs (Project → Logs, search "LEAD").
 // Optional email: in Vercel → Settings → Environment Variables add
 //   RESEND_API_KEY   (free account at resend.com)
@@ -19,12 +19,17 @@ export default async function handler(req, res) {
   if (clean(b.website, 100)) return res.status(200).json({ ok: true });   // honeypot: bots fill this hidden field
 
   const lead = {
-    type: clean(b.type, 20) === 'newsletter' ? 'newsletter' : 'project',
+    type: ['newsletter', 'application'].includes(clean(b.type, 20)) ? clean(b.type, 20) : 'project',
     name: clean(b.name, 80), phone: clean(b.phone, 20), email: clean(b.email, 120),
     service: clean(b.service, 60), budget: clean(b.budget, 40), message: clean(b.message, 2000),
+    role: clean(b.role, 80), portfolio: clean(b.portfolio, 300),
     source: clean(b.source, 60), page: clean(b.page, 160), at: new Date().toISOString()
   };
-  if (lead.type === 'newsletter') {
+  if (lead.type === 'application') {
+    if (!lead.name) return res.status(400).json({ error: 'Enter your name.' });
+    if (!EMAIL.test(lead.email)) return res.status(400).json({ error: 'Enter a valid email address.' });
+    if (!PHONE.test(lead.phone)) return res.status(400).json({ error: 'Enter a valid phone number.' });
+  } else if (lead.type === 'newsletter') {
     if (!EMAIL.test(lead.email)) return res.status(400).json({ error: 'Enter a valid email address.' });
   } else {
     if (!lead.name) return res.status(400).json({ error: 'Enter your name.' });
@@ -44,7 +49,7 @@ export default async function handler(req, res) {
           from: process.env.LEAD_FROM_EMAIL || 'Branding Catalyst Website <onboarding@resend.dev>',
           to: [process.env.LEAD_TO_EMAIL],
           ...(lead.email ? { reply_to: lead.email } : {}),
-          subject: lead.type === 'newsletter' ? `New newsletter signup: ${lead.email}` : `New project lead: ${lead.name} (${lead.service || 'not sure'})`,
+          subject: lead.type === 'newsletter' ? `New newsletter signup: ${lead.email}` : lead.type === 'application' ? `New job application: ${lead.name} for ${lead.role || 'general'}` : `New project lead: ${lead.name} (${lead.service || 'not sure'})`,
           text: Object.entries(lead).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join('\n')
         })
       });
