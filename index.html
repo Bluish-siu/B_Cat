@@ -301,6 +301,8 @@ p{margin:0}
 .ring-cap{text-align:center;font-family:var(--f-mono);font-size:12px;color:var(--dim);margin-top:10px}
 .ring-cta{display:flex;justify-content:center;margin-top:18px}
 @media(max-width:600px){.ring-stage{height:360px}.ic-card{width:200px;height:270px;left:-100px;top:-135px}}
+@media(min-width:1100px){.ring-stage{height:540px;perspective:2200px}.ic-card{width:290px;height:380px;left:-145px;top:-190px;padding:28px;gap:14px}.ic-card h3{font-size:26px}.ic-card p{font-size:15.5px}.ic-card .t,.ic-card .x{font-size:12.5px}.ic-card::after{width:110px;height:110px;right:-36px;top:-36px}}
+@media(min-width:1600px){.ring-stage{height:600px;perspective:2600px}.ic-card{width:330px;height:420px;left:-165px;top:-210px;padding:32px}.ic-card h3{font-size:29px}.ic-card p{font-size:16.5px}}
 .modal{position:fixed;inset:0;z-index:90;background:rgba(5,6,8,.7);backdrop-filter:blur(6px);display:grid;place-items:center;padding:20px}
 .modal .card{max-width:520px;width:100%;padding:28px;display:grid;gap:16px;background:var(--surface)}
 .modal h3{font-size:26px;letter-spacing:-.02em}
@@ -1900,7 +1902,8 @@ $('#ideaCount').textContent=IDEAS.length;
 (() => {
   const ring = $('#ring'), stage = $('#ringStage'), bar = $('#labFilters');
   let list = IDEAS.map((_, i) => i), ang = 0, vel = reduce ? 0 : -0.08, drag = false, lx = 0, moved = 0;
-  const radius = () => { const small = innerWidth < 600, card = small ? 215 : 255; return Math.max(small ? 240 : 330, list.length * card / (2 * Math.PI)); };
+  let R0 = 330; // ring radius, recomputed from the real card width (cards grow on big screens)
+  const radius = () => { const small = innerWidth < 600, cw = (ring.firstElementChild && ring.firstElementChild.offsetWidth) || (small ? 200 : 230); return Math.max(cw * (small ? 1.2 : 1.45), list.length * cw * (small ? 1.075 : 1.25) / (2 * Math.PI)); };
   function build(){
     ring.innerHTML = '';
     list.forEach((idx, k) => {
@@ -1911,7 +1914,7 @@ $('#ideaCount').textContent=IDEAS.length;
     });
     layout();
   }
-  function layout(){ const R = radius(), n = ring.children.length; [...ring.children].forEach((c, k) => { c.style.transform = `rotateY(${k * 360 / n}deg) translateZ(${R}px)`; }); }
+  function layout(){ const R = R0 = radius(), n = ring.children.length; [...ring.children].forEach((c, k) => { c.style.transform = `rotateY(${k * 360 / n}deg) translateZ(${R}px)`; }); }
   const cats = ['All', ...new Set(IDEAS.map(i => i[0]))];
   cats.forEach((cat, n) => {
     const b = document.createElement('button');
@@ -1926,7 +1929,7 @@ $('#ideaCount').textContent=IDEAS.length;
   build(); addEventListener('resize', layout);
   let ringOn = true, ringWait = false;
   new IntersectionObserver(es => { ringOn = es[0].isIntersecting; if (ringOn && ringWait) { ringWait = false; requestAnimationFrame(tick); } }, { rootMargin: '200px' }).observe(stage);
-  function tick(){ if (!ringOn) { ringWait = true; return; } if (!drag) { ang += vel; vel += ((reduce ? 0 : -0.08) - vel) * 0.02; } ring.style.transform = `translateZ(-${radius()}px) rotateY(${ang}deg)`; requestAnimationFrame(tick); }
+  function tick(){ if (!ringOn) { ringWait = true; return; } if (!drag) { ang += vel; vel += ((reduce ? 0 : -0.08) - vel) * 0.02; } ring.style.transform = `translateZ(-${R0}px) rotateY(${ang}deg)`; requestAnimationFrame(tick); }
   tick();
   stage.addEventListener('pointerdown', e => { drag = true; lx = e.clientX; moved = 0; });
   addEventListener('pointermove', e => { if (!drag) return; const dx = e.clientX - lx; lx = e.clientX; moved += Math.abs(dx); ang += dx * 0.25; vel = dx * 0.25; });
