@@ -1,0 +1,5 @@
+# Keep LF line endings so the build scripts find their markers on every machine
+* text=auto eol=lf
+*.png binary
+*.webp binary
+*.jpg binary

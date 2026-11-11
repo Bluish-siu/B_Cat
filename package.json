@@ -2,7 +2,15 @@
   "name": "branding-catalyst",
   "private": true,
   "type": "module",
-  "description": "Branding Catalyst website with the ARC chat endpoint",
+  "description": "Branding Catalyst company website: static pages in public/, Vercel functions in api/",
+  "scripts": {
+    "dev": "node scripts/serve.cjs",
+    "build:pages": "node scripts/build.cjs && node scripts/check.cjs",
+    "check": "node scripts/check.cjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "@anthropic-ai/sdk": "1.3.0"
   }

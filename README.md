@@ -1,71 +1,94 @@
-# Branding Catalyst
+# Branding Catalyst website
 
-Company website for Branding Catalyst: AI products, AEO and GEO, Android and iOS apps, ERP systems, websites and 3D web experiences.
+The company website for **Branding Catalyst Pvt Ltd**, an AI-first studio in Mumbai: AI agents, RAG, AEO and GEO, branding and growth, Android and iOS apps, ERP systems, websites and 3D web experiences.
 
-It is a single static page with no build step and no backend.
+- **Live:** https://bcat-blush.vercel.app
+- **Stack:** plain HTML, CSS and JavaScript (no framework), Vercel serverless functions for the AI assistant and lead forms, Lenis for smooth scrolling, Three.js for the 3D logo.
 
-## Files
+## Project structure
 
-| File | What it is |
-|---|---|
-| `index.html` | The whole site: layout, styles and scripts |
-| `logo.png` | Brand logo, also used as the browser-tab icon |
-| `nova.webp` | Face image for ARC, the AI assistant in the hero |
-| `api/arc.js` | Vercel function that lets ARC answer with Claude |
-| `package.json` | Declares the Anthropic SDK used by `api/arc.js` |
-
-## Run locally
-
-Any static file server works. For example:
-
-```bash
-npx serve .
+```
+BCAT WEBSITE/
+├── api/                    Vercel serverless functions
+│   ├── arc.js              ARC, the AI assistant (Claude)
+│   └── lead.js             Enquiry, newsletter and job-application forms
+├── public/                 The website exactly as visitors get it (Vercel serves this folder)
+│   ├── index.html          Homepage (generated from src/home.html)
+│   ├── services.html       Services
+│   ├── scale.html          Scale & reliability (generated)
+│   ├── check.html          Idea Checker (generated)
+│   ├── about.html          About and founder
+│   ├── careers.html        Careers and job applications
+│   ├── privacy.html        Privacy policy (generated)
+│   ├── terms.html          Terms of use (generated)
+│   ├── fx.js               Logo intro, cursor, 3D logo, Brand Lab
+│   ├── leads.js            WhatsApp button and the "Start a project" form
+│   └── logo.png, nova.webp, founder.webp
+├── src/                    Sources for generated pages
+│   ├── home.html           Homepage source (styles + content + scripts)
+│   └── check-client.js     Idea Checker page logic
+├── scripts/                Build and dev tools
+│   ├── build.cjs           Builds every generated page (npm run build:pages)
+│   ├── build-scale.cjs     → public/scale.html
+│   ├── build-check.cjs     → public/check.html
+│   ├── build-legal.cjs     → public/privacy.html, public/terms.html
+│   ├── check.cjs           Checks every page's scripts for errors (npm run check)
+│   ├── serve.cjs           Local preview server (npm run dev)
+│   └── legacy/             Original Services page generator, kept for reference
+├── docs/
+│   └── SETUP.md            ARC, leads, careers and the pre-launch checklist
+├── .env.example            Environment variables to set in Vercel
+├── vercel.json             Tells Vercel to serve public/
+└── package.json
 ```
 
-Then open the address it prints.
+## Which file do I edit?
 
-## Deploy
+| To change | Edit | Then |
+|---|---|---|
+| Homepage | `src/home.html` | `npm run build:pages` |
+| Services, About, Careers | `public/services.html`, `public/about.html`, `public/careers.html` | `npm run build:pages` after editing Services (Scale and Idea Checker reuse its header and footer) |
+| Scale page text | `scripts/build-scale.cjs` | `npm run build:pages` |
+| Idea Checker page | `scripts/build-check.cjs` (layout) or `src/check-client.js` (logic, prices, discounts) | `npm run build:pages` |
+| Privacy and Terms | `scripts/build-legal.cjs` | `npm run build:pages` |
+| WhatsApp number, lead form | `public/leads.js` | nothing |
+| ARC's knowledge and tone | `api/arc.js` (`SYSTEM` text) | nothing |
 
-Upload the three files to any static host (Netlify, Vercel, GitHub Pages, Hostinger or cPanel). No build step is needed.
+Don't edit `public/index.html`, `scale.html`, `check.html`, `privacy.html` or `terms.html` directly: the next build overwrites them.
 
-## Before going live
+## Run it locally
 
-- Replace every `[X]` placeholder (client counts, stats, email, phone, social links) with real details.
-- Set real timelines, roles and tech stacks in the `PRODUCTS` and `FEATURES` lists in the script. The idea checker and ARC use them to build estimates.
-- Set the discount values and odds in `DISCOUNTS` (idea checker wheel).
-- Confirm the guarantee terms in the "Our promise" section.
-- Replace the client logo tiles with real logos, used with permission.
+Requires Node.js 18 or newer.
 
-## ARC answers (AI chat)
+```bash
+npm install
+```
 
-ARC answers in two ways:
+```bash
+npm run dev
+```
 
-1. **With AI (recommended):** `api/arc.js` is a Vercel serverless function that sends the conversation to Claude and returns ARC's reply. To turn it on, open the Vercel project, go to **Settings → Environment Variables**, add `ANTHROPIC_API_KEY` (create a key at console.anthropic.com), then redeploy.
-   - Optional: set `ARC_MODEL` to pick a different Claude model. The default is `claude-opus-5-5`. A smaller model such as `claude-haiku-5-5` costs less per message.
-   - ARC's facts and tone live in the `SYSTEM` text at the top of `api/arc.js`. Edit it to keep answers accurate.
-   - The endpoint only accepts requests from the site's own pages, and limits message length and history, but anyone visiting the site can still use it. Set a monthly spend limit in the Anthropic Console.
-2. **Built-in fallback:** if the function isn't configured or fails, ARC answers from the built-in knowledge (`KNOW` list in the page script). This covers greetings, services, Catalyst Engine, AEO, GEO, RAG, pricing, timelines, guarantee, tech stack, support and ownership. It also plans any project idea with the estimator.
+Open http://localhost:8080. Locally, ARC uses its built-in answers and forms open WhatsApp; the `api/` functions only run on Vercel.
 
-## Leads, WhatsApp and legal pages
+## Publish
 
-- **Floating WhatsApp button** on every page opens a chat with +91 90046 29888 (edit `WA_NUMBER` at the top of `leads.js`).
-- **Start a project form**: any button with `data-lead` opens it (homepage and About calls to action, the idea checker's "Book a free scoping call", and ARC's "send it to our team"). Submitting opens WhatsApp with the visitor's details pre-filled and records the lead at `api/lead.js`.
-- **Where leads are recorded**: every lead appears in Vercel → your project → **Logs** (search `LEAD`). To also get each lead by email, add `RESEND_API_KEY` (free at resend.com), `LEAD_TO_EMAIL` and optionally `LEAD_FROM_EMAIL` in Vercel → Settings → Environment Variables, then redeploy.
-- **Newsletter**: the footer signup records emails the same way.
-- **Legal**: `privacy.html` and `terms.html` are drafts for Branding Catalyst Pvt Ltd under India's DPDP Act, 2023. Fill the highlighted items (registered address, email, grievance officer, CIN, GSTIN) and have them reviewed before launch.
+```bash
+npm run build:pages
+```
 
-## Careers page
+```bash
+git add -A && git commit -m "Describe the change" && git push origin main && git push bcat main
+```
 
-`careers.html` lists open roles from the `JOBS` list near the bottom of the file. To post a job, copy the example in the comment above `const JOBS = [];`, fill it in, and push. Remove it when the role is filled. With no roles, the page shows "No open roles right now" and still accepts general applications.
+- `origin` is the private repo: branding-catalyst-pvt-ltd/Branding_Catalyst
+- `bcat` is the public repo Vercel deploys from: Bluish-siu/B_Cat. Vercel redeploys within a minute of the push.
 
-Applications open WhatsApp with the applicant's details pre-filled and are recorded at `api/lead.js` (type `application`), the same way as project leads. Applicants can also email hr@brandingcatalyst.in (shown on the page).
+## Configuration
 
-## ARC lip sync
+Set these in Vercel → Project → Settings → Environment Variables (see `.env.example`):
 
-ARC's mouth position comes from the `FACE` settings in the script, measured in the image's own pixels (1024 × 1024):
+- `ANTHROPIC_API_KEY`: turns on ARC's AI answers
+- `ARC_MODEL`: optional Claude model for ARC
+- `RESEND_API_KEY`, `LEAD_TO_EMAIL`, `LEAD_FROM_EMAIL`: optional, emails each lead to you
 
-- `mouthY`: the line between the lips
-- `mouthW`: mouth width
-- `jawBottom`: where the chin stops moving
-
-Adjust these if you replace `nova.webp`.
+More detail, plus the list of placeholders to fill before launch, is in [docs/SETUP.md](docs/SETUP.md).

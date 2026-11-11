@@ -1,0 +1,15 @@
+
+/* ===== Smooth scrolling (Lenis), reveal-on-scroll, progress bar ===== */
+html.lenis,html.lenis body{height:auto}
+html.lenis-smooth{scroll-behavior:auto!important}
+.lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
+.lenis [data-lenis-prevent]{overscroll-behavior:contain}
+.rv-on .rv:not(.in){opacity:0}
+.rv.in{animation:rvIn .95s cubic-bezier(.2,.75,.2,1) var(--rd,0s) both}
+.rv.in.up{animation-name:rvInUp}
+.rv.in.now{animation:none}
+@keyframes rvInUp{from{opacity:0;translate:0 -34px}to{opacity:1;translate:none}}
+@keyframes rvIn{from{opacity:0;translate:0 34px;filter:blur(4px)}to{opacity:1;translate:none;filter:none}}
+.scroll-prog{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:2px;z-index:90;pointer-events:none}
+.scroll-prog i{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#8b5cf6,#c9a2ff,#f2a7c3);box-shadow:0 0 10px rgba(201,162,255,.7)}
+@media(prefers-reduced-motion:reduce){.rv-on .rv:not(.in){opacity:1}.scroll-prog{display:none}}

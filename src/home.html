@@ -1,0 +1,2060 @@
+<title>Branding Catalyst</title>
+<script>try{if(!sessionStorage.getItem('bcIntro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro-pending')}catch(e){}</script>
+<style>
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-out .32s cubic-bezier(.4,0,.2,1) both}
+::view-transition-new(root){animation:vt-in .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes vt-out{to{opacity:0;transform:translateY(-12px)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(20px)}}
+header .logo{view-transition-name:brand-logo}
+html.intro-pending::after{content:"";position:fixed;inset:0;z-index:9999;background:#0d0716;animation:introFailsafe .4s 3s forwards}
+@keyframes introFailsafe{to{opacity:0;visibility:hidden}}
+@media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+</style>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Branding Catalyst builds AI products, Android and iOS apps, ERP systems, websites and 3D web experiences with Catalyst Engine. Tell ARC your idea.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: dark product-studio page. Two-column section heads (title left, intro right), hairline-ruled sections,
+   soft raised surfaces, one cool accent. Single deliberate dark look. */
+:root{
+  color-scheme:dark;
+  --bg:#0d0716; --bg2:#130b1f; --surface:#1b1129; --surface2:#23163a; --brand:#42066b;
+  --line:rgba(201,162,255,.10); --line2:rgba(201,162,255,.19);
+  --ink:#f1edf7; --muted:#a79fbb; --dim:#716885;
+  --accent:#c9a2ff; --accent-soft:rgba(201,162,255,.12); --violet:#8b5cf6; --ok:#6fcf97; --warm:#f2a7c3; --cyan:#7fd6e8;
+  --f-display:"Lexend","Helvetica Neue",Arial,system-ui,sans-serif;
+  --f-body:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Geist Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --wrap:1200px; --r:14px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:80;background:var(--bg)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:500;margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.sec{padding-block:clamp(72px,10vw,128px)}
+.rule{border-top:1px solid var(--line)}
+.eyebrow{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.h2{font-size:clamp(30px,4.2vw,48px);line-height:1.1;letter-spacing:-.025em}
+.h2 .acc{color:var(--accent)}
+.head{display:grid;grid-template-columns:1fr 1fr;gap:28px 64px;align-items:end;margin-bottom:clamp(40px,6vw,64px)}
+.head>*{min-width:0}
+.head .lead{color:var(--muted);font-size:17px;max-width:52ch}
+.head .lead b{color:var(--ink);font-weight:500}
+.head-l{display:grid;gap:18px}
+@media(max-width:820px){.head{grid-template-columns:1fr}}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500;padding:12px 18px;border-radius:10px;border:1px solid var(--line2);background:transparent;cursor:pointer;transition:background .2s,border-color .2s,transform .2s;white-space:nowrap}
+.btn:hover{border-color:rgba(255,255,255,.28)}
+.btn-w{background:#f4ecff;color:var(--brand);border-color:transparent}
+.btn-w:hover{background:#fff;transform:translateY(-1px)}
+.link{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);display:inline-flex;gap:6px}
+.link:hover{color:var(--ink)}
+.ph{color:var(--accent);border-bottom:1px dashed var(--accent)}
+.card{background:linear-gradient(180deg,var(--surface),var(--bg2));border:1px solid var(--line);border-radius:var(--r)}
+
+/* NAV */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:70;background:rgba(13,7,22,.78);background-color:rgba(13,7,22,.94);border-bottom:1px solid var(--line)}
+.nav .wrap{height:66px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em}
+.logo svg{width:28px;height:29px;flex:none}
+.wm{font-family:"Lexend",var(--f-display);font-size:19px;letter-spacing:-.02em;line-height:1}
+.wm b{font-weight:600;color:#fff}
+.wm em{font-style:normal;font-weight:300;color:var(--accent)}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:14.5px;color:var(--muted)}
+.nav ul a:hover{color:var(--ink)}
+.burger{display:none;width:38px;height:38px;border:1px solid var(--line2);border-radius:10px;background:transparent;cursor:pointer;place-items:center}
+.burger span{display:block;width:14px;height:1.5px;background:var(--ink);box-shadow:0 5px 0 var(--ink),0 -5px 0 var(--ink)}
+.mnav{display:none;border-top:1px solid var(--line);padding-block:12px 18px}
+.mnav a{display:block;padding:10px 0;color:var(--muted)}
+.nav .mnav{display:none;height:auto}
+.nav.open .mnav{display:block}
+@media(max-width:1020px){.nav ul,.nav .btn-w{display:none}.burger{display:grid}}
+
+/* HERO */
+.hero{padding-block:clamp(48px,7vw,84px) clamp(56px,7vw,90px);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;right:-10%;top:-10%;width:60%;height:120%;background:radial-gradient(closest-side,rgba(201,162,255,.10),transparent);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(28px,4vw,56px);align-items:center;position:relative}
+.hero-grid>*{min-width:0}
+.hero h1{font-size:clamp(38px,5.6vw,66px);line-height:1.04;letter-spacing:-.04em;margin:22px 0 22px}
+.rot{display:block;height:1.1em;overflow:hidden;color:var(--accent)}
+.rot span{display:block;transition:transform .6s cubic-bezier(.7,0,.2,1)}
+.hero .intro{color:var(--muted);font-size:17px;max-width:56ch}
+.hero .intro b{color:var(--ink);font-weight:500}
+.askwrap{margin-top:30px;display:grid;gap:12px}
+.askwrap label{display:flex;align-items:center;gap:8px;font-size:14.5px}
+.askwrap label::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.ask{display:flex;gap:8px;padding:6px;border:1px solid var(--line2);border-radius:12px;background:var(--surface);transition:border-color .2s,box-shadow .2s}
+.ask:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.ask input{flex:1;min-width:0;background:transparent;border:0;outline:none;color:var(--ink);font:400 15px var(--f-body);padding:8px 10px}
+.ask input::placeholder{color:var(--dim)}
+.trend{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.trend em{font-style:normal;font-family:var(--f-mono);font-size:11.5px;color:var(--dim);letter-spacing:.06em}
+.chip{font-size:13px;padding:5px 11px;border:1px solid var(--line2);border-radius:8px;background:transparent;color:var(--muted);cursor:pointer}
+.chip:hover{color:var(--ink);border-color:var(--accent)}
+.ticks{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:26px;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.ticks span::before{content:"✓ ";color:var(--ok)}
+.nova{position:relative;border-radius:20px;border:1px solid var(--line);background:radial-gradient(80% 70% at 50% 40%,rgba(120,40,200,.30),transparent 70%),linear-gradient(180deg,#140d20,#0c0a12);overflow:hidden}
+.nova-top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;position:relative;z-index:2}
+.nova-tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;color:var(--muted);display:flex;align-items:center;gap:8px}
+.nova-tag i{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok)}
+.nova-tag.busy i{background:var(--accent);box-shadow:0 0 10px var(--accent)}
+.mute{font-family:var(--f-mono);font-size:11.5px;padding:5px 10px;border:1px solid var(--line2);border-radius:8px;background:rgba(0,0,0,.3);cursor:pointer;color:var(--ink)}
+.nova-stage{position:relative;aspect-ratio:1/0.86;max-width:100%}
+.nova-stage canvas,.nova-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.nova-term{padding:14px 18px 18px;font-family:var(--f-mono);font-size:13px;line-height:1.7;min-height:118px;max-height:240px;overflow:auto;border-top:1px solid var(--line);background:rgba(13,7,22,.6)}
+.nova-term .p{color:var(--accent)}
+.nova-term .u{color:var(--ink)}
+.nova-term .n{color:#c8cad6}
+.nova-term a{color:var(--accent);text-decoration:underline}
+.wave{display:flex;gap:3px;align-items:end;height:14px;margin-bottom:8px}
+.wave i{width:3px;background:var(--accent);border-radius:2px;height:3px;transition:height .12s}
+@media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+
+/* LOGOS */
+.logos{padding-block:56px 72px;border-top:1px solid var(--line)}
+.logos .cap{text-align:center;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:24px;padding-inline:20px}
+.marquee{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.track{display:flex;gap:16px;width:max-content;animation:mq 40s linear infinite}
+.track.rev{animation-direction:reverse;animation-duration:46s}
+.marquee+.marquee{margin-top:16px}
+@keyframes mq{to{transform:translateX(-50%)}}
+.lg{width:200px;height:84px;border-radius:12px;background:#f3f4f7;color:#1b1d24;display:grid;place-items:center;font-weight:600;font-size:17px;letter-spacing:-.02em;flex:none}
+.lg small{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;color:#7b7f8c;text-align:center;font-weight:400}
+.logos .note{text-align:center;color:var(--dim);font-size:12.5px;margin-top:20px;padding-inline:20px}
+
+/* ENGINE STACK */
+.stack{max-width:780px;margin:0 auto;display:grid;justify-items:center}
+.lay{width:100%;padding:24px 28px;text-align:center;display:grid;gap:8px;justify-items:center}
+.lay .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+.lay h3{font-size:24px;letter-spacing:-.02em}
+.lay p{color:var(--muted);font-size:14.5px;max-width:56ch}
+.lay.result{background:linear-gradient(180deg,#1a1c26,#13151c)}
+.lay.engine{border-color:rgba(201,162,255,.35);box-shadow:0 0 0 1px rgba(201,162,255,.08),0 20px 80px -20px rgba(201,162,255,.35);padding:32px 28px}
+.lay.engine .k{color:var(--accent)}
+.lay.engine h3{font-size:30px}
+.pills{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:6px}
+.pills span{font-family:var(--f-mono);font-size:12px;padding:4px 10px;border-radius:7px;background:rgba(255,255,255,.06);border:1px solid var(--line)}
+.pills span.on{background:var(--accent-soft);border-color:rgba(201,162,255,.5);color:var(--accent)}
+.okline{font-family:var(--f-mono);font-size:12px;color:var(--ok)}
+.lay.nova-l h3{color:var(--accent)}
+.llms{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:4px}
+.llms span{font-family:var(--f-mono);font-size:12px;color:var(--muted);border:1px solid var(--line2);border-radius:7px;padding:3px 9px}
+.conn{width:1px;height:44px;background:linear-gradient(var(--line2),var(--accent));position:relative}
+.conn::after{content:"";position:absolute;left:-3px;top:-1px;border:3.5px solid transparent;border-bottom-color:var(--accent);border-top:0}
+.conn i{position:absolute;left:-2px;width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:up 2.2s linear infinite}
+@keyframes up{from{top:100%;opacity:0}20%{opacity:1}to{top:0;opacity:0}}
+.stack-cap{text-align:center;color:var(--dim);font-size:13.5px;margin-top:28px}
+.feat{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:clamp(56px,8vw,96px)}
+.feat .card{padding:24px;display:grid;gap:10px;align-content:start;min-width:0}
+.feat .tag{font-family:var(--f-mono);font-size:11.5px;color:var(--dim)}
+.feat h3{font-size:19px;letter-spacing:-.02em;line-height:1.2}
+.feat p{color:var(--muted);font-size:14.5px}
+@media(max-width:980px){.feat{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.feat{grid-template-columns:1fr}}
+.vers{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center;margin-top:clamp(56px,8vw,96px)}
+.vers>*{min-width:0}
+.vers .txt{display:grid;gap:18px}
+.vers .txt p{color:var(--muted)}
+.term{border-radius:14px;border:1px solid var(--line);background:#0d0e12;overflow:hidden}
+.term-h{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:12px;color:var(--dim)}
+.term-h i{width:9px;height:9px;border-radius:50%;background:#2a2d36}
+.term-b{padding:16px 18px;font-family:var(--f-mono);font-size:12.8px;line-height:1.85;height:280px;overflow:hidden;color:#c8cad6}
+.term-b .g{color:var(--ok)}.term-b .a{color:var(--accent)}.term-b .d{color:var(--dim)}
+@media(max-width:860px){.vers{grid-template-columns:1fr}}
+
+/* GUARANTEE */
+.gl{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.gl .card{padding:28px;display:grid;gap:12px;align-content:start;min-width:0}
+.gl .n{font-family:var(--f-mono);font-size:12px;color:var(--accent)}
+.gl h3{font-size:20px;letter-spacing:-.02em}
+.gl p{color:var(--muted);font-size:15px}
+.fine{color:var(--dim);font-size:13px;margin-top:22px}
+@media(max-width:860px){.gl{grid-template-columns:1fr}}
+
+/* NUMBERS */
+.nums{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:linear-gradient(160deg,rgba(201,162,255,.06),transparent 40%)}
+.nm{padding:32px 26px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);position:relative;min-width:0}
+.nm:nth-child(3n){border-right:0}
+.nm:nth-child(n+4){border-bottom:0}
+.nm::before{content:"";position:absolute;top:-1px;left:26px;width:40px;height:2px;background:var(--accent)}
+.nm b{display:block;font-size:clamp(34px,4.6vw,52px);font-weight:400;letter-spacing:-.04em;line-height:1;margin-bottom:14px;font-variant-numeric:tabular-nums}
+.nm b sup{font-size:.4em;color:var(--accent);vertical-align:top;margin-left:2px}
+.nm span{color:var(--muted);font-size:14.5px}
+@media(max-width:780px){.nums{grid-template-columns:1fr 1fr}.nm{border-right:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important}.nm:nth-child(2n){border-right:0!important}.nm:nth-child(n+5){border-bottom:0!important}}
+
+/* SCALE */
+.scale{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,5vw,64px);align-items:start}
+.scale>*{min-width:0}
+.scale .txt{display:grid;gap:22px}
+.scale .txt>p{color:var(--muted)}
+.ticklist{display:grid;gap:18px;list-style:none;margin:0;padding:0}
+.ticklist li{display:grid;grid-template-columns:14px 1fr;gap:12px}
+.ticklist li::before{content:"";width:7px;height:7px;border-radius:2px;background:var(--ok);margin-top:9px}
+.ticklist b{font-weight:500;display:block}
+.ticklist span{color:var(--muted);font-size:14.5px}
+.sim{position:sticky;top:90px;padding:0;overflow:hidden}
+.sim-h{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--muted)}
+.sim-h b{font-size:15px;color:var(--ok);letter-spacing:0;font-weight:500;font-variant-numeric:tabular-nums}
+.sim canvas{display:block;width:100%;height:420px}
+.sim-stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.sim-stats div{padding:14px 18px;border-right:1px solid var(--line);min-width:0}
+.sim-stats div:last-child{border-right:0}
+.sim-stats small{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
+.sim-stats b{font-size:18px;font-weight:500;font-variant-numeric:tabular-nums}
+#stStatus{color:var(--ok)}
+@media(max-width:940px){.scale{grid-template-columns:1fr}.sim{position:relative;top:0}}
+@media(max-width:520px){.sim-stats{grid-template-columns:1fr 1fr}.sim-stats div:nth-child(2){border-right:0}.sim-stats div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+/* LEAN */
+.lean{display:grid;grid-template-columns:.8fr 1.2fr;gap:20px;align-items:start}
+.lean>*{min-width:0}
+.bars{padding:26px;display:grid;gap:18px}
+.bar{display:grid;grid-template-columns:110px 1fr 46px;gap:12px;align-items:center;font-size:14px}
+.bar .t{height:8px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
+.bar .t i{display:block;height:100%;border-radius:99px;background:#7b7f8c}
+.bar.us .t i{background:linear-gradient(90deg,var(--violet),var(--accent))}
+.bar em{font-style:normal;font-family:var(--f-mono);font-size:12.5px;text-align:right;color:var(--muted)}
+.bars p{color:var(--muted);font-size:15px}
+.bars p b{color:var(--ok);font-weight:500}
+.dots{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:14px}
+.dots li{display:flex;gap:10px;align-items:center}
+.dots li::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c,var(--accent))}
+.cmp-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+.cmp{width:100%;border-collapse:collapse;min-width:560px;font-size:14.5px}
+.cmp th,.cmp td{padding:16px 18px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.cmp tr:last-child td,.cmp tr:last-child th{border-bottom:0}
+.cmp thead th{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;color:var(--dim);font-weight:400}
+.cmp tbody th{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--dim);font-weight:400;text-transform:uppercase;width:24%}
+.cmp td:nth-child(2){color:var(--muted)}
+.cmp .us{background:rgba(201,162,255,.07)}
+.cmp thead .us{color:var(--accent)}
+.three{margin-top:clamp(56px,8vw,96px);text-align:center;color:var(--muted);max-width:62ch;margin-inline:auto;font-size:17px}
+@media(max-width:900px){.lean{grid-template-columns:1fr}}
+
+/* ANATOMY */
+.anat{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+.anat>*{min-width:0}
+.anat-vis{position:sticky;top:110px;height:440px;perspective:1100px;display:grid;place-items:center}
+.planes{position:relative;width:min(360px,80%);aspect-ratio:1.25/1;transform-style:preserve-3d;transform:rotateX(58deg) rotateZ(-38deg)}
+.pl{position:absolute;inset:0;border-radius:16px;border:1px solid var(--line2);background:linear-gradient(135deg,rgba(36,22,58,.96),rgba(19,11,31,.96));transition:transform .6s cubic-bezier(.3,.7,.2,1),border-color .4s,box-shadow .4s;display:grid;padding:14px;align-content:start;gap:8px}
+.pl .lbl{font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;color:var(--muted)}
+.pl .mock{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.pl .mock i{height:16px;border-radius:4px;background:rgba(255,255,255,.06)}
+.pl.on{border-color:var(--c);box-shadow:0 0 50px -10px var(--c)}
+.pl.on .lbl{color:var(--c)}
+.anat-list{display:grid;gap:12px}
+.anat-list .intro{display:grid;gap:18px;margin-bottom:24px}
+.anat-list .intro p{color:var(--muted)}
+.al{padding:18px 20px;border-radius:12px;border:1px solid transparent;transition:background .3s,border-color .3s;display:grid;gap:4px}
+.al .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;color:var(--c);text-transform:uppercase}
+.al h3{font-size:19px;letter-spacing:-.02em}
+.al p{color:var(--muted);font-size:14.5px}
+.al.on{background:var(--surface);border-color:var(--line2)}
+@media(max-width:860px){.anat{grid-template-columns:1fr}.anat-vis{position:relative;top:0;height:320px}}
+
+/* SERVICES */
+.svc{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.sv{padding:26px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;gap:14px;align-content:start;min-width:0;background:var(--bg2);transition:background .25s}
+.sv:hover{background:var(--surface)}
+.sv:nth-child(3n){border-right:0}
+.sv:nth-child(n+4){border-bottom:0}
+.sv .top{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11.5px;color:var(--dim)}
+.sv .ic{width:34px;height:34px;border-radius:9px;border:1px solid var(--line2);display:grid;place-items:center;color:var(--accent);font-size:15px}
+.sv h3{font-size:20px;letter-spacing:-.02em}
+.sv p{color:var(--muted);font-size:14.5px}
+.sv .tags{display:flex;flex-wrap:wrap;gap:6px}
+.sv .tags span{font-family:var(--f-mono);font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid var(--line2);color:var(--ink)}
+@media(max-width:900px){.svc{grid-template-columns:1fr 1fr}.sv{border-right:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important}.sv:nth-child(2n){border-right:0!important}.sv:nth-child(n+5){border-bottom:0!important}}
+@media(max-width:560px){.svc{grid-template-columns:1fr}.sv{border-right:0!important;border-bottom:1px solid var(--line)!important}.sv:last-child{border-bottom:0!important}}
+
+/* IDEA LAB RING */
+.ring-stage{height:420px;perspective:1400px;position:relative;cursor:grab;user-select:none;touch-action:pan-y}
+.ring-stage:active{cursor:grabbing}
+.ring{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
+.ic-card{position:absolute;width:230px;height:300px;left:-115px;top:-150px;border-radius:18px;border:1px solid var(--line2);background:linear-gradient(170deg,#24163a,#130b1f 72%);padding:22px;overflow:hidden;display:grid;grid-template-rows:auto auto 1fr auto;gap:12px;backface-visibility:hidden;cursor:pointer;transition:border-color .2s}
+.ic-card:hover{border-color:var(--accent)}
+.ic-card .t{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;display:flex;align-items:center;gap:6px;color:var(--c)}
+.ic-card .t::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c)}
+.ic-card h3{font-size:21px;line-height:1.15;letter-spacing:-.02em}
+.ic-card p{color:var(--muted);font-size:13.5px}
+.ic-card .x{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.ring-cap{text-align:center;font-family:var(--f-mono);font-size:12px;color:var(--dim);margin-top:10px}
+.ring-cta{display:flex;justify-content:center;margin-top:18px}
+@media(max-width:600px){.ring-stage{height:360px}.ic-card{width:200px;height:270px;left:-100px;top:-135px}}
+@media(min-width:1100px){.ring-stage{height:540px;perspective:2200px}.ic-card{width:290px;height:380px;left:-145px;top:-190px;padding:28px;gap:14px}.ic-card h3{font-size:26px}.ic-card p{font-size:15.5px}.ic-card .t,.ic-card .x{font-size:12.5px}.ic-card::after{width:110px;height:110px;right:-36px;top:-36px}}
+@media(min-width:1600px){.ring-stage{height:600px;perspective:2600px}.ic-card{width:330px;height:420px;left:-165px;top:-210px;padding:32px}.ic-card h3{font-size:29px}.ic-card p{font-size:16.5px}}
+.modal{position:fixed;inset:0;z-index:90;background:rgba(5,6,8,.7);backdrop-filter:blur(6px);display:grid;place-items:center;padding:20px}
+.modal .card{max-width:520px;width:100%;padding:28px;display:grid;gap:16px;background:var(--surface)}
+.modal h3{font-size:26px;letter-spacing:-.02em}
+.modal p{color:var(--muted)}
+.modal ul{margin:0;padding-left:18px;color:var(--muted);display:grid;gap:4px}
+.modal .row{display:flex;gap:10px;flex-wrap:wrap}
+
+/* CHECKER */
+.chk{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+.chk>*{min-width:0}
+.chk .txt{display:grid;gap:18px}
+.chk .txt p{color:var(--muted)}
+.chk form{padding:22px;display:grid;gap:14px;background:var(--surface)}
+.chk label{font-size:14.5px;font-weight:500}
+.chk textarea{background:var(--bg);border:1px solid var(--line2);border-radius:10px;color:var(--ink);font:400 15px var(--f-body);padding:12px 14px;resize:vertical;min-height:110px}
+.chk textarea:focus{outline:none;border-color:var(--accent)}
+.est{display:grid;gap:16px;padding:22px;margin-top:14px}
+.est .r{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.est .pill{font-family:var(--f-mono);font-size:11px;color:var(--ok);border:1px solid rgba(111,207,151,.4);border-radius:99px;padding:3px 9px}
+.meter{height:7px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--accent));transition:width .9s ease}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0;font-size:14.5px}
+.kv dt{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding-top:3px}
+.kv dd{margin:0}
+.wheel-box{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;border-top:1px solid var(--line);padding-top:16px}
+.wheel-box canvas{width:150px;height:150px;transition:transform 3.2s cubic-bezier(.15,.8,.1,1)}
+.wheel-wrap{position:relative;width:150px;height:150px}
+.wheel-wrap::after{content:"";position:absolute;left:50%;top:-6px;transform:translateX(-50%);border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+.wheel-box p{color:var(--muted);font-size:14px}
+.wheel-box b{color:var(--ok);font-weight:500}
+@media(max-width:860px){.chk{grid-template-columns:1fr}}
+@media(max-width:420px){.wheel-box{grid-template-columns:1fr;justify-items:center;text-align:center}}
+
+/* STRIP + PROCESS */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.strip>div{padding:26px;min-width:0}
+.strip b{display:block;font-size:clamp(34px,4vw,48px);font-weight:400;letter-spacing:-.04em;line-height:1;margin-bottom:12px}
+.strip b sup{font-size:.38em;color:var(--accent);vertical-align:top;margin-left:2px}
+.strip span{color:var(--muted);font-size:14.5px}
+@media(max-width:860px){.strip{grid-template-columns:1fr 1fr}}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.st{display:grid;gap:10px;align-content:start;min-width:0}
+.st .ln{height:1px;background:var(--line2);position:relative;margin-bottom:12px}
+.st .ln i{position:absolute;left:0;top:-.5px;height:2px;width:0;background:var(--accent);transition:width 1.2s ease}
+.st.in .ln i{width:100%}
+.st .n{font-family:var(--f-mono);font-size:12px;color:var(--dim)}
+.st h3{font-size:20px;letter-spacing:-.02em}
+.st p{color:var(--muted);font-size:14.5px}
+.st .w{font-family:var(--f-mono);font-size:11.5px;color:var(--dim)}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(28px,5vw,64px);align-items:start}
+.faq>*{min-width:0}
+.faq .txt{display:grid;gap:18px;position:sticky;top:100px}
+.faq .txt p{color:var(--muted)}
+.qa{border-top:1px solid var(--line)}
+.qa details{border-bottom:1px solid var(--line)}
+.qa summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-size:17px;font-weight:500}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";color:var(--muted);font-size:20px;line-height:1;transition:transform .25s}
+.qa details[open] summary::after{transform:rotate(45deg)}
+.qa details p{color:var(--muted);padding-bottom:22px;max-width:64ch}
+@media(max-width:860px){.faq{grid-template-columns:1fr}.faq .txt{position:static}}
+
+/* CTA + FOOTER */
+.cta{padding:clamp(32px,5vw,56px);display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap;background:radial-gradient(90% 140% at 100% 0%,rgba(201,162,255,.13),transparent 60%),linear-gradient(180deg,var(--surface),var(--bg2))}
+.cta>div{display:grid;gap:14px;max-width:560px;min-width:0}
+.cta h2{font-size:clamp(28px,3.6vw,40px);letter-spacing:-.035em;line-height:1.1}
+.cta p{color:var(--muted)}
+.cta .row{display:flex;gap:10px;flex-wrap:wrap}
+footer{border-top:1px solid var(--line);padding-block:56px 40px}
+.ft{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+.ft>*{min-width:0}
+.ft .about{display:grid;gap:16px;align-content:start}
+.ft .about p{color:var(--muted);font-size:14.5px;max-width:40ch}
+.sub{display:flex;gap:8px;flex-wrap:wrap}
+.sub input{flex:1;min-width:0;background:var(--surface);border:1px solid var(--line2);border-radius:10px;color:var(--ink);padding:10px 12px;font:400 14px var(--f-body)}
+.ft h4{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;color:var(--dim);font-weight:400;text-transform:uppercase;margin-bottom:14px}
+.ft ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:14.5px;color:var(--muted)}
+.ft ul a:hover{color:var(--ink)}
+.legal{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:44px;padding-top:22px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+@media(max-width:860px){.ft{grid-template-columns:1fr 1fr}.ft .about{grid-column:1/-1}}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* ===== Branding Catalyst identity layer =====
+   Lexend headings (the logo's typeface), the logo's purple as the dominant colour,
+   the logo's orbiting dot as a recurring motif. */
+.eyebrow::before{width:7px;height:7px;box-shadow:0 0 0 3px rgba(201,162,255,.18)}
+.btn-w{background:linear-gradient(135deg,#f6efff,#dcc4ff)}
+
+/* HERO */
+.hero::before{inset:0;right:0;top:0;width:auto;height:auto;background:radial-gradient(55% 65% at 78% 45%,rgba(66,6,107,.75),transparent 70%),radial-gradient(40% 50% at 10% 0%,rgba(201,162,255,.10),transparent 70%)}
+.hero::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(201,162,255,.14) 1px,transparent 1.6px);background-size:26px 26px;-webkit-mask-image:radial-gradient(70% 70% at 70% 40%,#000,transparent);mask-image:radial-gradient(70% 70% at 70% 40%,#000,transparent);pointer-events:none}
+.hero-grid{z-index:1}
+.hero h1{font-size:clamp(52px,8.4vw,108px);font-weight:600;line-height:.96;letter-spacing:-.035em;margin:20px 0 18px}
+.hero-sub{font-family:var(--f-display);font-weight:300;font-size:clamp(20px,2.3vw,28px);line-height:1.3;margin-bottom:18px;color:var(--ink)}
+.hero-sub .rot{display:inline-block;vertical-align:bottom;height:1.3em;color:var(--accent);font-weight:500}
+.hero-sub .rot span{line-height:1.3em;white-space:nowrap}
+@media(max-width:600px){.hero-sub .rot{display:block}}
+.arc{display:grid;gap:14px;justify-items:center}
+.arc-portal{position:relative;width:min(430px,88%);aspect-ratio:1}
+.arc-ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(#42066b,#c9a2ff,#8b5cf6,#42066b 65%,#c9a2ff);animation:ringspin 12s linear infinite;box-shadow:0 0 70px -10px rgba(139,92,246,.6)}
+.arc-portal .nova-stage{position:absolute;inset:7px;border-radius:50%;overflow:hidden;background:#0d0716;aspect-ratio:auto}
+.arc-orbit{position:absolute;inset:-20px;animation:ringspin 16s linear infinite reverse;pointer-events:none}
+.arc-dot{position:absolute;top:50%;right:0;width:20px;height:20px;margin-top:-10px;border-radius:50%;background:#c9a2ff;box-shadow:0 0 22px #c9a2ff}
+@keyframes ringspin{to{transform:rotate(360deg)}}
+.arc-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;width:min(520px,100%)}
+.arc .nova-term{width:min(520px,100%);border:1px solid var(--line2);border-radius:16px;background:rgba(27,17,41,.8)}
+
+/* THE CATALYST FORMULA (purple band, like the logo's circle) */
+.formula{position:relative;overflow:hidden;color:#fff;padding-block:clamp(72px,10vw,128px);background:radial-gradient(80% 120% at 88% 0%,rgba(201,162,255,.30),transparent 60%),radial-gradient(60% 80% at 0% 100%,rgba(139,92,246,.35),transparent 60%),#42066b}
+.formula::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.10) 1px,transparent 1.6px);background-size:26px 26px;pointer-events:none}
+.formula .wrap{position:relative;z-index:1}
+.formula .eyebrow{color:rgba(255,255,255,.78)}
+.formula .h2 .acc{color:#e6d2ff}
+.formula .head .lead{color:rgba(255,255,255,.82)}
+.formula .head .lead b{color:#fff}
+.eq{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;margin-block:8px clamp(48px,7vw,80px)}
+.el{width:150px;aspect-ratio:1;border-radius:24px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.24);padding:14px 16px;display:grid;grid-template-rows:auto 1fr auto auto;transition:transform .3s}
+.el:hover{transform:translateY(-4px) rotate(-2deg)}
+.el .no{font-family:var(--f-mono);font-size:11px;opacity:.7}
+.el b{font-family:var(--f-display);font-size:48px;font-weight:600;line-height:1;align-self:center}
+.el .nm{font-weight:500;font-size:15px}
+.el small{font-family:var(--f-mono);font-size:10px;opacity:.75;line-height:1.4}
+.el.out{background:#f6efff;color:#42066b;border-color:transparent;box-shadow:0 24px 60px -12px rgba(230,210,255,.65)}
+.op{font-style:normal;font-family:var(--f-display);font-size:34px;opacity:.85}
+.react{flex:1 1 200px;max-width:280px;display:grid;gap:10px;justify-items:center;text-align:center}
+.react b{font-family:var(--f-display);font-weight:600;font-size:16px}
+.react small{font-family:var(--f-mono);font-size:10.5px;opacity:.78}
+.react .line{position:relative;width:100%;height:2px;background:linear-gradient(90deg,rgba(255,255,255,.15),#fff)}
+.react .line::after{content:"";position:absolute;right:-2px;top:-5px;border:6px solid transparent;border-left:9px solid #fff;border-right:0}
+.react .line i{position:absolute;top:-4px;left:0;width:10px;height:10px;border-radius:50%;background:#e6d2ff;box-shadow:0 0 14px #fff;animation:flow 2.4s linear infinite}
+.react .line i:nth-child(2){animation-delay:.8s}
+.react .line i:nth-child(3){animation-delay:1.6s}
+@keyframes flow{0%{left:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{left:calc(100% - 10px);opacity:0}}
+.formula .feat{margin-top:0}
+.formula .feat .card{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.18)}
+.formula .feat .tag{color:rgba(255,255,255,.6)}
+.formula .feat p{color:rgba(255,255,255,.78)}
+@media(max-width:720px){.el{width:128px}.el b{font-size:40px}.react{flex-basis:100%;max-width:none}.react .line{max-width:280px}}
+
+/* AI VISIBILITY CHECK */
+.vis{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(28px,5vw,64px);align-items:start}
+.vis>*{min-width:0}
+.vis .txt{display:grid;gap:22px}
+.vis .txt>p{color:var(--muted)}
+.vis-form{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px;align-items:end}
+.vf{display:grid;gap:6px;min-width:0}
+.vf label{font-size:13px;color:var(--muted)}
+.vf input{width:100%;background:var(--surface);border:1px solid var(--line2);border-radius:10px;color:var(--ink);font:400 15px var(--f-body);padding:10px 12px}
+.vf input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+@media(max-width:700px){.vis-form{grid-template-columns:1fr 1fr}.vis-form .btn{grid-column:1/-1;justify-self:start}}
+.vis-card{position:sticky;top:96px;padding:0;overflow:hidden}
+.vis-tabs{display:flex;gap:6px;padding:12px;border-bottom:1px solid var(--line)}
+.vis-tabs button{flex:1;padding:9px 12px;border-radius:9px;border:1px solid transparent;background:transparent;color:var(--muted);cursor:pointer;font-size:14px;font-weight:500}
+.vis-tabs button[aria-selected="true"]{background:var(--surface2);border-color:var(--line2);color:var(--ink)}
+.vis-tabs button#visAfter[aria-selected="true"]{background:rgba(201,162,255,.14);border-color:rgba(201,162,255,.4);color:var(--accent)}
+.vis-body{padding:22px;display:grid;gap:16px;min-height:300px;align-content:start}
+.vq,.va{font-family:var(--f-mono);font-size:13.5px;line-height:1.75}
+.vq span:first-child{color:var(--accent)}
+.va span:first-child{color:var(--ok)}
+.va #visA b{color:var(--accent);font-weight:500}
+.vis-meter .r{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.vis-meter b{font-family:var(--f-mono);font-weight:500}
+.vis-meter .meter i{transition:width 1s ease}
+.vis-chip{justify-self:start;font-family:var(--f-mono);font-size:12px;padding:5px 10px;border-radius:99px;border:1px solid}
+.vis-chip.bad{color:#f2a7a7;border-color:rgba(242,167,167,.4)}
+.vis-chip.good{color:var(--ok);border-color:rgba(111,207,151,.45)}
+.vis-note{padding:14px 22px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px}
+@media(max-width:900px){.vis{grid-template-columns:1fr}.vis-card{position:relative;top:0}}
+
+/* IDEA LAB GRID */
+.lab-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.lab-filters button{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;padding:7px 13px;border-radius:99px;border:1px solid var(--line2);background:transparent;color:var(--muted);cursor:pointer}
+.lab-filters button:hover{color:var(--ink);border-color:var(--accent)}
+.lab-filters button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#2a0446}
+.lab-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.lab-card{position:relative;overflow:hidden;text-align:left;display:grid;grid-template-rows:auto auto 1fr auto;gap:10px;min-height:230px;padding:22px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(170deg,var(--surface),var(--bg2));color:var(--ink);cursor:pointer;transition:transform .25s,border-color .25s}
+.lab-card::after{content:"";position:absolute;right:-34px;top:-34px;width:96px;height:96px;border-radius:50%;background:var(--c);opacity:.2;transition:transform .35s,opacity .35s}
+.lab-card:hover{transform:translateY(-4px);border-color:var(--c)}
+.lab-card:hover::after{transform:scale(1.5);opacity:.3}
+.lab-card .t{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--c)}
+.lab-card h3{font-size:19px;line-height:1.2;letter-spacing:-.01em;position:relative}
+.lab-card p{color:var(--muted);font-size:14px}
+.lab-card .x{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.lab-card:hover .x{color:var(--c)}
+@media(max-width:1000px){.lab-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.lab-grid{grid-template-columns:1fr}}
+.ring-cta{display:flex;justify-content:center;margin-top:28px}
+
+/* restored pieces, in brand colours */
+.ic-card::after{content:"";position:absolute;right:-30px;top:-30px;width:86px;height:86px;border-radius:50%;background:var(--c);opacity:.22;pointer-events:none}
+.ic-card h3{font-weight:500}
+.pl .sw{display:flex;align-items:center;gap:6px}
+.pl .sw i{width:20px;height:20px;border-radius:50%;border:1px solid rgba(255,255,255,.25)}
+.pl .sw b{margin-left:auto;font-family:var(--f-display);font-size:22px;font-weight:600;color:#e6d2ff}
+.pl-brand{background:linear-gradient(135deg,rgba(66,6,107,.97),rgba(36,12,62,.97))!important}
+#idea-lab .ring-stage{margin-top:8px}
+
+/* ===== Services bento: each card shows its service in action ===== */
+.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-template-areas:"ai ai aeo" "mob erp aeo" "web td td";gap:14px}
+.bx-ai{grid-area:ai}.bx-aeo{grid-area:aeo}.bx-mob{grid-area:mob}.bx-erp{grid-area:erp}.bx-web{grid-area:web}.bx-3d{grid-area:td}
+.bx{position:relative;overflow:hidden;min-width:0;display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(165deg,var(--surface),var(--bg2));transition:transform .3s,border-color .3s,box-shadow .3s;--mx:50%;--my:0%}
+.bx::before{content:"";position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx) var(--my),color-mix(in srgb,var(--c) 22%,transparent),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.bx:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c) 55%,transparent);box-shadow:0 24px 60px -24px color-mix(in srgb,var(--c) 60%,transparent)}
+.bx:hover::before{opacity:1}
+.bx>*{position:relative}
+.bx-top{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--c)}
+.bx-top span:last-child{color:var(--dim);letter-spacing:0}
+.bx h3{font-size:22px;letter-spacing:-.015em}
+.bx p{color:var(--muted);font-size:14.5px}
+.bx-tags{display:flex;flex-wrap:wrap;gap:6px}
+.bx-tags span{font-family:var(--f-mono);font-size:11px;padding:3px 9px;border-radius:99px;border:1px solid color-mix(in srgb,var(--c) 35%,transparent);color:var(--ink)}
+.bx-go{align-self:flex-start;margin-top:auto;font:500 13.5px var(--f-body);padding:9px 14px;border-radius:99px;border:1px solid color-mix(in srgb,var(--c) 45%,transparent);background:color-mix(in srgb,var(--c) 12%,transparent);color:var(--ink);cursor:pointer;transition:background .2s,color .2s}
+.bx-go:hover{background:var(--c);color:#1c0830}
+.viz{height:150px;border-radius:16px;border:1px solid var(--line);background:rgba(13,7,22,.55);padding:14px;overflow:hidden}
+.bx-aeo .viz{height:auto;flex:1;min-height:250px}
+.bx-ai .viz,.bx-3d .viz{height:170px}
+
+/* AI chat */
+.viz-chat{display:flex;flex-direction:column;gap:8px;justify-content:center}
+.msg{max-width:78%;padding:8px 12px;border-radius:14px;font-size:13px;line-height:1.4}
+.msg.me{align-self:flex-end;background:var(--c);color:#24063d;border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start;background:var(--surface2);border:1px solid var(--line2);border-bottom-left-radius:4px}
+.msg small{display:block;font-family:var(--f-mono);font-size:10px;color:var(--c);margin-top:3px}
+.slot{display:grid;align-self:flex-start;max-width:78%}
+.slot>.msg{grid-area:1/1;max-width:none;align-self:start}
+.typing{display:flex;gap:4px;padding:11px 12px;justify-self:start;opacity:0;animation:typeShow 6s infinite}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:dot 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+.ans{animation:ansShow 6s infinite}
+@keyframes dot{50%{transform:translateY(-3px);opacity:.4}}
+@keyframes typeShow{0%,10%{opacity:0}13%,36%{opacity:1}40%,100%{opacity:0}}
+@keyframes ansShow{0%,38%{opacity:0;transform:translateY(6px)}42%,90%{opacity:1;transform:none}100%{opacity:0}}
+
+/* AEO answer */
+.viz-answer{display:flex;flex-direction:column;gap:9px}
+.vq{align-self:flex-end;font-size:12.5px;padding:6px 11px;border-radius:12px;background:var(--surface2);border:1px solid var(--line2)}
+.vline{height:7px;border-radius:9px;background:rgba(255,255,255,.08);width:92%}
+.vline.s{width:64%}.vline.m{width:78%}
+.vhit{font-size:13px;padding:8px 10px;border-radius:10px;border:1px solid var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);animation:hitGlow 2.6s ease-in-out infinite}
+.vhit b{color:var(--c);font-weight:600}
+.vhit em{font-style:normal;font-family:var(--f-mono);font-size:10.5px;color:var(--ok);margin-left:4px}
+@keyframes hitGlow{50%{box-shadow:0 0 22px -4px var(--c)}}
+.rank{margin-top:auto;height:90px;display:flex;align-items:flex-end;gap:7px;position:relative;padding-top:18px}
+.rank i{flex:1;height:var(--h);border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,var(--c),color-mix(in srgb,var(--c) 25%,transparent));transform-origin:bottom;animation:grow 3s ease-in-out infinite alternate}
+.rank span{position:absolute;top:0;left:0;font-family:var(--f-mono);font-size:10px;color:var(--dim)}
+@keyframes grow{from{transform:scaleY(.55)}to{transform:scaleY(1)}}
+
+/* Phone */
+.viz-phone{display:flex;align-items:center;justify-content:center;gap:16px}
+.phone{width:74px;height:136px;border-radius:16px;border:2px solid color-mix(in srgb,var(--c) 70%,transparent);padding:5px;position:relative;background:#0d0716}
+.notch{position:absolute;top:4px;left:50%;width:22px;height:4px;margin-left:-11px;border-radius:4px;background:color-mix(in srgb,var(--c) 60%,transparent);z-index:2}
+.screen{height:100%;border-radius:11px;overflow:hidden;position:relative;background:var(--surface)}
+.feed{display:grid;gap:5px;padding:12px 5px 22px;animation:scrollFeed 5s ease-in-out infinite alternate}
+.ph-bar{height:6px;border-radius:4px;background:var(--c);width:60%}
+.ph-card{height:26px;border-radius:6px;background:rgba(255,255,255,.1)}
+.ph-card.s{height:16px}
+.ph-row{display:flex;gap:4px}.ph-row i{flex:1;height:18px;border-radius:5px;background:color-mix(in srgb,var(--c) 30%,transparent)}
+.ph-nav{position:absolute;bottom:0;left:0;right:0;height:16px;display:flex;justify-content:space-around;align-items:center;background:var(--surface2)}
+.ph-nav i{width:5px;height:5px;border-radius:50%;background:var(--muted)}
+.ph-nav i:first-child{background:var(--c)}
+@keyframes scrollFeed{to{transform:translateY(-34px)}}
+.stores{display:grid;gap:6px}
+.stores span{font-family:var(--f-mono);font-size:11px;padding:5px 10px;border-radius:8px;border:1px solid var(--line2)}
+
+/* ERP dashboard */
+.viz-dash{display:flex;flex-direction:column;gap:10px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.kpis div{padding:6px 8px;border-radius:8px;background:var(--surface2);border:1px solid var(--line)}
+.kpis small{display:block;font-family:var(--f-mono);font-size:9.5px;color:var(--dim)}
+.kpis b{font-size:14px;color:var(--c)}
+.erp-bars{height:70px;margin-top:auto;display:flex;align-items:flex-end;gap:6px}
+.erp-bars i{flex:1;height:var(--h);border-radius:4px 4px 1px 1px;background:color-mix(in srgb,var(--c) 75%,transparent);transform-origin:bottom;animation:grow 2.2s ease-in-out infinite alternate}
+.erp-bars i:nth-child(2n){animation-delay:.4s}.erp-bars i:nth-child(3n){animation-delay:.8s}
+
+/* Browser */
+.viz-browser{display:flex;flex-direction:column;gap:10px}
+.bw{flex:1;border-radius:10px;border:1px solid var(--line2);overflow:hidden;background:var(--surface)}
+.bw-bar{display:flex;align-items:center;gap:4px;padding:5px 8px;background:var(--surface2);font-family:var(--f-mono);font-size:9.5px;color:var(--dim)}
+.bw-bar i{width:6px;height:6px;border-radius:50%;background:var(--line2)}
+.bw-bar span{margin-left:6px}
+.bw-body{padding:8px;display:grid;gap:5px}
+.bw-hero{height:22px;border-radius:5px;background:linear-gradient(90deg,var(--c),color-mix(in srgb,var(--c) 20%,transparent));background-size:200% 100%;animation:shine 3s linear infinite}
+.bw-l{height:5px;border-radius:4px;background:rgba(255,255,255,.1);width:80%}.bw-l.s{width:55%}
+.bw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.bw-grid i{height:14px;border-radius:4px;background:rgba(255,255,255,.07)}
+@keyframes shine{to{background-position:-200% 0}}
+.checks{display:flex;gap:6px}
+.checks span{font-family:var(--f-mono);font-size:10.5px;color:var(--ok);padding:3px 8px;border-radius:99px;border:1px solid rgba(111,207,151,.35)}
+
+/* 3D cube */
+.viz-cube{display:flex;align-items:center;justify-content:space-around;gap:18px;perspective:600px}
+.cube{width:76px;height:76px;position:relative;transform-style:preserve-3d;animation:cubeSpin 9s linear infinite}
+.cube i{position:absolute;inset:0;border:1.5px solid var(--c);background:color-mix(in srgb,var(--c) 10%,transparent);border-radius:6px}
+.cube .f1{transform:translateZ(38px)}.cube .f2{transform:rotateY(180deg) translateZ(38px)}
+.cube .f3{transform:rotateY(90deg) translateZ(38px)}.cube .f4{transform:rotateY(-90deg) translateZ(38px)}
+.cube .f5{transform:rotateX(90deg) translateZ(38px)}.cube .f6{transform:rotateX(-90deg) translateZ(38px)}
+@keyframes cubeSpin{from{transform:rotateX(-22deg) rotateY(0)}to{transform:rotateX(-22deg) rotateY(360deg)}}
+.swatches{display:flex;align-items:center;gap:8px;flex-wrap:wrap;max-width:200px}
+.swatches i{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.25)}
+.swatches span{width:100%;font-family:var(--f-mono);font-size:10.5px;color:var(--dim)}
+
+@media(max-width:980px){.bento{grid-template-columns:1fr 1fr;grid-template-areas:"ai ai" "aeo mob" "aeo erp" "web td"}}
+@media(max-width:620px){.bento{grid-template-columns:1fr;grid-template-areas:"ai" "aeo" "mob" "erp" "web" "td"}.bx-aeo .viz{min-height:220px}}
+
+/* ===== Ambient background: drifting purple glows, dot grid and rising sparks behind every section ===== */
+.ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;--s1:0;--c1:1;--s2:0;--c2:1}
+.ambient .blob{position:absolute;border-radius:50%;filter:none;will-change:transform}
+.ambient .b1{width:62vmax;height:62vmax;left:-18vmax;top:-12vmax;background:radial-gradient(circle,rgba(66,6,107,.95),transparent 68%);opacity:.75;transform:translate3d(calc(var(--s1) * 22vw),calc(var(--c1) * 10vh),0);animation:drift1 28s ease-in-out infinite alternate}
+.ambient .b2{width:42vmax;height:42vmax;right:-14vmax;top:22vh;background:radial-gradient(circle,rgba(139,92,246,.6),transparent 68%);opacity:.4;transform:translate3d(calc(var(--c2) * -18vw),calc(var(--s2) * 16vh),0);animation:drift2 34s ease-in-out infinite alternate}
+.ambient .b3{width:34vmax;height:34vmax;left:30vw;bottom:-16vmax;background:radial-gradient(circle,rgba(201,162,255,.45),transparent 68%);opacity:.28;transform:translate3d(calc(var(--s2) * 20vw),calc(var(--c1) * -8vh),0);animation:drift3 40s ease-in-out infinite alternate}
+@keyframes drift1{to{translate:6vw 8vh;scale:1.08}}
+@keyframes drift2{to{translate:-8vw -6vh;scale:.92}}
+@keyframes drift3{to{translate:-6vw -10vh;scale:1.12}}
+.ambient .dots{position:absolute;inset:0;background-image:radial-gradient(rgba(201,162,255,.09) 1px,transparent 1.6px);background-size:28px 28px;-webkit-mask-image:radial-gradient(120% 90% at 50% 50%,#000 30%,transparent 85%);mask-image:radial-gradient(120% 90% at 50% 50%,#000 30%,transparent 85%)}
+.ambient .sparks i{position:absolute;bottom:-12px;left:var(--x);width:var(--z,4px);height:var(--z,4px);border-radius:50%;background:#c9a2ff;box-shadow:0 0 10px 1px rgba(201,162,255,.8);opacity:0;animation:rise var(--d) linear var(--w) infinite}
+@keyframes rise{0%{transform:translate(0,0);opacity:0}10%{opacity:.75}50%{transform:translate(var(--sw,20px),-55vh)}90%{opacity:.45}100%{transform:translate(0,-112vh);opacity:0}}
+/* glowing dividers instead of flat lines */
+.rule{border-top-color:transparent;position:relative}
+.rule::before{content:"";position:absolute;top:-1px;left:50%;width:min(1200px,92%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(201,162,255,.45),transparent)}
+/* soft glow behind each section heading */
+.head-l{position:relative}
+.head-l::before{content:"";position:absolute;left:-60px;top:-50px;width:340px;height:220px;background:radial-gradient(closest-side,rgba(139,92,246,.18),transparent);pointer-events:none;z-index:-1}
+@media(prefers-reduced-motion:reduce){.ambient .sparks{display:none}}
+
+/* richer scale simulation */
+.sim{box-shadow:0 30px 80px -40px rgba(139,92,246,.6);border-color:rgba(201,162,255,.22)}
+.sim-h .live{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:8px;vertical-align:middle;animation:livePulse 1.6s infinite}
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(111,207,151,.6)}70%{box-shadow:0 0 0 8px rgba(111,207,151,0)}100%{box-shadow:0 0 0 0 rgba(111,207,151,0)}}
+.sim-stats #stStatus{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;font-size:16px}
+.sbar{display:block;height:3px;margin-top:8px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+.sbar b{display:block;height:100%;width:100%;background:var(--ok);transition:width .3s,background .3s}
+@media(max-width:560px){.sim canvas{height:360px}}
+
+/* ===== Responsive fixes (phone, tablet, desktop) ===== */
+html{overflow-x:clip}
+input,select,textarea{min-width:0}
+#idea-lab{overflow:hidden}
+.askwrap{grid-template-columns:minmax(0,1fr)}
+.ask input{width:0}
+.el small,.react small{font-size:11px}
+.sim-stats small{font-size:10.5px}
+@media(max-width:760px){
+  .hero h1{font-size:clamp(44px,13vw,64px)}
+  .ask .btn{padding:12px 14px}
+  .nums b,.strip b{font-size:clamp(30px,9vw,40px)}
+  .sim-stats b{font-size:16px}
+  .cta{padding:28px}
+}
+@media(max-width:420px){
+  .trend .chip{font-size:12.5px}
+  .vis-form{grid-template-columns:1fr}
+  .vis-form .btn{grid-column:auto}
+  .bx{padding:18px}
+  .el{width:112px}.el b{font-size:34px}
+}
+
+/* ===== Large screens (desktop PCs and big monitors) ===== */
+.hero-grid>div:first-child{container-type:inline-size}
+.hero h1{white-space:nowrap;font-size:clamp(44px,15.6cqi,116px)}
+@media(min-width:1440px){
+  :root{--wrap:1320px}
+  body{font-size:17px}
+  .eyebrow{font-size:12.5px}
+  .h2{font-size:clamp(40px,3.4vw,58px)}
+  .head .lead,.hero .intro,.vis .txt>p,.scale .txt>p,.anat-list .intro p,.formula .head .lead{font-size:18.5px}
+  .hero-sub{font-size:30px}
+  .nav .wrap{height:74px}.nav ul{font-size:15.5px;gap:30px}.wm{font-size:21px}.logo svg{width:31px;height:32px}
+  .chip{font-size:14px}.ask input{font-size:16px}
+  .arc-portal{width:min(480px,92%)}.arc-bar,.arc .nova-term{width:min(580px,100%)}.nova-term{font-size:14px}
+  .planes{width:min(440px,85%)}.anat-vis{height:520px}.al h3{font-size:21px}.al p{font-size:15.5px}
+  .bx h3{font-size:24px}.bx p{font-size:15.5px}.viz{height:170px}.bx-ai .viz,.bx-3d .viz{height:190px}
+  .sim canvas{height:460px}
+  .el{width:170px}.el b{font-size:56px}
+  .ticklist span,.feat p,.gl p,.sv p,.st p,.qa details p{font-size:15.5px}
+  .qa summary{font-size:18.5px}
+}
+@media(min-width:1800px){
+  :root{--wrap:1480px}
+  body{font-size:18px}
+  .h2{font-size:clamp(44px,3.2vw,64px)}
+  .head .lead,.hero .intro,.vis .txt>p,.scale .txt>p,.anat-list .intro p,.formula .head .lead{font-size:19.5px}
+  .hero-sub{font-size:33px}
+  .arc-portal{width:min(540px,92%)}.arc-bar,.arc .nova-term{width:min(640px,100%)}
+  .planes{width:min(500px,85%)}.anat-vis{height:580px}
+  .sim canvas{height:500px}
+  .el{width:190px}.el b{font-size:62px}
+}
+@media(min-width:2400px){:root{--wrap:1720px}body{font-size:19px}}
+
+/* ===== Smooth scrolling (Lenis), reveal-on-scroll, progress bar ===== */
+html.lenis,html.lenis body{height:auto}
+html.lenis-smooth{scroll-behavior:auto!important}
+.lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
+.lenis [data-lenis-prevent]{overscroll-behavior:contain}
+.rv-on .rv:not(.in){opacity:0}
+.rv.in{animation:rvIn .95s cubic-bezier(.2,.75,.2,1) var(--rd,0s) both}
+.rv.in.up{animation-name:rvInUp}
+.rv.in.now{animation:none}
+@keyframes rvInUp{from{opacity:0;translate:0 -34px}to{opacity:1;translate:none}}
+@keyframes rvIn{from{opacity:0;translate:0 34px}to{opacity:1;translate:none}}
+.scroll-prog{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:2px;z-index:90;pointer-events:none}
+.scroll-prog i{display:block;height:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#8b5cf6,#c9a2ff,#f2a7c3);box-shadow:0 0 10px rgba(201,162,255,.7)}
+@media(prefers-reduced-motion:reduce){.rv-on .rv:not(.in){opacity:1}.scroll-prog{display:none}}
+
+/* ===== Brand Lab ===== */
+.bl{display:grid;grid-template-columns:.8fr 1.6fr;gap:20px;align-items:start}
+.bl>*{min-width:0}
+.bl-controls{padding:24px;display:grid;gap:12px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(170deg,var(--surface),var(--bg2))}
+.bl-controls label,.bl-l{font-size:13px;color:var(--muted)}
+.bl-controls input{width:100%;background:rgba(13,7,22,.7);border:1px solid var(--line2);border-radius:11px;color:var(--ink);font:500 17px var(--f-body);padding:12px 14px}
+.bl-controls input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.bl-vibes{display:flex;flex-wrap:wrap;gap:8px}
+.bl-vibes button{font:500 13.5px var(--f-body);padding:8px 14px;border-radius:99px;border:1px solid var(--line2);background:transparent;color:var(--muted);cursor:pointer}
+.bl-vibes button:hover{color:var(--ink);border-color:var(--accent)}
+.bl-vibes button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#2a0446}
+.bl-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.bl-note{font-size:12.5px;color:var(--dim)}
+.bl-out{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}
+.bl-out>*{min-width:0}
+.bl-card{border-radius:20px;padding:24px;display:grid;gap:14px;align-content:start;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.bl-top{display:flex;align-items:center;gap:14px;min-width:0}
+.bl-mono{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;font-size:26px;flex:none}
+.bl-name{font-size:clamp(24px,2.6vw,34px);line-height:1.05;overflow-wrap:anywhere;min-width:0}
+.bl-tag{font-size:16px;opacity:.85}
+.bl-ui{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bl-btn{padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600}
+.bl-pill{padding:5px 11px;border-radius:99px;font-size:12px;font-weight:600}
+.bl-post{border-radius:14px;padding:18px;min-height:110px;display:grid;align-content:space-between;gap:12px}
+.bl-post span{font-size:20px;line-height:1.15}
+.bl-post i{height:4px;width:46px;border-radius:4px}
+.bl-side{display:grid;gap:14px;align-content:start}
+.bl-sw{display:grid;gap:8px}
+.bl-chip{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;border:1px solid var(--line);background:rgba(13,7,22,.5);color:var(--ink);cursor:pointer;text-align:left;font:inherit}
+.bl-chip:hover{border-color:var(--accent)}
+.bl-chip i{width:34px;height:34px;border-radius:9px;border:1px solid rgba(255,255,255,.15)}
+.bl-chip b{font-weight:500;font-size:14px}
+.bl-chip span{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.bl-fonts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bl-fonts div{padding:10px 12px;border-radius:12px;border:1px solid var(--line);display:grid;gap:2px;min-width:0}
+.bl-fonts small{font-family:var(--f-mono);font-size:10.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.12em}
+.bl-fonts b{font-size:18px;font-weight:600;color:var(--ink);overflow-wrap:anywhere}
+@media(max-width:1000px){.bl{grid-template-columns:1fr}}
+@media(max-width:620px){.bl-out{grid-template-columns:1fr}}
+</style>
+
+<div class="ambient" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="dots"></span><span class="sparks"><i style="--x:7%;--d:18s;--w:0s;--z:2px;--sw:-12px"></i><i style="--x:68%;--d:25s;--w:-3.7s;--z:3px;--sw:17px"></i><i style="--x:29%;--d:32s;--w:-7.4s;--z:4px;--sw:-22px"></i><i style="--x:90%;--d:23s;--w:-11.1s;--z:2px;--sw:27px"></i><i style="--x:51%;--d:30s;--w:-14.8s;--z:3px;--sw:-32px"></i><i style="--x:12%;--d:21s;--w:-18.5s;--z:4px;--sw:37px"></i><i style="--x:73%;--d:28s;--w:-2.2s;--z:2px;--sw:-12px"></i><i style="--x:34%;--d:19s;--w:-5.9s;--z:3px;--sw:17px"></i><i style="--x:95%;--d:26s;--w:-9.6s;--z:4px;--sw:-22px"></i><i style="--x:56%;--d:33s;--w:-13.3s;--z:2px;--sw:27px"></i><i style="--x:17%;--d:24s;--w:-17s;--z:3px;--sw:-32px"></i><i style="--x:78%;--d:31s;--w:-0.7s;--z:4px;--sw:37px"></i><i style="--x:39%;--d:22s;--w:-4.4s;--z:2px;--sw:-12px"></i><i style="--x:0%;--d:29s;--w:-8.1s;--z:3px;--sw:17px"></i><i style="--x:61%;--d:20s;--w:-11.8s;--z:4px;--sw:-22px"></i><i style="--x:22%;--d:27s;--w:-15.5s;--z:2px;--sw:27px"></i></span></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<mask id="bcCut" maskUnits="userSpaceOnUse" x="0" y="0" width="96" height="100"><rect width="96" height="100" fill="#fff"/><circle cx="46" cy="50" r="20" fill="#000"/><rect x="46" y="41.5" width="40" height="17" fill="#000"/><rect x="70" y="36.5" width="6" height="5" fill="#000"/><circle cx="70" cy="36.5" r="5" fill="#fff"/><rect x="70" y="58.5" width="6" height="5" fill="#000"/><circle cx="70" cy="63.5" r="5" fill="#fff"/><rect x="64" y="38.5" width="3.2" height="3" fill="#000"/><circle cx="67.2" cy="38.5" r="3" fill="#fff"/><rect x="64" y="58.5" width="3.2" height="3" fill="#000"/><circle cx="67.2" cy="61.5" r="3" fill="#fff"/></mask>
+<symbol id="bcMark" viewBox="0 0 96 100"><path d="M14 8H41A34 34 0 0 1 75 42V58A34 34 0 0 1 41 92H14Q6 92 6 84V16Q6 8 14 8Z" fill="#fff" mask="url(#bcCut)"/><circle cx="85" cy="50" r="7" fill="#c9a2ff"/></symbol></defs></svg>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Branding Catalyst home">
+      <svg viewBox="0 0 96 100" aria-hidden="true"><use href="#bcMark"/></svg><span class="wm"><b>Branding</b><em>Catalyst</em></span>
+    </a>
+    <ul>
+      <li><a href="#engine">Catalyst Engine</a></li>
+      <li><a href="services.html">Services</a></li><li><a href="scale.html">Scale</a></li>
+      <li><a href="#visibility">AI Visibility</a></li>
+      <li><a href="#idea-lab">Idea Lab</a></li>
+      <li><a href="check.html">Idea Checker</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-w" href="#idea-checker">Check your idea →</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span></button>
+  </div>
+  <div class="wrap mnav">
+    <a href="#engine">Catalyst Engine</a><a href="services.html">Services</a><a href="scale.html">Scale</a><a href="#visibility">AI Visibility</a><a href="#idea-lab">Idea Lab</a><a href="check.html">Idea Checker</a><a href="about.html">About</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Branding Catalyst · Mumbai · AI-first studio</p>
+      <h1>Ideas in.<br><span class="acc">Impact out.</span></h1>
+      <p class="hero-sub">We build <span class="rot" id="rot"><span>brands people remember</span><span>Android &amp; iOS apps</span><span>ERP systems</span><span>AI agents</span><span>websites that rank</span><span>3D experiences</span></span></p>
+      <p class="intro">Bring us the spark. We bring the <b>brand, the technology and the AI</b> together, and Catalyst Engine speeds up the reaction. Tell ARC what you want to build and get <b>features, a team and a timeline</b> in seconds.</p>
+
+      <form class="askwrap" id="askForm">
+        <label for="askIn">Tell ARC your idea. He'll plan it for you.</label>
+        <div class="ask">
+          <input id="askIn" type="text" autocomplete="off" placeholder="e.g. A loyalty app for my chain of cafés">
+          <button class="btn btn-w" type="submit">Ask ARC →</button>
+        </div>
+        <div class="trend">
+          <em>TRY:</em>
+          <button type="button" class="chip">Get my brand cited by ChatGPT</button>
+          <button type="button" class="chip">ERP for a factory</button>
+          <button type="button" class="chip">Grocery delivery app</button>
+          <button type="button" class="chip">AI chatbot on our documents</button>
+          <button type="button" class="chip">3D product configurator</button>
+        </div>
+      </form>
+      <div class="ticks"><span>Brand, tech and AI in one team</span><span>Fixed scope and price</span><span>A demo every week</span></div>
+    </div>
+
+    <div class="arc" aria-label="ARC, the Branding Catalyst AI assistant">
+      <div class="arc-portal">
+        <div class="arc-ring" aria-hidden="true"></div>
+        <div class="nova-stage"><canvas id="novaCv" aria-hidden="true"></canvas></div>
+        <div class="arc-orbit" aria-hidden="true"><span class="arc-dot"></span></div>
+      </div>
+      <div class="arc-bar">
+        <span class="nova-tag" id="novaTag"><i></i>ARC · your AI build partner</span>
+        <button class="mute" id="muteBtn" type="button" aria-pressed="false">🔊 Voice on</button>
+      </div>
+      <div class="nova-term" id="term" aria-live="polite">
+        <div class="wave" id="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<section class="logos" id="clients">
+  <p class="cap">[X]+ brands across retail, healthcare, manufacturing, education and startups</p>
+  <div class="marquee"><div class="track" id="mq1"></div></div>
+  <div class="marquee"><div class="track rev" id="mq2"></div></div>
+  <p class="note">Replace these tiles with your client logos (with their permission).</p>
+</section>
+
+<!-- ENGINE -->
+<section class="formula" id="engine">
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l"><p class="eyebrow">The Catalyst Formula</p><h2 class="h2">Brand + Tech + AI,<br><span class="acc">catalysed into growth.</span></h2></div>
+      <p class="lead">A catalyst speeds up a reaction without changing what goes into it. That's our job. We bring your brand, your technology and AI together, and <b>Catalyst Engine</b> makes them react faster: leading AI models, our build playbooks and ready modules, guided by ARC and checked by an engineer before every release.</p>
+    </div>
+
+    <div class="eq" role="img" aria-label="Brand plus Tech plus AI, through Catalyst Engine, becomes Growth">
+      <div class="el"><span class="no">01</span><b>Br</b><span class="nm">Brand</span><small>identity · voice · content</small></div>
+      <i class="op">+</i>
+      <div class="el"><span class="no">02</span><b>Tc</b><span class="nm">Tech</span><small>apps · ERP · web · 3D</small></div>
+      <i class="op">+</i>
+      <div class="el"><span class="no">03</span><b>Ai</b><span class="nm">AI</span><small>agents · RAG · AEO/GEO</small></div>
+      <div class="react">
+        <b>Catalyst Engine</b>
+        <div class="line"><i></i><i></i><i></i></div>
+        <small>ARC · playbooks · modules · engineer review</small>
+      </div>
+      <div class="el out"><span class="no">04</span><b>Gr</b><span class="nm">Growth</span><small>found · chosen · scaled</small></div>
+    </div>
+
+    <div class="feat">
+      <div class="card"><span class="tag">01 / modules</span><h3>Ready-made building blocks</h3><p>Tested modules for login, payments, chat, admin panels and dashboards, so we never start from zero.</p></div>
+      <div class="card"><span class="tag">02 / speed</span><h3>AI-speed delivery</h3><p>Agents handle the repetitive code and tests, so your first working version arrives in days.</p></div>
+      <div class="card"><span class="tag">03 / growth</span><h3>Built to be found</h3><p>Every site and app ships ready for Google and AI search, with AEO and GEO built in.</p></div>
+      <div class="card"><span class="tag">04 / promise</span><h3>Pay for results</h3><p>Fixed scope and price, and you pay each milestone only after you accept it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="sec rule" id="guarantee">
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l"><p class="eyebrow">Our promise</p><h2 class="h2">Buying software, simplified.<br><span class="acc">Pay only for what works.</span></h2></div>
+      <p class="lead">Most agencies charge for hours and leave the risk with you. Catalyst Engine makes our delivery predictable, so we tie our payment to results you can see.</p>
+    </div>
+    <div class="gl">
+      <div class="card"><span class="n">01</span><h3>Fixed price, fixed date</h3><p>Scope, price and launch date are agreed in writing before work begins. If we run late, the extra time is on us.</p></div>
+      <div class="card"><span class="n">02</span><h3>Milestone payments</h3><p>Work is split into milestones. You pay for each one after you review and approve it.</p></div>
+      <div class="card"><span class="n">03</span><h3>Prototype or refund</h3><p>If the first working prototype doesn't match the agreed scope, we refund the prototype fee.</p></div>
+    </div>
+    <p class="fine">Applies to the scope, price and milestones agreed in writing at kickoff. <span class="ph">Confirm these terms before publishing.</span></p>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section class="sec rule">
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l"><p class="eyebrow">By the numbers</p><h2 class="h2">Focused team.<br><span class="acc">Proven delivery.</span></h2></div>
+      <p class="lead">Brands, apps, ERPs and AI products in daily use by real customers. <span class="ph">Replace each [X] with your real figures.</span></p>
+    </div>
+    <div class="nums">
+      <div class="nm"><b>[X]<sup>+</sup></b><span>brands and businesses served</span></div>
+      <div class="nm"><b>[X]<sup>+</sup></b><span>apps, ERPs and platforms launched</span></div>
+      <div class="nm"><b>[X]<sup>+</sup></b><span>websites built and optimised</span></div>
+      <div class="nm"><b>[X]<sup>+</sup></b><span>monthly users on products we run</span></div>
+      <div class="nm"><b>[X]<sup>%</sup></b><span>uptime on platforms we maintain</span></div>
+      <div class="nm"><b>24/7</b><span>monitoring and support</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIBILITY -->
+<section class="sec rule" id="visibility">
+  <div class="wrap vis">
+    <div class="txt">
+      <p class="eyebrow">AI visibility check</p>
+      <h2 class="h2">When customers ask AI,<br><span class="acc">does it name you?</span></h2>
+      <p>More people now ask ChatGPT, Gemini and Perplexity what to buy and where to go. If the answer doesn't mention you, the customer is gone before they ever search. Try it with your brand.</p>
+      <form class="vis-form" id="visForm">
+        <div class="vf"><label for="visBrand">Your brand</label><input id="visBrand" type="text" value="Chai Corner" autocomplete="off"></div>
+        <div class="vf"><label for="visWhat">What you offer</label><input id="visWhat" type="text" value="café" autocomplete="off"></div>
+        <div class="vf"><label for="visCity">Where</label><input id="visCity" type="text" value="Bandra, Mumbai" autocomplete="off"></div>
+        <button class="btn btn-w" type="submit">Show me →</button>
+      </form>
+      <ul class="ticklist">
+        <li><div><b>Audit the AI answers</b><span>We check what ChatGPT, Gemini and Perplexity say about your category today.</span></div></li>
+        <li><div><b>Answer-first pages</b><span>Clear answers, FAQ and schema markup that AI tools can quote.</span></div></li>
+        <li><div><b>Earn trusted mentions</b><span>Citations on the sites and directories AI models rely on.</span></div></li>
+        <li><div><b>Track it monthly</b><span>A simple report on where and how often you are named.</span></div></li>
+      </ul>
+    </div>
+    <div class="card vis-card">
+      <div class="vis-tabs" role="tablist" aria-label="Compare AI answers">
+        <button type="button" role="tab" id="visBefore" aria-selected="true">Today</button>
+        <button type="button" role="tab" id="visAfter" aria-selected="false">With AEO + GEO</button>
+      </div>
+      <div class="vis-body" role="tabpanel" aria-live="polite">
+        <p class="vq"><span>you&gt;</span> <span id="visQ"></span></p>
+        <p class="va"><span>ai&gt;</span> <span id="visA"></span></p>
+        <div class="vis-meter"><div class="r"><span class="eyebrow">Example visibility</span><b id="visScore">0</b></div><div class="meter"><i id="visBar"></i></div></div>
+        <span class="vis-chip" id="visChip"></span>
+      </div>
+      <p class="vis-note">Illustration only. A real audit checks live answers from ChatGPT, Gemini and Perplexity for your category.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCALE -->
+<section class="sec rule" id="scale">
+  <div class="wrap scale">
+    <div class="txt">
+      <p class="eyebrow">Built for scale</p>
+      <h2 class="h2">Ready for your<br><span class="acc">biggest day.</span></h2>
+      <p>Diwali offers, launch days and viral reels bring sudden crowds. We build every app and platform to stay fast under that load, and we keep watching it after launch.</p>
+      <ul class="ticklist">
+        <li><div><b>Autoscaling</b><span>Capacity grows during a rush and shrinks overnight, so cloud bills follow real demand.</span></div></li>
+        <li><div><b>Load testing before launch</b><span>We simulate peak traffic before real customers arrive.</span></div></li>
+        <li><div><b>Releases without downtime</b><span>Automated deploys with instant rollback. Ship updates any day.</span></div></li>
+        <li><div><b>24/7 monitoring</b><span>Uptime checks, error tracking and alerts that reach our team first.</span></div></li>
+        <li><div><b>Security and backups</b><span>Encrypted data, daily backups and a tested recovery plan.</span></div></li>
+        <li><div><b>Lean cloud bills</b><span>Monthly reviews that keep AWS, Google Cloud or Azure costs in check.</span></div></li>
+      </ul>
+    </div>
+    <div class="card sim">
+      <div class="sim-h"><span><i class="live"></i>LIVE SIMULATION · A FESTIVE SALE DAY, AUTOSCALING</span><b id="clock">00:00</b></div>
+      <canvas id="simCv" aria-label="Simulated traffic and servers over 24 hours"></canvas>
+      <div class="sim-stats">
+        <div><small>Requests / sec</small><b id="stReq">0</b></div>
+        <div><small>App servers</small><b id="stSrv">2</b></div>
+        <div><small>P95 response</small><b id="stP95">60ms</b></div>
+        <div><small>Status</small><b id="stStatus">steady</b><i class="sbar"><b id="stBar"></b></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAN -->
+<section class="sec rule">
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l"><p class="eyebrow">How we keep costs low</p><h2 class="h2">Big-agency quality.<br><span class="acc">Startup-friendly price.</span></h2></div>
+      <p class="lead">We cut cost from overhead, not from engineering: Catalyst Engine does the repetitive work, ready modules replace weeks of setup, and there are no layers of account managers.</p>
+    </div>
+    <div class="lean">
+      <div class="card bars">
+        <div class="bar"><span>Typical agency</span><span class="t"><i style="width:100%"></i></span><em>100%</em></div>
+        <div class="bar us"><span>Branding Catalyst</span><span class="t"><i style="width:60%"></i></span><em>~[X]%</em></div>
+        <p>You get senior engineering at <b>a lower price</b>: automation and reuse do the saving, not shortcuts.</p>
+        <ul class="dots">
+          <li style="--c:var(--accent)">No middle-management layers</li>
+          <li style="--c:var(--cyan)">Reusable, tested modules</li>
+          <li style="--c:var(--warm)">AI-assisted coding and testing</li>
+          <li style="--c:var(--ok)">Small senior team, no idle bench</li>
+        </ul>
+      </div>
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead><tr><th></th><th>TYPICAL AGENCY</th><th class="us">BRANDING CATALYST</th></tr></thead>
+          <tbody>
+            <tr><th>Who you talk to</th><td>An account manager who passes messages along</td><td class="us">A project lead and the engineers building your product</td></tr>
+            <tr><th>Starting point</th><td>An empty codebase for every project</td><td class="us">Ready modules: login, payments, chat, admin, analytics</td></tr>
+            <tr><th>Brand + marketing</th><td>A separate agency, billed separately</td><td class="us">Branding, AEO and GEO built in from day one</td></tr>
+            <tr><th>How code is written</th><td>By hand, line by line</td><td class="us">Catalyst Engine writes it, engineers review every release</td></tr>
+            <tr><th>First working version</th><td>After months of documents and meetings</td><td class="us">A working prototype within the first sprint</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="three">Today's products need a brand, intelligence and solid infrastructure working together. One team at Branding Catalyst owns all of it.</p>
+  </div>
+</section>
+
+<!-- ANATOMY -->
+<section class="sec rule">
+  <div class="wrap anat" id="anat">
+    <div class="anat-vis" aria-hidden="true">
+      <div class="planes" id="planes">
+        <div class="pl" data-i="4" style="--c:var(--ok)"><span class="lbl">CLOUD &amp; DEVOPS</span><div class="mock"><i></i><i></i><i></i></div></div>
+        <div class="pl" data-i="3" style="--c:var(--accent)"><span class="lbl">AI &amp; DATA</span><div class="mock"><i></i><i></i><i></i></div></div>
+        <div class="pl" data-i="2" style="--c:var(--cyan)"><span class="lbl">APIS &amp; ERP LOGIC</span><div class="mock"><i></i><i></i><i></i></div></div>
+        <div class="pl" data-i="1" style="--c:var(--warm)"><span class="lbl">WEB · MOBILE · 3D</span><div class="mock"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+        <div class="pl pl-brand" data-i="0" style="--c:#e6d2ff"><span class="lbl">BRAND &amp; IDENTITY</span><div class="sw"><i style="background:#42066b"></i><i style="background:#8b5cf6"></i><i style="background:#c9a2ff"></i><i style="background:#f6efff"></i><b>Aa</b></div></div>
+      </div>
+    </div>
+    <div class="anat-list">
+      <div class="intro"><p class="eyebrow">Inside a product</p><h2 class="h2">Five layers.<br><span class="acc">One reaction.</span></h2><p>Keep scrolling and a product comes apart, layer by layer. Most teams own one or two of these. We own all five, starting with the brand.</p></div>
+      <div class="al" data-i="0" style="--c:#e6d2ff"><span class="k">● 01 · Brand &amp; identity</span><h3>How you're remembered</h3><p>Name, logo, colours and voice, set before a single screen is designed.</p></div>
+      <div class="al" data-i="1" style="--c:var(--warm)"><span class="k">● 02 · Web, mobile &amp; 3D</span><h3>What customers touch</h3><p>Websites, Android and iOS apps and 3D experiences that look and feel like one brand.</p></div>
+      <div class="al" data-i="2" style="--c:var(--cyan)"><span class="k">● 03 · APIs &amp; ERP logic</span><h3>How the business runs</h3><p>Secure APIs, ERP workflows, payments and integrations behind the scenes.</p></div>
+      <div class="al" data-i="3" style="--c:var(--accent)"><span class="k">● 04 · AI &amp; data</span><h3>What makes it smart</h3><p>RAG assistants, AI agents, AI content and AEO/GEO on your own data.</p></div>
+      <div class="al" data-i="4" style="--c:var(--ok)"><span class="k">● 05 · Cloud &amp; DevOps</span><h3>What keeps it running</h3><p>Autoscaling, automated releases and round-the-clock monitoring.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec rule" id="services">
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l"><p class="eyebrow">What we do</p><h2 class="h2">Everything your brand needs.<br><span class="acc">Under one roof.</span></h2></div>
+      <p class="lead">Six services, one team. Hover a card to see it in action, or ask ARC to plan one for you. <a href="services.html" class="acc">See every service in detail →</a></p>
+    </div>
+
+    <div class="bento">
+      <!-- AI -->
+      <article class="bx bx-ai" style="--c:#c9a2ff">
+        <div class="bx-top"><span>01 · AI</span><span>ai/</span></div>
+        <div class="viz viz-chat" aria-hidden="true">
+          <div class="msg me">Where's my order #2041?</div>
+          <div class="slot"><div class="msg bot typing"><i></i><i></i><i></i></div>
+          <div class="msg bot ans">Out for delivery, arriving by 6 pm.<small>source · orders.pdf</small></div></div>
+        </div>
+        <h3>Artificial Intelligence</h3>
+        <p>AI agents, chatbots and assistants that answer from your own data, with sources, on your website and WhatsApp.</p>
+        <div class="bx-tags"><span>RAG</span><span>AI agents</span><span>Chatbots</span><span>Automation</span></div>
+        <button class="bx-go" type="button" data-ask="An AI chatbot that answers customer questions from our documents, on WhatsApp and our website">Plan with ARC →</button>
+      </article>
+
+      <!-- AEO / GEO -->
+      <article class="bx bx-aeo" style="--c:#f2a7c3">
+        <div class="bx-top"><span>02 · AI SEARCH</span><span>aeo/</span></div>
+        <div class="viz viz-answer" aria-hidden="true">
+          <div class="vq">best café in Bandra?</div>
+          <div class="vline"></div><div class="vline s"></div>
+          <div class="vhit"><b>Your Brand</b> · top pick <em>cited ✓</em></div>
+          <div class="vline"></div><div class="vline m"></div>
+          <div class="rank"><i style="--h:30%"></i><i style="--h:45%"></i><i style="--h:62%"></i><i style="--h:80%"></i><i style="--h:96%"></i><span>AI mentions</span></div>
+        </div>
+        <h3>AI Search, Branding &amp; Growth</h3>
+        <p>Get named by ChatGPT, Gemini and Perplexity, with a brand identity and AI content that sound like you.</p>
+        <div class="bx-tags"><span>AEO</span><span>GEO</span><span>AI content</span><span>Branding</span><span>Growth</span></div>
+        <button class="bx-go" type="button" data-ask="Get my brand cited by ChatGPT and Perplexity, with a refreshed brand identity and AI content">Plan with ARC →</button>
+      </article>
+
+      <!-- Mobile -->
+      <article class="bx bx-mob" style="--c:#6fcf97">
+        <div class="bx-top"><span>03 · MOBILE</span><span>mobile/</span></div>
+        <div class="viz viz-phone" aria-hidden="true">
+          <div class="phone"><div class="notch"></div><div class="screen"><div class="feed">
+            <div class="ph-bar"></div><div class="ph-card"></div><div class="ph-row"><i></i><i></i></div><div class="ph-card s"></div><div class="ph-card"></div><div class="ph-row"><i></i><i></i></div>
+          </div><div class="ph-nav"><i></i><i></i><i></i><i></i></div></div></div>
+          <div class="stores"><span>Android</span><span>iOS</span></div>
+        </div>
+        <h3>Mobile Apps</h3>
+        <p>Android and iOS apps with payments, bookings, notifications and offline mode.</p>
+        <div class="bx-tags"><span>Flutter</span><span>React Native</span></div>
+        <button class="bx-go" type="button" data-ask="A mobile app for Android and iOS where customers can book and pay online">Plan with ARC →</button>
+      </article>
+
+      <!-- ERP -->
+      <article class="bx bx-erp" style="--c:#7fd6e8">
+        <div class="bx-top"><span>04 · ERP</span><span>erp/</span></div>
+        <div class="viz viz-dash" aria-hidden="true">
+          <div class="kpis"><div><small>Stock</small><b>OK</b></div><div><small>Orders</small><b>↑</b></div><div><small>GST</small><b>✓</b></div></div>
+          <div class="erp-bars"><i style="--h:42%"></i><i style="--h:65%"></i><i style="--h:50%"></i><i style="--h:78%"></i><i style="--h:60%"></i><i style="--h:90%"></i><i style="--h:72%"></i></div>
+        </div>
+        <h3>ERP Systems</h3>
+        <p>Inventory, sales, purchase, HR and GST-ready accounts, built around how you work.</p>
+        <div class="bx-tags"><span>Inventory</span><span>Finance</span><span>HR</span></div>
+        <button class="bx-go" type="button" data-ask="An ERP for my manufacturing business with inventory, GST billing and payroll">Plan with ARC →</button>
+      </article>
+
+      <!-- Web -->
+      <article class="bx bx-web" style="--c:#9aa3f5">
+        <div class="bx-top"><span>05 · WEB</span><span>web/</span></div>
+        <div class="viz viz-browser" aria-hidden="true">
+          <div class="bw"><div class="bw-bar"><i></i><i></i><i></i><span>yourbrand.com</span></div>
+            <div class="bw-body"><div class="bw-hero"></div><div class="bw-l"></div><div class="bw-l s"></div><div class="bw-grid"><i></i><i></i><i></i></div></div>
+          </div>
+          <div class="checks"><span>Fast ✓</span><span>SEO ✓</span><span>AEO ✓</span></div>
+        </div>
+        <h3>Websites &amp; Platforms</h3>
+        <p>Company sites, SaaS platforms, portals and dashboards, easy to edit and built to rank.</p>
+        <div class="bx-tags"><span>Next.js</span><span>CMS</span><span>SaaS</span><span>E-commerce</span></div>
+        <button class="bx-go" type="button" data-ask="A fast company website with a CMS that ranks on Google and AI search">Plan with ARC →</button>
+      </article>
+
+      <!-- 3D -->
+      <article class="bx bx-3d" style="--c:#f2c27a">
+        <div class="bx-top"><span>06 · 3D</span><span>3d/</span></div>
+        <div class="viz viz-cube" aria-hidden="true">
+          <div class="cube"><i class="f1"></i><i class="f2"></i><i class="f3"></i><i class="f4"></i><i class="f5"></i><i class="f6"></i></div>
+          <div class="swatches"><i style="background:#42066b"></i><i style="background:#c9a2ff"></i><i style="background:#f2c27a"></i><span>live price ₹ updates</span></div>
+        </div>
+        <h3>3D Web Experiences</h3>
+        <p>Product configurators, virtual showrooms and walkthroughs that run in any browser, no app needed.</p>
+        <div class="bx-tags"><span>Three.js</span><span>WebGL</span><span>WebAR</span></div>
+        <button class="bx-go" type="button" data-ask="A 3D product configurator for our website with live pricing">Plan with ARC →</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND LAB -->
+<section class="sec rule" id="brand-lab">
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l"><p class="eyebrow">Brand Lab</p><h2 class="h2">Try a brand<br><span class="acc">on for size.</span></h2></div>
+      <p class="lead">Type a business name and pick a vibe. You'll get a starter colour palette and font pairing in seconds. Our Brand Studio turns it into a full identity.</p>
+    </div>
+    <div class="bl" id="brandLab">
+      <div class="bl-controls">
+        <label for="blName">Business name</label>
+        <input id="blName" value="Chai Corner" maxlength="32" autocomplete="off">
+        <span class="bl-l">Vibe</span>
+        <div class="bl-vibes" id="blVibes" role="group" aria-label="Brand vibe"></div>
+        <div class="bl-actions"><button class="btn" type="button" id="blShuffle">↻ Shuffle</button><button class="btn btn-w" type="button" id="blCta" data-lead data-lead-service="Branding" data-lead-source="Brand Lab">Get the full brand kit →</button></div>
+        <p class="bl-note">A quick starter concept, made in your browser. Tap a colour to copy it.</p>
+      </div>
+      <div class="bl-out" id="blOut" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- IDEA LAB -->
+<section class="sec rule" id="idea-lab">
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l"><p class="eyebrow">Idea Lab</p><h2 class="h2">Ideas ready<br><span class="acc">to catalyse.</span></h2></div>
+      <p class="lead">Twelve projects our clients ask about most. Filter by what you need, spin the ring, and open any card to see how we'd build it.</p>
+    </div>
+    <div class="lab-filters" id="labFilters" role="toolbar" aria-label="Filter ideas by type"></div>
+  </div>
+  <div class="ring-stage" id="ringStage"><div class="ring" id="ring"></div></div>
+  <p class="ring-cap">drag to spin · tap a card for the build plan</p>
+  <div class="ring-cta"><a class="btn" href="#idea-checker">Check your own idea →</a></div>
+</section>
+
+<!-- CHECKER -->
+<section class="sec rule" id="idea-checker">
+  <div class="wrap chk">
+    <div class="txt">
+      <p class="eyebrow">Idea checker</p>
+      <h2 class="h2">Have an idea?<br><span class="acc">Test it in 60 seconds.</span></h2>
+      <p>Get a feasibility score, timeline, team size and tech stack straight away. Then spin the wheel for a launch discount.</p>
+      <p><a class="acc" href="check.html">Open the full Idea Checker, with features, roadmap and price →</a></p>
+    </div>
+    <div>
+      <form class="card" id="chkForm">
+        <label for="chkIn">Describe your idea</label>
+        <textarea id="chkIn">A mobile app where customers book salon appointments, pay online and collect loyalty points, with an admin panel for every branch.</textarea>
+        <button class="btn btn-w" type="submit" style="justify-self:start">Check my idea →</button>
+      </form>
+      <div class="card est" id="est" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap strip">
+    <div class="card"><b>[X]<sup>+</sup></b><span>clients across startups and brands</span></div>
+    <div class="card"><b>6</b><span>disciplines under one roof</span></div>
+    <div class="card"><b id="ideaCount">12</b><span>ideas in the Idea Lab, ready to build</span></div>
+    <div class="card"><b>1<sup>wk</sup></b><span>between working demos on every build</span></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec rule" id="process">
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l"><p class="eyebrow">How we work</p><h2 class="h2">From first call<br>to launch day.</h2></div>
+      <p class="lead">A clear process with a demo every week, so there are no surprises and you watch the product grow.</p>
+    </div>
+    <div class="steps" id="steps">
+      <div class="st"><div class="ln"><i></i></div><span class="n">01</span><h3>Discover</h3><p>We learn your goals, customers and budget, then lock scope, price, timeline and milestones.</p><span class="w">days 1–3</span></div>
+      <div class="st"><div class="ln"><i></i></div><span class="n">02</span><h3>Prototype</h3><p>Catalyst Engine and our team turn the scope into a working prototype you can try.</p><span class="w">first sprint</span></div>
+      <div class="st"><div class="ln"><i></i></div><span class="n">03</span><h3>Build</h3><p>Weekly sprints, each ending with a demo, so you can steer early.</p><span class="w">weekly sprints</span></div>
+      <div class="st"><div class="ln"><i></i></div><span class="n">04</span><h3>Launch &amp; grow</h3><p>We go live, monitor, and grow your reach with AEO, GEO and AI content.</p><span class="w">launch + beyond</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec rule" id="faq">
+  <div class="wrap faq">
+    <div class="txt"><p class="eyebrow">FAQ</p><h2 class="h2">Questions we<br><span class="acc">hear most.</span></h2><p>Quick answers about Branding Catalyst, Catalyst Engine, ARC, pricing and timelines.</p></div>
+    <div class="qa">
+      <details open><summary>What is Branding Catalyst?</summary><p>An AI-first product and growth studio. We build AI products, Android and iOS apps, ERP systems, websites and 3D web experiences, and we help brands get recommended by AI search through AEO and GEO. Founded in 2019, we are based in Mumbai and led by our founder, <a href="about.html#founder" class="acc">Abhishek Trivedi</a>, with 50+ projects delivered for national and international clients.</p></details>
+      <details><summary>What is Catalyst Engine?</summary><p>Our build system. It sits on top of leading AI models and adds our playbooks, ready modules and AI agents that plan, code, test and release. Engineers review every release.</p></details>
+      <details><summary>Who is ARC?</summary><p>ARC is the voice of Catalyst Engine. Tell him your idea in plain words and he replies with features, a plan and a timeline. Our team then confirms scope and price with you.</p></details>
+      <details><summary>What are AEO and GEO?</summary><p>AEO (Answer Engine Optimization) makes your content the direct answer in AI assistants and voice search. GEO (Generative Engine Optimization) gets tools like ChatGPT, Gemini and Perplexity to mention and recommend your brand.</p></details>
+      <details><summary>What is RAG?</summary><p>Retrieval-Augmented Generation lets an AI assistant answer from your own documents and data, with sources, so its answers stay accurate.</p></details>
+      <details><summary>Do you build Android and iOS apps?</summary><p>Yes. We usually build both from one codebase, which saves time and cost, and publish to the Play Store and App Store.</p></details>
+      <details><summary>How much does it cost?</summary><p>It depends on scope. Use the idea checker or ask ARC for a first estimate. We give a fixed quote after a free scoping call.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec" id="contact" style="padding-top:0">
+  <div class="wrap">
+    <div class="card cta">
+      <div><h2>Ready to launch something new?</h2><p>Book a free 30-minute call. Bring the rough idea; we will bring a plan, a price range and a first sketch of the product.</p></div>
+      <div class="row"><button class="btn btn-w" type="button" data-lead data-lead-source="Homepage call to action">Start a project →</button><a class="btn" href="#top" id="ctaNova">Talk to ARC</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div class="about">
+        <a class="logo" href="#top"><svg viewBox="0 0 96 100" aria-hidden="true"><use href="#bcMark"/></svg><span class="wm"><b>Branding</b><em>Catalyst</em></span></a>
+        <p>An AI-first studio for brands, apps, ERPs and AI products, built with Catalyst Engine and delivered with weekly demos.</p>
+        <form class="sub" id="subForm"><input id="subEmail" type="email" placeholder="you@company.com" aria-label="Email for updates"><button class="btn btn-w" type="submit">Subscribe</button></form>
+      </div>
+      <div><h4>Services</h4><ul><li><a href="services.html#ai-agents">Artificial Intelligence</a></li><li><a href="services.html#aeo">AEO, GEO &amp; Growth</a></li><li><a href="services.html#mobile">Mobile Apps</a></li><li><a href="services.html#erp">ERP Systems</a></li><li><a href="services.html#web">Websites &amp; Platforms</a></li><li><a href="services.html#3d">3D Web</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="careers.html">Careers</a></li><li><a href="#engine">Catalyst Engine</a></li><li><a href="#visibility">AI Visibility</a></li><li><a href="#idea-lab">Idea Lab</a></li><li><a href="check.html">Idea Checker</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><span class="ph">hello@[yourdomain]</span></li><li><a href="tel:+919004629888">+91 90046 29888</a></li><li><a href="https://www.instagram.com/branding_catalyst" target="_blank" rel="noopener">Instagram ↗</a></li><li><a href="https://in.linkedin.com/company/branding-cataly" target="_blank" rel="noopener">LinkedIn ↗</a></li><li><a href="https://www.youtube.com/@brandingcatalyst" target="_blank" rel="noopener">YouTube ↗</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Branding Catalyst Pvt Ltd. All rights reserved.</span><span><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></span></div>
+  </div>
+</footer>
+
+<div class="modal" id="modal" hidden><div class="card" role="dialog" aria-modal="true" aria-labelledby="mTitle"><span class="eyebrow" id="mTag"></span><h3 id="mTitle"></h3><p id="mDesc"></p><ul id="mList"></ul><div class="row"><button class="btn btn-w" id="mAsk" type="button">Plan this with ARC →</button><button class="btn" id="mClose" type="button">Close</button></div></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script>
+(() => {
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = s => document.querySelector(s);
+const wait = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ===== Nav ===== */
+$('#burger').addEventListener('click', () => { const n = $('#nav'); n.classList.toggle('open'); $('#burger').setAttribute('aria-expanded', n.classList.contains('open')); });
+document.querySelectorAll('.mnav a').forEach(a => a.addEventListener('click', () => $('#nav').classList.remove('open')));
+
+/* ===== Hero rotator ===== */
+const rot = $('#rot'), rspans = rot.children; let ri = 0;
+if (!reduce) setInterval(() => { ri = (ri + 1) % rspans.length; for (const s of rspans) s.style.transform = `translateY(-${ri * 100}%)`; }, 2300);
+
+/* ===== Idea estimator: reads the features in an idea and builds the plan from them.
+   EDIT weeks, roles and stacks below to match your real delivery. ===== */
+const PRODUCTS = [ // what is being built (base effort in weeks)
+  {id:'erp',   name:'Custom ERP system',        re:/\berp\b|inventory|warehouse|manufactur|factory|production|payroll|purchase order|stock|tally/, weeks:6, roles:['Project lead','Full-stack engineer','Full-stack engineer','QA engineer'], stack:['React','Node.js or Django','PostgreSQL']},
+  {id:'three', name:'3D web experience',        re:/\b3d\b|configurator|showroom|walkthrough|webgl|\bar\b|try-?on|virtual tour/, weeks:4, roles:['3D artist','WebGL engineer','UI designer'], stack:['Three.js','WebGL','React']},
+  {id:'rag',   name:'AI assistant on your data',re:/chat ?bot|\bbots?\b|assistant|\brag\b|documents?|manuals?|\bpdfs?\b|knowledge|\bfaqs?\b|receptionist|support agent/, weeks:3, roles:['AI engineer','Backend engineer'], stack:['LLM APIs (GPT / Claude / Gemini)','Vector database','Python']},
+  {id:'agent', name:'AI agent and automation',  re:/\bagents?\b|automat|workflow|lead gen|outreach/, weeks:3, roles:['AI engineer','Backend engineer'], stack:['LLM APIs','n8n or custom workers','Python']},
+  {id:'growth',name:'AI search and brand growth',re:/\baeo\b|\bgeo\b|chatgpt|perplexity|gemini|ai search|cited|visibility|\bseo\b|\brank|marketing|social media|content/, weeks:2, roles:['Growth strategist','Content lead','AEO/GEO engineer'], stack:['Schema.org','Search Console + AI-answer tracking','AI content pipeline']},
+  {id:'brand', name:'Brand identity',           re:/\bbrand(ing)?\b|\blogo\b|identity|brand book/, weeks:2, roles:['Brand designer'], stack:['Figma','Brand guidelines']},
+  {id:'mobile',name:'Mobile app',               re:/\bapps?\b|android|\bios\b|iphone|mobile|play ?store|app store/, weeks:5, roles:['Project lead','Mobile engineer','Mobile engineer','Backend engineer','UI designer'], stack:['Flutter or React Native','Node.js','PostgreSQL','Firebase (push)']},
+  {id:'web',   name:'Web platform',             re:/website|\bsite\b|\bweb\b|portal|saas|platform|landing page|e-?commerce|online store/, weeks:3, roles:['Web engineer','UI designer'], stack:['Next.js','Headless CMS','Vercel']}
+];
+const FEATURES = [ // add-ons detected inside the idea
+  {re:/\bpay\b|\bpays\b|payment|checkout|upi|razorpay|stripe|subscription|wallet|membership/, label:'Online payments (UPI, cards, wallets)', weeks:1, stack:['Razorpay']},
+  {re:/\bbook|appointment|\bslots?\b|reservation|schedul/, label:'Bookings with time slots and reminders', weeks:1.5},
+  {re:/deliver|\bride|driver|tracking|\bmaps?\b|location|gps|near ?by/, label:'Live location and order tracking', weeks:2, stack:['Google Maps API']},
+  {re:/\bchat\b|messag|inbox/, label:'In-app chat', weeks:1.5, stack:['WebSockets']},
+  {re:/whatsapp/, label:'WhatsApp integration', weeks:1, stack:['WhatsApp Business API']},
+  {re:/notif|remind|alert|\bpush\b/, label:'Push and SMS notifications', weeks:0.5},
+  {re:/marketplace|multi-?vendor|sellers?\b|vendors/, label:'Multi-vendor marketplace with seller panel', weeks:3, roles:['Full-stack engineer']},
+  {re:/\bshop|\bstore\b|\bcart\b|catalog|\borders?\b|grocery|e-?commerce/, label:'Product catalogue, cart and orders', weeks:2},
+  {re:/video|stream|\blive class|course|reels?\b/, label:'Video streaming and courses', weeks:2, stack:['Mux or AWS IVS']},
+  {re:/loyalty|points|reward|referral|cashback/, label:'Loyalty points and referrals', weeks:1},
+  {re:/admin|dashboard|analytics|report/, label:'Admin dashboard and reports', weeks:1.5},
+  {re:/\bvoice|phone call|\bcalls\b|speech|receptionist/, label:'Voice AI for phone calls', weeks:2, stack:['Speech-to-text + TTS'], roles:['AI engineer']},
+  {re:/photo|image|\bscan|camera|vision|\bocr\b|x-?ray/, label:'Image recognition from photos', weeks:2.5, stack:['Vision model'], roles:['ML engineer']},
+  {re:/forecast|predict|recommend|personali/, label:'Predictions and recommendations', weeks:2.5, stack:['Python ML (scikit-learn)'], roles:['ML engineer']},
+  {re:/hindi|marathi|tamil|telugu|bengali|gujarati|kannada|regional|multilingual|languages?\b/, label:'Multilingual support', weeks:1},
+  {re:/\bgst\b|invoice|billing|accounts\b|accounting|finance/, label:'GST-ready billing and accounts', weeks:2},
+  {re:/\bhr\b|payroll|attendance|employees?\b|\bstaff\b/, label:'HR, attendance and payroll', weeks:2},
+  {re:/\bcrm\b|\bleads?\b|sales pipeline|follow-?up/, label:'CRM and lead follow-ups', weeks:1.5},
+  {re:/\biot\b|sensors?\b|machine data/, label:'IoT sensor data integration', weeks:3, roles:['IoT engineer'], stack:['MQTT']},
+  {re:/fitness|health|doctor|clinic|patient|medical/, label:'Health records with privacy controls', weeks:1.5},
+  {re:/school|student|teacher|tutor|learning/, label:'Student, teacher and class management', weeks:1.5},
+  {re:/content|blog|posts?\b|reel script|calendar/, label:'AI content calendar in your brand voice', weeks:1},
+  {re:/chatgpt|perplexity|gemini|\baeo\b|\bgeo\b|cited|ai search/, label:'AI-search visibility audit and citations', weeks:1}
+];
+const uniq = a => [...new Set(a)];
+const fmtW = w => Math.round(w) <= 1 ? '1 week' : `${Math.round(w)} weeks`;
+function classify(text){
+  const t = ' ' + text.toLowerCase() + ' ';
+  const tNoWA = t.replace(/whatsapp/g, ' '); // "WhatsApp" must not count as an "app"
+  let prods = PRODUCTS.filter(p => p.re.test(p.id === 'mobile' ? tNoWA : t));
+  if (!prods.length) prods = [PRODUCTS.find(p => p.id === 'web')];
+  // a chatbot/agent is not a mobile app unless Android/iOS is named
+  if (prods.some(p => p.id === 'rag' || p.id === 'agent') && !/android|\bios\b|mobile|play ?store/.test(t)) prods = prods.filter(p => p.id !== 'mobile');
+  const feats = FEATURES.filter(f => f.re.test(t));
+  const adminF = FEATURES.find(f => /Admin/.test(f.label));
+  if (prods.some(p => ['mobile','erp'].includes(p.id)) && !feats.includes(adminF)) feats.push(adminF);
+  const base = prods.reduce((s, p) => s + p.weeks, 0), extra = feats.reduce((s, f) => s + f.weeks, 0);
+  const lo = Math.max(2, base * 0.8 + extra * 0.6), hi = lo * 1.4 + 1;
+  const prodRoles = prods.flatMap(p => p.roles);
+  const roles = uniq([...prodRoles, ...feats.flatMap(f => f.roles || [])]);
+  const team = roles.map(r => { const n = Math.min(2, Math.max(1, ...prods.map(p => p.roles.filter(x => x === r).length))); return n > 1 ? `2 ${r.toLowerCase()}s` : r; });
+  const stack = uniq([...prods.flatMap(p => p.stack), ...feats.flatMap(f => f.stack || [])]).slice(0, 7);
+  const name = prods.slice(0, 3).map(p => p.name).join(' + ') + (prods.some(p => p.id === 'mobile') ? ' (Android + iOS)' : '');
+  const CORE = {
+    erp:['Inventory and stock tracking','Purchase and sales orders','Role-based access per department'],
+    three:['Interactive 3D model with colour and part swaps','Live price updates','Runs on phones, no app needed'],
+    rag:['Answers from your documents, with sources','Hand-off to a person when unsure','Admin panel to update knowledge'],
+    agent:['Automated workflow with approvals','Connections to your existing tools','Activity log and alerts'],
+    growth:['AI-search visibility audit','Answer-first pages with schema markup','Monthly AI-mention report'],
+    brand:['Logo and visual identity','Brand book and voice guide','Social media templates'],
+    mobile:['Phone OTP sign-up','Push notifications','Play Store and App Store release'],
+    web:['Responsive pages for every device','Easy content editing','SEO and AEO-ready structure']
+  };
+  const featList = uniq([...feats.filter(f => f !== adminF).map(f => f.label), ...prods.flatMap(p => CORE[p.id]), ...(feats.includes(adminF) ? [adminF.label] : [])]);
+  const risky = feats.filter(f => /IoT|Image|Predictions|Voice/.test(f.label)).length;
+  const score = Math.max(68, Math.min(97, Math.round(97 - prods.length * 2 - feats.length * 1.2 - risky * 3)));
+  const size = hi > 16 ? 'large, phased build' : hi > 9 ? 'medium build' : 'compact build';
+  return { name, feats: featList, time: `${fmtW(lo)}–${fmtW(hi)} (${size})`, team: team.join(', '), stack: stack.join(', '), score };
+}
+
+/* ===== ARC face: image model with lip sync (falls back to the particle head if nova.webp is missing) =====
+   Face landmarks are in the image's own pixels (1024 x 1024). Adjust if you swap the image. */
+const FACE = { baseW:1599, mouthY:497, mouthX:800, mouthW:118, maxOpen:14, jawX0:672, jawX1:928, jawBottom:600, eyes:[[713,340],[873,340]], eyeW:72, eyeH:28, focusY:445, eyeGlow:false, blink:true };
+const mouth = { open:0, speaking:false, bursts:[], lastWord:0, lastTick:0 };
+function mouthSyllables(word){
+  const n = Math.max(1, Math.min(4, (String(word).match(/[aeiouy]+/gi) || []).length));
+  const now = performance.now(), start = Math.max(now, mouth.bursts.length ? mouth.bursts[mouth.bursts.length-1].at + 95 : now);
+  for (let i = 0; i < n; i++) mouth.bursts.push({ at: start + i*125, amp: 0.55 + Math.random()*0.45 });
+}
+function mouthTick(ch){ // typing-driven movement when the voice is off
+  const now = performance.now();
+  if (/[aeiou]/i.test(ch) && now - mouth.lastTick > 150) { mouth.lastTick = now; mouth.bursts.push({ at: now, amp: 0.35 + Math.random()*0.35 }); }
+}
+/* ===== ARC terminal + voice ===== */
+const term = $('#term'), tag = $('#novaTag'), waveBars = [...document.querySelectorAll('#wave i')];
+let voiceOn = true, voiceUnlocked = false, energy = 0, busy = false;
+const muteBtn = $('#muteBtn');
+muteBtn.addEventListener('click', () => {
+  voiceOn = !voiceOn; muteBtn.setAttribute('aria-pressed', !voiceOn);
+  muteBtn.textContent = voiceOn ? '🔊 Voice on' : '🔇 Voice off';
+  if (!voiceOn) try { speechSynthesis.cancel(); } catch {}
+});
+// Prefers a male English voice. Falls back to the device default at a lower pitch.
+const MALE_VOICES = [/ravi/i, /rishi/i, /hemant/i, /prabhat/i, /en-in.*male(?!.*female)/i, /google uk english male/i, /\bdavid\b/i, /\bmark\b/i, /\bguy\b/i, /\bdaniel\b/i, /\balex\b/i, /\bfred\b/i, /\baaron\b/i, /\barthur\b/i, /\bmale\b/i];
+const FEMALE_VOICE = /female|zira|samantha|heera|veena|karen|moira|tessa|victoria|susan|hazel|aria|jenny|neerja|swara/i;
+function pickMaleVoice(){
+  let voices = []; try { voices = speechSynthesis.getVoices(); } catch {}
+  const english = voices.filter(v => /^en/i.test(v.lang));
+  for (const re of MALE_VOICES) { const v = english.find(x => re.test(x.name + ' ' + x.lang) && !FEMALE_VOICE.test(x.name)); if (v) return v; }
+  return null;
+}
+function speak(text){ if(!voiceOn) return; try{ const u=new SpeechSynthesisUtterance(text); const v=pickMaleVoice(); if(v) u.voice=v; u.rate=1.0; u.pitch=v ? 1 : 0.85;
+  u.onstart=()=>{ mouth.speaking=true; };
+  u.onboundary=e=>{ if(e.name && e.name!=='word') return; mouth.lastWord=performance.now(); mouthSyllables(text.slice(e.charIndex).split(/\s/)[0]); };
+  u.onend=u.onerror=()=>{ mouth.speaking=false; };
+  speechSynthesis.cancel(); speechSynthesis.speak(u);}catch{} }
+try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices(); }catch{}
+/* ===== ARC conversation =====
+   1) Tries the AI endpoint (/api/arc, a Vercel function that calls Claude).
+   2) If that is unavailable, answers from the built-in knowledge below.
+   EDIT the KNOW answers to match your real details. */
+const history = []; // {role:'user'|'assistant', content}
+const KNOW = [
+  { re:/\b(who|what) (are|r) (you|u)\b|your name|\bwhat is arc\b|\bwho is arc\b|\barc\b\??$/i, a:[
+    "I'm ARC, the voice of Catalyst Engine.",
+    "I help you shape a product idea into features, a team and a timeline, and I can answer questions about how Branding Catalyst works."]},
+  { re:/catalyst engine|how (does|do) (it|this|you) work|how do you build|your (ai|model|engine)|private ai/i, a:[
+    "Catalyst Engine is the build system behind Branding Catalyst.",
+    "· It runs on leading AI models such as GPT, Claude and Gemini",
+    "· It adds our build playbooks and a library of ready modules (login, payments, chat, admin)",
+    "· AI agents plan, code and test, and an engineer reviews every release",
+    "That is how we ship faster without cutting corners."]},
+  { re:/branding catalyst|about (you|your company|the company)|who (are|r) you guys|your company/i, a:[
+    "Branding Catalyst is an AI-first studio for brands and software, based in Mumbai and founded in 2019 by Abhishek Trivedi. We have delivered 50+ projects for national and international clients.",
+    "We build AI products, Android and iOS apps, ERP systems, websites and 3D web experiences, and we help brands get recommended by AI search through AEO and GEO."]},
+  { re:/\baeo\b|answer engine/i, a:[
+    "AEO means Answer Engine Optimization.",
+    "We structure your pages and content so AI assistants and voice search use your answer first: answer-first copy, FAQ and schema markup, and clear entity pages."]},
+  { re:/\bgeo\b|generative engine|cited by|recommended by (chatgpt|ai)|ai search/i, a:[
+    "GEO means Generative Engine Optimization.",
+    "We track how ChatGPT, Gemini and Perplexity describe your category, then earn the mentions and citations that get your brand named in their answers."]},
+  { re:/\brag\b|retrieval/i, a:[
+    "RAG lets an AI assistant answer from your own documents and data.",
+    "It finds the right passage first, then answers with a source, so replies stay accurate. We use it for support bots, sales assistants and internal knowledge search."]},
+  { re:/services?|what (do|can) you (do|offer|build|make)|offerings?/i, a:[
+    "Here is what we build:",
+    "· Artificial Intelligence: agents, chatbots, RAG on your data",
+    "· AI search, branding and growth: AEO, GEO, AI content, identity",
+    "· Mobile apps for Android and iOS",
+    "· ERP systems for inventory, sales, HR and accounts",
+    "· Websites and platforms",
+    "· 3D web experiences",
+    "Tell me what you have in mind and I'll plan it."]},
+  { re:/price|pricing|cost|budget|charge|quote|how much|rate card|fees?/i, a:[
+    "Every project gets a fixed quote after a free scoping call, so you know the full price before we start.",
+    "Cost follows scope: a company website is a compact build, while apps and ERPs are medium to large builds.",
+    "Describe your idea and I'll size it, or use the idea checker below for a detailed estimate."]},
+  { re:/how long|how fast|timeline|time ?frame|deadline|how soon|how many weeks/i, a:[
+    "You see a working prototype in the first sprint, then a demo every week.",
+    "Typical ranges: websites 2–4 weeks, AI assistants 4–6 weeks, mobile apps 7–11 weeks, ERPs 8–12 weeks.",
+    "Share your idea for a timeline that fits it."]},
+  { re:/guarantee|refund|money back|milestone|payment terms|risk/i, a:[
+    "We agree scope, price and launch date in writing before work starts.",
+    "You pay per milestone, only after you review and accept it. If the first prototype misses the agreed scope, the prototype fee is refunded."]},
+  { re:/contact|call|meet|meeting|talk to (a )?(human|person|someone)|email|phone|whatsapp number|reach you/i, a:[
+    "Happy to connect you with the team.",
+    "Tap the green WhatsApp button at the bottom-right, call us on +91 90046 29888, or use the Start a project button at the bottom of this page.",
+    "You can also find us on Instagram (@branding_catalyst), LinkedIn and YouTube (@brandingcatalyst)."]},
+  { re:/where (are|r) you|located|location|office|based|city|country/i, a:[
+    "We are based in Mumbai, Maharashtra, and work with clients across India and abroad, with weekly video demos."]},
+  { re:/tech ?stack|technolog|framework|language|flutter|react|node/i, a:[
+    "We pick the stack per project. Common choices:",
+    "· Mobile: Flutter or React Native",
+    "· Web: Next.js with a headless CMS",
+    "· Backend: Node.js or Django with PostgreSQL",
+    "· AI: GPT, Claude and Gemini APIs with a vector database",
+    "· 3D: Three.js and WebGL"]},
+  { re:/portfolio|case stud|clients?|past work|examples?|previous work/i, a:[
+    "We can walk you through relevant past projects on a scoping call.",
+    "Tell me your industry and idea, and I'll suggest what a similar build looks like."]},
+  { re:/support|maintenance|after launch|hosting|bug fix|updates?/i, a:[
+    "After launch we monitor, fix and keep improving: 24/7 uptime checks, error tracking, security updates and monthly cloud-cost reviews.",
+    "We can also run AEO, GEO and content work to grow your reach."]},
+  { re:/own(ership)?|source code|\bip\b|intellectual property|nda/i, a:[
+    "You own the code and designs we build for you. We hand over the repository and documentation at launch, and we are happy to sign an NDA."]}
+];
+const GREET = /^(hi+|hey+|hello+|hii+|helo|yo|namaste|namaskar|hola|sup|what'?s up|good (morning|afternoon|evening))\b[\s!.,]*(arc|there)?[\s!.,]*$/i;
+const THANKS = /^(thanks?|thank you|thx|ty|great|awesome|cool|nice|ok(ay)?|perfect|got it)\b[\s!.,]*$/i;
+const BYE = /^(bye|goodbye|see you|cya)\b/i;
+const IDEA_WORDS = /\b(apps?|website|site|platform|erp|crm|bots?|chatbot|agents?|portal|dashboard|system|software|store|marketplace|3d|configurator|logo|brand|automation|saas|tool|delivery|booking)\b/i;
+const IDEA_VERBS = /\b(i want|i need|we want|we need|looking for|build|make|create|develop|planning|idea|get my|get our)\b/i;
+const QUESTION_START = /^(what|who|where|why|which|how much|how long|how does|how do|is|are|can you explain)\b/i;
+
+function localReply(msg){
+  const m = msg.trim(), words = m.split(/\s+/).length;
+  if (GREET.test(m)) return { lines:["Hey, good to meet you!","I can plan a new product for you, or answer questions about Branding Catalyst. What are you thinking of building?"] };
+  if (THANKS.test(m)) return { lines:["Glad that helps. Anything else you'd like to know, or another idea to plan?"] };
+  if (BYE.test(m)) return { lines:["Thanks for stopping by. Come back any time you have an idea to build!"] };
+  const known = KNOW.find(k => k.re.test(m));
+  const isIdea = IDEA_WORDS.test(m) && (words >= 4 || IDEA_VERBS.test(m) || (!QUESTION_START.test(m) && !/\?\s*$/.test(m)));
+  if (known && (QUESTION_START.test(m) || !isIdea)) return { lines: known.a };
+  if (isIdea || (IDEA_VERBS.test(m) && words >= 4)) {
+    const c = classify(m), an = /^[aeiou]/i.test(c.name) ? 'an' : 'a';
+    const opener = /^(do|can|could|will) (you|u)\b/i.test(m) ? `Yes, we do. A typical build is ${an} ${c.name} project.` : `Great idea. That's ${an} ${c.name} project.`;
+    return { plan:true, lines:[
+      opener,
+      ...c.feats.slice(0,3).map(f => '· ' + f),
+      `Timeline: ${c.time}.`,
+      `Team: ${c.team}.`
+    ]};
+  }
+  if (known) return { lines: known.a };
+  return { lines:[
+    "I'm not sure I followed that.",
+    "You can ask me about our services, pricing, timelines or how Catalyst Engine works, or describe your idea in a sentence and I'll plan it."
+  ]};
+}
+
+async function aiReply(msg){
+  if (location.protocol === 'file:') return null;
+  try {
+    const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), 20000);
+    const r = await fetch('/api/arc', { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ messages:[...history.slice(-10), { role:'user', content:msg }] }), signal: ctrl.signal });
+    clearTimeout(timer);
+    if (!r.ok) return null;
+    const j = await r.json();
+    return typeof j.reply === 'string' && j.reply.trim() ? j.reply.trim() : null;
+  } catch { return null; }
+}
+
+function line(html){ const d=document.createElement('div'); d.innerHTML=html; term.appendChild(d); term.scrollTop=term.scrollHeight; return d; }
+async function typeInto(el, text, sp=13){ if(reduce){el.textContent=text;return} for(let i=0;i<text.length;i++){ el.textContent+=text[i]; if(!voiceOn || !voiceUnlocked) mouthTick(text[i]); if(i%2===0){ term.scrollTop=term.scrollHeight; await wait(sp);} } }
+// Speaks the whole reply once (so lip sync follows one continuous voice) and types it line by line.
+async function sayLines(lines){
+  const clean = lines.map(s => s.replace(/\*\*/g,'').trim()).filter(Boolean);
+  speak(clean.map(s => s.replace(/^[·•\-*]\s*/,'')).join('. ').replace(/\.\.+/g,'.'));
+  energy = 1;
+  for (const s of clean) {
+    const bullet = /^[·•\-*]\s*/.test(s);
+    const d = bullet ? line('<span class="n">  · </span><span class="n"></span>') : line('<span class="p">arc&gt;</span> <span class="n"></span>');
+    await typeInto(d.lastElementChild, s.replace(/^[·•\-*]\s*/,''), bullet ? 8 : 13);
+  }
+  energy = .25;
+}
+async function say(text){ await sayLines([text]); }
+setInterval(()=>{ waveBars.forEach(b=>b.style.height=(3+Math.random()*11*energy)+'px'); energy*=.96; },110);
+
+async function ask(msg){
+  msg = msg.trim(); if(busy||!msg) return; busy=true;
+  line(`<span class="p">you&gt;</span> <span class="u">${esc(msg)}</span>`);
+  tag.classList.add('busy');
+  const thinking = line('<span class="p">arc&gt;</span> <span class="n">…</span>');
+  const [ai] = await Promise.all([aiReply(msg), wait(450)]);
+  thinking.remove();
+  let lines, plan = false;
+  if (ai) { lines = ai.split(/\n+/); plan = IDEA_WORDS.test(msg) && /week/i.test(ai); }
+  else { const r = localReply(msg); lines = r.lines; plan = !!r.plan; }
+  history.push({ role:'user', content:msg }, { role:'assistant', content:lines.join('\n') });
+  await sayLines(lines);
+  if (plan) { line('<span class="p">arc&gt;</span> <span class="n">Want a detailed estimate? <a href="#idea-checker">Check this idea →</a> or <a href="#" data-lead data-lead-idea="#chkIn" data-lead-source="ARC chat">send it to our team →</a></span>'); $('#chkIn').value = msg; }
+  tag.classList.remove('busy'); busy=false;
+}
+$('#askForm').addEventListener('submit', e => { e.preventDefault(); const v=$('#askIn').value; $('#askIn').value=''; ask(v); });
+document.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => ask(b.textContent)));
+$('#ctaNova').addEventListener('click', () => setTimeout(()=>$('#askIn').focus({preventScroll:true}),600));
+const INTRO = [
+  "Hi, I'm ARC, the voice of Catalyst Engine.",
+  "Catalyst Engine is the AI build system Branding Catalyst uses to plan, design, code, test and launch brands, apps, ERPs and AI products.",
+  "Tell me your idea and I'll map out features, a team and a timeline. Or ask me anything about our services, pricing or how we work."
+];
+let introDone = false;
+(async()=>{ busy = true; await sayLines(INTRO); busy = false; introDone = true; })();
+muteBtn.addEventListener('click', () => { if (voiceOn && introDone && !busy) { busy = true; sayLines(["Voice on. I'm ARC. Ask me anything, or tell me your idea."]).then(()=>busy=false); } });
+// Browsers only allow speech after the visitor's first click or key press.
+// ARC's voice is on by default, so the intro is spoken at that first interaction.
+let introSpoken = false;
+function unlockVoice(e){
+  if (voiceUnlocked) return;
+  voiceUnlocked = true;
+  // If that first click is a question, the mute button or an idea card, let it speak for itself.
+  if (e && e.target && e.target.closest && e.target.closest('#muteBtn, #askForm, .chip, .ic-card, #mAsk')) { introSpoken = true; return; }
+  if (voiceOn && !introSpoken) { introSpoken = true; speak(INTRO.join(' ')); }
+}
+['pointerdown', 'keydown', 'touchstart'].forEach(t => addEventListener(t, unlockVoice, { capture: true, passive: true }));
+// links like index.html?ask=... (from the Services page) open ARC with that question once his intro has finished
+(() => { const q = new URLSearchParams(location.search).get('ask'); if (!q) return; const go = () => { if (busy || !introDone) return setTimeout(go, 400); ask(q.slice(0, 240)); }; setTimeout(go, 800); })();
+
+(() => {
+  const cv = $('#novaCv'), ctx = cv.getContext('2d');
+  const img = new Image();
+  const jaw = document.createElement('canvas'), jctx = jaw.getContext('2d');
+  let lidColor = null;
+  img.onload = () => { window.__novaImg = true; requestAnimationFrame(frame); };
+  img.src = 'nova.webp';
+  function level(now){
+    let target = 0;
+    mouth.bursts = mouth.bursts.filter(b => now < b.at + 130);
+    for (const b of mouth.bursts) if (now >= b.at) target = Math.max(target, b.amp * Math.sin(Math.PI * (now - b.at) / 130));
+    // some voices never send word events: keep the mouth moving while audio plays
+    if (mouth.speaking && now - mouth.lastWord > 450) target = Math.max(target, 0.25 + 0.4 * Math.abs(Math.sin(now / 75)) * Math.abs(Math.sin(now / 190)));
+    mouth.open += (target - mouth.open) * (target > mouth.open ? 0.55 : 0.3);
+    return mouth.open;
+  }
+  let faceOn = true, faceWait = false;
+  new IntersectionObserver(es => { faceOn = es[0].isIntersecting; if (faceOn && faceWait) { faceWait = false; requestAnimationFrame(frame); } }, { rootMargin: '200px' }).observe(cv);
+  function frame(now){
+    if (!faceOn) { faceWait = true; return; }
+    const dpr = Math.min(1.5, devicePixelRatio || 1), b = cv.getBoundingClientRect(), W = b.width, H = b.height;
+    if (cv.width !== Math.round(W*dpr) || cv.height !== Math.round(H*dpr)) { cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr); }
+    const k = img.naturalWidth / FACE.baseW, IW = img.naturalWidth, IH = img.naturalHeight;
+    const t = now / 1000, open = level(now);
+    const s = Math.max(W / IW, H / IH) * 1.04;
+    let ox = (W - IW*s) / 2, oy = H/2 - FACE.focusY*k*s;
+    oy = Math.min(0, Math.max(H - IH*s, oy)) + Math.sin(t*0.9) * 2;
+    ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0, 0, cv.width, cv.height);
+    ctx.setTransform(dpr*s, 0, 0, dpr*s, dpr*ox, dpr*oy);
+    ctx.drawImage(img, 0, 0);
+
+    const my = FACE.mouthY*k, mx = FACE.mouthX*k, mw = FACE.mouthW*k, d = open * FACE.maxOpen * k;
+    if (d > 0.4) {
+      // mouth cavity
+      const g = ctx.createRadialGradient(mx, my + d/2, 0, mx, my + d/2, mw/2);
+      g.addColorStop(0, 'rgba(92,30,38,.96)'); g.addColorStop(.6, 'rgba(48,12,20,.97)'); g.addColorStop(1, 'rgba(22,6,10,.98)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(mx, my + d/2, mw/2 * (0.85 + open*0.1), d/2 + 2*k, 0, 0, Math.PI*2); ctx.fill();
+      if (open > 0.3) { ctx.fillStyle = `rgba(238,232,228,${Math.min(.85, (open - .3) * 1.6)})`; ctx.beginPath(); ctx.ellipse(mx, my + d*0.16, mw*0.2, Math.max(1, d*0.16), 0, 0, Math.PI*2); ctx.fill(); }
+      // jaw: the area below the lips is redrawn lower, compressing toward the chin; sides feathered
+      const jx0 = FACE.jawX0*k, jx1 = FACE.jawX1*k, jb = FACE.jawBottom*k, jw = jx1 - jx0, jh = jb - my;
+      jaw.width = Math.ceil(jw); jaw.height = Math.ceil(jh);
+      jctx.globalCompositeOperation = 'source-over'; jctx.clearRect(0, 0, jaw.width, jaw.height);
+      jctx.drawImage(img, jx0, my, jw, jh, 0, d, jw, jh - d);
+      jctx.globalCompositeOperation = 'destination-in';
+      const fx = jctx.createLinearGradient(0, 0, jw, 0);
+      fx.addColorStop(0, 'rgba(0,0,0,0)'); fx.addColorStop(.22, '#000'); fx.addColorStop(.78, '#000'); fx.addColorStop(1, 'rgba(0,0,0,0)');
+      jctx.fillStyle = fx; jctx.fillRect(0, 0, jw, jh);
+      ctx.drawImage(jaw, jx0, my);
+    }
+    if (FACE.blink) {
+      if (!lidColor) {
+        try { const c = document.createElement('canvas'); c.width = c.height = 1; const cc = c.getContext('2d'); const [ex, ey] = FACE.eyes[0];
+          cc.drawImage(img, ex*k, (ey - FACE.eyeH)*k, 1, 1, 0, 0, 1, 1); const p = cc.getImageData(0, 0, 1, 1).data; lidColor = `rgb(${p[0]},${p[1]},${p[2]})`; }
+        catch { lidColor = 'rgb(226,184,166)'; }
+      }
+      const cyc = now % 4300;
+      if (cyc < 150) {
+        const amt = Math.sin(Math.PI * cyc / 150);
+        for (const [ex, ey] of FACE.eyes) {
+          const w = FACE.eyeW*k/2, h = FACE.eyeH*k/2, x = ex*k, y = ey*k;
+          ctx.save(); ctx.beginPath(); ctx.ellipse(x, y, w, h, 0, 0, Math.PI*2); ctx.clip();
+          ctx.fillStyle = lidColor; ctx.fillRect(x - w, y - h, w*2, h*2*amt);
+          ctx.strokeStyle = 'rgba(45,28,28,.55)'; ctx.lineWidth = 2*k; ctx.beginPath(); ctx.moveTo(x - w, y - h + h*2*amt); ctx.lineTo(x + w, y - h + h*2*amt); ctx.stroke();
+          ctx.restore();
+        }
+      }
+    }
+    // eyes glow brighter while he talks (robot faces only)
+    ctx.globalCompositeOperation = 'lighter';
+    const talk = Math.min(1, open * 1.6 + (mouth.speaking ? .25 : 0));
+    if (FACE.eyeGlow) for (const [ex, ey] of FACE.eyes) {
+      const gx = ex*k, gy = ey*k, r = 95*k;
+      const eg = ctx.createRadialGradient(gx, gy, 0, gx, gy, r);
+      eg.addColorStop(0, `rgba(170,230,255,${0.10 + talk*0.35 + Math.sin(t*2)*0.04})`); eg.addColorStop(1, 'rgba(170,230,255,0)');
+      ctx.fillStyle = eg; ctx.fillRect(gx - r, gy - r, r*2, r*2);
+    }
+    // slow scan line across the face
+    const sy = ((t * 0.18) % 1.4 - 0.2) * IH;
+    const sg = ctx.createLinearGradient(0, sy - 40*k, 0, sy + 40*k);
+    sg.addColorStop(0, 'rgba(201,162,255,0)'); sg.addColorStop(.5, 'rgba(201,162,255,.05)'); sg.addColorStop(1, 'rgba(201,162,255,0)');
+    ctx.fillStyle = sg; ctx.fillRect(0, sy - 40*k, IW, 80*k);
+    ctx.globalCompositeOperation = 'source-over';
+    requestAnimationFrame(frame);
+  }
+})();
+
+/* ===== ARC particle head (canvas) ===== */
+(() => {
+  const cv=$('#novaCv'), ctx=cv.getContext('2d'); let W,H,dpr;
+  function size(){ dpr=Math.min(2,devicePixelRatio||1); const b=cv.getBoundingClientRect(); W=b.width; H=b.height; cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+  size(); addEventListener('resize', size);
+  // head-shaped point cloud: ellipsoid, narrower at the jaw, with eye sockets
+  const P=[]; const N=1500;
+  for(let i=0;i<N;i++){
+    const u=Math.random()*2-1, th=Math.random()*Math.PI*2; let r=Math.sqrt(1-u*u);
+    let y=u, x=Math.cos(th)*r, z=Math.sin(th)*r;
+    const jaw = y>0.2 ? 1-(y-0.2)*0.55 : 1; x*=0.78*jaw; z*=0.85*jaw; y*=1.05;
+    if(z<-0.1) continue; // front-facing shell only
+    P.push({x,y,z,j:Math.random()});
+  }
+  const eyes=[[-0.28,-0.08],[0.28,-0.08]];
+  let t0=performance.now(), mx=0, my=0;
+  cv.parentElement.addEventListener('pointermove',e=>{const b=cv.getBoundingClientRect(); mx=((e.clientX-b.left)/b.width-.5); my=((e.clientY-b.top)/b.height-.5);});
+  function frame(now){
+    if(window.__novaImg) return;
+    const t=(now-t0)/1000; ctx.clearRect(0,0,W,H);
+    const cx=W/2, cy=H*0.5, R=Math.min(W,H)*0.36;
+    const ry=Math.sin(t*0.4)*0.25+mx*0.5, rx=my*0.3;
+    const cr=Math.cos(ry), sr=Math.sin(ry), cX=Math.cos(rx), sX=Math.sin(rx);
+    for(const p of P){
+      let x=p.x*cr+p.z*sr, z=-p.x*sr+p.z*cr, y=p.y*cX-z*sX; z=p.y*sX+z*cX;
+      const pulse=1+Math.sin(t*3+p.j*9)*0.01*(1+energy*4);
+      const px=cx+x*R*pulse, py=cy+y*R*pulse, d=(z+1)/2;
+      const top = p.y < -0.55; // sparkly crown
+      ctx.fillStyle = top ? `rgba(240,225,255,${0.25+d*0.6})` : `rgba(${175+d*50|0},${120+d*50|0},255,${0.12+d*0.55})`;
+      ctx.fillRect(px,py,top?1.6:1.2,top?1.6:1.2);
+    }
+    for(const [ex,ey] of eyes){
+      let x=ex*cr+0.75*sr, y=ey; const px=cx+x*R, py=cy+y*R;
+      const g=ctx.createRadialGradient(px,py,0,px,py,R*0.16); const a=0.55+energy*0.4;
+      g.addColorStop(0,`rgba(201,162,255,${a})`); g.addColorStop(1,'rgba(201,162,255,0)');
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(px,py,R*0.16,0,7); ctx.fill();
+      ctx.fillStyle=`rgba(245,235,255,${0.7+energy*0.3})`; ctx.beginPath(); ctx.ellipse(px,py,R*0.07,R*0.028,0,0,7); ctx.fill();
+    }
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* ===== Logo marquee (placeholders) ===== */
+const L1=['Your Client','Client Two','Client Three','Client Four','Client Five','Client Six'];
+const L2=['Retail Brand','Health Co.','Factory Ltd','EduTech','Café Chain','D2C Label'];
+const fill=(el,arr)=>{ const html=arr.map(n=>`<div class="lg"><div>${n}<small>LOGO</small></div></div>`).join(''); el.innerHTML=html+html; };
+fill($('#mq1'),L1); fill($('#mq2'),L2);
+
+/* ===== AI visibility check (an illustration of AEO + GEO, not a live audit) ===== */
+(() => {
+  const form = $('#visForm'), tabB = $('#visBefore'), tabA = $('#visAfter');
+  const q = $('#visQ'), a = $('#visA'), score = $('#visScore'), bar = $('#visBar'), chip = $('#visChip');
+  let mode = 'before', timer = null, run = 0;
+  const val = id => ($(id).value || '').trim();
+  const ctx = () => {
+    const b = val('#visBrand') || 'Your brand', w = val('#visWhat') || 'business', c = val('#visCity') || 'your city';
+    const domain = b.toLowerCase().replace(/[^a-z0-9]+/g, '') + '.com';
+    return { b: esc(b), w: esc(w), c: esc(c), domain: esc(domain) };
+  };
+  const ANSWERS = {
+    before: { score: 14, cls: 'bad',
+      chip: x => `${x.b}: not mentioned`,
+      text: x => `For a good ${x.w} in ${x.c}, people usually go with a few well-reviewed names that have strong ratings, clear details online and recent photos. Popular picks change often, so check recent reviews before you decide.` },
+    after: { score: 82, cls: 'good',
+      chip: x => `${x.b}: named first, with a source`,
+      text: x => `<b>${x.b}</b> is one of the most recommended options for a ${x.w} in ${x.c}. Customers mention consistent quality and helpful service, and its website clearly answers common questions about prices, timings and booking. (Sources: ${x.domain}, reviews, local guides)` }
+  };
+  async function show(m) {
+    mode = m; const id = ++run, x = ctx(), ans = ANSWERS[m];
+    tabB.setAttribute('aria-selected', m === 'before'); tabA.setAttribute('aria-selected', m === 'after');
+    q.textContent = `What's the best ${$('#visWhat').value.trim() || 'business'} in ${$('#visCity').value.trim() || 'my city'}?`;
+    score.textContent = ans.score + '/100'; bar.style.width = '0%';
+    requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.width = ans.score + '%'; }));
+    chip.className = 'vis-chip ' + ans.cls; chip.innerHTML = ans.chip(x);
+    const html = ans.text(x);
+    if (reduce) { a.innerHTML = html; return; }
+    // type the answer word by word (keeps the <b> tag intact)
+    const parts = html.split(/(\s+)/); a.innerHTML = '';
+    for (let i = 0; i < parts.length; i++) {
+      if (id !== run) return;
+      a.innerHTML = parts.slice(0, i + 1).join('');
+      if (i % 2 === 0) await wait(22);
+    }
+  }
+  tabB.addEventListener('click', () => { clearTimeout(timer); show('before'); });
+  tabA.addEventListener('click', () => { clearTimeout(timer); show('after'); });
+  form.addEventListener('submit', e => {
+    e.preventDefault(); clearTimeout(timer);
+    show('before').then(() => { timer = setTimeout(() => show('after'), 1600); });
+  });
+  // complete at rest: show the example before/after pair once it scrolls into view
+  a.innerHTML = ANSWERS.before.text(ctx()); q.textContent = `What's the best ${val('#visWhat')} in ${val('#visCity')}?`;
+  score.textContent = ANSWERS.before.score + '/100'; bar.style.width = ANSWERS.before.score + '%';
+  chip.className = 'vis-chip bad'; chip.innerHTML = ANSWERS.before.chip(ctx());
+  let seen = false;
+  new IntersectionObserver(es => { if (!seen && es[0].isIntersecting) { seen = true; timer = setTimeout(() => show('after'), 1200); } }, { threshold: .5 }).observe($('.vis-card'));
+})();
+
+/* ===== Scale simulation: a festive sale day, autoscaling ===== */
+(() => {
+  const cv = $('#simCv'); if (!cv) return;
+  const ctx = cv.getContext('2d');
+  let W = 0, H = 0;
+  function size(){ const dpr = Math.min(2, devicePixelRatio || 1), b = cv.getBoundingClientRect(); W = b.width; H = b.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  size(); addEventListener('resize', size);
+  const C = { acc:'#c9a2ff', ok:'#6fcf97', cyan:'#7fd6e8', pink:'#f2a7c3', violet:'#9aa3f5', amber:'#f2c27a', ink:'#f1edf7', dim:'#8a80a3', box:'rgba(27,17,41,.96)' };
+  // traffic in thousands of requests/sec over a festive day: lunch bump, then the 8 pm sale spike
+  const traffic = m => { const h = m / 60; let v = 1.5 + 2.3 * Math.exp(-((h - 13) ** 2) / 3) + 6.4 * Math.exp(-((h - 20.7) ** 2) / 2.4); if (h >= 20 && h < 20.5) v += 3.4 * (1 - (h - 20) / 0.5); return Math.max(.6, v + Math.sin(m / 17) * .25); };
+  const EVENTS = [{ m: 13 * 60, label: 'Lunch rush' }, { m: 20 * 60, label: 'Sale goes live' }];
+  const SLOTS = 8, GH = () => H * 0.64;
+  let minute = 0, servers = 2, target = 2, n = 0, v = 1.5;
+  const born = new Array(SLOTS).fill(-1e9), hist = [], packets = [];
+  const WIDE = { users:[.06,.5], edge:[.2,.5], lb:[.355,.5], cache:[.78,.17], db:[.78,.5], r1:[.915,.36], r2:[.915,.64], q:[.78,.84], wk:[.915,.84], s0:.535, s1:.085 };
+  const COMPACT = { users:[.06,.5], edge:[.2,.5], lb:[.37,.5], cache:[.88,.17], db:[.88,.5], r1:[.88,.5], r2:[.88,.5], q:[.88,.84], wk:[.88,.84], s0:.55, s1:.13 };
+  const L = () => (W < 520 ? COMPACT : WIDE);
+  const P = (x, y) => ({ x: x * W, y: y * GH() });
+  const pt = k => P(...L()[k]);
+  const slot = i => P(L().s0 + (i % 2) * L().s1, .2 + Math.floor(i / 2) * .2);
+
+  function spawn(){
+    const ap = slot(Math.floor(Math.random() * servers)), u = pt('users');
+    const path = [{ x: u.x + (Math.random() - .5) * 34, y: u.y + (Math.random() - .5) * 70 }, pt('edge'), pt('lb'), ap];
+    const r = Math.random(); let col = C.acc;
+    if (r < .45) { path.push(pt('cache')); col = C.cyan; }
+    else if (r < .8) { path.push(pt('db')); col = C.violet; if (W >= 520 && Math.random() < .4) path.push(pt(Math.random() < .5 ? 'r1' : 'r2')); }
+    else { path.push(pt('q')); if (W >= 520) path.push(pt('wk')); col = C.pink; }
+    packets.push({ path, seg: 0, t: 0, sp: .025 + Math.random() * .02, col });
+  }
+  function step(){
+    minute = (minute + 6) % 1440; v = traffic(minute); n++;
+    target = Math.max(2, Math.min(SLOTS, Math.ceil(v / 1.5)));
+    if (n % 3 === 0 && servers !== target) { if (servers < target) { born[servers] = performance.now(); servers++; } else servers--; }
+    hist.push({ v, s: servers, m: minute }); if (hist.length > 240) hist.shift();
+    const hh = String(Math.floor(minute / 60)).padStart(2, '0'), mm = String(minute % 60).padStart(2, '0');
+    $('#clock').textContent = `${hh}:${mm}`; $('#stReq').textContent = v.toFixed(1) + 'k'; $('#stSrv').textContent = servers;
+    $('#stP95').textContent = Math.round(48 + v * 2.6 + (servers < target ? 24 : 0) + Math.random() * 6) + 'ms';
+    let label, color, prog;
+    if (servers < target) { label = `scaling up · ${servers}→${target}`; color = C.amber; prog = servers / target; }
+    else if (servers > target) { label = `scaling down · ${servers}→${target}`; color = C.cyan; prog = target / servers; }
+    else if (v > 8) { label = 'festive rush'; color = C.pink; prog = 1; }
+    else { label = 'steady'; color = C.ok; prog = 1; }
+    const st = $('#stStatus'), bar = $('#stBar'); st.textContent = label; st.style.color = color;
+    if (bar) { bar.style.width = (prog * 100).toFixed(0) + '%'; bar.style.background = color; }
+  }
+  for (let i = 0; i < 230; i++) step();          // fill a day of history, ending late morning
+  setInterval(() => { if (typeof simOn === 'undefined' || simOn) step(); }, reduce ? 1e9 : 260);
+
+  function link(a, b, alpha){ ctx.strokeStyle = `rgba(201,162,255,${alpha})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+  function node(p, w, h, title, sub, col, glow, ghost){
+    ctx.save();
+    if (ghost) { ctx.setLineDash([4, 4]); ctx.strokeStyle = 'rgba(201,162,255,.2)'; ctx.fillStyle = 'rgba(27,17,41,.35)'; }
+    else { ctx.strokeStyle = col; ctx.fillStyle = C.box; if (glow) { ctx.shadowColor = col; ctx.shadowBlur = 18; } }
+    ctx.lineWidth = 1.3; ctx.beginPath(); ctx.roundRect(p.x - w / 2, p.y - h / 2, w, h, 9); ctx.fill(); ctx.stroke(); ctx.restore();
+    if (ghost) return;
+    const small = W < 560;
+    ctx.fillStyle = C.ink; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    const fit = (text, start, family) => { let sz = start; do { ctx.font = `${family.startsWith('600') ? '600 ' : ''}${sz}px ${family.replace(/^600 /, '')}`; sz -= .5; } while (sz > 7.5 && ctx.measureText(text).width > w - 10); };
+    const showSub = sub && !small;
+    fit(title, small ? 9.5 : 12, '600 Lexend, system-ui, sans-serif');
+    ctx.fillText(title, p.x, showSub ? p.y - 7 : p.y);
+    if (showSub) { ctx.fillStyle = C.dim; fit(sub, 9.5, '"Geist Mono", monospace'); ctx.fillText(sub, p.x, p.y + 9); }
+  }
+  function label(text, x, y, col, align){ ctx.fillStyle = col || C.dim; ctx.font = '9.5px "Geist Mono", monospace'; ctx.textAlign = align || 'left'; ctx.textBaseline = 'alphabetic'; ctx.fillText(text, x, y); }
+
+  let simOn = true, simWait = false;
+  new IntersectionObserver(es => { simOn = es[0].isIntersecting; if (simOn && simWait) { simWait = false; requestAnimationFrame(frame); } }, { rootMargin: '200px' }).observe(cv);
+  function frame(now){
+    if (!simOn) { simWait = true; return; }
+    const gh = GH(), bw = W < 520 ? W * .15 : Math.max(60, Math.min(104, W * .125)), bh = W < 560 ? 26 : 38, sw = W < 520 ? W * .11 : Math.max(42, Math.min(64, W * .075));
+    ctx.clearRect(0, 0, W, H);
+    label('USERS', pt('users').x - 18, 16); label(W < 520 ? 'APP TIER' : 'AUTOSCALING APP TIER', slot(0).x - sw / 2, 16); label(W < 520 ? 'DATA' : 'DATA & JOBS', pt('cache').x - bw / 2, 16);
+    // links
+    link(pt('users'), pt('edge'), .25); link(pt('edge'), pt('lb'), .3);
+    for (let i = 0; i < SLOTS; i++) { const s = slot(i), on = i < servers; link(pt('lb'), s, on ? .25 : .05); if (on) { link(s, pt('cache'), .1); link(s, pt('db'), .1); link(s, pt('q'), .1); } }
+    if (W >= 520) { link(pt('db'), pt('r1'), .28); link(pt('db'), pt('r2'), .28); link(pt('q'), pt('wk'), .28); }
+    // user crowd grows with traffic
+    const u = pt('users'), crowd = Math.round(14 + v * 5);
+    for (let i = 0; i < crowd; i++) {
+      const a = i * 2.399 + now / 2600 * (1 + (i % 3) * .35), r = 6 + (i * 37) % 28;
+      ctx.globalAlpha = .45 + .45 * Math.sin(now / 480 + i); ctx.fillStyle = i % 6 === 0 ? C.pink : C.acc;
+      ctx.beginPath(); ctx.arc(u.x + Math.cos(a) * r * .9, u.y + Math.sin(a) * r * 1.6, 1.8, 0, 7); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    // requests flowing through the system
+    if (!reduce) { if (Math.random() < v / 6.5) spawn(); if (Math.random() < v / 13) spawn(); }
+    for (const k of packets) {
+      k.t += k.sp; if (k.t >= 1) { k.t = 0; k.seg++; }
+      if (k.seg >= k.path.length - 1) { k.done = true; continue; }
+      const a = k.path[k.seg], b = k.path[k.seg + 1], x = a.x + (b.x - a.x) * k.t, y = a.y + (b.y - a.y) * k.t;
+      ctx.fillStyle = k.col; ctx.globalAlpha = .25; ctx.beginPath(); ctx.arc(x, y, 6, 0, 7); ctx.fill(); ctx.globalAlpha = 1; ctx.beginPath(); ctx.arc(x, y, 2.4, 0, 7); ctx.fill();
+    }
+    for (let i = packets.length - 1; i >= 0; i--) if (packets[i].done) packets.splice(i, 1);
+    if (packets.length > 260) packets.splice(0, packets.length - 260);
+    // nodes
+    node(pt('edge'), bw, bh, 'Edge', 'CDN · firewall', C.cyan);
+    node(pt('lb'), bw, bh, 'Load balancer', 'routes traffic', C.acc, v > 8);
+    for (let i = 0; i < SLOTS; i++) { const on = i < servers; node(slot(i), sw, 24, `app-${i + 1}`, null, C.ok, on && (now - born[i] < 1800 || v > 8), !on); }
+    node(pt('cache'), bw, bh, 'Cache', 'fast reads', C.cyan);
+    node(pt('db'), bw, bh, 'Database', 'primary', C.violet);
+    if (W >= 520) { node(pt('r1'), bw * .82, bh, 'Replica', 'reads', C.violet); node(pt('r2'), bw * .82, bh, 'Replica', 'reads', C.violet); }
+    node(pt('q'), bw, bh, 'Queue', 'orders · events', C.pink);
+    if (W >= 520) node(pt('wk'), bw * .82, bh, 'Workers', 'emails · invoices', C.pink);
+    // 24-hour graph: traffic area, app-server steps, event markers
+    const top = gh + 30, gb = H - 12, gHt = gb - top, max = 12.5, xs = i => 14 + (W - 28) * i / 239;
+    label('traffic', 14, top - 10, C.acc); label('app servers', 66, top - 10, C.ok); label('24 h', W - 14, top - 10, C.dim, 'right');
+    ctx.strokeStyle = 'rgba(201,162,255,.1)'; ctx.beginPath(); ctx.moveTo(14, gb); ctx.lineTo(W - 14, gb); ctx.stroke();
+    if (hist.length > 1) {
+      ctx.beginPath(); hist.forEach((h, i) => { const x = xs(i), y = gb - Math.min(1, h.v / max) * gHt; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+      ctx.strokeStyle = C.acc; ctx.lineWidth = 1.8; ctx.stroke();
+      ctx.lineTo(xs(hist.length - 1), gb); ctx.lineTo(xs(0), gb); ctx.closePath();
+      const g = ctx.createLinearGradient(0, top, 0, gb); g.addColorStop(0, 'rgba(201,162,255,.35)'); g.addColorStop(1, 'rgba(201,162,255,0)'); ctx.fillStyle = g; ctx.fill();
+      ctx.beginPath(); hist.forEach((h, i) => { const x = xs(i), y = gb - (h.s * 1.5 / max) * gHt; if (i) { ctx.lineTo(x, gb - (hist[i - 1].s * 1.5 / max) * gHt); ctx.lineTo(x, y); } else ctx.moveTo(x, y); });
+      ctx.strokeStyle = C.ok; ctx.setLineDash([3, 3]); ctx.lineWidth = 1; ctx.stroke(); ctx.setLineDash([]);
+      hist.forEach((h, i) => { const ev = EVENTS.find(e => e.m === h.m); if (!ev) return; const x = xs(i);
+        ctx.strokeStyle = 'rgba(242,167,195,.55)'; ctx.setLineDash([2, 3]); ctx.beginPath(); ctx.moveTo(x, top); ctx.lineTo(x, gb); ctx.stroke(); ctx.setLineDash([]);
+        label(ev.label, Math.min(x + 4, W - 90), top + 10, C.pink); });
+      const last = hist[hist.length - 1], lx = xs(hist.length - 1), ly = gb - Math.min(1, last.v / max) * gHt;
+      ctx.fillStyle = C.acc; ctx.shadowColor = C.acc; ctx.shadowBlur = 12; ctx.beginPath(); ctx.arc(lx, ly, 3.5, 0, 7); ctx.fill(); ctx.shadowBlur = 0;
+    }
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* ===== Anatomy: five layers separate on scroll ===== */
+(() => {
+  const sec = $('#anat'); if (!sec) return;
+  const pls = [...document.querySelectorAll('.pl')], items = [...document.querySelectorAll('.al')], n = items.length;
+  const set = a => { pls.forEach(pl => pl.classList.toggle('on', +pl.dataset.i === a)); items.forEach(it => it.classList.toggle('on', +it.dataset.i === a)); };
+  function upd(){
+    const r = sec.getBoundingClientRect(), vh = innerHeight;
+    const p = Math.min(1, Math.max(0, (vh * 0.7 - r.top) / (r.height * 0.8)));
+    pls.forEach(pl => { const i = +pl.dataset.i; pl.style.transform = `translateZ(${((n - 1 - i) * (10 + p * 46)).toFixed(1)}px)`; });
+    set(Math.min(n - 1, Math.floor(p * n)));
+  }
+  let q = false; addEventListener('scroll', () => { if (!q) { q = true; requestAnimationFrame(() => { q = false; upd(); }); } }, { passive: true }); upd();
+  items.forEach(it => it.addEventListener('mouseenter', () => set(+it.dataset.i)));
+})();
+
+/* ===== Services bento: cursor glow + Plan with ARC ===== */
+document.querySelectorAll('.bx').forEach(card => {
+  card.addEventListener('pointermove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+});
+document.querySelectorAll('.bx-go').forEach(b => b.addEventListener('click', () => {
+  (window.__lenis ? window.__lenis.scrollTo('#top') : $('#top').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }));
+  setTimeout(() => ask(b.dataset.ask), reduce ? 0 : 600);
+}));
+
+/* ===== Idea Lab ideas ===== */
+const IDEAS=[
+ ['GEO','#c9a2ff','Get named by ChatGPT','Learn how AI assistants describe your category, then become the brand they recommend.',['AI visibility audit','Citation and mention building','Monthly AI-answer tracking']],
+ ['AI','#7fd6e8','A support bot that read your manuals','Answers customer questions from your PDFs and FAQs, with sources, in Hindi and English.',['Document ingestion (RAG)','Web + WhatsApp chat','Human hand-off']],
+ ['MOBILE','#f2a7c3','Salon and clinic booking app','Customers book, pay and earn points. Every branch gets its own admin panel.',['Android + iOS','Payments and reminders','Branch dashboards']],
+ ['ERP','#6fcf97','ERP for a manufacturing unit','Raw material, production, dispatch and GST invoicing in one place.',['Inventory and BOM','Production planning','GST invoicing']],
+ ['3D','#f2c27a','3D furniture configurator','Shoppers change fabric, size and finish in 3D and see the price update live.',['Real-time 3D viewer','Live pricing','Share and enquire']],
+ ['AI','#7fd6e8','AI receptionist for clinics','Answers every call in Hindi, English and regional languages, and books the slot.',['Voice AI','Calendar booking','Call summaries']],
+ ['WEB','#c9a2ff','A website built for AI search','A fast site with answer-first pages and schema, ready to be quoted by AI tools.',['Next.js + CMS','AEO-ready content','Lead capture']],
+ ['GROWTH','#f2a7c3','Brand content engine','A month of posts, blogs and reel scripts in your brand voice, edited by people.',['Brand voice prompts','Content calendar','Multilingual output']],
+ ['AI','#7fd6e8','WhatsApp sales agent','Qualifies leads, shares catalogues and books calls straight into your calendar.',['WhatsApp Business API','Lead scoring','CRM sync']],
+ ['3D','#f2c27a','Virtual property walkthrough','Buyers tour a flat in 3D from a link, before it is even built.',['3D walkthrough','Floor-plan switcher','Enquiry capture']],
+ ['ERP','#6fcf97','Multi-store retail ERP','Stock, billing and staff across every outlet, synced in real time.',['POS + inventory','Store transfers','Owner dashboard']],
+ ['BRAND','#c9a2ff','Brand identity in a week','Name check, logo, colours, type and a brand book your whole team can use.',['Logo and identity','Brand book','Social templates']]
+];
+$('#ideaCount').textContent=IDEAS.length;
+/* Idea Lab: 3D ring of idea cards, rebuilt by the category filters */
+(() => {
+  const ring = $('#ring'), stage = $('#ringStage'), bar = $('#labFilters');
+  let list = IDEAS.map((_, i) => i), ang = 0, vel = reduce ? 0 : -0.08, drag = false, lx = 0, moved = 0;
+  let R0 = 330; // ring radius, recomputed from the real card width (cards grow on big screens)
+  const radius = () => { const small = innerWidth < 600, cw = (ring.firstElementChild && ring.firstElementChild.offsetWidth) || (small ? 200 : 230); return Math.max(cw * (small ? 1.2 : 1.45), list.length * cw * (small ? 1.075 : 1.25) / (2 * Math.PI)); };
+  function build(){
+    ring.innerHTML = '';
+    list.forEach((idx, k) => {
+      const it = IDEAS[idx], c = document.createElement('button');
+      c.type = 'button'; c.className = 'ic-card'; c.style.setProperty('--c', it[1]); c.dataset.i = idx;
+      c.innerHTML = `<span class="t">${it[0]}</span><h3>${it[2]}</h3><p>${it[3]}</p><span class="x">See the build plan →</span>`;
+      ring.appendChild(c);
+    });
+    layout();
+  }
+  function layout(){ const R = R0 = radius(), n = ring.children.length; [...ring.children].forEach((c, k) => { c.style.transform = `rotateY(${k * 360 / n}deg) translateZ(${R}px)`; }); }
+  const cats = ['All', ...new Set(IDEAS.map(i => i[0]))];
+  cats.forEach((cat, n) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = cat === 'All' ? 'ALL IDEAS' : cat; b.setAttribute('aria-pressed', n === 0);
+    b.addEventListener('click', () => {
+      bar.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+      list = IDEAS.map((_, i) => i).filter(i => cat === 'All' || IDEAS[i][0] === cat);
+      ang = 0; build();
+    });
+    bar.appendChild(b);
+  });
+  build(); addEventListener('resize', layout);
+  let ringOn = true, ringWait = false;
+  new IntersectionObserver(es => { ringOn = es[0].isIntersecting; if (ringOn && ringWait) { ringWait = false; requestAnimationFrame(tick); } }, { rootMargin: '200px' }).observe(stage);
+  function tick(){ if (!ringOn) { ringWait = true; return; } if (!drag) { ang += vel; vel += ((reduce ? 0 : -0.08) - vel) * 0.02; } ring.style.transform = `translateZ(-${R0}px) rotateY(${ang}deg)`; requestAnimationFrame(tick); }
+  tick();
+  stage.addEventListener('pointerdown', e => { drag = true; lx = e.clientX; moved = 0; });
+  addEventListener('pointermove', e => { if (!drag) return; const dx = e.clientX - lx; lx = e.clientX; moved += Math.abs(dx); ang += dx * 0.25; vel = dx * 0.25; });
+  addEventListener('pointerup', () => { drag = false; });
+  ring.addEventListener('click', e => { const c = e.target.closest('.ic-card'); if (!c || moved > 6) return; openIdea(+c.dataset.i); });
+})();
+const modal=$('#modal'); let curIdea=null;
+function openIdea(i){ const it=IDEAS[i]; curIdea=it; $('#mTag').textContent=it[0]; $('#mTitle').textContent=it[2]; $('#mDesc').textContent=it[3]; $('#mList').innerHTML=it[4].map(x=>`<li>${x}</li>`).join(''); modal.hidden=false; $('#mAsk').focus(); }
+function closeIdea(){ modal.hidden=true; }
+$('#mClose').addEventListener('click',closeIdea);
+modal.addEventListener('click',e=>{ if(e.target===modal) closeIdea(); });
+addEventListener('keydown',e=>{ if(e.key==='Escape') closeIdea(); });
+$('#mAsk').addEventListener('click',()=>{ closeIdea(); (window.__lenis ? window.__lenis.scrollTo('#top') : $('#top').scrollIntoView({behavior:reduce?'auto':'smooth'})); setTimeout(()=>ask(`${curIdea[2]}: ${curIdea[3]}`),reduce?0:600); });
+
+/* ===== Idea checker + discount wheel (EDIT discounts) ===== */
+const DISCOUNTS=[5,10,15,20,25,50];
+const est=$('#est');
+function renderEst(){
+  const idea=$('#chkIn').value.trim(); if(!idea){ est.innerHTML='<p style="color:var(--muted)">Describe your idea to see an estimate.</p>'; return; }
+  const c=classify(idea);
+  est.innerHTML=`<div class="r"><h3 style="font-size:20px;letter-spacing:-.02em">${c.name}</h3><span class="pill">FEASIBLE</span></div>
+   <div><div class="r" style="margin-bottom:8px"><span class="eyebrow">Feasibility</span><b style="font-family:var(--f-mono);font-weight:500">${c.score}/100</b></div><div class="meter"><i></i></div></div>
+   <dl class="kv"><dt>Timeline</dt><dd>${c.time}</dd><dt>Team</dt><dd>${c.team}</dd><dt>Stack</dt><dd>${c.stack}</dd><dt>Start with</dt><dd>${c.feats.slice(0,2).join('; ')}</dd></dl>
+   <div class="wheel-box"><div class="wheel-wrap"><canvas id="wheel" width="300" height="300"></canvas></div><div style="display:grid;gap:10px"><p id="wheelTxt">Spin once for a launch discount of up to ${Math.max(...DISCOUNTS)}%.</p><button class="btn btn-w" id="spin" type="button" style="justify-self:start">Spin the wheel</button></div></div>
+   <p style="color:var(--dim);font-size:13px">Indicative estimate. We confirm a fixed price and timeline after a free scoping call.</p><button class="btn btn-w" type="button" data-lead data-lead-idea="#chkIn" data-lead-source="Idea checker" style="justify-self:start">Book a free scoping call →</button>`;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ est.querySelector('.meter i').style.width=c.score+'%'; }));
+  drawWheel();
+  $('#spin').addEventListener('click',spin);
+}
+function drawWheel(){
+  const cv=$('#wheel'), x=cv.getContext('2d'), n=DISCOUNTS.length, cols=['#c9a2ff','#7fd6e8','#f2a7c3','#6fcf97','#f2c27a','#b9a3f5'];
+  for(let i=0;i<n;i++){ const a0=-Math.PI/2+i*2*Math.PI/n - Math.PI/n, a1=a0+2*Math.PI/n; x.beginPath(); x.moveTo(150,150); x.arc(150,150,146,a0,a1); x.closePath(); x.fillStyle=cols[i]; x.fill(); x.strokeStyle='#0c0a12'; x.lineWidth=3; x.stroke();
+    x.save(); x.translate(150,150); x.rotate(a0+Math.PI/n+Math.PI/2); x.fillStyle='#0c0a12'; x.font='600 26px Geist, system-ui'; x.textAlign='center'; x.fillText(DISCOUNTS[i]+'%',0,-100); x.restore(); }
+  x.beginPath(); x.arc(150,150,22,0,7); x.fillStyle='#0c0a12'; x.fill();
+}
+let spun=false;
+function spin(){
+  if(spun) return; spun=true;
+  const n=DISCOUNTS.length, weights=[30,30,20,12,6,2]; let r=Math.random()*100, k=0; for(;k<n;k++){ r-=weights[k]; if(r<=0) break; } k=Math.min(k,n-1);
+  const deg=360*6 - k*(360/n); const cv=$('#wheel'); cv.style.transform=`rotate(${deg}deg)`;
+  $('#spin').disabled=true;
+  setTimeout(()=>{ $('#wheelTxt').innerHTML=`You unlocked <b>${DISCOUNTS[k]}% off</b> your first milestone. Mention it on your scoping call.`; }, reduce?0:3300);
+}
+$('#chkForm').addEventListener('submit',e=>{ e.preventDefault(); spun=false; renderEst(); });
+renderEst();
+
+/* ===== Process lines ===== */
+const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ [...e.target.children].forEach((c,i)=>setTimeout(()=>c.classList.add('in'),i*300)); io.disconnect(); } }),{threshold:.3});
+io.observe($('#steps'));
+
+/* ===== Footer subscribe ===== */
+
+})();
+
+/* ===== Ambient background follows the scroll ===== */
+(() => {
+  const a = document.querySelector('.ambient'); if (!a) return;
+  let queued = false;
+  const upd = () => { const y = scrollY; a.style.setProperty('--s1', Math.sin(y / 700).toFixed(3)); a.style.setProperty('--c1', Math.cos(y / 900).toFixed(3)); a.style.setProperty('--s2', Math.sin(y / 1100 + 1).toFixed(3)); a.style.setProperty('--c2', Math.cos(y / 800 + 2).toFixed(3)); queued = false; };
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(upd); } }, { passive: true }); upd();
+})();
+</script>
+<script>
+/* ===== Smooth scrolling, reveal-on-scroll and scroll progress =====
+   Uses Lenis for eased wheel/trackpad scrolling. Phones keep native touch scrolling.
+   Everything here is skipped for visitors who prefer reduced motion. */
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const NAV_OFFSET = -84;
+
+  // let inner scroll areas (chat log, popups, wide tables) scroll on their own
+  document.querySelectorAll('#term, .modal, .cmp-wrap, .vis-body').forEach(el => el.setAttribute('data-lenis-prevent', ''));
+
+  // 1) smooth wheel scrolling
+  let lenis = null;
+  if (!reduce && typeof Lenis !== 'undefined') {
+    lenis = new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 0.9, touchMultiplier: 1.2, syncTouch: false });
+    window.__lenis = lenis;
+    const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+  }
+  // in-page links glide to their section and stop below the sticky menu
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href*="#"]'); if (!a || e.defaultPrevented) return;
+    const url = new URL(a.getAttribute('href'), location.href);
+    if (url.pathname !== location.pathname || !url.hash || url.hash === '#') return;
+    const target = document.querySelector(url.hash); if (!target) return;
+    e.preventDefault();
+    if (lenis) lenis.scrollTo(target, { offset: NAV_OFFSET, duration: 1.4 });
+    else window.scrollTo({ top: target.getBoundingClientRect().top + scrollY + NAV_OFFSET, behavior: reduce ? 'auto' : 'smooth' });
+    history.replaceState(null, '', url.hash);
+  });
+  // arriving from another page with a #section in the address
+  if (location.hash && lenis) { const t = document.querySelector(location.hash); if (t) setTimeout(() => lenis.scrollTo(t, { offset: NAV_OFFSET, immediate: true }), 60); }
+
+  // 2) scroll progress bar
+  const bar = document.createElement('div'); bar.className = 'scroll-prog'; bar.setAttribute('aria-hidden', 'true'); bar.innerHTML = '<i></i>';
+  document.body.appendChild(bar);
+  const fill = bar.firstChild;
+  const prog = () => { const max = document.documentElement.scrollHeight - innerHeight; fill.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`; };
+  addEventListener('scroll', prog, { passive: true }); addEventListener('resize', prog); prog();
+
+  // 3) reveal sections as they scroll into view
+  if (reduce || !('IntersectionObserver' in window)) return;
+  const SEL = [
+    '.head', '.feat .card', '.gl .card', '.nm', '.vis .txt', '.vis-card', '.scale .txt', '.sim', '.lean > *', '.three',
+    '.al', '.bx', '.lab-filters', '.ring-stage', '.chk > *', '.strip > .card', '.st', '.faq .txt', '.qa details', '.cta',
+    '.eq .el', '.eq .op', '.eq .react', '.logos .cap',
+    '.story .l', '.story .r p', '.prin .card', '.founder', '.studios .st', '.stack-txt', '.sphere'
+  ].join(',');
+  const els = [...document.querySelectorAll(SEL)].filter(el => !el.closest('.hero') && !el.parentElement.closest('.rv'));
+  const firstFold = innerHeight * 0.92;
+  els.forEach(el => {
+    if (el.getBoundingClientRect().top < firstFold) el.classList.add('in', 'now'); // on screen at load: show now, animate on later passes
+    const sibs = [...el.parentElement.children].filter(c => els.includes(c));
+    el.style.setProperty('--rd', Math.min(sibs.indexOf(el), 6) * 70 + 'ms');
+    el.classList.add('rv');
+  });
+  document.documentElement.classList.add('rv-on');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      const el = en.target;
+      if (!en.isIntersecting || el.classList.contains('in')) return;
+      el.classList.toggle('up', en.boundingClientRect.top < innerHeight * 0.4); // entering from the top = scrolling up
+      el.classList.add('in');
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  // reset once fully off screen, so the animation plays again on the way back
+  const out = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (!en.isIntersecting) en.target.classList.remove('in', 'now', 'up'); });
+  }, { threshold: 0 });
+  document.querySelectorAll('.rv').forEach(el => { io.observe(el); out.observe(el); });
+})();
+</script>
+<script src="leads.js" defer></script>
+<script src="fx.js" defer></script>

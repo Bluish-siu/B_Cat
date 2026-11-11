@@ -1,0 +1,20 @@
+
+/* ===== Ambient background: drifting purple glows, dot grid and rising sparks behind every section ===== */
+.ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;--s1:0;--c1:1;--s2:0;--c2:1}
+.ambient .blob{position:absolute;border-radius:50%;filter:blur(80px);will-change:transform}
+.ambient .b1{width:62vmax;height:62vmax;left:-18vmax;top:-12vmax;background:radial-gradient(circle,rgba(66,6,107,.95),transparent 68%);opacity:.75;transform:translate3d(calc(var(--s1) * 22vw),calc(var(--c1) * 10vh),0);animation:drift1 28s ease-in-out infinite alternate}
+.ambient .b2{width:42vmax;height:42vmax;right:-14vmax;top:22vh;background:radial-gradient(circle,rgba(139,92,246,.6),transparent 68%);opacity:.4;transform:translate3d(calc(var(--c2) * -18vw),calc(var(--s2) * 16vh),0);animation:drift2 34s ease-in-out infinite alternate}
+.ambient .b3{width:34vmax;height:34vmax;left:30vw;bottom:-16vmax;background:radial-gradient(circle,rgba(201,162,255,.45),transparent 68%);opacity:.28;transform:translate3d(calc(var(--s2) * 20vw),calc(var(--c1) * -8vh),0);animation:drift3 40s ease-in-out infinite alternate}
+@keyframes drift1{to{translate:6vw 8vh;scale:1.08}}
+@keyframes drift2{to{translate:-8vw -6vh;scale:.92}}
+@keyframes drift3{to{translate:-6vw -10vh;scale:1.12}}
+.ambient .dots{position:absolute;inset:0;background-image:radial-gradient(rgba(201,162,255,.09) 1px,transparent 1.6px);background-size:28px 28px;-webkit-mask-image:radial-gradient(120% 90% at 50% 50%,#000 30%,transparent 85%);mask-image:radial-gradient(120% 90% at 50% 50%,#000 30%,transparent 85%)}
+.ambient .sparks i{position:absolute;bottom:-12px;left:var(--x);width:var(--z,4px);height:var(--z,4px);border-radius:50%;background:#c9a2ff;box-shadow:0 0 10px 1px rgba(201,162,255,.8);opacity:0;animation:rise var(--d) linear var(--w) infinite}
+@keyframes rise{0%{transform:translate(0,0);opacity:0}10%{opacity:.75}50%{transform:translate(var(--sw,20px),-55vh)}90%{opacity:.45}100%{transform:translate(0,-112vh);opacity:0}}
+/* glowing dividers instead of flat lines */
+.rule{border-top-color:transparent;position:relative}
+.rule::before{content:"";position:absolute;top:-1px;left:50%;width:min(1200px,92%);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(201,162,255,.45),transparent)}
+/* soft glow behind each section heading */
+.head-l{position:relative}
+.head-l::before{content:"";position:absolute;left:-60px;top:-50px;width:340px;height:220px;background:radial-gradient(closest-side,rgba(139,92,246,.18),transparent);pointer-events:none;z-index:-1}
+@media(prefers-reduced-motion:reduce){.ambient .sparks{display:none}}
