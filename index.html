@@ -432,7 +432,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
     <div class="nova" aria-label="ARC, the Branding Catalyst AI assistant">
       <div class="nova-top">
         <span class="nova-tag" id="novaTag"><i></i>ARC · POWERED BY CATALYST ENGINE</span>
-        <button class="mute" id="muteBtn" type="button" aria-pressed="true">🔇 Voice off</button>
+        <button class="mute" id="muteBtn" type="button" aria-pressed="false">🔊 Voice on</button>
       </div>
       <div class="nova-stage">
         <canvas id="novaCv" aria-hidden="true"></canvas>
@@ -837,7 +837,7 @@ function mouthTick(ch){ // typing-driven movement when the voice is off
 }
 /* ===== ARC terminal + voice ===== */
 const term = $('#term'), tag = $('#novaTag'), waveBars = [...document.querySelectorAll('#wave i')];
-let voiceOn = false, energy = 0, busy = false;
+let voiceOn = true, voiceUnlocked = false, energy = 0, busy = false;
 const muteBtn = $('#muteBtn');
 muteBtn.addEventListener('click', () => {
   voiceOn = !voiceOn; muteBtn.setAttribute('aria-pressed', !voiceOn);
@@ -964,7 +964,7 @@ async function aiReply(msg){
 }
 
 function line(html){ const d=document.createElement('div'); d.innerHTML=html; term.appendChild(d); term.scrollTop=term.scrollHeight; return d; }
-async function typeInto(el, text, sp=13){ if(reduce){el.textContent=text;return} for(let i=0;i<text.length;i++){ el.textContent+=text[i]; if(!voiceOn) mouthTick(text[i]); if(i%2===0){ term.scrollTop=term.scrollHeight; await wait(sp);} } }
+async function typeInto(el, text, sp=13){ if(reduce){el.textContent=text;return} for(let i=0;i<text.length;i++){ el.textContent+=text[i]; if(!voiceOn || !voiceUnlocked) mouthTick(text[i]); if(i%2===0){ term.scrollTop=term.scrollHeight; await wait(sp);} } }
 // Speaks the whole reply once (so lip sync follows one continuous voice) and types it line by line.
 async function sayLines(lines){
   const clean = lines.map(s => s.replace(/\*\*/g,'').trim()).filter(Boolean);
@@ -1006,6 +1006,17 @@ const INTRO = [
 let introDone = false;
 (async()=>{ busy = true; await sayLines(INTRO); busy = false; introDone = true; })();
 muteBtn.addEventListener('click', () => { if (voiceOn && introDone && !busy) { busy = true; sayLines(["Voice on. I'm ARC. Ask me anything, or tell me your idea."]).then(()=>busy=false); } });
+// Browsers only allow speech after the visitor's first click or key press.
+// ARC's voice is on by default, so the intro is spoken at that first interaction.
+let introSpoken = false;
+function unlockVoice(e){
+  if (voiceUnlocked) return;
+  voiceUnlocked = true;
+  // If that first click is a question, the mute button or an idea card, let it speak for itself.
+  if (e && e.target && e.target.closest && e.target.closest('#muteBtn, #askForm, .chip, .ic-card, #mAsk')) { introSpoken = true; return; }
+  if (voiceOn && !introSpoken) { introSpoken = true; speak(INTRO.join(' ')); }
+}
+['pointerdown', 'keydown', 'touchstart'].forEach(t => addEventListener(t, unlockVoice, { capture: true, passive: true }));
 
 (() => {
   const cv = $('#novaCv'), ctx = cv.getContext('2d');
