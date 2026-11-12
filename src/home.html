@@ -130,8 +130,10 @@ p{margin:0}
 .track.rev{animation-direction:reverse;animation-duration:46s}
 .marquee+.marquee{margin-top:16px}
 @keyframes mq{to{transform:translateX(-50%)}}
-.lg{width:200px;height:84px;border-radius:12px;background:#f3f4f7;color:#1b1d24;display:grid;place-items:center;font-weight:600;font-size:17px;letter-spacing:-.02em;flex:none}
-.lg small{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;color:#7b7f8c;text-align:center;font-weight:400}
+.lg{width:200px;height:84px;border-radius:12px;background:#fff;display:grid;place-items:center;flex:none;overflow:hidden}
+.lg img{max-width:88%;max-height:68px;width:auto;height:auto;object-fit:contain;display:block}
+.lg.sq img{max-height:82px}
+@media (max-width:600px){.lg{width:150px;height:68px}.lg img{max-height:54px}.lg.sq img{max-height:66px}}
 .logos .note{text-align:center;color:var(--dim);font-size:12.5px;margin-top:20px;padding-inline:20px}
 
 /* ENGINE STACK */
@@ -819,10 +821,9 @@ html.lenis-smooth{scroll-behavior:auto!important}
 
 <!-- LOGOS -->
 <section class="logos" id="clients">
-  <p class="cap">50+ brands across retail, healthcare, manufacturing, education and startups</p>
+  <p class="cap">Trusted by 50+ brands across finance, retail, food, jewellery, real estate and tech</p>
   <div class="marquee"><div class="track" id="mq1"></div></div>
   <div class="marquee"><div class="track rev" id="mq2"></div></div>
-  <p class="note">Replace these tiles with your client logos (with their permission).</p>
 </section>
 
 <!-- ENGINE -->
@@ -1668,10 +1669,12 @@ portal.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '
   requestAnimationFrame(frame);
 })();
 
-/* ===== Logo marquee (placeholders) ===== */
-const L1=['Your Client','Client Two','Client Three','Client Four','Client Five','Client Six'];
-const L2=['Retail Brand','Health Co.','Factory Ltd','EduTech','Café Chain','D2C Label'];
-const fill=(el,arr)=>{ const html=arr.map(n=>`<div class="lg"><div>${n}<small>LOGO</small></div></div>`).join(''); el.innerHTML=html+html; };
+/* ===== Client logos marquee (files in public/clients/) =====
+   [file, name, card background (only for logos that sit on a coloured background), square logo?] */
+const L1=[['rio-lenses','Rio Digital Lenses'],['finterest-capital','Finterest Capital'],['greencurve-securities','GreenCurve Securities','#8ac642',1],['merlin-capital','Merlin Capital'],['desire-jewels','Desire Jewels',0,1],['ghmev','GHM EV','#1b212d',1]];
+const L2=[['avd-group','AVD Infra Group','#8c8582'],['wayback','Wayback Chips',0,1],['nemora','Nemora','#050a18'],['namoham','Namoham',0,1],['rolls-on-coals','Rolls on Coals',0,1]];
+const fill=(el,arr)=>{ const one=arr.map(([f,n,bg,sq])=>`<div class="lg${sq?' sq':''}"${bg?` style="background:${bg}"`:''}><img src="clients/${f}.png" alt="${n} logo" decoding="async"></div>`).join('');
+  const hidden=one.replace(/alt="[^"]*"/g,'alt=""'); el.innerHTML=one+hidden+hidden+hidden; el.parentElement.setAttribute('aria-label','Our clients'); };
 fill($('#mq1'),L1); fill($('#mq2'),L2);
 
 /* ===== AI visibility check (an illustration of AEO + GEO, not a live audit) ===== */
