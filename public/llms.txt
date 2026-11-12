@@ -1,0 +1,33 @@
+# Branding Catalyst
+
+> AI-first product and growth studio in Mumbai, India. We build AI agents, RAG chatbots, AI content, AEO and GEO (AI search visibility), brand identities, Android and iOS apps, ERP systems, websites and 3D web experiences.
+
+Branding Catalyst Pvt Ltd was founded in 2019 by Abhishek Trivedi and is based in Mumbai, India. Projects are planned with Catalyst Engine, our AI-assisted build system, and ARC, the assistant on our homepage, gives instant first estimates.
+
+## Services
+- [AI Agents & Automation](https://bcat-blush.vercel.app/services.html#ai-agents): Digital teammates that qualify leads, answer calls, update your CRM and handle repetitive work 24/7.
+- [RAG Chatbots · AI on Your Data](https://bcat-blush.vercel.app/services.html#rag): Assistants that answer from your own documents, catalogue and SOPs, and show their sources so they stay accurate.
+- [AI Content](https://bcat-blush.vercel.app/services.html#ai-content): Posts, blogs, product copy and video scripts in your brand voice, produced with AI and edited by people.
+- [AEO · Answer Engine Optimization](https://bcat-blush.vercel.app/services.html#aeo): Make your content the answer that AI assistants and voice search give when customers ask about your category.
+- [GEO · Generative Engine Optimization](https://bcat-blush.vercel.app/services.html#geo): Get ChatGPT, Gemini and Perplexity to mention and recommend your brand when people ask for options.
+- [Branding & Identity](https://bcat-blush.vercel.app/services.html#branding): Name, logo, colours, type and voice, built as one system that stays consistent everywhere, including in AI-made content.
+- [Growth Marketing](https://bcat-blush.vercel.app/services.html#growth): Funnels, automation and analytics that turn attention into paying customers.
+- [Mobile Apps · Android + iOS](https://bcat-blush.vercel.app/services.html#mobile): One codebase for both stores, with payments, bookings, notifications and offline mode built in.
+- [ERP Systems](https://bcat-blush.vercel.app/services.html#erp): Custom ERP for inventory, sales, purchase, HR and accounts, shaped around how your business actually runs.
+- [Websites & Platforms](https://bcat-blush.vercel.app/services.html#web): Fast company sites, SaaS platforms, portals and e-commerce, easy to edit and built to rank on Google and AI search.
+- [3D Web Experiences](https://bcat-blush.vercel.app/services.html#3d): Product configurators, virtual showrooms and walkthroughs that run in any browser, no app needed.
+
+## Key pages
+- [Home](https://bcat-blush.vercel.app/): overview, Catalyst Engine, AI visibility demo, idea lab and FAQ
+- [Services](https://bcat-blush.vercel.app/services.html): every service, what you get, timelines and engagement models
+- [Idea Checker](https://bcat-blush.vercel.app/check.html): free estimate of feasibility, timeline, team and stack for an idea
+- [Scale](https://bcat-blush.vercel.app/scale.html): how we build apps and platforms that stay fast at peak traffic
+- [About](https://bcat-blush.vercel.app/about.html): our story, founder, principles and tools
+- [Careers](https://bcat-blush.vercel.app/careers.html): open roles and how to apply
+
+## Contact
+- WhatsApp / phone: +91-90046-29888
+- Careers: hr@brandingcatalyst.in
+- Instagram: https://www.instagram.com/branding_catalyst
+- LinkedIn: https://in.linkedin.com/company/branding-cataly
+- YouTube: https://www.youtube.com/@brandingcatalyst

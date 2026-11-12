@@ -1,0 +1,52 @@
+<!doctype html>
+<!-- Draws the social share image (og-image.jpg) and the site icons from the logo mark.
+     Run: node scripts/brand-images.cjs, then open http://localhost:8095/ — the files are saved into public/. -->
+<html lang="en"><head><meta charset="utf-8"><title>Brand images</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>body{background:#111;color:#ccc;font:14px system-ui;padding:20px}canvas{display:block;margin:10px 0;max-width:100%;border:1px solid #333}</style>
+</head><body><p id="log">Drawing…</p>
+<script>
+// The logo mark (same shapes as the site's #bcMark symbol), as a standalone SVG.
+const MARK = (fill, dot) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 100" width="960" height="1000"><defs><mask id="m" maskUnits="userSpaceOnUse" x="0" y="0" width="96" height="100"><rect width="96" height="100" fill="#fff"/><circle cx="46" cy="50" r="20" fill="#000"/><rect x="46" y="41.5" width="40" height="17" fill="#000"/><rect x="70" y="36.5" width="6" height="5" fill="#000"/><circle cx="70" cy="36.5" r="5" fill="#fff"/><rect x="70" y="58.5" width="6" height="5" fill="#000"/><circle cx="70" cy="63.5" r="5" fill="#fff"/><rect x="64" y="38.5" width="3.2" height="3" fill="#000"/><circle cx="67.2" cy="38.5" r="3" fill="#fff"/><rect x="64" y="58.5" width="3.2" height="3" fill="#000"/><circle cx="67.2" cy="61.5" r="3" fill="#fff"/></mask></defs><path d="M14 8H41A34 34 0 0 1 75 42V58A34 34 0 0 1 41 92H14Q6 92 6 84V16Q6 8 14 8Z" fill="${fill}" mask="url(#m)"/><circle cx="85" cy="50" r="7" fill="${dot}"/></svg>`;
+const loadImg = src => new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = src; });
+const svgImg = s => loadImg('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(s));
+const save = (cv, name) => new Promise(ok => cv.toBlob(b => fetch('/save?name=' + name, { method: 'POST', body: b }).then(r => r.text()).then(t => { document.getElementById('log').textContent += ' · ' + t; ok(); }), name.endsWith('.jpg') ? 'image/jpeg' : 'image/png', 0.86));
+
+async function og() {
+  const W = 1200, H = 630, cv = document.createElement('canvas'); cv.width = W; cv.height = H; document.body.appendChild(cv);
+  const x = cv.getContext('2d');
+  x.fillStyle = '#0d0716'; x.fillRect(0, 0, W, H);
+  let g = x.createRadialGradient(930, 300, 0, 930, 300, 620); g.addColorStop(0, 'rgba(110,30,180,.85)'); g.addColorStop(1, 'rgba(13,7,22,0)'); x.fillStyle = g; x.fillRect(0, 0, W, H);
+  g = x.createRadialGradient(80, 0, 0, 80, 0, 520); g.addColorStop(0, 'rgba(201,162,255,.16)'); g.addColorStop(1, 'rgba(13,7,22,0)'); x.fillStyle = g; x.fillRect(0, 0, W, H);
+  x.fillStyle = 'rgba(201,162,255,.10)'; for (let i = 14; i < W; i += 28) for (let j = 14; j < H; j += 28) { x.beginPath(); x.arc(i, j, 1.1, 0, 7); x.fill(); }
+  // big mark on the right, inside a glowing ring
+  x.save(); x.shadowColor = 'rgba(201,162,255,.7)'; x.shadowBlur = 60; x.strokeStyle = 'rgba(201,162,255,.55)'; x.lineWidth = 3; x.beginPath(); x.arc(925, 315, 210, 0, 7); x.stroke(); x.restore();
+  const big = await svgImg(MARK('#ffffff', '#c9a2ff')); x.drawImage(big, 925 - 125, 315 - 130, 250, 260);
+  // wordmark
+  const small = await svgImg(MARK('#ffffff', '#c9a2ff')); x.drawImage(small, 80, 78, 46, 48);
+  x.textBaseline = 'alphabetic'; x.font = '600 34px Lexend'; x.fillStyle = '#fff'; x.fillText('Branding', 140, 114);
+  const bw = x.measureText('Branding').width; x.font = '300 34px Lexend'; x.fillStyle = '#c9a2ff'; x.fillText('Catalyst', 140 + bw + 2, 114);
+  // headline
+  x.font = '500 92px Lexend'; x.fillStyle = '#f1edf7'; x.fillText('Ideas in.', 76, 300);
+  x.fillStyle = '#c9a2ff'; x.fillText('Impact out.', 76, 400);
+  x.font = '400 27px Lexend'; x.fillStyle = '#a79fbb'; x.fillText('AI-first studio for AI agents, apps, ERP,', 80, 470); x.fillText('websites, branding and AI search (AEO/GEO).', 80, 508);
+  x.font = '500 19px "Geist Mono"'; x.fillStyle = '#716885'; x.fillText('MUMBAI, INDIA  ·  SINCE 2019', 80, 568);
+  await save(cv, 'og-image.jpg');
+}
+async function icon(size, name, round) {
+  const cv = document.createElement('canvas'); cv.width = cv.height = size; document.body.appendChild(cv);
+  const x = cv.getContext('2d');
+  x.fillStyle = '#42066b';
+  if (round) { x.beginPath(); x.arc(size / 2, size / 2, size / 2, 0, 7); x.fill(); }
+  else { const r = size * 0.22; x.beginPath(); x.roundRect(0, 0, size, size, r); x.fill(); }
+  const m = await svgImg(MARK('#ffffff', '#c9a2ff')), w = size * 0.62, h = w * 100 / 96;
+  x.drawImage(m, (size - w) / 2 + size * 0.02, (size - h) / 2, w, h);
+  await save(cv, name);
+}
+(async () => {
+  await document.fonts.load('600 34px Lexend'); await document.fonts.load('300 34px Lexend'); await document.fonts.load('500 92px Lexend'); await document.fonts.load('400 27px Lexend'); await document.fonts.load('500 19px "Geist Mono"');
+  await og();
+  await icon(32, 'favicon-32.png'); await icon(180, 'apple-touch-icon.png'); await icon(192, 'icon-192.png'); await icon(512, 'icon-512.png');
+  document.getElementById('log').textContent += ' · done';
+})();
+</script></body></html>

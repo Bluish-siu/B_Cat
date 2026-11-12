@@ -21,6 +21,8 @@ BCAT WEBSITE/
 │   ├── careers.html        Careers and job applications
 │   ├── privacy.html        Privacy policy (generated)
 │   ├── terms.html          Terms of use (generated)
+│   ├── sitemap.xml, robots.txt, llms.txt, site.webmanifest  (generated, for search engines and AI)
+│   ├── og-image.jpg, favicon-32.png, apple-touch-icon.png, icon-192/512.png  (share image and icons)
 │   ├── fx.js               Logo intro, cursor, 3D logo, Brand Lab
 │   ├── leads.js            WhatsApp button and the "Start a project" form
 │   └── logo.png, nova.webp, founder.webp
@@ -32,6 +34,8 @@ BCAT WEBSITE/
 │   ├── build-scale.cjs     → public/scale.html
 │   ├── build-check.cjs     → public/check.html
 │   ├── build-legal.cjs     → public/privacy.html, public/terms.html
+│   ├── build-seo.cjs       Titles, share tags, structured data, sitemap, robots.txt, llms.txt
+│   ├── brand-images.cjs    Redraws the share image and icons (see the file for how)
 │   ├── check.cjs           Checks every page's scripts for errors (npm run check)
 │   ├── serve.cjs           Local preview server (npm run dev)
 │   └── legacy/             Original Services page generator, kept for reference
@@ -51,6 +55,7 @@ BCAT WEBSITE/
 | Scale page text | `scripts/build-scale.cjs` | `npm run build:pages` |
 | Idea Checker page | `scripts/build-check.cjs` (layout) or `src/check-client.js` (logic and prices) | `npm run build:pages` |
 | Privacy and Terms | `scripts/build-legal.cjs` | `npm run build:pages` |
+| Page titles, descriptions, company facts for Google and AI | `scripts/build-seo.cjs` | `npm run build:pages` |
 | WhatsApp number, lead form | `public/leads.js` | nothing |
 | ARC's knowledge and tone | `api/arc.js` (`SYSTEM` text) | nothing |
 
@@ -82,6 +87,12 @@ git add -A && git commit -m "Describe the change" && git push origin main && git
 
 - `origin` is the private repo: branding-catalyst-pvt-ltd/Branding_Catalyst
 - `bcat` is the public repo Vercel deploys from: Bluish-siu/B_Cat. Vercel redeploys within a minute of the push.
+
+## SEO
+
+Every build adds search and sharing data to all pages: keyword titles and descriptions, canonical URLs, Open Graph and Twitter share cards (`og-image.jpg`), and JSON-LD structured data (company, founder, services, FAQs, breadcrumbs). It also writes `sitemap.xml`, `robots.txt` (search engines and AI crawlers allowed, `/api` blocked) and `llms.txt` (a plain summary for AI assistants).
+
+When the site moves to its own domain, change `SITE_URL` at the top of `scripts/build-seo.cjs` and run `npm run build:pages`.
 
 ## Configuration
 
