@@ -17,6 +17,7 @@ const ORG = {
   description: 'AI-first product and growth studio in Mumbai, India. We build AI agents, RAG chatbots, AI content, AEO and GEO (AI search visibility), brand identities, Android and iOS apps, ERP systems, websites and 3D web experiences.',
   foundingDate: '2019',
   phone: '+91-90046-29888',
+  email: 'hello@brandingcatalyst.in',
   hrEmail: 'hr@brandingcatalyst.in',
   city: 'Mumbai', region: 'Maharashtra', country: 'IN',
   founder: { name: 'Abhishek Trivedi', jobTitle: 'Founder', url: 'https://www.linkedin.com/in/abhishek-r-trivedi/' },
@@ -49,11 +50,11 @@ const orgNode = {
   name: ORG.name, legalName: ORG.legalName, url: abs('/'), description: ORG.description,
   logo: { '@type': 'ImageObject', url: abs('/icon-512.png'), width: 512, height: 512 },
   image: abs('/og-image.jpg'), foundingDate: ORG.foundingDate, founder: { '@id': founderId },
-  telephone: ORG.phone,
+  telephone: ORG.phone, email: ORG.email,
   address: { '@type': 'PostalAddress', addressLocality: ORG.city, addressRegion: ORG.region, addressCountry: ORG.country },
   areaServed: [{ '@type': 'Country', name: 'India' }, 'Worldwide'],
   contactPoint: [
-    { '@type': 'ContactPoint', contactType: 'sales', telephone: ORG.phone, availableLanguage: ['English', 'Hindi'] },
+    { '@type': 'ContactPoint', contactType: 'sales', telephone: ORG.phone, email: ORG.email, availableLanguage: ['English', 'Hindi'] },
     { '@type': 'ContactPoint', contactType: 'human resources', email: ORG.hrEmail }
   ],
   sameAs: ORG.sameAs, knowsAbout: ORG.knowsAbout
@@ -173,6 +174,7 @@ ${found.services.map(s => `- [${s.name}](${abs('/services.html#' + s.id)}): ${s.
 - [Careers](${abs('/careers.html')}): open roles and how to apply
 
 ## Contact
+- Email: ${ORG.email}
 - WhatsApp / phone: ${ORG.phone}
 - Careers: ${ORG.hrEmail}
 - Instagram: ${ORG.sameAs[0]}

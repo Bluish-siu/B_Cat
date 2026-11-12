@@ -69,7 +69,7 @@ footer a{color:var(--muted)}
 <main class="wrap">
 ${body}
 </main>
-<footer><div class="wrap"><span>© 2026 Branding Catalyst Pvt Ltd · Mumbai, India</span><span><a href="index.html">Home</a> · <a href="services.html">Services</a> · <a href="scale.html">Scale</a> · <a href="check.html">Idea Checker</a> · <a href="careers.html">Careers</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></span></div></footer>
+<footer><div class="wrap"><span>© 2026 Branding Catalyst Pvt Ltd · Mumbai, India · <a href="mailto:hello@brandingcatalyst.in">hello@brandingcatalyst.in</a></span><span><a href="index.html">Home</a> · <a href="services.html">Services</a> · <a href="scale.html">Scale</a> · <a href="check.html">Idea Checker</a> · <a href="careers.html">Careers</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></span></div></footer>
 <script src="leads.js" defer></script>
 <script src="fx.js" defer></script>
 </body>
@@ -77,7 +77,7 @@ ${body}
 `;
 
 const NOTE = `<p class="note">This page is a starting draft written for Branding Catalyst Pvt Ltd. Replace the highlighted items and have it reviewed by your legal advisor before relying on it.</p>`;
-const CONTACT = `Branding Catalyst Pvt Ltd, <span class="ph">[registered office address]</span>, Mumbai, Maharashtra, India · Email: <span class="ph">[privacy email, e.g. hello@yourdomain]</span> · Phone / WhatsApp: +91 90046 29888`;
+const CONTACT = `Branding Catalyst Pvt Ltd, <span class="ph">[registered office address]</span>, Mumbai, Maharashtra, India · Email: <a href="mailto:hello@brandingcatalyst.in">hello@brandingcatalyst.in</a> · Phone / WhatsApp: +91 90046 29888`;
 
 const privacy = shell('Privacy Policy', 'How Branding Catalyst Pvt Ltd collects, uses and protects personal data shared through this website, forms, WhatsApp and ARC.', 'privacy', `
 <p class="eyebrow">Legal</p>
