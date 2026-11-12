@@ -44,7 +44,10 @@ const REDIRECTS = {
   '/collaborate.html': '/#contact',
   '/collaborate': '/#contact',
   '/privacy-policy.html': '/privacy.html',
-  '/privacy-policy': '/privacy.html'
+  '/privacy-policy': '/privacy.html',
+  // the Products page moved to the ARCO product site
+  '/products.html': 'https://arcooptics.com/',
+  '/products': 'https://arcooptics.com/'
 };
 const SECURITY = {
   'X-Content-Type-Options': 'nosniff',

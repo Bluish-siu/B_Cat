@@ -32,7 +32,6 @@ const PAGES = {
   'index.html':    { url: '/', priority: '1.0', freq: 'weekly', title: 'Branding Catalyst | AI-First App, ERP & Web Studio in Mumbai', description: 'AI-first studio in Mumbai building AI agents, chatbots, Android and iOS apps, ERP systems, websites and 3D web, plus AEO and GEO so you get found in AI search.' },
   'services.html': { url: '/services.html', priority: '0.9', freq: 'monthly', crumb: 'Services', type: 'CollectionPage', title: 'AI, App, ERP & Website Development Services | Branding Catalyst' },
   'check.html':    { url: '/check.html', priority: '0.8', freq: 'monthly', crumb: 'Idea Checker', title: 'Free App Idea Checker: Cost, Timeline & Team | Branding Catalyst' },
-  'products.html': { url: '/products.html', priority: '0.8', freq: 'monthly', crumb: 'Products', type: 'CollectionPage' },
   'scale.html':    { url: '/scale.html', priority: '0.7', freq: 'monthly', crumb: 'Scale', title: 'Scalable Apps & Cloud Engineering for Peak Traffic | Branding Catalyst' },
   'about.html':    { url: '/about.html', priority: '0.7', freq: 'monthly', crumb: 'About', type: 'AboutPage', title: 'About Branding Catalyst | AI-First Studio in Mumbai Since 2019' },
   'careers.html':  { url: '/careers.html', priority: '0.5', freq: 'weekly', crumb: 'Careers', title: 'Careers at Branding Catalyst | Tech & Design Jobs in Mumbai' },
