@@ -1,12 +1,12 @@
 # Setup and content guide
 
-How to configure the live features (leads, tracking, ads, ARC, careers) and what to fill in before launch. For the project layout and commands, see the README in the project folder. All "environment variables" go in **Vercel → your project → Settings → Environment Variables**; after adding or changing any, click **Redeploy**.
+How to configure the live features (leads, tracking, ads, ARC, careers) and what to fill in before launch. For the project layout and commands, see the README in the project folder. All settings ("environment variables") go in the `.env` file on the VPS (see [DEPLOY-VPS.md](DEPLOY-VPS.md)); after changing it run `pm2 reload bcat-website --update-env`.
 
 ## Go-live checklist (lead generation)
 
 | # | Step | Who | Section |
 |---|---|---|---|
-| 1 | Connect brandingcatalyst.in to Vercel | You | [Domain](#domain-brandingcatalystin) |
+| 1 | Put the site on the Hostinger VPS and connect brandingcatalyst.in | You (with DEPLOY-VPS.md) | [Domain](#domain-brandingcatalystin) |
 | 2 | Lead emails from Hostinger | You (5 min) | [Lead email](#lead-email-hostinger-smtp) |
 | 3 | Leads Google Sheet | You (5 min) | [Leads Google Sheet](#leads-google-sheet) |
 | 4 | Anthropic key for ARC (AI answers + lead cards) | You | [ARC](#arc-ai-chat-and-lead-capture) |
@@ -17,21 +17,19 @@ How to configure the live features (leads, tracking, ads, ARC, careers) and what
 
 ## Domain (brandingcatalyst.in)
 
-1. **Vercel:** project → **Settings → Domains** → add `brandingcatalyst.in`, then add `www.brandingcatalyst.in` and set it to redirect to `brandingcatalyst.in`. Vercel shows the DNS records to add (usually an `A` record for `@` and a `CNAME` for `www`).
-2. **Hostinger:** hPanel → **Domains → brandingcatalyst.in → DNS / Nameservers → DNS records**. Add or edit **only** the `A` record for `@` and the `CNAME` for `www`, with the values Vercel shows. Delete an old `A` record for `@` only if it points to Hostinger's website hosting.
-   - **Do not change** the `MX`, `TXT` (SPF, DKIM, DMARC) or `mail` records. They run your hello@ and hr@ email.
-3. Wait until Vercel shows the domain as valid (minutes to a few hours). HTTPS is set up automatically.
-4. In Vercel → Settings → Domains, set `bcat-blush.vercel.app` to **redirect** to `brandingcatalyst.in`, so there is one address.
-5. Tell the developer: `SITE_URL` in `scripts/build-seo.cjs` changes to `https://brandingcatalyst.in`, which updates canonical links, the sitemap, share tags and structured data on every page.
-6. **Google Search Console** (search.google.com/search-console): add a *Domain* property for brandingcatalyst.in, verify it with the TXT record Google gives you (add it in Hostinger DNS), then submit `https://brandingcatalyst.in/sitemap.xml`.
-7. **Google Business Profile** (business.google.com): create the Branding Catalyst profile in Mumbai with the website, phone and hours, so you appear on Google Maps and in "near me" searches.
+1. Follow [DEPLOY-VPS.md](DEPLOY-VPS.md): it sets up the organization's Hostinger VPS, points the domain's `A` record at the VPS, and adds free HTTPS.
+2. **Do not change** the `MX`, `TXT` (SPF, DKIM, DMARC) or `mail` records in Hostinger DNS. They run your hello@ and hr@ email.
+3. Once https://brandingcatalyst.in loads, remove the project from the personal Vercel account (or point it to the new domain) so there is one address.
+4. Tell the developer: `SITE_URL` in `scripts/build-seo.cjs` changes to `https://brandingcatalyst.in`, which updates canonical links, the sitemap, share tags and structured data on every page.
+5. **Google Search Console** (search.google.com/search-console): add a *Domain* property for brandingcatalyst.in, verify it with the TXT record Google gives you (add it in Hostinger DNS), then submit `https://brandingcatalyst.in/sitemap.xml`.
+6. **Google Business Profile** (business.google.com): create the Branding Catalyst profile in Mumbai with the website, phone and hours, so you appear on Google Maps and in "near me" searches.
 
 ## Lead email (Hostinger SMTP)
 
 Every lead (forms, landing pages, Idea Checker, ARC chats, newsletter) is emailed by `api/lead.js`. Job applications go to HR.
 
 1. Hostinger hPanel → **Emails** → create the `hello@brandingcatalyst.in` mailbox (it both sends and receives lead emails; a separate `website@` mailbox also works).
-2. Add these environment variables in Vercel, then redeploy:
+2. Add these lines to the `.env` file on the VPS, then run `pm2 reload bcat-website --update-env`:
 
 | Name | Value |
 |---|---|
@@ -52,7 +50,7 @@ A shared list of every lead with a **Status** column for follow-up (New → Cont
 2. **Extensions → Apps Script**, delete what is there, and paste all of `docs/leads-sheet.gs`.
 3. In the script, change `SECRET` to a long random phrase. Save.
 4. **Deploy → New deployment → Web app**. Execute as: **Me**. Who has access: **Anyone**. Deploy, allow access, copy the **Web app URL**.
-5. In Vercel add `LEADS_SHEET_URL` (the URL) and `LEADS_SHEET_SECRET` (the same phrase), then redeploy.
+5. Add `LEADS_SHEET_URL` (the URL) and `LEADS_SHEET_SECRET` (the same phrase) to `.env` on the VPS, then run `pm2 reload bcat-website --update-env`.
 
 Job applications are not added to the Sheet; they go to HR by email only.
 
@@ -89,7 +87,7 @@ Each has a short form at the top (name, WhatsApp, need), client logos, features,
 
 ARC answers in two ways:
 
-1. **With AI (recommended):** `api/arc.js` sends the conversation to Claude and returns ARC's reply. Add `ANTHROPIC_API_KEY` (create a key at console.anthropic.com) and redeploy. **Set a monthly spend limit in the Anthropic Console.**
+1. **With AI (recommended):** `api/arc.js` sends the conversation to Claude and returns ARC's reply. Add `ANTHROPIC_API_KEY` (create a key at console.anthropic.com) to `.env` on the VPS and reload. **Set a monthly spend limit in the Anthropic Console.**
    - `ARC_MODEL` is optional. The default is `claude-haiku-5-5` (about ₹0.03 per message). `claude-sonnet-5-5` or `claude-opus-5-5` give richer answers at roughly 15–30× the cost.
    - Each visitor can send up to 20 messages an hour (`RATE_MAX` in `api/arc.js`).
    - ARC's facts and tone live in the `SYSTEM` text at the top of `api/arc.js`. Edit it to keep answers accurate.
@@ -101,7 +99,7 @@ ARC answers in two ways:
 
 - **Floating WhatsApp button** on every page opens a chat with +91 90046 29888 (edit `WA_NUMBER` at the top of `public/leads.js`).
 - **Start a project form**: any button with `data-lead` opens it. Submitting sends the lead to `api/lead.js` (email + Sheet) and also opens WhatsApp with the details filled in.
-- **Every lead is also in Vercel → Logs** (search `LEAD`), as a backup.
+- **Every lead is also in the server log** (`pm2 logs bcat-website`, lines starting `LEAD`), as a backup.
 - **Spam protection**: a hidden honeypot field and at most 10 leads an hour per visitor.
 - **Legal**: `privacy.html` and `terms.html` are generated by `scripts/build-legal.cjs`. Fill the highlighted items (registered address, grievance officer, CIN, GSTIN, retention periods) and have them reviewed before launch.
 

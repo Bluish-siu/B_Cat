@@ -1,14 +1,14 @@
-// Lead endpoint (Vercel serverless function).
+// Lead endpoint: POST /api/lead (run by server.js on the VPS; also works as a Vercel function).
 // Receives every lead from the website: "Start a project" forms, ad landing pages, the Idea Checker,
 // ARC chat (when a visitor shares their WhatsApp number), newsletter signups and job applications.
 //
 // For each lead it:
-//   1. writes it to the Vercel logs (Project → Logs, search "LEAD"), always;
+//   1. writes it to the server log (pm2 logs bcat-website, lines starting "LEAD"), always;
 //   2. emails it to your inbox (Hostinger SMTP, or Resend as an alternative);
 //   3. adds a row to your Google Sheet (optional; see docs/leads-sheet.gs);
 //   4. for ARC chats, asks Claude Haiku to turn the conversation into a short "lead card".
 //
-// Settings (Vercel → Project → Settings → Environment Variables, then redeploy). See docs/SETUP.md.
+// Settings: the .env file on the server (template .env.example). See docs/SETUP.md.
 //   Email, option A: Hostinger SMTP (recommended, uses your existing Hostinger mailbox)
 //     SMTP_USER        the mailbox that sends lead emails, e.g. website@brandingcatalyst.in
 //     SMTP_PASS        that mailbox's password

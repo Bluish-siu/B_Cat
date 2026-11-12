@@ -2,17 +2,19 @@
 
 The company website for **Branding Catalyst Pvt Ltd**, an AI-first studio in Mumbai: AI agents, RAG, AEO and GEO, branding and growth, Android and iOS apps, ERP systems, websites and 3D web experiences.
 
-- **Live:** https://bcat-blush.vercel.app
-- **Stack:** plain HTML, CSS and JavaScript (no framework), Vercel serverless functions for the AI assistant and lead forms, Lenis for smooth scrolling, Three.js for the 3D logo.
+- **Live:** https://brandingcatalyst.in (organization Hostinger VPS; see [docs/DEPLOY-VPS.md](docs/DEPLOY-VPS.md)). Old preview: https://bcat-blush.vercel.app
+- **Stack:** plain HTML, CSS and JavaScript (no framework), a small Node.js server (`server.js`) with API routes for the AI assistant and lead forms, Lenis for smooth scrolling, Three.js for the 3D logo.
 
 ## Project structure
 
 ```
 BCAT WEBSITE/
-├── api/                    Vercel serverless functions
+├── server.js               Website server for the VPS: serves public/ and the api/ routes
+├── deploy/                 VPS setup: PM2 config, Nginx site, update.sh
+├── api/                    API routes (also work as Vercel functions)
 │   ├── arc.js              ARC, the AI assistant (Claude)
 │   └── lead.js             Enquiry, newsletter and job-application forms
-├── public/                 The website exactly as visitors get it (Vercel serves this folder)
+├── public/                 The website exactly as visitors get it (server.js serves this folder)
 │   ├── index.html          Homepage (generated from src/home.html)
 │   ├── services.html       Services
 │   ├── scale.html          Scale & reliability (generated)
@@ -40,9 +42,11 @@ BCAT WEBSITE/
 │   ├── serve.cjs           Local preview server (npm run dev)
 │   └── legacy/             Original Services page generator, kept for reference
 ├── docs/
-│   └── SETUP.md            ARC, leads, careers and the pre-launch checklist
-├── .env.example            Environment variables to set in Vercel
-├── vercel.json             Tells Vercel to serve public/
+│   ├── SETUP.md            Leads, tracking, ads, ARC, careers and the go-live checklist
+│   ├── DEPLOY-VPS.md       Step-by-step VPS deployment
+│   └── leads-sheet.gs      Google Apps Script for the leads Google Sheet
+├── .env.example            Settings template: copy to .env on the server
+├── vercel.json             Only for the old Vercel preview
 └── package.json
 ```
 
@@ -73,7 +77,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:8080. Locally, ARC uses its built-in answers and forms open WhatsApp; the `api/` functions only run on Vercel.
+Open http://localhost:8080. The API routes run locally too: with a `.env` file (copy `.env.example`) ARC uses Claude and leads are emailed; without one, ARC uses its built-in answers.
 
 ## Publish
 
@@ -82,11 +86,13 @@ npm run build:pages
 ```
 
 ```bash
-git add -A && git commit -m "Describe the change" && git push origin main && git push bcat main
+git add -A && git commit -m "Describe the change" && git push origin main
 ```
 
-- `origin` is the private repo: branding-catalyst-pvt-ltd/Branding_Catalyst
-- `bcat` is the public repo Vercel deploys from: Bluish-siu/B_Cat. Vercel redeploys within a minute of the push.
+Then on the VPS: `cd /var/www/brandingcatalyst && bash deploy/update.sh` (see [docs/DEPLOY-VPS.md](docs/DEPLOY-VPS.md)).
+
+- `origin` is the organization repo: branding-catalyst-pvt-ltd/Branding_Catalyst
+- `bcat` (Bluish-siu/B_Cat, personal) only feeds the old Vercel preview and is being retired.
 
 ## SEO
 
@@ -96,10 +102,10 @@ When the site moves to its own domain, change `SITE_URL` at the top of `scripts/
 
 ## Configuration
 
-Set these in Vercel → Project → Settings → Environment Variables (see `.env.example`):
+Settings live in a `.env` file on the server (template: `.env.example`; never commit `.env`):
 
-- `ANTHROPIC_API_KEY`: turns on ARC's AI answers
-- `ARC_MODEL`: optional Claude model for ARC
-- `RESEND_API_KEY`, `LEAD_TO_EMAIL`, `LEAD_FROM_EMAIL`: optional, emails each lead to you
+- `ANTHROPIC_API_KEY`: ARC's AI answers and lead cards (`ARC_MODEL` optional)
+- `SMTP_USER`, `SMTP_PASS`: Hostinger mailbox that emails each lead (`LEAD_TO_EMAIL`, `HR_EMAIL` optional)
+- `LEADS_SHEET_URL`, `LEADS_SHEET_SECRET`: the leads Google Sheet
 
 More detail, plus the list of placeholders to fill before launch, is in [docs/SETUP.md](docs/SETUP.md).

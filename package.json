@@ -2,9 +2,10 @@
   "name": "branding-catalyst",
   "private": true,
   "type": "module",
-  "description": "Branding Catalyst company website: static pages in public/, Vercel functions in api/",
+  "description": "Branding Catalyst company website: static pages in public/, Node server (server.js) with API routes in api/",
   "scripts": {
-    "dev": "node scripts/serve.cjs",
+    "start": "node server.js",
+    "dev": "node server.js --dev",
     "build:pages": "node scripts/build.cjs && node scripts/check.cjs",
     "check": "node scripts/check.cjs"
   },

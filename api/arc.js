@@ -1,9 +1,9 @@
-// ARC chat endpoint (Vercel serverless function).
+// ARC chat endpoint: POST /api/arc (run by server.js on the VPS; also works as a Vercel function).
 // The website calls POST /api/arc with { messages: [{ role, content }, ...] } and gets back { reply }.
 // If ANTHROPIC_API_KEY is not set, this returns 503 and the site falls back to ARC's built-in answers.
 import Anthropic from "@anthropic-ai/sdk";
 
-const client = new Anthropic(); // reads ANTHROPIC_API_KEY from the Vercel environment
+const client = new Anthropic(); // reads ANTHROPIC_API_KEY from the server's .env
 
 // EDIT this to keep ARC's facts accurate. Keep it stable: it is cached between requests.
 const SYSTEM = `You are ARC, the AI assistant on the Branding Catalyst website, and the voice of Catalyst Engine.
@@ -37,7 +37,7 @@ const MAX_TURNS = 12;
 const MAX_CHARS = 1500;
 
 // Per-visitor rate limit: at most RATE_MAX messages per RATE_WINDOW_MS from one IP address.
-// Kept in the function's memory, so it resets when Vercel starts a fresh instance; it stops
+// Kept in the function's memory, so it resets when the server restarts; it stops
 // casual spamming, and the monthly spend limit in the Anthropic Console is the hard ceiling.
 const RATE_MAX = 20;
 const RATE_WINDOW_MS = 60 * 60 * 1000; // 1 hour
@@ -82,7 +82,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Default: Claude Haiku 5.5 (fast and low-cost). Set ARC_MODEL in Vercel to use another model.
+    // Default: Claude Haiku 5.5 (fast and low-cost). Set ARC_MODEL in .env to use another model.
     const model = process.env.ARC_MODEL || "claude-haiku-5-5";
     const params = {
       model,
