@@ -115,5 +115,5 @@ http.createServer(async (req, res) => {
   serveFile(req, res, file);
 }).listen(PORT, DEV ? '0.0.0.0' : HOST, () => {
   console.log(`Branding Catalyst ${DEV ? 'preview' : 'server'}: http://${DEV ? 'localhost' : HOST}:${PORT}`);
-  console.log(`ARC AI: ${process.env.ANTHROPIC_API_KEY ? 'on' : 'off (built-in answers)'} · Lead email: ${process.env.SMTP_USER ? 'SMTP' : process.env.RESEND_API_KEY ? 'Resend' : 'off'} · Leads sheet: ${process.env.LEADS_SHEET_URL ? 'on' : 'off'}`);
+  console.log(`ARC AI: ${process.env.ANTHROPIC_API_KEY ? 'on' : 'off (built-in answers)'} · Lead email: ${process.env.SMTP_USER && process.env.SMTP_PASS ? 'SMTP' : process.env.SMTP_USER ? 'off (SMTP_PASS missing)' : process.env.RESEND_API_KEY ? 'Resend' : 'off'} · Leads sheet: ${process.env.LEADS_SHEET_URL ? 'on' : 'off'}`);
 });

@@ -1581,7 +1581,11 @@ async function ask(msg){
   const [ai] = await Promise.all([aiReply(msg), wait(450)]);
   thinking.remove();
   let lines, plan = false;
-  if (ai) { lines = ai.split(/\n+/); plan = IDEA_WORDS.test(msg) && /week/i.test(ai); }
+  if (ai) {
+    lines = ai.split(/\n+/);
+    plan = /\bweeks?\b|hafte/i.test(ai) && (IDEA_WORDS.test(msg) || IDEA_WORDS.test(ai));
+    if (/whatsapp number/i.test(ai)) invited = true;   // the AI already offered the quote-by-WhatsApp option
+  }
   else { const r = localReply(msg); lines = r.lines; plan = !!r.plan; }
   // script answers are not added to the AI's memory, so a one-off AI hiccup doesn't steer later replies
   chatLog.push({ role:'user', content:msg }, { role:'assistant', content:lines.join('\n') });
@@ -1598,7 +1602,7 @@ async function ask(msg){
   }
   tag.classList.remove('busy'); busy=false;
 }
-$('#askForm').addEventListener('submit', e => { e.preventDefault(); const v=$('#askIn').value; $('#askIn').value=''; ask(v); });
+$('#askForm').addEventListener('submit', e => { e.preventDefault(); if (busy) return; /* keep the text until ARC finishes */ const v=$('#askIn').value; $('#askIn').value=''; ask(v); });
 document.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => ask(b.textContent)));
 $('#ctaNova').addEventListener('click', () => setTimeout(()=>$('#askIn').focus({preventScroll:true}),600));
 const INTRO = [
