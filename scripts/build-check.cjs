@@ -15,7 +15,7 @@ const estimator = cut(home, 'const PRODUCTS = [', 'const featList');
 const est = estimator.slice(0, estimator.indexOf('function classify'));
 const client = fs.readFileSync(path.join(__dirname, '..', 'src', 'check-client.js'), 'utf8').replace('/*__ESTIMATOR__*/', () => est);
 
-const page = headTop + `<meta name="description" content="Free idea checker from Branding Catalyst: describe your app, website, ERP or AI idea and get a feasibility score, timeline, team, tech stack and roadmap in a minute.">
+const page = headTop + `<meta name="description" content="Free idea checker from Branding Catalyst: describe your app, website, ERP or AI idea and get a first estimate of feasibility, timeline, team, tech stack and roadmap in a minute.">
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -124,8 +124,8 @@ ${bodyTop}<header class="nav"><div class="wrap">
 <section class="hero"><div class="wrap">
   <p class="eyebrow">Free idea checker</p>
   <h1>Will your idea <span class="acc">work?</span></h1>
-  <p class="lead">Describe it in a sentence or two. ARC reads it as you type and, in about a minute, gives you a feasibility score, timeline, team, tech stack and a phased roadmap. Then unlock your price range.</p>
-  <ol class="steps" aria-label="Progress"><li>Describe</li><li>Analyse</li><li>Your result</li><li>Unlock price</li></ol>
+  <p class="lead">Describe it in a sentence or two. The checker picks out the features you mention and, in about a minute, gives you a first estimate: feasibility score, timeline, team, tech stack and a phased roadmap. Then our team sends you a price on WhatsApp.</p>
+  <ol class="steps" aria-label="Progress"><li>Describe</li><li>Analyse</li><li>Your result</li><li>Get your price</li></ol>
 </div></section>
 
 <section class="sec" style="padding-top:clamp(20px,3vw,40px)"><div class="wrap">
@@ -154,22 +154,22 @@ ${bodyTop}<header class="nav"><div class="wrap">
       <button class="btn btn-w" type="submit" style="justify-self:start">Check my idea →</button>
     </form>
     <aside class="card live" aria-live="polite">
-      <div class="live-h"><span><i></i>Live analysis</span><span>ARC</span></div>
+      <div class="live-h"><span><i></i>Live analysis</span><span>Auto</span></div>
       <div class="la"><small>Platform</small><b id="laPlat">—</b></div>
       <div class="la"><small>Features detected · <span id="laCount">0</span></small><div class="la-feats" id="laFeats"></div></div>
       <div class="la"><small>Complexity</small><b id="laCx">—</b></div>
       <div class="la"><small>Detail level</small><b id="laDetail">—</b><div class="dbar"><i id="laDetailBar"></i></div></div>
-      <div class="la"><small>Price estimate</small><b id="laPrice">🔒 Unlocks after your result</b></div>
+      <div class="la"><small>Your price</small><b id="laPrice">Sent to you on WhatsApp</b></div>
     </aside>
   </div>
   <div id="ckRes" hidden></div>
 </div></section>
 
 <section class="sec"><div class="wrap">
-  <div class="head"><div class="head-l"><p class="eyebrow">How it works</p><h2 class="h2">Not a guess.<br><span class="acc">Our delivery data.</span></h2></div>
-  <p class="lead">The checker uses the same building blocks we use to plan real projects, then a person on our team reviews every idea you send.</p></div>
+  <div class="head"><div class="head-l"><p class="eyebrow">How it works</p><h2 class="h2">A quick first estimate.<br><span class="acc">Checked by people.</span></h2></div>
+  <p class="lead">The checker matches what you describe against a list of common features, platforms and team roles. It is a quick starting point. A person on our team then reviews your plan before any price is shared.</p></div>
   <div class="how">
-    <div class="card"><span class="k">01 · READ</span><h3>It spots what you need</h3><p>Payments, bookings, maps, chat, AI, 3D, ERP modules. Each one adds known effort, roles and tools to your plan.</p></div>
+    <div class="card"><span class="k">01 · READ</span><h3>It spots what you need</h3><p>Payments, bookings, maps, chat, AI, 3D, ERP modules. Each one adds typical effort, roles and tools to your plan.</p></div>
     <div class="card"><span class="k">02 · SIZE</span><h3>It sizes the build</h3><p>Your platform and stage set the timeline and team, from a lean MVP to an enterprise rollout with security reviews.</p></div>
     <div class="card"><span class="k">03 · CONFIRM</span><h3>We make it real</h3><p>On a free scoping call we turn the estimate into a fixed price, milestones and a start date.</p></div>
   </div>
@@ -178,9 +178,9 @@ ${bodyTop}<header class="nav"><div class="wrap">
 <section class="sec"><div class="wrap">
   <div class="head"><div class="head-l"><p class="eyebrow">FAQ</p><h2 class="h2">About the <span class="acc">checker.</span></h2></div></div>
   <div class="qa">
-    <details open><summary>How accurate is the estimate?</summary><p>It is a first estimate based on the features you describe. Most real projects land inside the range. We confirm a fixed price and timeline after a free scoping call.</p></details>
-    <details><summary>Is my idea kept private?</summary><p>Your idea is only sent to us if you unlock your price. We use it to prepare your scoping call and never share it. We are happy to sign an NDA before you share more detail.</p></details>
-    <details><summary>Why do you ask for my details to show the price?</summary><p>A price only means something once a person has checked it. Your details let us send the estimate, review your idea and follow up with a fixed quote. We never sell or share them.</p></details>
+    <details open><summary>How accurate is the estimate?</summary><p>It is a rough first estimate based on the features you describe, so real projects can differ. A person on our team reviews it before sending a price, and we confirm a fixed price and timeline after a free scoping call.</p></details>
+    <details><summary>Is my idea kept private?</summary><p>Your idea is only sent to us if you ask for your price. We use it to prepare your scoping call and never share it. We are happy to sign an NDA before you share more detail.</p></details>
+    <details><summary>Why do you ask for my details?</summary><p>A price only means something once a person has checked your plan. Your details let us send you a price range on WhatsApp and follow up with a fixed quote. We never sell or share them.</p></details>
     <details><summary>My idea is unusual. Can you still build it?</summary><p>Probably. If the checker misses something, describe it on a call. We build AI agents, ERPs, mobile apps, 3D experiences and much more.</p></details>
   </div>
 </div></section>

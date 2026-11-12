@@ -170,7 +170,7 @@ ${bodyTop}<header class="nav"><div class="wrap">
 
 <section class="sec"><div class="wrap">
   <div class="head"><div class="head-l"><p class="eyebrow">After launch</p><h2 class="h2">We don't disappear<br><span class="acc">after go-live.</span></h2></div>
-  <p class="lead">Care plans keep your product healthy, secure and fast month after month. <span style="color:var(--dim)">[Confirm which items are in each of your plans.]</span></p></div>
+  <p class="lead">Care plans keep your product healthy, secure and fast month after month.</p></div>
   <div class="care">${CARE.map(([a, b]) => `<div><b>${a}</b><p>${b}</p></div>`).join('')}</div>
 </div></section>
 

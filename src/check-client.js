@@ -1,4 +1,4 @@
-/* ===== Idea Checker page: describe → analyse → result → unlock price ===== */
+/* ===== Idea Checker page: describe → analyse → result → get your price ===== */
 (() => {
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -8,6 +8,8 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 
 /* EDIT: your average cost per build-week in rupees. Leave 0 to show a placeholder instead of a price. */
 const WEEK_RATE_INR = 0;
+// With no rate set, visitors are told our team will WhatsApp them a price instead of seeing a number.
+const HAS_RATE = WEEK_RATE_INR > 0;
 const PLATFORMS = { web: 'Website / web app', mobile: 'Mobile app (Android + iOS)', both: 'Web + mobile apps', ai: 'AI tool / assistant' };
 const STAGES = { mvp: { k: 0.85, label: 'MVP' }, grow: { k: 1.15, label: 'Growing business' }, ent: { k: 1.5, label: 'Enterprise' } };
 const IMPOSSIBLE = /time ?machine|teleport|perpetual motion|read (people'?s )?minds|mind ?reading|guarantee(d)? lottery|predict lottery|immortal|travel faster than light/;
@@ -79,18 +81,17 @@ function paint() {
   // live analysis
   $('#laPlat').textContent = PLATFORMS[e.plat];
   $('#laCount').textContent = e.feats.length;
-  $('#laFeats').innerHTML = empty ? '<i>Start typing, ARC is reading along…</i>' : e.feats.length ? e.feats.map(f => `<span>${esc(f.label)}</span>`).join('') : '<i>No add-ons spotted yet. Mention payments, bookings, chat, maps…</i>';
+  $('#laFeats').innerHTML = empty ? '<i>Start typing. Features you mention appear here.</i>' : e.feats.length ? e.feats.map(f => `<span>${esc(f.label)}</span>`).join('') : '<i>No add-ons spotted yet. Mention payments, bookings, chat, maps…</i>';
   $('#laCx').textContent = empty ? '—' : e.impossible ? 'Beyond today’s physics' : e.cx[0];
   $('#laCx').dataset.v = e.impossible ? 'x' : e.cx[0];
   const lvl = e.words < 8 ? ['Add more detail', 25] : e.words < 20 ? ['Good', 65] : ['Great', 100];
   $('#laDetail').textContent = empty ? '—' : lvl[0]; $('#laDetailBar').style.width = (empty ? 0 : lvl[1]) + '%';
-  $('#laPrice').innerHTML = st.unlocked ? priceHTML(e) : '🔒 Unlocks after your result';
+  $('#laPrice').innerHTML = HAS_RATE ? (st.unlocked ? priceHTML(e) : '🔒 Unlocks after your result') : (st.unlocked ? 'Our team will WhatsApp you' : 'Sent to you on WhatsApp');
   steps(st.unlocked ? 4 : $('#ckRes').hidden ? (empty ? 1 : 2) : 3);
 }
 function steps(n) { $$('.steps li').forEach((li, i) => { li.classList.toggle('done', i < n - 1); li.classList.toggle('cur', i === n - 1); }); }
 function priceHTML(e) {
   if (e.impossible) return 'Not applicable';
-  if (!WEEK_RATE_INR) return '<span class="ph">₹[set your weekly rate]</span>';
   return `${fmtR(e.lo * WEEK_RATE_INR)} – ${fmtR(e.hi * WEEK_RATE_INR)}`;
 }
 ta.addEventListener('input', () => { clearTimeout(ta._t); ta._t = setTimeout(analyse, 120); });
@@ -109,7 +110,7 @@ $('#ckForm').addEventListener('submit', ev => {
   const p1 = core.slice(0, 4), p2 = core.slice(4, 8);
   const team = e.roles.map(r => `<span>${esc(r)}</span>`).join('');
   res.innerHTML = `<div class="card res">
-    <div class="res-top">${ring(e.score)}<div><p class="eyebrow">Your result · ${esc(STAGES[st.stage].label)}</p><h3>${esc(e.name)}</h3><p class="muted">${e.score >= 85 ? 'Very buildable. This is the kind of product we ship regularly.' : e.score >= 75 ? 'Buildable, with a few parts that need careful planning.' : 'Buildable in phases. We would de-risk the hardest parts first.'}</p></div></div>
+    <div class="res-top">${ring(e.score)}<div><p class="eyebrow">Your result · ${esc(STAGES[st.stage].label)}</p><h3>${esc(e.name)}</h3><p class="muted">${e.score >= 85 ? 'Very buildable with today’s tools.' : e.score >= 75 ? 'Buildable, with a few parts that need careful planning.' : 'Buildable in phases. We would de-risk the hardest parts first.'}</p></div></div>
     <div class="res-grid">
       <div><small>Timeline</small><b>${fmtW(e.lo)} – ${fmtW(e.hi)}</b><em>${e.cx[1]}</em></div>
       <div><small>Team</small><b>${e.roles.length} specialists</b><em>plus a project lead you talk to</em></div>
@@ -122,15 +123,15 @@ $('#ckForm').addEventListener('submit', ev => {
       ${p2.length ? `<li><b>Phase 2 · Grow</b><p>${esc(p2.join(', '))}</p></li>` : ''}
       <li><b>${p2.length ? 'Phase 3' : 'Phase 2'} · Get found</b><p>AEO and GEO so ChatGPT, Gemini and Perplexity recommend you, plus analytics to see what customers use.</p></li>
     </ol></div>
-    <p class="ai-note"><b>AI-first:</b> we use AI for planning, code review, testing and content, which is part of why these timelines are shorter than a traditional agency’s.</p>
+    <p class="ai-note"><b>AI-first:</b> we use AI for planning, code review, testing and content, so the team spends its time on the parts that need people.</p>
     <div class="unlock" id="ckUnlock">
-      <div><h4>Unlock your price range</h4><p class="muted">Tell us where to send it. We’ll also WhatsApp you a short summary of this plan.</p></div>
+      <div><h4>${HAS_RATE ? 'Unlock your price range' : 'Get your price on WhatsApp'}</h4><p class="muted">${HAS_RATE ? 'Tell us where to send it. We’ll also WhatsApp you a short summary of this plan.' : 'A person on our team checks this plan and WhatsApps you a price range. No obligation.'}</p></div>
       <form id="ckLead" novalidate>
         <input name="name" placeholder="Your name" autocomplete="name" required>
         <input name="phone" placeholder="WhatsApp number" inputmode="tel" autocomplete="tel" required>
         <input name="email" placeholder="Email" type="email" autocomplete="email" required>
         <input name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
-        <button class="btn btn-w" type="submit">Unlock my price →</button>
+        <button class="btn btn-w" type="submit">${HAS_RATE ? 'Unlock my price →' : 'Get my price →'}</button>
         <p class="err" id="ckErr" role="alert"></p>
       </form>
     </div>
@@ -161,16 +162,16 @@ async function unlock(ev) {
   if (!v('name')) return err.textContent = 'Enter your name.';
   if (!/^\+?[\d\s-]{8,16}$/.test(v('phone'))) return err.textContent = 'Enter a valid WhatsApp number.';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) return err.textContent = 'Enter a valid email address.';
-  err.textContent = ''; btn.disabled = true; btn.textContent = 'Unlocking…';
+  err.textContent = ''; btn.disabled = true; btn.textContent = 'Sending…';
   const e = st.est;
   const summary = `${e.name} · ${PLATFORMS[e.plat]} · ${STAGES[st.stage].label} · ${fmtW(e.lo)}–${fmtW(e.hi)} · features: ${e.feats.map(x => x.label).join(', ') || 'none detected'}`;
   try {
     await fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'project', name: v('name'), phone: v('phone'), email: v('email'), service: e.name, budget: '', message: `Idea: ${ta.value.trim()}\n\nChecker result: ${summary}`, website: v('website'), source: 'Idea Checker page', page: location.pathname }) });
-  } catch (_) { /* the price still unlocks; the WhatsApp link below is the backup channel */ }
+  } catch (_) { /* the WhatsApp link below is the backup channel */ }
   st.unlocked = true;
   const wa = 'https://wa.me/919004629888?text=' + encodeURIComponent(`Hi Branding Catalyst, I'm ${v('name')}. I checked my idea on your site:\n${ta.value.trim()}\n\nResult: ${summary}`);
-  $('#ckUnlock').innerHTML = `<div class="price"><small>Estimated price range</small><b>${priceHTML(e)}</b><em>Indicative. We confirm a fixed price after a free scoping call.</em></div>
-    <p class="muted">Thanks, ${esc(v('name'))}. Our team will review your idea and get back to you on WhatsApp.</p>
+  $('#ckUnlock').innerHTML = (HAS_RATE ? `<div class="price"><small>Estimated price range</small><b>${priceHTML(e)}</b><em>Indicative. We confirm a fixed price after a free scoping call.</em></div>` : `<div class="price"><small>Your price</small><b>On its way to your WhatsApp</b><em>A person on our team reviews your plan first, then sends a price range. We confirm a fixed price after a free scoping call.</em></div>`) + `
+    <p class="muted">Thanks, ${esc(v('name'))}. We’ll message you on WhatsApp at ${esc(v('phone'))}.</p>
     <div class="row" style="display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-w" href="${wa}" target="_blank" rel="noopener">Send this plan on WhatsApp →</a><button class="btn" type="button" data-lead data-lead-idea="#ckIdea" data-lead-source="Idea Checker result">Book a free scoping call</button></div>`;
   paint();
 }

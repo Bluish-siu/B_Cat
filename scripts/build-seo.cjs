@@ -21,7 +21,7 @@ const ORG = {
   hrEmail: 'hr@brandingcatalyst.in',
   city: 'Mumbai', region: 'Maharashtra', country: 'IN',
   founder: { name: 'Abhishek Trivedi', jobTitle: 'Founder', url: 'https://www.linkedin.com/in/abhishek-r-trivedi/' },
-  sameAs: ['https://www.instagram.com/branding_catalyst', 'https://in.linkedin.com/company/branding-cataly', 'https://www.youtube.com/@brandingcatalyst'],
+  sameAs: ['https://www.instagram.com/branding_catalyst', 'https://www.linkedin.com/company/branding-cataly/', 'https://www.youtube.com/@brandingcatalyst'],
   knowsAbout: ['Artificial intelligence', 'AI agents', 'Retrieval-augmented generation (RAG)', 'Answer engine optimization (AEO)', 'Generative engine optimization (GEO)', 'Branding', 'Mobile app development', 'ERP software', 'Web development', 'WebGL and 3D web']
 };
 
