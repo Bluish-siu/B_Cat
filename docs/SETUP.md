@@ -6,7 +6,6 @@ How to configure the live features (ARC, leads, careers) and what to fill in bef
 
 - Replace every `[X]` placeholder (client counts, stats, email, phone, social links) with real details.
 - Set real timelines, roles and tech stacks in the `PRODUCTS` and `FEATURES` lists in `src/home.html` (then run `npm run build:pages`). The idea checker and ARC use them to build estimates.
-- Set the discount values and odds in `DISCOUNTS` (homepage wheel in `src/home.html`; Idea Checker page wheel in `src/check-client.js`).
 - Set `WEEK_RATE_INR` in `src/check-client.js` so the Idea Checker shows a real price range.
 - Confirm the guarantee terms in the "Our promise" section.
 - Replace the client logo tiles with real logos, used with permission.

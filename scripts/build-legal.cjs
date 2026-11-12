@@ -158,10 +158,9 @@ ${NOTE}
 
 <h2>2. Estimates, ARC and the idea checker are indicative</h2>
 <ul>
-  <li>Timelines, team sizes, technology suggestions, feasibility scores and launch discounts shown by ARC or the idea checker are <b>general guidance only</b>. They are not a quotation, offer or commitment.</li>
+  <li>Timelines, team sizes, technology suggestions, feasibility scores and price ranges shown by ARC or the idea checker are <b>general guidance only</b>. They are not a quotation, offer or commitment.</li>
   <li>ARC is an automated assistant and can make mistakes. Please confirm anything important with our team.</li>
   <li>The AI visibility check and the traffic simulation on the website are illustrations, not measurements of your business.</li>
-  <li>Any discount shown by the idea checker wheel applies only if confirmed in writing in a signed proposal. <span class="ph">[Confirm or remove.]</span></li>
 </ul>
 
 <h2>3. Projects are governed by a signed agreement</h2>

@@ -1,4 +1,4 @@
-/* ===== Idea Checker page: describe → analyse → result → unlock → spin ===== */
+/* ===== Idea Checker page: describe → analyse → result → unlock price ===== */
 (() => {
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -8,7 +8,6 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 
 /* EDIT: your average cost per build-week in rupees. Leave 0 to show a placeholder instead of a price. */
 const WEEK_RATE_INR = 0;
-const DISCOUNTS = [5, 10, 15, 20, 25, 50], WEIGHTS = [30, 30, 20, 12, 6, 2];
 const PLATFORMS = { web: 'Website / web app', mobile: 'Mobile app (Android + iOS)', both: 'Web + mobile apps', ai: 'AI tool / assistant' };
 const STAGES = { mvp: { k: 0.85, label: 'MVP' }, grow: { k: 1.15, label: 'Growing business' }, ent: { k: 1.5, label: 'Enterprise' } };
 const IMPOSSIBLE = /time ?machine|teleport|perpetual motion|read (people'?s )?minds|mind ?reading|guarantee(d)? lottery|predict lottery|immortal|travel faster than light/;
@@ -20,7 +19,7 @@ const EXAMPLES = [
   ['Teleport app', 'An app that teleports parcels from Mumbai to Delhi instantly.']
 ];
 
-const st = { platform: null, feats: new Set(), touched: new Set(), stage: 'mvp', est: null, unlocked: false, spun: false };
+const st = { platform: null, feats: new Set(), touched: new Set(), stage: 'mvp', est: null, unlocked: false };
 const ta = $('#ckIdea');
 
 // examples
@@ -86,7 +85,7 @@ function paint() {
   const lvl = e.words < 8 ? ['Add more detail', 25] : e.words < 20 ? ['Good', 65] : ['Great', 100];
   $('#laDetail').textContent = empty ? '—' : lvl[0]; $('#laDetailBar').style.width = (empty ? 0 : lvl[1]) + '%';
   $('#laPrice').innerHTML = st.unlocked ? priceHTML(e) : '🔒 Unlocks after your result';
-  steps(st.unlocked ? (st.spun ? 5 : 4) : $('#ckRes').hidden ? (empty ? 1 : 2) : 3);
+  steps(st.unlocked ? 4 : $('#ckRes').hidden ? (empty ? 1 : 2) : 3);
 }
 function steps(n) { $$('.steps li').forEach((li, i) => { li.classList.toggle('done', i < n - 1); li.classList.toggle('cur', i === n - 1); }); }
 function priceHTML(e) {
@@ -101,7 +100,6 @@ $('#ckForm').addEventListener('submit', ev => {
   ev.preventDefault();
   if (!ta.value.trim()) { ta.focus(); return; }
   const e = estimate(), res = $('#ckRes');
-  st.spun = false;
   res.hidden = false;
   if (e.impossible) {
     res.innerHTML = `<div class="card res"><div class="res-top">${ring(e.score)}<div><p class="eyebrow">Your result</p><h3>${e.name}</h3><p class="muted">We love the ambition, but this one needs a breakthrough in physics before it needs an app. Want to build the closest real thing, such as same-day delivery with live tracking? Try describing that instead.</p></div></div></div>`;
@@ -126,7 +124,7 @@ $('#ckForm').addEventListener('submit', ev => {
     </ol></div>
     <p class="ai-note"><b>AI-first:</b> we use AI for planning, code review, testing and content, which is part of why these timelines are shorter than a traditional agency’s.</p>
     <div class="unlock" id="ckUnlock">
-      <div><h4>Unlock your price range and discount</h4><p class="muted">Tell us where to send it. We’ll also WhatsApp you a short summary of this plan.</p></div>
+      <div><h4>Unlock your price range</h4><p class="muted">Tell us where to send it. We’ll also WhatsApp you a short summary of this plan.</p></div>
       <form id="ckLead" novalidate>
         <input name="name" placeholder="Your name" autocomplete="name" required>
         <input name="phone" placeholder="WhatsApp number" inputmode="tel" autocomplete="tel" required>
@@ -172,24 +170,9 @@ async function unlock(ev) {
   st.unlocked = true;
   const wa = 'https://wa.me/919004629888?text=' + encodeURIComponent(`Hi Branding Catalyst, I'm ${v('name')}. I checked my idea on your site:\n${ta.value.trim()}\n\nResult: ${summary}`);
   $('#ckUnlock').innerHTML = `<div class="price"><small>Estimated price range</small><b>${priceHTML(e)}</b><em>Indicative. We confirm a fixed price after a free scoping call.</em></div>
-    <div class="wheel-box"><div class="wheel-wrap"><canvas id="wheel" width="300" height="300"></canvas></div><div style="display:grid;gap:10px"><p id="wheelTxt">Spin once for a launch discount of up to ${Math.max(...DISCOUNTS)}% off your first milestone.</p><button class="btn btn-w" id="spin" type="button" style="justify-self:start">Spin the wheel</button></div></div>
-    <a class="btn" href="${wa}" target="_blank" rel="noopener">Send this plan on WhatsApp →</a>`;
-  drawWheel(); $('#spin').addEventListener('click', spin); paint();
-}
-function drawWheel() {
-  const cv = $('#wheel'), x = cv.getContext('2d'), n = DISCOUNTS.length, cols = ['#c9a2ff', '#7fd6e8', '#f2a7c3', '#6fcf97', '#f2c27a', '#b9a3f5'];
-  for (let i = 0; i < n; i++) {
-    const a0 = -Math.PI / 2 + i * 2 * Math.PI / n - Math.PI / n, a1 = a0 + 2 * Math.PI / n;
-    x.beginPath(); x.moveTo(150, 150); x.arc(150, 150, 146, a0, a1); x.closePath(); x.fillStyle = cols[i]; x.fill(); x.strokeStyle = '#0c0a12'; x.lineWidth = 3; x.stroke();
-    x.save(); x.translate(150, 150); x.rotate(a0 + Math.PI / n + Math.PI / 2); x.fillStyle = '#0c0a12'; x.font = '600 26px Geist, system-ui'; x.textAlign = 'center'; x.fillText(DISCOUNTS[i] + '%', 0, -100); x.restore();
-  }
-  x.beginPath(); x.arc(150, 150, 22, 0, 7); x.fillStyle = '#0c0a12'; x.fill();
-}
-function spin() {
-  if (st.spun) return; st.spun = true;
-  let r = Math.random() * 100, k = 0; for (; k < DISCOUNTS.length; k++) { r -= WEIGHTS[k]; if (r <= 0) break; } k = Math.min(k, DISCOUNTS.length - 1);
-  $('#wheel').style.transform = `rotate(${360 * 6 - k * (360 / DISCOUNTS.length)}deg)`; $('#spin').disabled = true;
-  setTimeout(() => { $('#wheelTxt').innerHTML = `You unlocked <b>${DISCOUNTS[k]}% off</b> your first milestone. Mention it on your scoping call.`; paint(); }, reduce ? 0 : 3300);
+    <p class="muted">Thanks, ${esc(v('name'))}. Our team will review your idea and get back to you on WhatsApp.</p>
+    <div class="row" style="display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-w" href="${wa}" target="_blank" rel="noopener">Send this plan on WhatsApp →</a><button class="btn" type="button" data-lead data-lead-idea="#ckIdea" data-lead-source="Idea Checker result">Book a free scoping call</button></div>`;
+  paint();
 }
 
 // ?idea= from other pages (e.g. the homepage checker or ARC)

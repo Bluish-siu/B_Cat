@@ -106,13 +106,6 @@ ${baseCss}
 .price{display:grid;gap:4px}
 .price b{font:500 clamp(26px,3vw,34px) var(--f-display);letter-spacing:-.02em}
 .price em{font-style:normal;font-size:13px;color:var(--dim)}
-.wheel-box{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;border-top:1px solid var(--line);padding-top:16px}
-.wheel-box canvas{width:150px;height:150px;transition:transform 3.2s cubic-bezier(.15,.8,.1,1)}
-.wheel-wrap{position:relative;width:150px;height:150px}
-.wheel-wrap::after{content:"";position:absolute;left:50%;top:-6px;transform:translateX(-50%);border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
-.wheel-box p{color:var(--muted);font-size:14px}
-.wheel-box b{color:var(--ok);font-weight:500}
-@media(max-width:460px){.wheel-box{grid-template-columns:1fr;justify-items:start}}
 .how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .how .card{padding:22px;display:grid;gap:8px;align-content:start;min-width:0}
 .how .k{font-family:var(--f-mono);font-size:11.5px;color:var(--accent);letter-spacing:.1em}
@@ -131,8 +124,8 @@ ${bodyTop}<header class="nav"><div class="wrap">
 <section class="hero"><div class="wrap">
   <p class="eyebrow">Free idea checker</p>
   <h1>Will your idea <span class="acc">work?</span></h1>
-  <p class="lead">Describe it in a sentence or two. ARC reads it as you type and, in about a minute, gives you a feasibility score, timeline, team, tech stack and a phased roadmap. Then unlock your price range and spin for a launch discount.</p>
-  <ol class="steps" aria-label="Progress"><li>Describe</li><li>Analyse</li><li>Your result</li><li>Unlock price</li><li>Spin &amp; save</li></ol>
+  <p class="lead">Describe it in a sentence or two. ARC reads it as you type and, in about a minute, gives you a feasibility score, timeline, team, tech stack and a phased roadmap. Then unlock your price range.</p>
+  <ol class="steps" aria-label="Progress"><li>Describe</li><li>Analyse</li><li>Your result</li><li>Unlock price</li></ol>
 </div></section>
 
 <section class="sec" style="padding-top:clamp(20px,3vw,40px)"><div class="wrap">
@@ -187,7 +180,7 @@ ${bodyTop}<header class="nav"><div class="wrap">
   <div class="qa">
     <details open><summary>How accurate is the estimate?</summary><p>It is a first estimate based on the features you describe. Most real projects land inside the range. We confirm a fixed price and timeline after a free scoping call.</p></details>
     <details><summary>Is my idea kept private?</summary><p>Your idea is only sent to us if you unlock your price. We use it to prepare your scoping call and never share it. We are happy to sign an NDA before you share more detail.</p></details>
-    <details><summary>Is the discount real?</summary><p>Yes. Mention the discount you won on your scoping call and we apply it to your first milestone. One spin per idea.</p></details>
+    <details><summary>Why do you ask for my details to show the price?</summary><p>A price only means something once a person has checked it. Your details let us send the estimate, review your idea and follow up with a fixed quote. We never sell or share them.</p></details>
     <details><summary>My idea is unusual. Can you still build it?</summary><p>Probably. If the checker misses something, describe it on a call. We build AI agents, ERPs, mobile apps, 3D experiences and much more.</p></details>
   </div>
 </div></section>

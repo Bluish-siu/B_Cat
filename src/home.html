@@ -319,14 +319,7 @@ p{margin:0}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0;font-size:14.5px}
 .kv dt{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding-top:3px}
 .kv dd{margin:0}
-.wheel-box{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;border-top:1px solid var(--line);padding-top:16px}
-.wheel-box canvas{width:150px;height:150px;transition:transform 3.2s cubic-bezier(.15,.8,.1,1)}
-.wheel-wrap{position:relative;width:150px;height:150px}
-.wheel-wrap::after{content:"";position:absolute;left:50%;top:-6px;transform:translateX(-50%);border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
-.wheel-box p{color:var(--muted);font-size:14px}
-.wheel-box b{color:var(--ok);font-weight:500}
 @media(max-width:860px){.chk{grid-template-columns:1fr}}
-@media(max-width:420px){.wheel-box{grid-template-columns:1fr;justify-items:center;text-align:center}}
 
 /* STRIP + PROCESS */
 .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
@@ -1153,7 +1146,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
     <div class="txt">
       <p class="eyebrow">Idea checker</p>
       <h2 class="h2">Have an idea?<br><span class="acc">Test it in 60 seconds.</span></h2>
-      <p>Get a feasibility score, timeline, team size and tech stack straight away. Then spin the wheel for a launch discount.</p>
+      <p>Get a feasibility score, timeline, team size and tech stack straight away, then book a free scoping call to turn it into a fixed price.</p>
       <p><a class="acc" href="check.html">Open the full Idea Checker, with features, roadmap and price →</a></p>
     </div>
     <div>
@@ -1936,8 +1929,7 @@ modal.addEventListener('click',e=>{ if(e.target===modal) closeIdea(); });
 addEventListener('keydown',e=>{ if(e.key==='Escape') closeIdea(); });
 $('#mAsk').addEventListener('click',()=>{ closeIdea(); (window.__lenis ? window.__lenis.scrollTo('#top') : $('#top').scrollIntoView({behavior:reduce?'auto':'smooth'})); setTimeout(()=>ask(`${curIdea[2]}: ${curIdea[3]}`),reduce?0:600); });
 
-/* ===== Idea checker + discount wheel (EDIT discounts) ===== */
-const DISCOUNTS=[5,10,15,20,25,50];
+/* ===== Idea checker ===== */
 const est=$('#est');
 function renderEst(){
   const idea=$('#chkIn').value.trim(); if(!idea){ est.innerHTML='<p style="color:var(--muted)">Describe your idea to see an estimate.</p>'; return; }
@@ -1945,27 +1937,10 @@ function renderEst(){
   est.innerHTML=`<div class="r"><h3 style="font-size:20px;letter-spacing:-.02em">${c.name}</h3><span class="pill">FEASIBLE</span></div>
    <div><div class="r" style="margin-bottom:8px"><span class="eyebrow">Feasibility</span><b style="font-family:var(--f-mono);font-weight:500">${c.score}/100</b></div><div class="meter"><i></i></div></div>
    <dl class="kv"><dt>Timeline</dt><dd>${c.time}</dd><dt>Team</dt><dd>${c.team}</dd><dt>Stack</dt><dd>${c.stack}</dd><dt>Start with</dt><dd>${c.feats.slice(0,2).join('; ')}</dd></dl>
-   <div class="wheel-box"><div class="wheel-wrap"><canvas id="wheel" width="300" height="300"></canvas></div><div style="display:grid;gap:10px"><p id="wheelTxt">Spin once for a launch discount of up to ${Math.max(...DISCOUNTS)}%.</p><button class="btn btn-w" id="spin" type="button" style="justify-self:start">Spin the wheel</button></div></div>
-   <p style="color:var(--dim);font-size:13px">Indicative estimate. We confirm a fixed price and timeline after a free scoping call.</p><button class="btn btn-w" type="button" data-lead data-lead-idea="#chkIn" data-lead-source="Idea checker" style="justify-self:start">Book a free scoping call →</button>`;
+   <p style="color:var(--dim);font-size:13px">Indicative estimate. We confirm a fixed price and timeline after a free scoping call.</p><div class="row" style="display:flex;flex-wrap:wrap;gap:10px"><button class="btn btn-w" type="button" data-lead data-lead-idea="#chkIn" data-lead-source="Idea checker">Book a free scoping call →</button><a class="btn" href="check.html?idea=${encodeURIComponent(idea)}">Full plan with roadmap →</a></div>`;
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ est.querySelector('.meter i').style.width=c.score+'%'; }));
-  drawWheel();
-  $('#spin').addEventListener('click',spin);
 }
-function drawWheel(){
-  const cv=$('#wheel'), x=cv.getContext('2d'), n=DISCOUNTS.length, cols=['#c9a2ff','#7fd6e8','#f2a7c3','#6fcf97','#f2c27a','#b9a3f5'];
-  for(let i=0;i<n;i++){ const a0=-Math.PI/2+i*2*Math.PI/n - Math.PI/n, a1=a0+2*Math.PI/n; x.beginPath(); x.moveTo(150,150); x.arc(150,150,146,a0,a1); x.closePath(); x.fillStyle=cols[i]; x.fill(); x.strokeStyle='#0c0a12'; x.lineWidth=3; x.stroke();
-    x.save(); x.translate(150,150); x.rotate(a0+Math.PI/n+Math.PI/2); x.fillStyle='#0c0a12'; x.font='600 26px Geist, system-ui'; x.textAlign='center'; x.fillText(DISCOUNTS[i]+'%',0,-100); x.restore(); }
-  x.beginPath(); x.arc(150,150,22,0,7); x.fillStyle='#0c0a12'; x.fill();
-}
-let spun=false;
-function spin(){
-  if(spun) return; spun=true;
-  const n=DISCOUNTS.length, weights=[30,30,20,12,6,2]; let r=Math.random()*100, k=0; for(;k<n;k++){ r-=weights[k]; if(r<=0) break; } k=Math.min(k,n-1);
-  const deg=360*6 - k*(360/n); const cv=$('#wheel'); cv.style.transform=`rotate(${deg}deg)`;
-  $('#spin').disabled=true;
-  setTimeout(()=>{ $('#wheelTxt').innerHTML=`You unlocked <b>${DISCOUNTS[k]}% off</b> your first milestone. Mention it on your scoping call.`; }, reduce?0:3300);
-}
-$('#chkForm').addEventListener('submit',e=>{ e.preventDefault(); spun=false; renderEst(); });
+$('#chkForm').addEventListener('submit',e=>{ e.preventDefault(); renderEst(); });
 renderEst();
 
 /* ===== Process lines ===== */

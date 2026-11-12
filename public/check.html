@@ -152,13 +152,6 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 .price{display:grid;gap:4px}
 .price b{font:500 clamp(26px,3vw,34px) var(--f-display);letter-spacing:-.02em}
 .price em{font-style:normal;font-size:13px;color:var(--dim)}
-.wheel-box{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;border-top:1px solid var(--line);padding-top:16px}
-.wheel-box canvas{width:150px;height:150px;transition:transform 3.2s cubic-bezier(.15,.8,.1,1)}
-.wheel-wrap{position:relative;width:150px;height:150px}
-.wheel-wrap::after{content:"";position:absolute;left:50%;top:-6px;transform:translateX(-50%);border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
-.wheel-box p{color:var(--muted);font-size:14px}
-.wheel-box b{color:var(--ok);font-weight:500}
-@media(max-width:460px){.wheel-box{grid-template-columns:1fr;justify-items:start}}
 .how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .how .card{padding:22px;display:grid;gap:8px;align-content:start;min-width:0}
 .how .k{font-family:var(--f-mono);font-size:11.5px;color:var(--accent);letter-spacing:.1em}
@@ -236,8 +229,8 @@ html.lenis-smooth{scroll-behavior:auto!important}
 <section class="hero"><div class="wrap">
   <p class="eyebrow">Free idea checker</p>
   <h1>Will your idea <span class="acc">work?</span></h1>
-  <p class="lead">Describe it in a sentence or two. ARC reads it as you type and, in about a minute, gives you a feasibility score, timeline, team, tech stack and a phased roadmap. Then unlock your price range and spin for a launch discount.</p>
-  <ol class="steps" aria-label="Progress"><li>Describe</li><li>Analyse</li><li>Your result</li><li>Unlock price</li><li>Spin &amp; save</li></ol>
+  <p class="lead">Describe it in a sentence or two. ARC reads it as you type and, in about a minute, gives you a feasibility score, timeline, team, tech stack and a phased roadmap. Then unlock your price range.</p>
+  <ol class="steps" aria-label="Progress"><li>Describe</li><li>Analyse</li><li>Your result</li><li>Unlock price</li></ol>
 </div></section>
 
 <section class="sec" style="padding-top:clamp(20px,3vw,40px)"><div class="wrap">
@@ -292,7 +285,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
   <div class="qa">
     <details open><summary>How accurate is the estimate?</summary><p>It is a first estimate based on the features you describe. Most real projects land inside the range. We confirm a fixed price and timeline after a free scoping call.</p></details>
     <details><summary>Is my idea kept private?</summary><p>Your idea is only sent to us if you unlock your price. We use it to prepare your scoping call and never share it. We are happy to sign an NDA before you share more detail.</p></details>
-    <details><summary>Is the discount real?</summary><p>Yes. Mention the discount you won on your scoping call and we apply it to your first milestone. One spin per idea.</p></details>
+    <details><summary>Why do you ask for my details to show the price?</summary><p>A price only means something once a person has checked it. Your details let us send the estimate, review your idea and follow up with a fixed quote. We never sell or share them.</p></details>
     <details><summary>My idea is unusual. Can you still build it?</summary><p>Probably. If the checker misses something, describe it on a call. We build AI agents, ERPs, mobile apps, 3D experiences and much more.</p></details>
   </div>
 </div></section>
@@ -306,7 +299,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
 <footer><div class="wrap"><span>© 2026 Branding Catalyst Pvt Ltd · Mumbai, India</span><span><a href="index.html">Home</a> · <a href="services.html">Services</a> · <a href="scale.html">Scale</a> · <a href="check.html">Idea Checker</a> · <a href="about.html">About</a> · <a href="careers.html">Careers</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></span></div></footer>
 
 <script>
-/* ===== Idea Checker page: describe → analyse → result → unlock → spin ===== */
+/* ===== Idea Checker page: describe → analyse → result → unlock price ===== */
 (() => {
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -353,7 +346,6 @@ const fmtW = w => Math.round(w) <= 1 ? '1 week' : `${Math.round(w)} weeks`;
 
 /* EDIT: your average cost per build-week in rupees. Leave 0 to show a placeholder instead of a price. */
 const WEEK_RATE_INR = 0;
-const DISCOUNTS = [5, 10, 15, 20, 25, 50], WEIGHTS = [30, 30, 20, 12, 6, 2];
 const PLATFORMS = { web: 'Website / web app', mobile: 'Mobile app (Android + iOS)', both: 'Web + mobile apps', ai: 'AI tool / assistant' };
 const STAGES = { mvp: { k: 0.85, label: 'MVP' }, grow: { k: 1.15, label: 'Growing business' }, ent: { k: 1.5, label: 'Enterprise' } };
 const IMPOSSIBLE = /time ?machine|teleport|perpetual motion|read (people'?s )?minds|mind ?reading|guarantee(d)? lottery|predict lottery|immortal|travel faster than light/;
@@ -365,7 +357,7 @@ const EXAMPLES = [
   ['Teleport app', 'An app that teleports parcels from Mumbai to Delhi instantly.']
 ];
 
-const st = { platform: null, feats: new Set(), touched: new Set(), stage: 'mvp', est: null, unlocked: false, spun: false };
+const st = { platform: null, feats: new Set(), touched: new Set(), stage: 'mvp', est: null, unlocked: false };
 const ta = $('#ckIdea');
 
 // examples
@@ -431,7 +423,7 @@ function paint() {
   const lvl = e.words < 8 ? ['Add more detail', 25] : e.words < 20 ? ['Good', 65] : ['Great', 100];
   $('#laDetail').textContent = empty ? '—' : lvl[0]; $('#laDetailBar').style.width = (empty ? 0 : lvl[1]) + '%';
   $('#laPrice').innerHTML = st.unlocked ? priceHTML(e) : '🔒 Unlocks after your result';
-  steps(st.unlocked ? (st.spun ? 5 : 4) : $('#ckRes').hidden ? (empty ? 1 : 2) : 3);
+  steps(st.unlocked ? 4 : $('#ckRes').hidden ? (empty ? 1 : 2) : 3);
 }
 function steps(n) { $$('.steps li').forEach((li, i) => { li.classList.toggle('done', i < n - 1); li.classList.toggle('cur', i === n - 1); }); }
 function priceHTML(e) {
@@ -446,7 +438,6 @@ $('#ckForm').addEventListener('submit', ev => {
   ev.preventDefault();
   if (!ta.value.trim()) { ta.focus(); return; }
   const e = estimate(), res = $('#ckRes');
-  st.spun = false;
   res.hidden = false;
   if (e.impossible) {
     res.innerHTML = `<div class="card res"><div class="res-top">${ring(e.score)}<div><p class="eyebrow">Your result</p><h3>${e.name}</h3><p class="muted">We love the ambition, but this one needs a breakthrough in physics before it needs an app. Want to build the closest real thing, such as same-day delivery with live tracking? Try describing that instead.</p></div></div></div>`;
@@ -471,7 +462,7 @@ $('#ckForm').addEventListener('submit', ev => {
     </ol></div>
     <p class="ai-note"><b>AI-first:</b> we use AI for planning, code review, testing and content, which is part of why these timelines are shorter than a traditional agency’s.</p>
     <div class="unlock" id="ckUnlock">
-      <div><h4>Unlock your price range and discount</h4><p class="muted">Tell us where to send it. We’ll also WhatsApp you a short summary of this plan.</p></div>
+      <div><h4>Unlock your price range</h4><p class="muted">Tell us where to send it. We’ll also WhatsApp you a short summary of this plan.</p></div>
       <form id="ckLead" novalidate>
         <input name="name" placeholder="Your name" autocomplete="name" required>
         <input name="phone" placeholder="WhatsApp number" inputmode="tel" autocomplete="tel" required>
@@ -517,24 +508,9 @@ async function unlock(ev) {
   st.unlocked = true;
   const wa = 'https://wa.me/919004629888?text=' + encodeURIComponent(`Hi Branding Catalyst, I'm ${v('name')}. I checked my idea on your site:\n${ta.value.trim()}\n\nResult: ${summary}`);
   $('#ckUnlock').innerHTML = `<div class="price"><small>Estimated price range</small><b>${priceHTML(e)}</b><em>Indicative. We confirm a fixed price after a free scoping call.</em></div>
-    <div class="wheel-box"><div class="wheel-wrap"><canvas id="wheel" width="300" height="300"></canvas></div><div style="display:grid;gap:10px"><p id="wheelTxt">Spin once for a launch discount of up to ${Math.max(...DISCOUNTS)}% off your first milestone.</p><button class="btn btn-w" id="spin" type="button" style="justify-self:start">Spin the wheel</button></div></div>
-    <a class="btn" href="${wa}" target="_blank" rel="noopener">Send this plan on WhatsApp →</a>`;
-  drawWheel(); $('#spin').addEventListener('click', spin); paint();
-}
-function drawWheel() {
-  const cv = $('#wheel'), x = cv.getContext('2d'), n = DISCOUNTS.length, cols = ['#c9a2ff', '#7fd6e8', '#f2a7c3', '#6fcf97', '#f2c27a', '#b9a3f5'];
-  for (let i = 0; i < n; i++) {
-    const a0 = -Math.PI / 2 + i * 2 * Math.PI / n - Math.PI / n, a1 = a0 + 2 * Math.PI / n;
-    x.beginPath(); x.moveTo(150, 150); x.arc(150, 150, 146, a0, a1); x.closePath(); x.fillStyle = cols[i]; x.fill(); x.strokeStyle = '#0c0a12'; x.lineWidth = 3; x.stroke();
-    x.save(); x.translate(150, 150); x.rotate(a0 + Math.PI / n + Math.PI / 2); x.fillStyle = '#0c0a12'; x.font = '600 26px Geist, system-ui'; x.textAlign = 'center'; x.fillText(DISCOUNTS[i] + '%', 0, -100); x.restore();
-  }
-  x.beginPath(); x.arc(150, 150, 22, 0, 7); x.fillStyle = '#0c0a12'; x.fill();
-}
-function spin() {
-  if (st.spun) return; st.spun = true;
-  let r = Math.random() * 100, k = 0; for (; k < DISCOUNTS.length; k++) { r -= WEIGHTS[k]; if (r <= 0) break; } k = Math.min(k, DISCOUNTS.length - 1);
-  $('#wheel').style.transform = `rotate(${360 * 6 - k * (360 / DISCOUNTS.length)}deg)`; $('#spin').disabled = true;
-  setTimeout(() => { $('#wheelTxt').innerHTML = `You unlocked <b>${DISCOUNTS[k]}% off</b> your first milestone. Mention it on your scoping call.`; paint(); }, reduce ? 0 : 3300);
+    <p class="muted">Thanks, ${esc(v('name'))}. Our team will review your idea and get back to you on WhatsApp.</p>
+    <div class="row" style="display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-w" href="${wa}" target="_blank" rel="noopener">Send this plan on WhatsApp →</a><button class="btn" type="button" data-lead data-lead-idea="#ckIdea" data-lead-source="Idea Checker result">Book a free scoping call</button></div>`;
+  paint();
 }
 
 // ?idea= from other pages (e.g. the homepage checker or ARC)

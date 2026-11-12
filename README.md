@@ -49,7 +49,7 @@ BCAT WEBSITE/
 | Homepage | `src/home.html` | `npm run build:pages` |
 | Services, About, Careers | `public/services.html`, `public/about.html`, `public/careers.html` | `npm run build:pages` after editing Services (Scale and Idea Checker reuse its header and footer) |
 | Scale page text | `scripts/build-scale.cjs` | `npm run build:pages` |
-| Idea Checker page | `scripts/build-check.cjs` (layout) or `src/check-client.js` (logic, prices, discounts) | `npm run build:pages` |
+| Idea Checker page | `scripts/build-check.cjs` (layout) or `src/check-client.js` (logic and prices) | `npm run build:pages` |
 | Privacy and Terms | `scripts/build-legal.cjs` | `npm run build:pages` |
 | WhatsApp number, lead form | `public/leads.js` | nothing |
 | ARC's knowledge and tone | `api/arc.js` (`SYSTEM` text) | nothing |
