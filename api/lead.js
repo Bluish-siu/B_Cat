@@ -2,9 +2,11 @@
 // The website's forms POST here. Every lead is written to the Vercel logs (Project → Logs, search "LEAD").
 // Optional email: in Vercel → Settings → Environment Variables add
 //   RESEND_API_KEY   (free account at resend.com)
-//   LEAD_TO_EMAIL    (where leads should arrive, e.g. you@brandingcatalyst.in)
+//   LEAD_TO_EMAIL    (where project leads and newsletter signups arrive, e.g. hello@brandingcatalyst.in)
+//   HR_EMAIL         (optional; job applications go here, default hr@brandingcatalyst.in)
 //   LEAD_FROM_EMAIL  (optional sender on a domain verified in Resend)
-// and redeploy. Without these, leads still reach you on WhatsApp from the visitor's side.
+// and redeploy. Without these, project leads still reach you on WhatsApp from the visitor's side,
+// and job applicants' own email app opens addressed to hr@ (see public/careers.html).
 
 const clean = (v, n) => (typeof v === 'string' ? v.replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, n) : '');
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
@@ -40,14 +42,16 @@ export default async function handler(req, res) {
   console.log('LEAD', JSON.stringify(lead));
 
   let emailed = false;
-  if (process.env.RESEND_API_KEY && process.env.LEAD_TO_EMAIL) {
+  // job applications go to HR; everything else to the main lead inbox
+  const to = lead.type === 'application' ? (process.env.HR_EMAIL || 'hr@brandingcatalyst.in') : process.env.LEAD_TO_EMAIL;
+  if (process.env.RESEND_API_KEY && to) {
     try {
       const r = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
           from: process.env.LEAD_FROM_EMAIL || 'Branding Catalyst Website <onboarding@resend.dev>',
-          to: [process.env.LEAD_TO_EMAIL],
+          to: [to],
           ...(lead.email ? { reply_to: lead.email } : {}),
           subject: lead.type === 'newsletter' ? `New newsletter signup: ${lead.email}` : lead.type === 'application' ? `New job application: ${lead.name} for ${lead.role || 'general'}` : `New project lead: ${lead.name} (${lead.service || 'not sure'})`,
           text: Object.entries(lead).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join('\n')

@@ -30,6 +30,9 @@ ARC answers in two ways:
 
 ## Careers page
 
+Applications go to **hr@brandingcatalyst.in**, never WhatsApp. With Resend set up (see above), the site emails each application to HR directly (change the address with `HR_EMAIL`). Without it, the applicant's own email app opens with the application addressed to hr@, ready to send.
+
+
 `public/careers.html` lists open roles from the `JOBS` list near the bottom of the file. To post a job, copy the example in the comment above `const JOBS = [];`, fill it in, and push. Remove it when the role is filled. With no roles, the page shows "No open roles right now" and still accepts general applications.
 
 Applications open WhatsApp with the applicant's details pre-filled and are recorded at `api/lead.js` (type `application`), the same way as project leads. Applicants can also email hr@brandingcatalyst.in (shown on the page).
