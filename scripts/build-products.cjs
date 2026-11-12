@@ -17,6 +17,7 @@ const header = cut(svc, '<header class="nav">', '<main>')
 const footerAndScripts = svc.slice(svc.indexOf('<footer>'));
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const IMG = 'products/arco/';
+const PD_SECTION = fs.readFileSync(path.join(__dirname, '..', 'src', 'products-pd.html'), 'utf8').replace(/^<!--[\s\S]*?-->\n/, '');
 
 const PRODUCTS = [
   {
@@ -79,10 +80,11 @@ const PRODUCTS = [
 ];
 
 const FAQ = [
-  ['What is ARCO?', 'ARCO is the family of software products built and run by Branding Catalyst. ARCO Optics (Arco Labs, Arco Wholesale and Arco Retail) connects optical labs, distributors and stores, and ARCO Communication is a WhatsApp CRM for Shopify brands.'],
+  ['What is ARCO?', 'ARCO is the family of software products built and run by Branding Catalyst. ARCO Optics (Arco Labs, Arco Wholesale and Arco Retail) connects optical labs, distributors and stores, and ARCO P++D helps opticians measure and fit spectacles on one tablet, and ARCO Communication is a WhatsApp CRM for Shopify brands.'],
   ['Who are the ARCO Optics products for?', 'Arco Labs is for optical laboratories with one or many branches, Arco Wholesale is for lens, frame and eyewear distributors, and Arco Retail is a phone app for optical stores. They work on their own or connected together.'],
   ['Are they built for Indian businesses?', 'Yes. Billing is GST-ready (CGST, SGST and IGST), updates and purchase orders go out on WhatsApp, payments can use Razorpay links, and Arco Retail keeps working without internet.'],
   ['Can ARCO be customised for my business?', 'Yes. Because we build ARCO ourselves, we can adapt workflows, reports and integrations for your team. Book a demo and tell us how you work today.'],
+  ['What is ARCO P++D?', 'An app for opticians that measures pupillary distance, pantoscopic tilt and frame tilt, shows patients how different lenses look in real scenes, and lets them try frames on in 3D. It runs on iPhone, iPad and Android, and is being tested in optical stores.'],
   ['How do I get a demo or pricing?', 'Use the “Book a demo” button for the product you are interested in, or message us on WhatsApp. We will show you the product on a short call and share pricing for your size of business.']
 ];
 
@@ -111,7 +113,7 @@ const productHTML = (p, i) => `
   ${p.steps ? `<ol class="lifecycle" aria-label="Rx job lifecycle">${p.steps.map((s, k) => `<li><i>${k + 1}</i>${esc(s)}</li>`).join('')}</ol>` : ''}
 </div></section>`;
 
-const page = headTop.replace(/<title>[^<]*<\/title>/, '<title>ARCO Products: Optical ERP &amp; WhatsApp CRM | Branding Catalyst</title>') + `<meta name="description" content="ARCO, software products by Branding Catalyst: Arco Labs lab ERP, Arco Wholesale B2B ERP for optical distributors, Arco Retail app for optical stores, and ARCO Communication WhatsApp CRM for Shopify.">
+const page = headTop.replace(/<title>[^<]*<\/title>/, '<title>ARCO Products: Optical ERP, P++D &amp; WhatsApp CRM | Branding Catalyst</title>') + `<meta name="description" content="ARCO, software products by Branding Catalyst: Arco Labs lab ERP, Arco Wholesale B2B ERP for optical distributors, Arco Retail store app, ARCO P++D measuring and 3D try-on for opticians, and ARCO Communication WhatsApp CRM.">
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -130,7 +132,40 @@ ${baseCss}
 @media(max-width:860px){.hero-split{grid-template-columns:1fr}.logo3d{max-width:280px}}
 .arco-mark{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:12px;background:#0a0f1f;border:1px solid var(--line2);vertical-align:middle;margin-right:12px}
 .arco-mark svg{width:26px;height:26px}
-.family{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.family{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.pname sup,.family b sup{font-size:.5em;vertical-align:super;letter-spacing:0}
+.pd3d{position:relative;margin:0;aspect-ratio:1/1;max-width:560px;width:100%;justify-self:center;border-radius:22px;border:1px solid var(--line);background:radial-gradient(60% 55% at 50% 45%,rgba(90,168,255,.22),transparent 70%),linear-gradient(170deg,var(--surface),var(--bg2));overflow:hidden;display:grid;place-items:center}
+.pd3d canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:pan-y}
+.pd3d canvas:active{cursor:grabbing}
+.pd3d-flat{width:88%;height:auto;border-radius:12px;transition:opacity .4s}
+.pd3d.is-3d .pd3d-flat{opacity:0;position:absolute;pointer-events:none}
+.pd3d figcaption{position:absolute;left:16px;right:16px;bottom:14px;display:grid;gap:2px;font-size:14px;pointer-events:none}
+.pd3d figcaption b{font-weight:500}
+.pd3d-hint{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;color:var(--dim)}
+.pd-tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:clamp(32px,4vw,48px)}
+.pd-tools .card{padding:20px;display:grid;gap:8px;align-content:start;min-width:0;border-top:2px solid var(--c)}
+.pd-tools .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c)}
+.pd-tools h3{font-size:18px}.pd-tools p{color:var(--muted);font-size:14.5px}
+.pd-shots{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(20px,4vw,48px);align-items:center;margin-top:clamp(32px,4vw,48px)}
+.pd-shots .shot-main img{max-height:none;background:#000}
+.pd-shot-copy{display:grid;gap:12px;min-width:0}.pd-shot-copy h3{font-size:clamp(20px,2.2vw,26px)}.pd-shot-copy p:not(.eyebrow){color:var(--muted)}
+.pd-measure{margin-top:clamp(40px,5vw,64px);display:grid;gap:18px}
+.pd-measure .head{margin-bottom:0}.h3{font-size:clamp(22px,2.6vw,30px);line-height:1.2}
+.pd-ways{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pd-ways .card{padding:20px;display:grid;gap:6px;min-width:0}.pd-ways h4{margin:0;font-family:var(--f-display);font-size:17px;font-weight:600}.pd-ways p{color:var(--muted);font-size:15px}
+.pd-steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;counter-reset:s}
+.pd-steps li{display:grid;gap:2px;padding:14px 16px;border:1px dashed color-mix(in srgb,var(--c) 45%,transparent);border-radius:14px;min-width:0}
+.pd-steps li::before{counter-increment:s;content:"Photo " counter(s);font-family:var(--f-mono);font-size:11px;color:var(--c);letter-spacing:.08em}
+.pd-steps span{color:var(--muted);font-size:14.5px}
+.pd-devices{border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:14.5px}
+.pd-devices [role=row]{display:grid;grid-template-columns:.7fr 1.3fr 1.3fr 1fr;gap:12px;padding:12px 16px;border-top:1px solid var(--line)}
+.pd-devices [role=row]>*{min-width:0}
+.pd-devices .hd{border-top:0;background:color-mix(in srgb,var(--c) 8%,transparent);font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.pd-devices [role=cell]{color:var(--muted)}.pd-devices b{color:var(--ink);font-weight:500}
+.pd-status{font-size:13.5px;color:var(--dim);border-left:2px solid var(--c);padding-left:12px;margin:0}
+@media(max-width:1100px){.family{grid-template-columns:repeat(3,minmax(0,1fr))}.pd-tools{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.pd-shots,.pd-ways{grid-template-columns:1fr}.pd-steps{grid-template-columns:1fr}.pd-devices .hd{display:none}.pd-devices [role=row]{grid-template-columns:1fr 1fr;row-gap:4px}}
+@media(max-width:560px){.pd-tools{grid-template-columns:1fr}}
 .family a{display:grid;gap:8px;padding:20px;text-decoration:none;min-width:0;border-top:2px solid var(--c)}
 .family a:hover{border-color:var(--c)}
 .family .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--c)}
@@ -187,7 +222,7 @@ ${bodyTop}${header}
   <div>
   <p class="eyebrow">Our products</p>
   <h1>ARCO. Software <span class="acc">we build and run.</span></h1>
-  <p class="lead">Besides building for clients, we make our own products under the ARCO name. ARCO Optics connects the whole optical trade, from the lab that makes the lens to the store that fits it, and ARCO Communication turns WhatsApp conversations into Shopify sales. Same team, same Catalyst Engine, running in real businesses every day.</p>
+  <p class="lead">Besides building for clients, we make our own products under the ARCO name. ARCO Optics connects the whole optical trade, from the lab that makes the lens to the store that fits it, ARCO P++D puts the whole eye-wear consultation on one tablet, and ARCO Communication turns WhatsApp conversations into Shopify sales. Same team, same Catalyst Engine, running in real businesses every day.</p>
   <div class="row"><button class="btn btn-w" type="button" data-lead data-lead-idea="I'd like a demo of ARCO." data-lead-source="Products hero">Book a demo →</button><a class="btn" href="https://arcooptics.com/" target="_blank" rel="noopener">Visit arcooptics.com ↗</a></div>
   </div>
   <div class="logo3d" data-shape="arco" role="img" aria-label="The ARCO logo in 3D"><svg class="logo3d-flat" viewBox="0 0 100 100" aria-hidden="true"><path d="M20 76 50 30 80 76" fill="none" stroke="#f6f0ff" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="70" r="9" fill="#5b52ff"/></svg><span class="logo3d-hint">move your mouse</span></div>
@@ -196,6 +231,7 @@ ${bodyTop}${header}
 <section class="sec" style="padding-top:0"><div class="wrap">
   <div class="family">
     ${PRODUCTS.map(p => `<a class="card" href="#${p.id}" style="--c:${p.c}"><span class="k">${esc(p.kicker.split(' · ').pop())}</span><b>${esc(p.name)}</b><span>${esc(p.title)}</span></a>`).join('\n    ')}
+    <a class="card" href="#arco-pd" style="--c:#5aa8ff"><span class="k">For opticians</span><b>ARCO P<sup>++</sup>D</b><span>Measure, show and fit spectacles on one tablet.</span></a>
   </div>
   <div class="chain" aria-label="How ARCO Optics connects the optical trade">
     <div><small>Optical lab</small><b>Arco Labs</b></div>
@@ -205,6 +241,7 @@ ${bodyTop}${header}
   </div>
 </div></section>
 ${PRODUCTS.map(productHTML).join('\n')}
+${PD_SECTION}
 
 <section class="sec"><div class="wrap">
   <div class="head"><div class="head-l"><p class="eyebrow">Why it matters to you</p><h2 class="h2">We build products,<br><span class="acc">not just projects.</span></h2></div>
@@ -230,7 +267,8 @@ ${PRODUCTS.map(productHTML).join('\n')}
 </main>
 
 <div class="zoom" id="zoom" hidden data-lenis-prevent><button type="button" aria-label="Close">×</button><img alt=""></div>
-` + footerAndScripts.replace('<script>\n/* highlight the service in view', `<script>
+` + footerAndScripts.replace('<script>\n/* highlight the service in view', `<script src="products/pd-viewer.js" defer></script>
+<script>
 /* product galleries: thumbnails switch the main screenshot; click to enlarge */
 (() => {
   document.querySelectorAll('.shots').forEach(g => {
@@ -254,6 +292,6 @@ ${PRODUCTS.map(productHTML).join('\n')}
 })();
 </script>
 <script>
-/* highlight the service in view`).replace("'.head', '.feat .card', '.svc-block',", "'.head', '.feat .card', '.svc-block', '.family .card', '.prod-copy', '.prod-media', '.why .card',");
+/* highlight the service in view`).replace("'.head', '.feat .card', '.svc-block',", "'.head', '.feat .card', '.svc-block', '.family .card', '.prod-copy', '.prod-media', '.why .card', '.pd-tools .card', '.pd-shots', '.pd-ways .card', '.pd-steps li', '.pd-devices',");
 fs.writeFileSync(path.join(site, 'products.html'), page);
 console.log('products.html written');

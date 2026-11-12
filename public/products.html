@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ARCO Products: Optical ERP &amp; WhatsApp CRM | Branding Catalyst</title>
+<title>ARCO Products: Optical ERP, P++D &amp; WhatsApp CRM | Branding Catalyst</title>
 <script>try{if(!sessionStorage.getItem('bcIntro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro-pending')}catch(e){}</script>
 <style>
 @view-transition{navigation:auto}
@@ -16,7 +16,7 @@ html.intro-pending::after{content:"";position:fixed;inset:0;z-index:9999;backgro
 @keyframes introFailsafe{to{opacity:0;visibility:hidden}}
 @media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
 </style>
-<meta name="description" content="ARCO, software products by Branding Catalyst: Arco Labs lab ERP, Arco Wholesale B2B ERP for optical distributors, Arco Retail app for optical stores, and ARCO Communication WhatsApp CRM for Shopify.">
+<meta name="description" content="ARCO, software products by Branding Catalyst: Arco Labs lab ERP, Arco Wholesale B2B ERP for optical distributors, Arco Retail store app, ARCO P++D measuring and 3D try-on for opticians, and ARCO Communication WhatsApp CRM.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap">
@@ -79,7 +79,40 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 @media(max-width:860px){.hero-split{grid-template-columns:1fr}.logo3d{max-width:280px}}
 .arco-mark{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:12px;background:#0a0f1f;border:1px solid var(--line2);vertical-align:middle;margin-right:12px}
 .arco-mark svg{width:26px;height:26px}
-.family{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.family{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.pname sup,.family b sup{font-size:.5em;vertical-align:super;letter-spacing:0}
+.pd3d{position:relative;margin:0;aspect-ratio:1/1;max-width:560px;width:100%;justify-self:center;border-radius:22px;border:1px solid var(--line);background:radial-gradient(60% 55% at 50% 45%,rgba(90,168,255,.22),transparent 70%),linear-gradient(170deg,var(--surface),var(--bg2));overflow:hidden;display:grid;place-items:center}
+.pd3d canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:pan-y}
+.pd3d canvas:active{cursor:grabbing}
+.pd3d-flat{width:88%;height:auto;border-radius:12px;transition:opacity .4s}
+.pd3d.is-3d .pd3d-flat{opacity:0;position:absolute;pointer-events:none}
+.pd3d figcaption{position:absolute;left:16px;right:16px;bottom:14px;display:grid;gap:2px;font-size:14px;pointer-events:none}
+.pd3d figcaption b{font-weight:500}
+.pd3d-hint{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;color:var(--dim)}
+.pd-tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:clamp(32px,4vw,48px)}
+.pd-tools .card{padding:20px;display:grid;gap:8px;align-content:start;min-width:0;border-top:2px solid var(--c)}
+.pd-tools .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c)}
+.pd-tools h3{font-size:18px}.pd-tools p{color:var(--muted);font-size:14.5px}
+.pd-shots{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(20px,4vw,48px);align-items:center;margin-top:clamp(32px,4vw,48px)}
+.pd-shots .shot-main img{max-height:none;background:#000}
+.pd-shot-copy{display:grid;gap:12px;min-width:0}.pd-shot-copy h3{font-size:clamp(20px,2.2vw,26px)}.pd-shot-copy p:not(.eyebrow){color:var(--muted)}
+.pd-measure{margin-top:clamp(40px,5vw,64px);display:grid;gap:18px}
+.pd-measure .head{margin-bottom:0}.h3{font-size:clamp(22px,2.6vw,30px);line-height:1.2}
+.pd-ways{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pd-ways .card{padding:20px;display:grid;gap:6px;min-width:0}.pd-ways h4{margin:0;font-family:var(--f-display);font-size:17px;font-weight:600}.pd-ways p{color:var(--muted);font-size:15px}
+.pd-steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;counter-reset:s}
+.pd-steps li{display:grid;gap:2px;padding:14px 16px;border:1px dashed color-mix(in srgb,var(--c) 45%,transparent);border-radius:14px;min-width:0}
+.pd-steps li::before{counter-increment:s;content:"Photo " counter(s);font-family:var(--f-mono);font-size:11px;color:var(--c);letter-spacing:.08em}
+.pd-steps span{color:var(--muted);font-size:14.5px}
+.pd-devices{border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:14.5px}
+.pd-devices [role=row]{display:grid;grid-template-columns:.7fr 1.3fr 1.3fr 1fr;gap:12px;padding:12px 16px;border-top:1px solid var(--line)}
+.pd-devices [role=row]>*{min-width:0}
+.pd-devices .hd{border-top:0;background:color-mix(in srgb,var(--c) 8%,transparent);font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.pd-devices [role=cell]{color:var(--muted)}.pd-devices b{color:var(--ink);font-weight:500}
+.pd-status{font-size:13.5px;color:var(--dim);border-left:2px solid var(--c);padding-left:12px;margin:0}
+@media(max-width:1100px){.family{grid-template-columns:repeat(3,minmax(0,1fr))}.pd-tools{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.pd-shots,.pd-ways{grid-template-columns:1fr}.pd-steps{grid-template-columns:1fr}.pd-devices .hd{display:none}.pd-devices [role=row]{grid-template-columns:1fr 1fr;row-gap:4px}}
+@media(max-width:560px){.pd-tools{grid-template-columns:1fr}}
 .family a{display:grid;gap:8px;padding:20px;text-decoration:none;min-width:0;border-top:2px solid var(--c)}
 .family a:hover{border-color:var(--c)}
 .family .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--c)}
@@ -190,22 +223,22 @@ html.lenis-smooth{scroll-behavior:auto!important}
 <meta property="og:site_name" content="Branding Catalyst">
 <meta property="og:locale" content="en_IN">
 <meta property="og:url" content="https://bcat-blush.vercel.app/products.html">
-<meta property="og:title" content="ARCO Products: Optical ERP &amp; WhatsApp CRM">
-<meta property="og:description" content="ARCO, software products by Branding Catalyst: Arco Labs lab ERP, Arco Wholesale B2B ERP for optical distributors, Arco Retail app for optical stores, and ARCO Communication WhatsApp CRM for Shopify.">
+<meta property="og:title" content="ARCO Products: Optical ERP, P++D &amp; WhatsApp CRM">
+<meta property="og:description" content="ARCO, software products by Branding Catalyst: Arco Labs lab ERP, Arco Wholesale B2B ERP for optical distributors, Arco Retail store app, ARCO P++D measuring and 3D try-on for opticians, and ARCO Communication WhatsApp CRM.">
 <meta property="og:image" content="https://bcat-blush.vercel.app/og-image.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Branding Catalyst: Ideas in. Impact out. AI-first studio in Mumbai.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ARCO Products: Optical ERP &amp; WhatsApp CRM">
-<meta name="twitter:description" content="ARCO, software products by Branding Catalyst: Arco Labs lab ERP, Arco Wholesale B2B ERP for optical distributors, Arco Retail app for optical stores, and ARCO Communication WhatsApp CRM for Shopify.">
+<meta name="twitter:title" content="ARCO Products: Optical ERP, P++D &amp; WhatsApp CRM">
+<meta name="twitter:description" content="ARCO, software products by Branding Catalyst: Arco Labs lab ERP, Arco Wholesale B2B ERP for optical distributors, Arco Retail store app, ARCO P++D measuring and 3D try-on for opticians, and ARCO Communication WhatsApp CRM.">
 <meta name="twitter:image" content="https://bcat-blush.vercel.app/og-image.jpg">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <script src="track.js" defer></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Organization","ProfessionalService"],"@id":"https://bcat-blush.vercel.app/#org","name":"Branding Catalyst","legalName":"Branding Catalyst Pvt Ltd","url":"https://bcat-blush.vercel.app/","description":"AI-first product and growth studio in Mumbai, India. We build AI agents, RAG chatbots, AI content, AEO and GEO (AI search visibility), brand identities, Android and iOS apps, ERP systems, websites and 3D web experiences.","logo":{"@type":"ImageObject","url":"https://bcat-blush.vercel.app/icon-512.png","width":512,"height":512},"image":"https://bcat-blush.vercel.app/og-image.jpg","foundingDate":"2019","founder":{"@id":"https://bcat-blush.vercel.app/#founder"},"telephone":"+91-90046-29888","email":"hello@brandingcatalyst.in","address":{"@type":"PostalAddress","streetAddress":"B 303, Girgaon Road, Charni Road East, Bhatwadi, Girgaon","postalCode":"400004","addressLocality":"Mumbai","addressRegion":"Maharashtra","addressCountry":"IN"},"hasMap":"https://www.google.com/maps/search/?api=1&query=Branding%20Catalyst%20Pvt%20Ltd%2C%20B%20303%2C%20Girgaon%20Road%2C%20Charni%20Road%20East%2C%20Bhatwadi%2C%20Girgaon%2C%20Mumbai%2C%20Maharashtra%20400004","areaServed":[{"@type":"Country","name":"India"},"Worldwide"],"contactPoint":[{"@type":"ContactPoint","contactType":"sales","telephone":"+91-90046-29888","email":"hello@brandingcatalyst.in","availableLanguage":["English","Hindi"]},{"@type":"ContactPoint","contactType":"human resources","email":"hr@brandingcatalyst.in"}],"sameAs":["https://www.instagram.com/branding_catalyst","https://www.linkedin.com/company/branding-cataly/","https://www.youtube.com/@brandingcatalyst"],"knowsAbout":["Artificial intelligence","AI agents","Retrieval-augmented generation (RAG)","Answer engine optimization (AEO)","Generative engine optimization (GEO)","Branding","Mobile app development","ERP software","Web development","WebGL and 3D web"]},{"@type":"WebSite","@id":"https://bcat-blush.vercel.app/#website","url":"https://bcat-blush.vercel.app/","name":"Branding Catalyst","publisher":{"@id":"https://bcat-blush.vercel.app/#org"},"inLanguage":"en-IN"},{"@type":"CollectionPage","@id":"https://bcat-blush.vercel.app/products.html#webpage","url":"https://bcat-blush.vercel.app/products.html","name":"ARCO Products: Optical ERP & WhatsApp CRM | Branding Catalyst","description":"ARCO, software products by Branding Catalyst: Arco Labs lab ERP, Arco Wholesale B2B ERP for optical distributors, Arco Retail app for optical stores, and ARCO Communication WhatsApp CRM for Shopify.","isPartOf":{"@id":"https://bcat-blush.vercel.app/#website"},"about":{"@id":"https://bcat-blush.vercel.app/#org"},"inLanguage":"en-IN","primaryImageOfPage":"https://bcat-blush.vercel.app/og-image.jpg","breadcrumb":{"@id":"https://bcat-blush.vercel.app/products.html#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://bcat-blush.vercel.app/products.html#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://bcat-blush.vercel.app/"},{"@type":"ListItem","position":2,"name":"Products","item":"https://bcat-blush.vercel.app/products.html"}]},{"@type":"FAQPage","@id":"https://bcat-blush.vercel.app/products.html#faq","isPartOf":{"@id":"https://bcat-blush.vercel.app/products.html#webpage"},"mainEntity":[{"@type":"Question","name":"What is ARCO?","acceptedAnswer":{"@type":"Answer","text":"ARCO is the family of software products built and run by Branding Catalyst. ARCO Optics (Arco Labs, Arco Wholesale and Arco Retail) connects optical labs, distributors and stores, and ARCO Communication is a WhatsApp CRM for Shopify brands."}},{"@type":"Question","name":"Who are the ARCO Optics products for?","acceptedAnswer":{"@type":"Answer","text":"Arco Labs is for optical laboratories with one or many branches, Arco Wholesale is for lens, frame and eyewear distributors, and Arco Retail is a phone app for optical stores. They work on their own or connected together."}},{"@type":"Question","name":"Are they built for Indian businesses?","acceptedAnswer":{"@type":"Answer","text":"Yes. Billing is GST-ready (CGST, SGST and IGST), updates and purchase orders go out on WhatsApp, payments can use Razorpay links, and Arco Retail keeps working without internet."}},{"@type":"Question","name":"Can ARCO be customised for my business?","acceptedAnswer":{"@type":"Answer","text":"Yes. Because we build ARCO ourselves, we can adapt workflows, reports and integrations for your team. Book a demo and tell us how you work today."}},{"@type":"Question","name":"How do I get a demo or pricing?","acceptedAnswer":{"@type":"Answer","text":"Use the “Book a demo” button for the product you are interested in, or message us on WhatsApp. We will show you the product on a short call and share pricing for your size of business."}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Organization","ProfessionalService"],"@id":"https://bcat-blush.vercel.app/#org","name":"Branding Catalyst","legalName":"Branding Catalyst Pvt Ltd","url":"https://bcat-blush.vercel.app/","description":"AI-first product and growth studio in Mumbai, India. We build AI agents, RAG chatbots, AI content, AEO and GEO (AI search visibility), brand identities, Android and iOS apps, ERP systems, websites and 3D web experiences.","logo":{"@type":"ImageObject","url":"https://bcat-blush.vercel.app/icon-512.png","width":512,"height":512},"image":"https://bcat-blush.vercel.app/og-image.jpg","foundingDate":"2019","founder":{"@id":"https://bcat-blush.vercel.app/#founder"},"telephone":"+91-90046-29888","email":"hello@brandingcatalyst.in","address":{"@type":"PostalAddress","streetAddress":"B 303, Girgaon Road, Charni Road East, Bhatwadi, Girgaon","postalCode":"400004","addressLocality":"Mumbai","addressRegion":"Maharashtra","addressCountry":"IN"},"hasMap":"https://www.google.com/maps/search/?api=1&query=Branding%20Catalyst%20Pvt%20Ltd%2C%20B%20303%2C%20Girgaon%20Road%2C%20Charni%20Road%20East%2C%20Bhatwadi%2C%20Girgaon%2C%20Mumbai%2C%20Maharashtra%20400004","areaServed":[{"@type":"Country","name":"India"},"Worldwide"],"contactPoint":[{"@type":"ContactPoint","contactType":"sales","telephone":"+91-90046-29888","email":"hello@brandingcatalyst.in","availableLanguage":["English","Hindi"]},{"@type":"ContactPoint","contactType":"human resources","email":"hr@brandingcatalyst.in"}],"sameAs":["https://www.instagram.com/branding_catalyst","https://www.linkedin.com/company/branding-cataly/","https://www.youtube.com/@brandingcatalyst"],"knowsAbout":["Artificial intelligence","AI agents","Retrieval-augmented generation (RAG)","Answer engine optimization (AEO)","Generative engine optimization (GEO)","Branding","Mobile app development","ERP software","Web development","WebGL and 3D web"]},{"@type":"WebSite","@id":"https://bcat-blush.vercel.app/#website","url":"https://bcat-blush.vercel.app/","name":"Branding Catalyst","publisher":{"@id":"https://bcat-blush.vercel.app/#org"},"inLanguage":"en-IN"},{"@type":"CollectionPage","@id":"https://bcat-blush.vercel.app/products.html#webpage","url":"https://bcat-blush.vercel.app/products.html","name":"ARCO Products: Optical ERP, P++D & WhatsApp CRM | Branding Catalyst","description":"ARCO, software products by Branding Catalyst: Arco Labs lab ERP, Arco Wholesale B2B ERP for optical distributors, Arco Retail store app, ARCO P++D measuring and 3D try-on for opticians, and ARCO Communication WhatsApp CRM.","isPartOf":{"@id":"https://bcat-blush.vercel.app/#website"},"about":{"@id":"https://bcat-blush.vercel.app/#org"},"inLanguage":"en-IN","primaryImageOfPage":"https://bcat-blush.vercel.app/og-image.jpg","breadcrumb":{"@id":"https://bcat-blush.vercel.app/products.html#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://bcat-blush.vercel.app/products.html#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://bcat-blush.vercel.app/"},{"@type":"ListItem","position":2,"name":"Products","item":"https://bcat-blush.vercel.app/products.html"}]},{"@type":"FAQPage","@id":"https://bcat-blush.vercel.app/products.html#faq","isPartOf":{"@id":"https://bcat-blush.vercel.app/products.html#webpage"},"mainEntity":[{"@type":"Question","name":"What is ARCO?","acceptedAnswer":{"@type":"Answer","text":"ARCO is the family of software products built and run by Branding Catalyst. ARCO Optics (Arco Labs, Arco Wholesale and Arco Retail) connects optical labs, distributors and stores, and ARCO P++D helps opticians measure and fit spectacles on one tablet, and ARCO Communication is a WhatsApp CRM for Shopify brands."}},{"@type":"Question","name":"Who are the ARCO Optics products for?","acceptedAnswer":{"@type":"Answer","text":"Arco Labs is for optical laboratories with one or many branches, Arco Wholesale is for lens, frame and eyewear distributors, and Arco Retail is a phone app for optical stores. They work on their own or connected together."}},{"@type":"Question","name":"Are they built for Indian businesses?","acceptedAnswer":{"@type":"Answer","text":"Yes. Billing is GST-ready (CGST, SGST and IGST), updates and purchase orders go out on WhatsApp, payments can use Razorpay links, and Arco Retail keeps working without internet."}},{"@type":"Question","name":"Can ARCO be customised for my business?","acceptedAnswer":{"@type":"Answer","text":"Yes. Because we build ARCO ourselves, we can adapt workflows, reports and integrations for your team. Book a demo and tell us how you work today."}},{"@type":"Question","name":"What is ARCO P++D?","acceptedAnswer":{"@type":"Answer","text":"An app for opticians that measures pupillary distance, pantoscopic tilt and frame tilt, shows patients how different lenses look in real scenes, and lets them try frames on in 3D. It runs on iPhone, iPad and Android, and is being tested in optical stores."}},{"@type":"Question","name":"How do I get a demo or pricing?","acceptedAnswer":{"@type":"Answer","text":"Use the “Book a demo” button for the product you are interested in, or message us on WhatsApp. We will show you the product on a short call and share pricing for your size of business."}}]}]}</script>
 <!-- seo:end -->
 </head>
 <body>
@@ -226,7 +259,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
   <div>
   <p class="eyebrow">Our products</p>
   <h1>ARCO. Software <span class="acc">we build and run.</span></h1>
-  <p class="lead">Besides building for clients, we make our own products under the ARCO name. ARCO Optics connects the whole optical trade, from the lab that makes the lens to the store that fits it, and ARCO Communication turns WhatsApp conversations into Shopify sales. Same team, same Catalyst Engine, running in real businesses every day.</p>
+  <p class="lead">Besides building for clients, we make our own products under the ARCO name. ARCO Optics connects the whole optical trade, from the lab that makes the lens to the store that fits it, ARCO P++D puts the whole eye-wear consultation on one tablet, and ARCO Communication turns WhatsApp conversations into Shopify sales. Same team, same Catalyst Engine, running in real businesses every day.</p>
   <div class="row"><button class="btn btn-w" type="button" data-lead data-lead-idea="I'd like a demo of ARCO." data-lead-source="Products hero">Book a demo →</button><a class="btn" href="https://arcooptics.com/" target="_blank" rel="noopener">Visit arcooptics.com ↗</a></div>
   </div>
   <div class="logo3d" data-shape="arco" role="img" aria-label="The ARCO logo in 3D"><svg class="logo3d-flat" viewBox="0 0 100 100" aria-hidden="true"><path d="M20 76 50 30 80 76" fill="none" stroke="#f6f0ff" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="70" r="9" fill="#5b52ff"/></svg><span class="logo3d-hint">move your mouse</span></div>
@@ -238,6 +271,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
     <a class="card" href="#arco-wholesale" style="--c:#c9a2ff"><span class="k">for distributors</span><b>Arco Wholesale</b><span>B2B ERP for lens, frame and eyewear distributors.</span></a>
     <a class="card" href="#arco-retail" style="--c:#f2a7c3"><span class="k">for optical stores</span><b>Arco Retail</b><span>An offline-first app for optical stores.</span></a>
     <a class="card" href="#arco-communication" style="--c:#6fcf97"><span class="k">For Shopify and D2C brands</span><b>ARCO Communication</b><span>Turn WhatsApp chats into Shopify revenue.</span></a>
+    <a class="card" href="#arco-pd" style="--c:#5aa8ff"><span class="k">For opticians</span><b>ARCO P<sup>++</sup>D</b><span>Measure, show and fit spectacles on one tablet.</span></a>
   </div>
   <div class="chain" aria-label="How ARCO Optics connects the optical trade">
     <div><small>Optical lab</small><b>Arco Labs</b></div>
@@ -316,6 +350,57 @@ html.lenis-smooth{scroll-behavior:auto!important}
   
 </div></section>
 
+<section class="sec prod pd" id="arco-pd" style="--c:#5aa8ff"><div class="wrap">
+  <div class="prod-grid">
+    <div class="prod-copy">
+      <p class="eyebrow"><span class="num">05</span> For opticians · in store testing</p>
+      <h2 class="h2"><span class="pname">ARCO P<sup>++</sup>D</span><br>Measure, show and fit spectacles on one tablet.</h2>
+      <p class="lead">An app for opticians. It measures what the lens lab needs (PD, pantoscopic tilt and frame tilt), shows the patient how different lenses look in real scenes, and lets them try frames on in 3D with the front camera. On iPhone, iPad and Android.</p>
+      <div class="chips"><span>PD · Pantoscopic tilt · Frame tilt</span><span>Lens demos</span><span>3D try-on</span><span>iPhone · iPad · Android</span></div>
+      <div class="row"><button class="btn btn-w" type="button" data-lead data-lead-idea="I'd like a demo of ARCO P++D." data-lead-source="Products: ARCO P++D">Book a demo →</button><a class="btn" href="#pd-measuring">How measuring works</a></div>
+    </div>
+    <div class="prod-media">
+      <figure class="pd3d" id="pdViewer" aria-label="The ARCO P++D marker frame in 3D. Drag to turn it.">
+        <img class="pd3d-flat" src="products/arco/pd/home.png" alt="ARCO P++D home screen with IPD, P and Z measurements and the marker frame option" width="1280" height="589" loading="lazy" decoding="async">
+        <figcaption><b>ARCO P<sup>++</sup>D marker frame</b><span class="pd3d-hint">Drag to turn · 3D-printed, rests on the spectacles</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="pd-tools">
+    <div class="card"><span class="k">01 · Measurements</span><h3>PD, pantoscopic tilt and frame tilt</h3><p>The app places the points on the photo, the optician checks them and can drag any point into place. Results can be exported.</p></div>
+    <div class="card"><span class="k">02 · Lens demos</span><h3>Real scenes, real lenses</h3><p>Office, outdoor, water, day and night driving, golf, skiing and blue light, through single vision, progressive and personalised designs, AR, polarised, photochromic and blue filter.</p></div>
+    <div class="card"><span class="k">03 · Frame selection</span><h3>Every frame in 3D</h3><p>Browse frames with sizes (like 52□18-140) and colours, spin and zoom each one, and carry the choice into the lens demos and results.</p></div>
+    <div class="card"><span class="k">04 · 3D try-on</span><h3>See it on your face</h3><p>The patient sees themself wearing the frame in 3D at true size as the head turns. Switch frame, colour, tint and coatings live, and compare up to four snapshots.</p></div>
+  </div>
+
+  <div class="pd-shots">
+    <button type="button" class="shot-main" data-zoom="products/arco/pd/lens-demo.webp" aria-label="Enlarge the lens demo screen"><img src="products/arco/pd/lens-demo.webp" alt="ARCO P++D lens demo: an office scene seen through a personalised lens with anti-reflection above and a regular lens below, with tint and colour options" width="1280" height="959" loading="lazy" decoding="async"></button>
+    <div class="pd-shot-copy">
+      <p class="eyebrow">Lens demos</p>
+      <h3>Upgrades are easier to explain when the patient can see them.</h3>
+      <p>A slider compares a standard and a premium lens side by side in the same scene, and Eyewear shows how thick the lens will be in the chosen frame.</p>
+    </div>
+  </div>
+
+  <div class="pd-measure" id="pd-measuring">
+    <div class="head"><div class="head-l"><p class="eyebrow">How measuring works</p><h3 class="h3">Two ways to measure, depending on the device.</h3></div></div>
+    <div class="pd-ways">
+      <div class="card"><h4>With a depth sensor</h4><p>On an iPhone or iPad with LiDAR or a TrueDepth camera, the app reads true distances from the sensor.</p></div>
+      <div class="card"><h4>With the marker frame</h4><p>On any other device the patient wears the light 3D-printed frame above. Its printed markers give the app the scale and angle of each photo, so an ordinary camera can measure.</p></div>
+    </div>
+    <ol class="pd-steps"><li><b>Front photo</b><span>Pupillary distance (PD)</span></li><li><b>Side photo</b><span>Pantoscopic tilt</span></li><li><b>Photo from above</b><span>Frame tilt (Z)</span></li></ol>
+    <div class="pd-devices" role="table" aria-label="Supported devices">
+      <div role="row" class="hd"><span role="columnheader">Platform</span><span role="columnheader">Works on</span><span role="columnheader">Measuring</span><span role="columnheader">3D try-on</span></div>
+      <div role="row"><span role="cell"><b>iPad</b></span><span role="cell">iPadOS 16+, landscape</span><span role="cell">Depth sensor, or the marker frame</span><span role="cell">A12 chip or newer</span></div>
+      <div role="row"><span role="cell"><b>iPhone</b></span><span role="cell">iOS 16+, landscape</span><span role="cell">Depth sensor, or the marker frame</span><span role="cell">A12 chip or newer</span></div>
+      <div role="row"><span role="cell"><b>Android</b></span><span role="cell">Phones and tablets with a camera, landscape</span><span role="cell">Marker frame</span><span role="cell">Devices with WebGL graphics</span></div>
+    </div>
+    <p class="pd-status">ARCO P<sup>++</sup>D is in development and being tested in optical stores. It is not a certified medical device, and measurements are being checked against a reference measuring device.</p>
+  </div>
+</div></section>
+
+
 <section class="sec"><div class="wrap">
   <div class="head"><div class="head-l"><p class="eyebrow">Why it matters to you</p><h2 class="h2">We build products,<br><span class="acc">not just projects.</span></h2></div>
   <p class="lead">Running our own software every day keeps us honest about what works. The same people and playbooks that build ARCO build your app, ERP or AI assistant.</p></div>
@@ -329,10 +414,11 @@ html.lenis-smooth{scroll-behavior:auto!important}
 <section class="sec"><div class="wrap">
   <div class="head"><div class="head-l"><p class="eyebrow">Questions</p><h2 class="h2">About ARCO</h2></div></div>
   <div class="qa">
-    <details><summary>What is ARCO?</summary><p>ARCO is the family of software products built and run by Branding Catalyst. ARCO Optics (Arco Labs, Arco Wholesale and Arco Retail) connects optical labs, distributors and stores, and ARCO Communication is a WhatsApp CRM for Shopify brands.</p></details>
+    <details><summary>What is ARCO?</summary><p>ARCO is the family of software products built and run by Branding Catalyst. ARCO Optics (Arco Labs, Arco Wholesale and Arco Retail) connects optical labs, distributors and stores, and ARCO P++D helps opticians measure and fit spectacles on one tablet, and ARCO Communication is a WhatsApp CRM for Shopify brands.</p></details>
     <details><summary>Who are the ARCO Optics products for?</summary><p>Arco Labs is for optical laboratories with one or many branches, Arco Wholesale is for lens, frame and eyewear distributors, and Arco Retail is a phone app for optical stores. They work on their own or connected together.</p></details>
     <details><summary>Are they built for Indian businesses?</summary><p>Yes. Billing is GST-ready (CGST, SGST and IGST), updates and purchase orders go out on WhatsApp, payments can use Razorpay links, and Arco Retail keeps working without internet.</p></details>
     <details><summary>Can ARCO be customised for my business?</summary><p>Yes. Because we build ARCO ourselves, we can adapt workflows, reports and integrations for your team. Book a demo and tell us how you work today.</p></details>
+    <details><summary>What is ARCO P++D?</summary><p>An app for opticians that measures pupillary distance, pantoscopic tilt and frame tilt, shows patients how different lenses look in real scenes, and lets them try frames on in 3D. It runs on iPhone, iPad and Android, and is being tested in optical stores.</p></details>
     <details><summary>How do I get a demo or pricing?</summary><p>Use the “Book a demo” button for the product you are interested in, or message us on WhatsApp. We will show you the product on a short call and share pricing for your size of business.</p></details>
   </div>
 </div></section>
@@ -346,6 +432,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
 <div class="zoom" id="zoom" hidden data-lenis-prevent><button type="button" aria-label="Close">×</button><img alt=""></div>
 <footer><div class="wrap"><span>© 2026 Branding Catalyst Pvt Ltd · Mumbai, India · <a href="mailto:hello@brandingcatalyst.in">hello@brandingcatalyst.in</a></span><span><a href="index.html">Home</a> · <a href="services.html">Services</a> · <a href="products.html">Products</a> · <a href="scale.html">Scale</a> · <a href="check.html">Idea Checker</a> · <a href="about.html">About</a> · <a href="careers.html">Careers</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></span></div></footer>
 
+<script src="products/pd-viewer.js" defer></script>
 <script>
 /* product galleries: thumbnails switch the main screenshot; click to enlarge */
 (() => {
@@ -424,7 +511,7 @@ html.lenis-smooth{scroll-behavior:auto!important}
   // 3) reveal sections as they scroll into view
   if (reduce || !('IntersectionObserver' in window)) return;
   const SEL = [
-    '.head', '.feat .card', '.svc-block', '.family .card', '.prod-copy', '.prod-media', '.why .card', '.ai3 .card', '.models .card', '.bundles .card', '.cluster-head', '.gl .card', '.nm', '.vis .txt', '.vis-card', '.scale .txt', '.sim', '.lean > *', '.three',
+    '.head', '.feat .card', '.svc-block', '.family .card', '.prod-copy', '.prod-media', '.why .card', '.pd-tools .card', '.pd-shots', '.pd-ways .card', '.pd-steps li', '.pd-devices', '.ai3 .card', '.models .card', '.bundles .card', '.cluster-head', '.gl .card', '.nm', '.vis .txt', '.vis-card', '.scale .txt', '.sim', '.lean > *', '.three',
     '.al', '.bx', '.lab-filters', '.ring-stage', '.chk > *', '.strip > .card', '.st', '.faq .txt', '.qa details', '.cta',
     '.eq .el', '.eq .op', '.eq .react', '.logos .cap',
     '.story .l', '.story .r p', '.prin .card', '.founder', '.studios .st', '.stack-txt', '.sphere'

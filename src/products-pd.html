@@ -1,0 +1,51 @@
+<!-- ARCO P++D section of the Products page. Inserted by scripts/build-products.cjs; edit here, then npm run build:pages. -->
+
+<section class="sec prod pd" id="arco-pd" style="--c:#5aa8ff"><div class="wrap">
+  <div class="prod-grid">
+    <div class="prod-copy">
+      <p class="eyebrow"><span class="num">05</span> For opticians · in store testing</p>
+      <h2 class="h2"><span class="pname">ARCO P<sup>++</sup>D</span><br>Measure, show and fit spectacles on one tablet.</h2>
+      <p class="lead">An app for opticians. It measures what the lens lab needs (PD, pantoscopic tilt and frame tilt), shows the patient how different lenses look in real scenes, and lets them try frames on in 3D with the front camera. On iPhone, iPad and Android.</p>
+      <div class="chips"><span>PD · Pantoscopic tilt · Frame tilt</span><span>Lens demos</span><span>3D try-on</span><span>iPhone · iPad · Android</span></div>
+      <div class="row"><button class="btn btn-w" type="button" data-lead data-lead-idea="I'd like a demo of ARCO P++D." data-lead-source="Products: ARCO P++D">Book a demo →</button><a class="btn" href="#pd-measuring">How measuring works</a></div>
+    </div>
+    <div class="prod-media">
+      <figure class="pd3d" id="pdViewer" aria-label="The ARCO P++D marker frame in 3D. Drag to turn it.">
+        <img class="pd3d-flat" src="products/arco/pd/home.png" alt="ARCO P++D home screen with IPD, P and Z measurements and the marker frame option" width="1280" height="589" loading="lazy" decoding="async">
+        <figcaption><b>ARCO P<sup>++</sup>D marker frame</b><span class="pd3d-hint">Drag to turn · 3D-printed, rests on the spectacles</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="pd-tools">
+    <div class="card"><span class="k">01 · Measurements</span><h3>PD, pantoscopic tilt and frame tilt</h3><p>The app places the points on the photo, the optician checks them and can drag any point into place. Results can be exported.</p></div>
+    <div class="card"><span class="k">02 · Lens demos</span><h3>Real scenes, real lenses</h3><p>Office, outdoor, water, day and night driving, golf, skiing and blue light, through single vision, progressive and personalised designs, AR, polarised, photochromic and blue filter.</p></div>
+    <div class="card"><span class="k">03 · Frame selection</span><h3>Every frame in 3D</h3><p>Browse frames with sizes (like 52□18-140) and colours, spin and zoom each one, and carry the choice into the lens demos and results.</p></div>
+    <div class="card"><span class="k">04 · 3D try-on</span><h3>See it on your face</h3><p>The patient sees themself wearing the frame in 3D at true size as the head turns. Switch frame, colour, tint and coatings live, and compare up to four snapshots.</p></div>
+  </div>
+
+  <div class="pd-shots">
+    <button type="button" class="shot-main" data-zoom="products/arco/pd/lens-demo.webp" aria-label="Enlarge the lens demo screen"><img src="products/arco/pd/lens-demo.webp" alt="ARCO P++D lens demo: an office scene seen through a personalised lens with anti-reflection above and a regular lens below, with tint and colour options" width="1280" height="959" loading="lazy" decoding="async"></button>
+    <div class="pd-shot-copy">
+      <p class="eyebrow">Lens demos</p>
+      <h3>Upgrades are easier to explain when the patient can see them.</h3>
+      <p>A slider compares a standard and a premium lens side by side in the same scene, and Eyewear shows how thick the lens will be in the chosen frame.</p>
+    </div>
+  </div>
+
+  <div class="pd-measure" id="pd-measuring">
+    <div class="head"><div class="head-l"><p class="eyebrow">How measuring works</p><h3 class="h3">Two ways to measure, depending on the device.</h3></div></div>
+    <div class="pd-ways">
+      <div class="card"><h4>With a depth sensor</h4><p>On an iPhone or iPad with LiDAR or a TrueDepth camera, the app reads true distances from the sensor.</p></div>
+      <div class="card"><h4>With the marker frame</h4><p>On any other device the patient wears the light 3D-printed frame above. Its printed markers give the app the scale and angle of each photo, so an ordinary camera can measure.</p></div>
+    </div>
+    <ol class="pd-steps"><li><b>Front photo</b><span>Pupillary distance (PD)</span></li><li><b>Side photo</b><span>Pantoscopic tilt</span></li><li><b>Photo from above</b><span>Frame tilt (Z)</span></li></ol>
+    <div class="pd-devices" role="table" aria-label="Supported devices">
+      <div role="row" class="hd"><span role="columnheader">Platform</span><span role="columnheader">Works on</span><span role="columnheader">Measuring</span><span role="columnheader">3D try-on</span></div>
+      <div role="row"><span role="cell"><b>iPad</b></span><span role="cell">iPadOS 16+, landscape</span><span role="cell">Depth sensor, or the marker frame</span><span role="cell">A12 chip or newer</span></div>
+      <div role="row"><span role="cell"><b>iPhone</b></span><span role="cell">iOS 16+, landscape</span><span role="cell">Depth sensor, or the marker frame</span><span role="cell">A12 chip or newer</span></div>
+      <div role="row"><span role="cell"><b>Android</b></span><span role="cell">Phones and tablets with a camera, landscape</span><span role="cell">Marker frame</span><span role="cell">Devices with WebGL graphics</span></div>
+    </div>
+    <p class="pd-status">ARCO P<sup>++</sup>D is in development and being tested in optical stores. It is not a certified medical device, and measurements are being checked against a reference measuring device.</p>
+  </div>
+</div></section>
