@@ -405,6 +405,12 @@ footer{border-top:1px solid var(--line);padding-block:56px 40px}
 .arc-orbit{position:absolute;inset:-20px;animation:ringspin 16s linear infinite reverse;pointer-events:none}
 .arc-dot{position:absolute;top:50%;right:0;width:20px;height:20px;margin-top:-10px;border-radius:50%;background:#c9a2ff;box-shadow:0 0 22px #c9a2ff}
 @keyframes ringspin{to{transform:rotate(360deg)}}
+.arc-portal{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.arc-portal:focus-visible{outline:2px solid var(--accent);outline-offset:6px;border-radius:50%}
+.arc-hint{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);z-index:3;pointer-events:none;white-space:nowrap;font:500 12px var(--f-mono);letter-spacing:.06em;color:var(--ink);padding:7px 13px;border-radius:99px;background:rgba(13,7,22,.82);border:1px solid rgba(201,162,255,.45);box-shadow:0 6px 24px -8px rgba(139,92,246,.8);transition:opacity .3s;animation:hintPulse 2.4s ease-in-out infinite}
+.arc-portal.voice-on .arc-hint{opacity:0;animation:none}
+@keyframes hintPulse{50%{box-shadow:0 6px 30px -4px rgba(201,162,255,.9)}}
+@media(prefers-reduced-motion:reduce){.arc-hint{animation:none}}
 .arc-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;width:min(520px,100%)}
 .arc .nova-term{width:min(520px,100%);border:1px solid var(--line2);border-radius:16px;background:rgba(27,17,41,.8)}
 
@@ -802,14 +808,15 @@ html.lenis-smooth{scroll-behavior:auto!important}
     </div>
 
     <div class="arc" aria-label="ARC, the Branding Catalyst AI assistant">
-      <div class="arc-portal">
+      <div class="arc-portal" id="arcPortal" role="button" tabindex="0" aria-label="Tap to hear ARC speak">
         <div class="arc-ring" aria-hidden="true"></div>
         <div class="nova-stage"><canvas id="novaCv" aria-hidden="true"></canvas></div>
         <div class="arc-orbit" aria-hidden="true"><span class="arc-dot"></span></div>
+        <span class="arc-hint" aria-hidden="true">🔊 Tap to hear me</span>
       </div>
       <div class="arc-bar">
         <span class="nova-tag" id="novaTag"><i></i>ARC · your AI build partner</span>
-        <button class="mute" id="muteBtn" type="button" aria-pressed="false">🔊 Voice on</button>
+        <button class="mute" id="muteBtn" type="button" aria-pressed="true">🔇 Voice off</button>
       </div>
       <div class="nova-term" id="term" aria-live="polite">
         <div class="wave" id="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -1343,13 +1350,17 @@ function mouthTick(ch){ // typing-driven movement when the voice is off
 }
 /* ===== ARC terminal + voice ===== */
 const term = $('#term'), tag = $('#novaTag'), waveBars = [...document.querySelectorAll('#wave i')];
-let voiceOn = true, voiceUnlocked = false, energy = 0, busy = false;
-const muteBtn = $('#muteBtn');
-muteBtn.addEventListener('click', () => {
-  voiceOn = !voiceOn; muteBtn.setAttribute('aria-pressed', !voiceOn);
-  muteBtn.textContent = voiceOn ? '🔊 Voice on' : '🔇 Voice off';
-  if (!voiceOn) try { speechSynthesis.cancel(); } catch {}
-});
+// ARC is silent until the visitor asks to hear him: by tapping his avatar or the voice button.
+let voiceOn = false, voiceUnlocked = false, energy = 0, busy = false, lastSpoken = '';
+const muteBtn = $('#muteBtn'), portal = $('#arcPortal');
+function setVoice(on){
+  voiceOn = on; if (on) voiceUnlocked = true;
+  muteBtn.setAttribute('aria-pressed', String(!on));
+  muteBtn.textContent = on ? '🔊 Voice on' : '🔇 Voice off';
+  portal.classList.toggle('voice-on', on);
+  if (!on) try { speechSynthesis.cancel(); } catch {}
+}
+muteBtn.addEventListener('click', () => setVoice(!voiceOn));
 // Prefers a male English voice. Falls back to the device default at a lower pitch.
 const MALE_VOICES = [/ravi/i, /rishi/i, /hemant/i, /prabhat/i, /en-in.*male(?!.*female)/i, /google uk english male/i, /\bdavid\b/i, /\bmark\b/i, /\bguy\b/i, /\bdaniel\b/i, /\balex\b/i, /\bfred\b/i, /\baaron\b/i, /\barthur\b/i, /\bmale\b/i];
 const FEMALE_VOICE = /female|zira|samantha|heera|veena|karen|moira|tessa|victoria|susan|hazel|aria|jenny|neerja|swara/i;
@@ -1484,7 +1495,8 @@ async function typeInto(el, text, sp=13){ if(reduce){el.textContent=text;return}
 // Speaks the whole reply once (so lip sync follows one continuous voice) and types it line by line.
 async function sayLines(lines){
   const clean = lines.map(s => s.replace(/\*\*/g,'').trim()).filter(Boolean);
-  speak(clean.map(s => s.replace(/^[·•\-*]\s*/,'')).join('. ').replace(/\.\.+/g,'.'));
+  lastSpoken = clean.map(s => s.replace(/^[·•\-*]\s*/,'')).join('. ').replace(/\.\.+/g,'.');
+  speak(lastSpoken);
   energy = 1;
   for (const s of clean) {
     const bullet = /^[·•\-*]\s*/.test(s);
@@ -1522,17 +1534,16 @@ const INTRO = [
 let introDone = false;
 (async()=>{ busy = true; await sayLines(INTRO); busy = false; introDone = true; })();
 muteBtn.addEventListener('click', () => { if (voiceOn && introDone && !busy) { busy = true; sayLines(["Voice on. I'm ARC. Ask me anything, or tell me your idea."]).then(()=>busy=false); } });
-// Browsers only allow speech after the visitor's first click or key press.
-// ARC's voice is on by default, so the intro is spoken at that first interaction.
-let introSpoken = false;
-function unlockVoice(e){
-  if (voiceUnlocked) return;
-  voiceUnlocked = true;
-  // If that first click is a question, the mute button or an idea card, let it speak for itself.
-  if (e && e.target && e.target.closest && e.target.closest('#muteBtn, #askForm, .chip, .ic-card, #mAsk')) { introSpoken = true; return; }
-  if (voiceOn && !introSpoken) { introSpoken = true; speak(INTRO.join(' ')); }
+// Tapping the avatar is the only thing that makes ARC talk on his own: he says his last message
+// (his introduction at first) and keeps answering aloud until muted. Tapping while he talks stops him.
+function hearArc(){
+  let talking = false; try { talking = speechSynthesis.speaking; } catch {}
+  if (voiceOn && talking) { setVoice(false); return; }
+  setVoice(true);
+  speak(lastSpoken || INTRO.join(' '));
 }
-['pointerdown', 'keydown', 'touchstart'].forEach(t => addEventListener(t, unlockVoice, { capture: true, passive: true }));
+portal.addEventListener('click', hearArc);
+portal.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); hearArc(); } });
 // links like index.html?ask=... (from the Services page) open ARC with that question once his intro has finished
 (() => { const q = new URLSearchParams(location.search).get('ask'); if (!q) return; const go = () => { if (busy || !introDone) return setTimeout(go, 400); ask(q.slice(0, 240)); }; setTimeout(go, 800); })();
 

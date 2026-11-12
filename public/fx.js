@@ -74,7 +74,7 @@
     const dot = document.createElement('div'); dot.className = 'cur-dot'; dot.setAttribute('aria-hidden', 'true');
     document.body.appendChild(dot); html.classList.add('has-cursor');
     let x = -100, y = -100, dx = x, dy = y, moving = false;
-    const HOVER = 'a,button,summary,label,select,[data-lead],.chip,.bx,.lab-card,.el,.legend button,.wa-float,.tags span,.role,.st,.bl-chip';
+    const HOVER = 'a,button,.arc-portal,summary,label,select,[data-lead],.chip,.bx,.lab-card,.el,.legend button,.wa-float,.tags span,.role,.st,.bl-chip';
     const DRAG = '.ring-stage,.sphere';
     const TEXT = 'input:not([type=checkbox]):not([type=radio]),textarea,[contenteditable]';
     addEventListener('pointermove', e => {
