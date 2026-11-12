@@ -4,7 +4,7 @@
 //   RESEND_API_KEY   (free account at resend.com)
 //   LEAD_TO_EMAIL    (where project leads and newsletter signups arrive, e.g. hello@brandingcatalyst.in)
 //   HR_EMAIL         (optional; job applications go here, default hr@brandingcatalyst.in)
-//   LEAD_FROM_EMAIL  (optional sender on a domain verified in Resend)
+//   LEAD_FROM_EMAIL  (optional sender; default website@brandingcatalyst.in, which needs the domain verified in Resend)
 // and redeploy. Without these, project leads still reach you on WhatsApp from the visitor's side,
 // and job applicants' own email app opens addressed to hr@ (see public/careers.html).
 
@@ -50,7 +50,7 @@ export default async function handler(req, res) {
         method: 'POST',
         headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          from: process.env.LEAD_FROM_EMAIL || 'Branding Catalyst Website <onboarding@resend.dev>',
+          from: process.env.LEAD_FROM_EMAIL || 'Branding Catalyst Website <website@brandingcatalyst.in>',
           to: [to],
           ...(lead.email ? { reply_to: lead.email } : {}),
           subject: lead.type === 'newsletter' ? `New newsletter signup: ${lead.email}` : lead.type === 'application' ? `New job application: ${lead.name} for ${lead.role || 'general'}` : `New project lead: ${lead.name} (${lead.service || 'not sure'})`,
