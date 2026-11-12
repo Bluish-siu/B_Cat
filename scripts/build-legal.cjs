@@ -88,9 +88,10 @@ ${NOTE}
 
 <h2>1. What we collect</h2>
 <ul>
-  <li><b>Details you give us:</b> your name, phone or WhatsApp number, email address, the service you are interested in, budget range and a description of your idea, when you use the "Start a project" form, the idea checker or the newsletter signup.</li>
+  <li><b>Details you give us:</b> your name, phone or WhatsApp number, email address, the service you are interested in, budget range and a description of your idea, when you use the "Start a project" form, a service page's quote form, the idea checker or the newsletter signup.</li>
   <li><b>Job applications:</b> your name, email, phone, the role you apply for, links to your CV or portfolio and any note you add, when you use the form on our Careers page.</li>
-  <li><b>Conversations with ARC:</b> the messages you type to ARC, our website assistant, so it can reply. If you use voice, speech is produced by your own browser; we do not record audio.</li>
+  <li><b>Conversations with ARC:</b> the messages you type to ARC, our website assistant, so it can reply. If you choose to share your name and WhatsApp number in the chat, we send that conversation to our team so they can contact you about your project. If you use voice, speech is produced by your own browser; we do not record audio.</li>
+  <li><b>How you found us:</b> when you arrive from an ad or a link, we note the campaign details in the link (such as utm tags and ad click IDs), the first page you visited and the referring site, and attach them to any enquiry you send, so we know which ads work. This is kept in your browser's storage until then.</li>
   <li><b>WhatsApp messages:</b> when you choose to message us on WhatsApp, we receive what you send there. WhatsApp's own privacy policy also applies.</li>
   <li><b>Technical data:</b> basic information our hosting provider records automatically, such as your IP address, browser type and the pages you request, used for security and to keep the site running.</li>
 </ul>
@@ -110,8 +111,10 @@ ${NOTE}
 <p>We do not sell your personal data. We share it only with service providers that help us run this website and respond to you, under appropriate safeguards:</p>
 <ul>
   <li><b>Website hosting</b> (Vercel), which stores form submissions in its logs and serves the site.</li>
-  <li><b>AI provider</b> (Anthropic), if ARC's AI answers are switched on: your chat messages are sent to generate a reply.</li>
-  <li><b>Email delivery</b> (for example Resend), if enabled, to forward your enquiry to our team.</li>
+  <li><b>AI provider</b> (Anthropic), if ARC's AI answers are switched on: your chat messages are sent to generate a reply, and a conversation you choose to send us is summarised into a short note for our team.</li>
+  <li><b>Email</b> (Hostinger, or Resend if used), to deliver your enquiry to our team's inbox.</li>
+  <li><b>Google Workspace / Google Sheets</b>, where our team keeps a list of enquiries to follow up on.</li>
+  <li><b>Advertising and analytics</b> (Google Analytics, Google Ads and, if used, Meta), only if you accept cookies; see section 6.</li>
   <li><b>WhatsApp</b> (Meta), when you choose to contact us there.</li>
 </ul>
 <p>Some of these providers may process data outside India. We may also disclose data where required by law.</p>
@@ -131,7 +134,8 @@ ${NOTE}
 <p>To use any of these rights, contact us using the details below. We will respond within a reasonable time.</p>
 
 <h2>6. Cookies and storage</h2>
-<p>This website does not use advertising or tracking cookies. It loads fonts from Google Fonts and a scrolling library from a public CDN, which may receive your IP address when delivering those files. <span class="ph">[Update this section if you add analytics.]</span></p>
+<p id="cookies">When analytics or advertising tools are switched on, we ask for your choice with a cookie banner. If you accept, we use Google Analytics to understand how the site is used, Google Ads (and, if used, the Meta Pixel) to measure which ads lead to enquiries and to show our ads to people who visited the site. If you decline, these tools do not set cookies; Google may still receive basic, cookieless signals under its Consent Mode. You can change your choice at any time: <a href="#" data-cookie-settings>Cookie settings</a>.</p>
+<p>We also keep small items in your browser's local storage: your cookie choice, ARC's voice setting, and the campaign details described in section 1. The site loads fonts from Google Fonts and a scrolling library from a public CDN, which may receive your IP address when delivering those files. Google's and Meta's own privacy policies apply to their tools.</p>
 
 <h2>7. Security</h2>
 <p>We use reasonable technical and organisational measures to protect personal data, including encrypted connections (HTTPS) and limited access to enquiries. No method of transmission over the internet is completely secure.</p>

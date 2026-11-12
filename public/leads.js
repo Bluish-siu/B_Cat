@@ -94,7 +94,7 @@
     <div class="lead-done" hidden>
       <div class="tick">✓</div>
       <h3 id="leadDoneTitle">Thanks!</h3>
-      <p>WhatsApp has opened with your details. Tap <b>Send</b> there to reach our team.</p>
+      <p id="leadDoneMsg">WhatsApp has opened with your details. Tap <b>Send</b> there to reach our team.</p>
       <p>Didn't open? Message us on <a id="leadWaLink" href="#" target="_blank" rel="noopener">${WA_DISPLAY}</a>.</p>
       <button class="btn" type="button" data-close>Close</button>
     </div>
@@ -145,7 +145,7 @@
     if (v('email') && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email'))) return bad(fields.email, 'Please check your email address.');
     if (!$m('#leadConsent').checked) { err.textContent = 'Please tick the box so we can contact you.'; $m('#leadConsent').focus(); return; }
 
-    const lead = { type: 'project', name: v('name'), phone: v('phone'), email: v('email'), service: v('service'), budget: v('budget'), message: v('message'), website: form.elements.website.value, source, page: location.pathname };
+    const lead = { type: 'project', name: v('name'), phone: v('phone'), email: v('email'), service: v('service'), budget: v('budget'), message: v('message'), website: form.elements.website.value, source, page: location.pathname, attribution: window.bcAttribution ? window.bcAttribution() : {} };
     const text = [
       "Hi Branding Catalyst! I'd like to start a project.",
       `Name: ${lead.name}`, `Phone: ${lead.phone}`, lead.email && `Email: ${lead.email}`,
@@ -153,7 +153,13 @@
     ].filter(Boolean).join('\n');
     const link = wa(text);
     window.open(link, '_blank', 'noopener');                        // must happen inside the submit to avoid popup blockers
-    fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead), keepalive: true }).catch(() => {});
+    const doneMsg = $m('#leadDoneMsg');
+    doneMsg.innerHTML = 'WhatsApp has opened with your details. Tap <b>Send</b> there to chat with our team right away.';
+    fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead), keepalive: true })
+      .then(r => r.ok ? r.json() : null)
+      .then(j => { if (j && j.delivered) doneMsg.innerHTML = 'Your details have reached our team, and we will message you shortly. WhatsApp has also opened if you want to chat right away.'; })
+      .catch(() => {});
+    if (window.bcTrack) window.bcTrack('generate_lead', { form: source, service: lead.service });
     $m('#leadWaLink').href = link;
     $m('#leadDoneTitle').textContent = `Thanks, ${lead.name.split(' ')[0]}!`;
     $m('.lead-step').hidden = true; $m('.lead-done').hidden = false;
@@ -172,7 +178,8 @@
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { msg.textContent = 'Please enter a valid email address.'; input.focus(); return; }
       btn.disabled = true; btn.textContent = 'Subscribing…';
       try {
-        const r = await fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'newsletter', email, source: 'Footer newsletter', page: location.pathname }) });
+        const r = await fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'newsletter', email, source: 'Footer newsletter', page: location.pathname, attribution: window.bcAttribution ? window.bcAttribution() : {} }) });
+        if (window.bcTrack) window.bcTrack('sign_up', { method: 'newsletter' });
         if (!r.ok) throw new Error();
         btn.textContent = 'Subscribed ✓'; msg.textContent = "You're on the list. We'll share AI, branding and build notes now and then.";
         input.value = '';

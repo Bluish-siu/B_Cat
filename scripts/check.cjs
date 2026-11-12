@@ -15,7 +15,7 @@ for (const f of fs.readdirSync(pub).filter(f => f.endsWith('.html'))) {
   }
   console.log(`✓ ${f} (${n} scripts)`);
 }
-for (const f of ['fx.js', 'leads.js']) {
+for (const f of ['fx.js', 'leads.js', 'track.js']) {
   try { new Function(fs.readFileSync(path.join(pub, f), 'utf8')); console.log(`✓ ${f}`); } catch (e) { failed++; console.error(`✗ ${f}: ${e.message}`); }
 }
 process.exit(failed ? 1 : 0);

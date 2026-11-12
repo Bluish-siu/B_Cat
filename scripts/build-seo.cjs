@@ -33,6 +33,11 @@ const PAGES = {
   'scale.html':    { url: '/scale.html', priority: '0.7', freq: 'monthly', crumb: 'Scale', title: 'Scalable Apps & Cloud Engineering for Peak Traffic | Branding Catalyst' },
   'about.html':    { url: '/about.html', priority: '0.7', freq: 'monthly', crumb: 'About', type: 'AboutPage', title: 'About Branding Catalyst | AI-First Studio in Mumbai Since 2019' },
   'careers.html':  { url: '/careers.html', priority: '0.5', freq: 'weekly', crumb: 'Careers', title: 'Careers at Branding Catalyst | Tech & Design Jobs in Mumbai' },
+  // ad landing pages (scripts/build-landing.cjs); titles and descriptions come from the page itself
+  'erp.html':      { url: '/erp.html', priority: '0.8', freq: 'monthly', crumb: 'ERP Software' },
+  'app.html':      { url: '/app.html', priority: '0.8', freq: 'monthly', crumb: 'App Development' },
+  'ai.html':       { url: '/ai.html', priority: '0.8', freq: 'monthly', crumb: 'AI Chatbots' },
+  'website.html':  { url: '/website.html', priority: '0.8', freq: 'monthly', crumb: 'Website Development' },
   'privacy.html':  { url: '/privacy.html', priority: '0.2', freq: 'yearly', crumb: 'Privacy Policy' },
   'terms.html':    { url: '/terms.html', priority: '0.2', freq: 'yearly', crumb: 'Terms of Use' }
 };
@@ -132,6 +137,7 @@ for (const f of files) {
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
+<script src="track.js" defer></script>
 <script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c')}</script>
 <!-- seo:end -->`;
   html = html.replace(/<link rel="icon" href="logo.png">\n?/, '');

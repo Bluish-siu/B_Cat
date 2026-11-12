@@ -166,8 +166,9 @@ async function unlock(ev) {
   const e = st.est;
   const summary = `${e.name} · ${PLATFORMS[e.plat]} · ${STAGES[st.stage].label} · ${fmtW(e.lo)}–${fmtW(e.hi)} · features: ${e.feats.map(x => x.label).join(', ') || 'none detected'}`;
   try {
-    await fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'project', name: v('name'), phone: v('phone'), email: v('email'), service: e.name, budget: '', message: `Idea: ${ta.value.trim()}\n\nChecker result: ${summary}`, website: v('website'), source: 'Idea Checker page', page: location.pathname }) });
+    await fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'checker', attribution: window.bcAttribution ? window.bcAttribution() : {}, name: v('name'), phone: v('phone'), email: v('email'), service: e.name, budget: '', message: `Idea: ${ta.value.trim()}\n\nChecker result: ${summary}`, website: v('website'), source: 'Idea Checker page', page: location.pathname }) });
   } catch (_) { /* the WhatsApp link below is the backup channel */ }
+  if (window.bcTrack) window.bcTrack('checker_lead', { form: 'Idea Checker', service: e.name });
   st.unlocked = true;
   const wa = 'https://wa.me/919004629888?text=' + encodeURIComponent(`Hi Branding Catalyst, I'm ${v('name')}. I checked my idea on your site:\n${ta.value.trim()}\n\nResult: ${summary}`);
   $('#ckUnlock').innerHTML = (HAS_RATE ? `<div class="price"><small>Estimated price range</small><b>${priceHTML(e)}</b><em>Indicative. We confirm a fixed price after a free scoping call.</em></div>` : `<div class="price"><small>Your price</small><b>On its way to your WhatsApp</b><em>A person on our team reviews your plan first, then sends a price range. We confirm a fixed price after a free scoping call.</em></div>`) + `

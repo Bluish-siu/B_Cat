@@ -38,6 +38,7 @@ html.intro-pending::after{content:"";position:fixed;inset:0;z-index:9999;backgro
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
+<script src="track.js" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Organization","ProfessionalService"],"@id":"https://bcat-blush.vercel.app/#org","name":"Branding Catalyst","legalName":"Branding Catalyst Pvt Ltd","url":"https://bcat-blush.vercel.app/","description":"AI-first product and growth studio in Mumbai, India. We build AI agents, RAG chatbots, AI content, AEO and GEO (AI search visibility), brand identities, Android and iOS apps, ERP systems, websites and 3D web experiences.","logo":{"@type":"ImageObject","url":"https://bcat-blush.vercel.app/icon-512.png","width":512,"height":512},"image":"https://bcat-blush.vercel.app/og-image.jpg","foundingDate":"2019","founder":{"@id":"https://bcat-blush.vercel.app/#founder"},"telephone":"+91-90046-29888","email":"hello@brandingcatalyst.in","address":{"@type":"PostalAddress","addressLocality":"Mumbai","addressRegion":"Maharashtra","addressCountry":"IN"},"areaServed":[{"@type":"Country","name":"India"},"Worldwide"],"contactPoint":[{"@type":"ContactPoint","contactType":"sales","telephone":"+91-90046-29888","email":"hello@brandingcatalyst.in","availableLanguage":["English","Hindi"]},{"@type":"ContactPoint","contactType":"human resources","email":"hr@brandingcatalyst.in"}],"sameAs":["https://www.instagram.com/branding_catalyst","https://www.linkedin.com/company/branding-cataly/","https://www.youtube.com/@brandingcatalyst"],"knowsAbout":["Artificial intelligence","AI agents","Retrieval-augmented generation (RAG)","Answer engine optimization (AEO)","Generative engine optimization (GEO)","Branding","Mobile app development","ERP software","Web development","WebGL and 3D web"]},{"@type":"WebSite","@id":"https://bcat-blush.vercel.app/#website","url":"https://bcat-blush.vercel.app/","name":"Branding Catalyst","publisher":{"@id":"https://bcat-blush.vercel.app/#org"},"inLanguage":"en-IN"},{"@type":"WebPage","@id":"https://bcat-blush.vercel.app/#webpage","url":"https://bcat-blush.vercel.app/","name":"Branding Catalyst | AI-First App, ERP & Web Studio in Mumbai","description":"AI-first studio in Mumbai building AI agents, chatbots, Android and iOS apps, ERP systems, websites and 3D web, plus AEO and GEO so you get found in AI search.","isPartOf":{"@id":"https://bcat-blush.vercel.app/#website"},"about":{"@id":"https://bcat-blush.vercel.app/#org"},"inLanguage":"en-IN","primaryImageOfPage":"https://bcat-blush.vercel.app/og-image.jpg"},{"@type":"Person","@id":"https://bcat-blush.vercel.app/#founder","name":"Abhishek Trivedi","jobTitle":"Founder","url":"https://www.linkedin.com/in/abhishek-r-trivedi/","sameAs":["https://www.linkedin.com/in/abhishek-r-trivedi/"],"worksFor":{"@id":"https://bcat-blush.vercel.app/#org"}},{"@type":"FAQPage","@id":"https://bcat-blush.vercel.app/#faq","isPartOf":{"@id":"https://bcat-blush.vercel.app/#webpage"},"mainEntity":[{"@type":"Question","name":"What is Branding Catalyst?","acceptedAnswer":{"@type":"Answer","text":"An AI-first product and growth studio. We build AI products, Android and iOS apps, ERP systems, websites and 3D web experiences, and we help brands get recommended by AI search through AEO and GEO. Founded in 2019, we are based in Mumbai and led by our founder, Abhishek Trivedi, with 400+ projects delivered for 50+ national and international clients."}},{"@type":"Question","name":"What is Catalyst Engine?","acceptedAnswer":{"@type":"Answer","text":"Our build system. It sits on top of leading AI models and adds our playbooks, ready modules and AI agents that plan, code, test and release. Engineers review every release."}},{"@type":"Question","name":"Who is ARC?","acceptedAnswer":{"@type":"Answer","text":"ARC is the voice of Catalyst Engine. Tell him your idea in plain words and he replies with features, a plan and a timeline. Our team then confirms scope and price with you."}},{"@type":"Question","name":"What are AEO and GEO?","acceptedAnswer":{"@type":"Answer","text":"AEO (Answer Engine Optimization) makes your content the direct answer in AI assistants and voice search. GEO (Generative Engine Optimization) gets tools like ChatGPT, Gemini and Perplexity to mention and recommend your brand."}},{"@type":"Question","name":"What is RAG?","acceptedAnswer":{"@type":"Answer","text":"Retrieval-Augmented Generation lets an AI assistant answer from your own documents and data, with sources, so its answers stay accurate."}},{"@type":"Question","name":"Do you build Android and iOS apps?","acceptedAnswer":{"@type":"Answer","text":"Yes. We usually build both from one codebase, which saves time and cost, and publish to the Play Store and App Store."}},{"@type":"Question","name":"How much does it cost?","acceptedAnswer":{"@type":"Answer","text":"It depends on scope. Use the idea checker or ask ARC for a first estimate. We give a fixed quote after a free scoping call."}}]}]}</script>
 <!-- seo:end -->
 </head>
@@ -1532,9 +1533,48 @@ async function sayLines(lines){
 async function say(text){ await sayLines([text]); }
 setInterval(()=>{ waveBars.forEach(b=>b.style.height=(3+Math.random()*11*energy)+'px'); energy*=.96; },110);
 
+/* ===== ARC lead capture =====
+   After ARC plans an idea, he invites the visitor (once) to type their name and WhatsApp number.
+   When a message contains a phone number, the chat is sent to /api/lead (email + Google Sheet,
+   plus an AI "lead card" when ARC's AI key is set) and ARC confirms. */
+const PHONE_IN_MSG = /\+?\d[\d\s-]{8,15}\d/;
+let invited = false, arcLeadSent = false, lastIdea = '';
+const chatLog = []; // everything said in this chat (AI or script), sent to the team with a lead
+function phoneFrom(m){ const x = m.match(PHONE_IN_MSG); if (!x) return ''; const d = x[0].replace(/[^\d+]/g,''); const n = d.replace(/\D/g,''); return n.length >= 10 && n.length <= 13 ? d : ''; }
+function nameFrom(m){
+  const t = m.replace(PHONE_IN_MSG,' ').replace(/\b(my name is|my name's|name is|i am|i'm|im|this is|it's|its|me|name|number|phone|whatsapp|mobile|no|here|and|is|contact|hi|hello|hey|ok|okay|sure|yes)\b/gi,' ').replace(/[^A-Za-zऀ-ॿ .'-]/g,' ').replace(/\s+/g,' ').trim();
+  const w = t.split(' ').filter(x => x.length > 1);
+  return w.length && w.length <= 3 ? w.map(x => x[0].toUpperCase() + x.slice(1)).join(' ') : '';
+}
+async function captureLead(msg, phone){
+  const name = nameFrom(msg);
+  arcLeadSent = true;
+  history.push({ role:'user', content:msg }); chatLog.push({ role:'user', content:msg });
+  let delivered = false;
+  try {
+    const r = await fetch('/api/lead', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({
+      type:'arc', name, phone, source:'ARC chat', page: location.pathname, message: lastIdea,
+      transcript: chatLog.slice(-20), attribution: window.bcAttribution ? window.bcAttribution() : {} }) });
+    const j = r.ok ? await r.json() : null; delivered = !!(j && j.delivered);
+  } catch {}
+  if (window.bcTrack) window.bcTrack('arc_lead', { form:'ARC chat' });
+  const first = name ? name.split(' ')[0] : '';
+  const lines = delivered
+    ? [`Thanks${first ? ', ' + first : ''}! I've passed your idea to our team, and they'll WhatsApp you at ${phone} shortly.`, "Anything else you'd like to ask meanwhile?"]
+    : [`Thanks${first ? ', ' + first : ''}! To make sure it reaches our team right away, tap below to send it on WhatsApp.`];
+  history.push({ role:'assistant', content: lines.join('\n') });
+  await sayLines(lines);
+  if (!delivered) {
+    const text = `Hi Branding Catalyst! I'm ${name || 'interested in a project'} (${phone}). I chatted with ARC about: ${lastIdea || msg}`;
+    line(`<span class="p">arc&gt;</span> <span class="n"><a href="https://wa.me/919004629888?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">Send on WhatsApp →</a></span>`);
+  }
+}
+
 async function ask(msg){
   msg = msg.trim(); if(busy||!msg) return; busy=true;
   line(`<span class="p">you&gt;</span> <span class="u">${esc(msg)}</span>`);
+  const phone = !arcLeadSent && phoneFrom(msg);
+  if (phone) { tag.classList.add('busy'); await captureLead(msg, phone); tag.classList.remove('busy'); busy=false; return; }
   tag.classList.add('busy');
   const thinking = line('<span class="p">arc&gt;</span> <span class="n">…</span>');
   const [ai] = await Promise.all([aiReply(msg), wait(450)]);
@@ -1542,9 +1582,19 @@ async function ask(msg){
   let lines, plan = false;
   if (ai) { lines = ai.split(/\n+/); plan = IDEA_WORDS.test(msg) && /week/i.test(ai); }
   else { const r = localReply(msg); lines = r.lines; plan = !!r.plan; }
-  history.push({ role:'user', content:msg }, { role:'assistant', content:lines.join('\n') });
+  // script answers are not added to the AI's memory, so a one-off AI hiccup doesn't steer later replies
+  chatLog.push({ role:'user', content:msg }, { role:'assistant', content:lines.join('\n') });
+  history.push({ role:'user', content:msg }); if (ai) history.push({ role:'assistant', content:lines.join('\n') });
+  if (plan) lastIdea = msg;
   await sayLines(lines);
-  if (plan) { line('<span class="p">arc&gt;</span> <span class="n">Want a detailed estimate? <a href="#idea-checker">Check this idea →</a> or <a href="#" data-lead data-lead-idea="#chkIn" data-lead-source="ARC chat">send it to our team →</a></span>'); $('#chkIn').value = msg; }
+  if (plan) {
+    $('#chkIn').value = msg;
+    if (!invited && !arcLeadSent) {
+      invited = true;
+      await sayLines(["Want an exact quote? Type your name and WhatsApp number here, and our team will message you."]);
+      line('<span class="p">arc&gt;</span> <span class="n" style="opacity:.7;font-size:.92em">We only use it to contact you about this project. <a href="privacy.html" target="_blank">Privacy Policy</a> · or <a href="#idea-checker">check this idea →</a></span>');
+    } else line('<span class="p">arc&gt;</span> <span class="n">Want a detailed estimate? <a href="#idea-checker">Check this idea →</a></span>');
+  }
   tag.classList.remove('busy'); busy=false;
 }
 $('#askForm').addEventListener('submit', e => { e.preventDefault(); const v=$('#askIn').value; $('#askIn').value=''; ask(v); });
