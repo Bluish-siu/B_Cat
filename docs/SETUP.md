@@ -15,7 +15,8 @@ How to configure the live features (ARC, leads, careers) and what to fill in bef
 ARC answers in two ways:
 
 1. **With AI (recommended):** `api/arc.js` is a Vercel serverless function that sends the conversation to Claude and returns ARC's reply. To turn it on, open the Vercel project, go to **Settings → Environment Variables**, add `ANTHROPIC_API_KEY` (create a key at console.anthropic.com), then redeploy.
-   - Optional: set `ARC_MODEL` to pick a different Claude model. The default is `claude-opus-5-5`. A smaller model such as `claude-haiku-5-5` costs less per message.
+   - Optional: set `ARC_MODEL` to pick a different Claude model. The default is `claude-haiku-5-5` (about ₹0.03 per message). `claude-sonnet-5-5` or `claude-opus-5-5` give richer answers at roughly 15–30× the cost.
+   - Each visitor can send up to 20 messages an hour (`RATE_MAX` in `api/arc.js`); after that ARC replies from its built-in answers.
    - ARC's facts and tone live in the `SYSTEM` text at the top of `api/arc.js`. Edit it to keep answers accurate.
    - The endpoint only accepts requests from the site's own pages, and limits message length and history, but anyone visiting the site can still use it. Set a monthly spend limit in the Anthropic Console.
 2. **Built-in fallback:** if the function isn't configured or fails, ARC answers from the built-in knowledge (`KNOW` list in `src/home.html`). This covers greetings, services, Catalyst Engine, AEO, GEO, RAG, pricing, timelines, guarantee, tech stack, support and ownership. It also plans any project idea with the estimator.

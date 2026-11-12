@@ -33,6 +33,22 @@ How to answer:
 const MAX_TURNS = 12;
 const MAX_CHARS = 1500;
 
+// Per-visitor rate limit: at most RATE_MAX messages per RATE_WINDOW_MS from one IP address.
+// Kept in the function's memory, so it resets when Vercel starts a fresh instance; it stops
+// casual spamming, and the monthly spend limit in the Anthropic Console is the hard ceiling.
+const RATE_MAX = 20;
+const RATE_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const hits = new Map(); // ip -> timestamps of recent messages
+function rateLimited(ip) {
+  const now = Date.now();
+  const recent = (hits.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (recent.length >= RATE_MAX) { hits.set(ip, recent); return true; }
+  recent.push(now);
+  hits.set(ip, recent);
+  if (hits.size > 5000) for (const [k, v] of hits) if (!v.some((t) => now - t < RATE_WINDOW_MS)) hits.delete(k);
+  return false;
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Use POST." });
   if (!process.env.ANTHROPIC_API_KEY) return res.status(503).json({ error: "ARC AI is not configured." });
@@ -40,6 +56,9 @@ export default async function handler(req, res) {
   // Only accept calls from this site's own pages.
   const origin = req.headers.origin;
   if (origin && new URL(origin).host !== req.headers.host) return res.status(403).json({ error: "Forbidden." });
+
+  const ip = String(req.headers["x-forwarded-for"] || req.socket?.remoteAddress || "unknown").split(",")[0].trim();
+  if (rateLimited(ip)) return res.status(429).json({ error: "You've sent a lot of messages. Please try again later, or message us on WhatsApp." });
 
   const raw = Array.isArray(req.body?.messages) ? req.body.messages : null;
   if (!raw) return res.status(400).json({ error: "Send { messages: [...] }." });
@@ -60,15 +79,20 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await client.beta.messages.create({
-      model: process.env.ARC_MODEL || "claude-opus-5-5",
-      max_tokens: 4000,
+    // Default: Claude Haiku 5.5 (fast and low-cost). Set ARC_MODEL in Vercel to use another model.
+    const model = process.env.ARC_MODEL || "claude-haiku-5-5";
+    const params = {
+      model,
+      max_tokens: 4000, // room for the model's thinking plus a short reply
       output_config: { effort: "low" }, // chat replies: fast and concise
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default",
       system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }],
       messages,
-    });
+    };
+    // Haiku has no server-side refusal fallback (a fallback list returns a 400), so only
+    // Opus/Sonnet/Fable requests ask the API to retry a declined request on another model.
+    const response = model.startsWith("claude-haiku")
+      ? await client.messages.create(params)
+      : await client.beta.messages.create({ ...params, betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" });
 
     if (response.stop_reason === "refusal") {
       return res.status(200).json({
