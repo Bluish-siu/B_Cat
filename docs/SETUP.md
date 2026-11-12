@@ -30,12 +30,12 @@ How to configure the live features (leads, tracking, ads, ARC, careers) and what
 
 Every lead (forms, landing pages, Idea Checker, ARC chats, newsletter) is emailed by `api/lead.js`. Job applications go to HR.
 
-1. Hostinger hPanel → **Emails** → create a mailbox for the website, for example `website@brandingcatalyst.in` (or use an existing one).
+1. Hostinger hPanel → **Emails** → create the `hello@brandingcatalyst.in` mailbox (it both sends and receives lead emails; a separate `website@` mailbox also works).
 2. Add these environment variables in Vercel, then redeploy:
 
 | Name | Value |
 |---|---|
-| `SMTP_USER` | `website@brandingcatalyst.in` |
+| `SMTP_USER` | `hello@brandingcatalyst.in` |
 | `SMTP_PASS` | that mailbox's password |
 | `LEAD_TO_EMAIL` | `hello@brandingcatalyst.in` (where leads arrive; this is also the default) |
 | `HR_EMAIL` | `hr@brandingcatalyst.in` (default) |
