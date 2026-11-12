@@ -128,6 +128,16 @@ nginx -t && systemctl reload nginx
 
 ## 8. Point the domain to the VPS (Hostinger DNS)
 
+Today brandingcatalyst.in shows the **old one-page site** on Hostinger's web hosting (through Hostinger's CDN). Switching DNS moves visitors to the new site on the VPS. Before switching:
+
+1. **Back up the old site**: hPanel → Websites → brandingcatalyst.in → File manager → download `public_html` (or Backups → download). Keep it in case anything needs to be checked later.
+2. **Test the new site on the VPS first** (steps 1–7). From your computer, open `http://YOUR_VPS_IP`; Nginx answers only for the domain, so instead run on the VPS: `curl -s -H "Host: brandingcatalyst.in" localhost | head -c 300`.
+3. **Turn off Hostinger CDN** for the domain (hPanel → Websites → brandingcatalyst.in → Performance → CDN → off). Otherwise the CDN can keep serving the old site.
+
+Old addresses keep working: `/services.html` is the new Services page, and `/collaborate.html`, `/privacy-policy.html` and `/index.html` redirect permanently to the new pages (see `REDIRECTS` in `server.js`).
+
+Then change the DNS records:
+
 hPanel → **Domains → brandingcatalyst.in → DNS / Nameservers → DNS records**:
 
 | Type | Name | Points to | TTL |
@@ -135,7 +145,7 @@ hPanel → **Domains → brandingcatalyst.in → DNS / Nameservers → DNS recor
 | A | `@` | YOUR_VPS_IP | 3600 |
 | CNAME | `www` | `brandingcatalyst.in` | 3600 |
 
-Edit the existing `@` and `www` records if they exist. **Do not change the MX or TXT records**; they run hello@ and hr@ email.
+Edit the existing `@` and `www` records. **Delete any `AAAA` record for `@` or `www`** (the old hosting has one; the VPS IPv6 can be added later), otherwise some visitors still reach the old site. **Do not change the MX or TXT records**; they run hello@ and hr@ email (mx1/mx2.hostinger.in).
 
 Check (from any computer, after a few minutes): `nslookup brandingcatalyst.in` should show the VPS IP.
 

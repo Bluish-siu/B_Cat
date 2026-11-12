@@ -38,6 +38,14 @@ const TYPES = {
   '.webmanifest': 'application/manifest+json', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
   '.webp': 'image/webp', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.woff2': 'font/woff2'
 };
+// Pages from the old brandingcatalyst.in site and where they live now (permanent redirects).
+const REDIRECTS = {
+  '/index.html': '/',
+  '/collaborate.html': '/#contact',
+  '/collaborate': '/#contact',
+  '/privacy-policy.html': '/privacy.html',
+  '/privacy-policy': '/privacy.html'
+};
 const SECURITY = {
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
@@ -93,6 +101,10 @@ http.createServer(async (req, res) => {
   if (route) return api(req, res, route);
   if (url.pathname.startsWith('/api/')) return sendJSON(res, 404, { error: 'Not found.' });
   if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405, SECURITY); return res.end(); }
+
+  // Old site (2024–2026) addresses → new pages, so Google rankings and shared links keep working
+  const moved = REDIRECTS[url.pathname.toLowerCase()];
+  if (moved) { res.writeHead(301, { Location: moved, ...SECURITY }); return res.end(); }
 
   let p; try { p = decodeURIComponent(url.pathname); } catch { return notFound(req, res); }
   if (p.endsWith('/')) p += 'index.html';
