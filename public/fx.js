@@ -1,6 +1,6 @@
 /* Branding Catalyst: creative effects shared by every page.
    1) Logo intro (first visit per browser session)   2) Dot cursor (desktop)
-   3) 3D logo (any element with class "logo3d")       4) Brand Lab (homepage section #brandLab)
+   3) 3D logo (any element with class "logo3d"; data-shape="arco" draws the ARCO mark)       4) Brand Lab (homepage section #brandLab)
    Page transitions live in each page's CSS (@view-transition).
    Everything respects "reduce motion". Load with: <script src="fx.js" defer></script> */
 (() => {
@@ -118,21 +118,10 @@
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(32, 1, 1, 1000); camera.position.set(0, 0, 290);
 
-      // The mark, traced from the logo (SVG units, y flipped): rounded block, round hole and an opening on the right.
-      const S = new THREE.Shape(), Y = v => 50 - v;
-      S.moveTo(14, Y(8)); S.lineTo(41, Y(8));
-      S.absarc(41, Y(42), 34, Math.PI / 2, Math.asin(0.5 / 34), true);       // top-right curve down to the opening
-      S.lineTo(64.1 + 3, Y(41.5)); S.quadraticCurveTo(64.1, Y(41.5), 64.6, Y(44));
-      S.absarc(46, Y(50), 20, Math.atan2(Y(41.5) - Y(50), 64.1 - 46) - .06, Math.atan2(Y(58.5) - Y(50), 64.1 - 46) + .06, false);  // around the hole
-      S.quadraticCurveTo(64.1, Y(58.5), 67.1, Y(58.5)); S.lineTo(75, Y(58.5));
-      S.absarc(41, Y(58), 34, -Math.asin(0.5 / 34), -Math.PI / 2, true);     // bottom-right curve
-      S.lineTo(14, Y(92)); S.quadraticCurveTo(6, Y(92), 6, Y(84)); S.lineTo(6, Y(16)); S.quadraticCurveTo(6, Y(8), 14, Y(8));
-      const geo = new THREE.ExtrudeGeometry(S, { depth: 16, bevelEnabled: true, bevelThickness: 2.4, bevelSize: 1.8, bevelSegments: 5, curveSegments: 48 });
-      geo.translate(-44, 0, -8);
-      const mark = new THREE.Mesh(geo, new THREE.MeshPhysicalMaterial({ color: 0xf6f0ff, roughness: .28, metalness: .1, clearcoat: 1, clearcoatRoughness: .15 }));
-      const dotM = new THREE.Mesh(new THREE.SphereGeometry(8, 48, 32), new THREE.MeshStandardMaterial({ color: 0xc9a2ff, emissive: 0x8b5cf6, emissiveIntensity: .7, roughness: .3 }));
-      dotM.position.set(85 - 44, 0, 0);
-      const group = new THREE.Group(); group.add(mark, dotM); scene.add(group);
+      const group = new THREE.Group();
+      if (box.dataset.shape === 'arco') arcoMark(THREE, group); else bcMark(THREE, group);
+      scene.add(group);
+      const dotM = group.userData.dot;
       scene.add(new THREE.AmbientLight(0xffffff, .55));
       const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(80, 120, 160); scene.add(key);
       const rimP = new THREE.PointLight(0xc9a2ff, 9000, 0, 2); rimP.position.set(-140, 60, 60); scene.add(rimP);
@@ -154,6 +143,53 @@
         if (visible && !reduce) raf = requestAnimationFrame(frame);
       }
       raf = requestAnimationFrame(frame);
+    }
+
+    // ARCO mark (products page): a thick rounded chevron with a blue dot inside, from the ARCO logo.
+    function arcoMark(THREE, group){
+      const A = [20, 76], B = [50, 30], C = [80, 76], w = 7.5, N = 24;   // SVG units, stroke half-width
+      const sub = (p, q) => [p[0] - q[0], p[1] - q[1]], add = (p, q) => [p[0] + q[0], p[1] + q[1]], mul = (p, k) => [p[0] * k, p[1] * k];
+      const unit = v => { const l = Math.hypot(v[0], v[1]); return [v[0] / l, v[1] / l]; };
+      const d1 = unit(sub(B, A)), d2 = unit(sub(C, B)), n1 = [-d1[1], d1[0]], n2 = [-d2[1], d2[0]];
+      const pts = [];
+      pts.push(add(A, mul(n1, -w)), add(B, mul(n1, -w)));                     // outer edge, left arm
+      let a0 = Math.atan2(-n1[1], -n1[0]), a1 = Math.atan2(-n2[1], -n2[0]), da = a1 - a0;
+      if (da > Math.PI) da -= 2 * Math.PI; if (da < -Math.PI) da += 2 * Math.PI;
+      for (let k = 1; k < N; k++) { const a = a0 + da * k / N; pts.push([B[0] + w * Math.cos(a), B[1] + w * Math.sin(a)]); }   // rounded top
+      pts.push(add(B, mul(n2, -w)), add(C, mul(n2, -w)));                     // outer edge, right arm
+      for (let k = 1; k < N; k++) { const f = Math.PI * k / N; pts.push(add(C, add(mul(n2, -w * Math.cos(f)), mul(d2, w * Math.sin(f))))); }  // round end
+      pts.push(add(C, mul(n2, w)));
+      // inner corner: where the two inner edges meet
+      const P = add(A, mul(n1, w)), Q = add(B, mul(n2, w)), den = d1[0] * d2[1] - d1[1] * d2[0];
+      const t = ((Q[0] - P[0]) * d2[1] - (Q[1] - P[1]) * d2[0]) / den;
+      pts.push(add(P, mul(d1, t)), add(A, mul(n1, w)));
+      for (let k = 1; k < N; k++) { const f = Math.PI * k / N; pts.push(add(A, add(mul(n1, w * Math.cos(f)), mul(d1, -w * Math.sin(f))))); }  // round end
+      const S = new THREE.Shape(pts.map(p => new THREE.Vector2(p[0] - 50, 53 - p[1])));
+      const geo = new THREE.ExtrudeGeometry(S, { depth: 14, bevelEnabled: true, bevelThickness: 2.4, bevelSize: 1.6, bevelSegments: 5, curveSegments: 32 });
+      geo.translate(0, 0, -7);
+      const mark = new THREE.Mesh(geo, new THREE.MeshPhysicalMaterial({ color: 0xf6f0ff, roughness: .28, metalness: .1, clearcoat: 1, clearcoatRoughness: .15 }));
+      const dot = new THREE.Mesh(new THREE.SphereGeometry(9, 48, 32), new THREE.MeshStandardMaterial({ color: 0x5b52ff, emissive: 0x4338ff, emissiveIntensity: .75, roughness: .3 }));
+      dot.position.set(0, 53 - 70, 0);
+      group.add(mark, dot); group.userData.dot = dot;
+    }
+
+    // Branding Catalyst mark (About page)
+    function bcMark(THREE, group){
+      // The mark, traced from the logo (SVG units, y flipped): rounded block, round hole and an opening on the right.
+      const S = new THREE.Shape(), Y = v => 50 - v;
+      S.moveTo(14, Y(8)); S.lineTo(41, Y(8));
+      S.absarc(41, Y(42), 34, Math.PI / 2, Math.asin(0.5 / 34), true);       // top-right curve down to the opening
+      S.lineTo(64.1 + 3, Y(41.5)); S.quadraticCurveTo(64.1, Y(41.5), 64.6, Y(44));
+      S.absarc(46, Y(50), 20, Math.atan2(Y(41.5) - Y(50), 64.1 - 46) - .06, Math.atan2(Y(58.5) - Y(50), 64.1 - 46) + .06, false);  // around the hole
+      S.quadraticCurveTo(64.1, Y(58.5), 67.1, Y(58.5)); S.lineTo(75, Y(58.5));
+      S.absarc(41, Y(58), 34, -Math.asin(0.5 / 34), -Math.PI / 2, true);     // bottom-right curve
+      S.lineTo(14, Y(92)); S.quadraticCurveTo(6, Y(92), 6, Y(84)); S.lineTo(6, Y(16)); S.quadraticCurveTo(6, Y(8), 14, Y(8));
+      const geo = new THREE.ExtrudeGeometry(S, { depth: 16, bevelEnabled: true, bevelThickness: 2.4, bevelSize: 1.8, bevelSegments: 5, curveSegments: 48 });
+      geo.translate(-44, 0, -8);
+      const mark = new THREE.Mesh(geo, new THREE.MeshPhysicalMaterial({ color: 0xf6f0ff, roughness: .28, metalness: .1, clearcoat: 1, clearcoatRoughness: .15 }));
+      const dotM = new THREE.Mesh(new THREE.SphereGeometry(8, 48, 32), new THREE.MeshStandardMaterial({ color: 0xc9a2ff, emissive: 0x8b5cf6, emissiveIntensity: .7, roughness: .3 }));
+      dotM.position.set(85 - 44, 0, 0);
+      group.add(mark, dotM); group.userData.dot = dotM;
     }
   })();
 
