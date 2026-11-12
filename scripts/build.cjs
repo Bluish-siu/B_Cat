@@ -22,5 +22,6 @@ run('build-scale.cjs', pub, home);
 run('build-check.cjs', pub, home);
 run('build-legal.cjs', pub);
 run('build-landing.cjs');
+run('build-products.cjs', pub);
 // 3) SEO on every page (titles, share tags, structured data) + sitemap.xml, robots.txt, llms.txt
 run('build-seo.cjs');

@@ -116,7 +116,7 @@ ${tailCss}</style>
 </head>
 ${bodyTop}<header class="nav"><div class="wrap">
   <a class="logo" href="index.html" aria-label="Branding Catalyst home"><svg viewBox="0 0 96 100" aria-hidden="true"><use href="#bcMark"/></svg><span class="wm"><b>Branding</b><em>Catalyst</em></span></a>
-  <ul><li><a href="services.html">Services</a></li><li><a href="scale.html">Scale</a></li><li><a href="check.html" aria-current="page">Idea Checker</a></li><li><a href="about.html">About</a></li><li><a href="careers.html">Careers</a></li><li><a href="index.html#faq">FAQ</a></li></ul>
+  <ul><li><a href="services.html">Services</a></li><li><a href="products.html">Products</a></li><li><a href="scale.html">Scale</a></li><li><a href="check.html" aria-current="page">Idea Checker</a></li><li><a href="about.html">About</a></li><li><a href="careers.html">Careers</a></li><li><a href="index.html#faq">FAQ</a></li></ul>
   <button class="btn btn-w" type="button" data-lead data-lead-source="Idea Checker header">Start a project →</button>
 </div></header>
 
