@@ -228,7 +228,7 @@ ${svgDefs}
 </div></section>
 </main>
 
-<footer><div class="wrap"><span>© 2026 Branding Catalyst Pvt Ltd · Mumbai, India · <a href="mailto:hello@brandingcatalyst.in">hello@brandingcatalyst.in</a></span><span><a href="index.html">Home</a> · <a href="services.html">Services</a> · <a href="check.html">Idea Checker</a> · <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></span></div></footer>
+<footer><div class="wrap"><span>© 2026 Branding Catalyst Pvt Ltd · B 303, Girgaon Road, Charni Road East, Mumbai 400004 · <a href="mailto:hello@brandingcatalyst.in">hello@brandingcatalyst.in</a></span><span><a href="index.html">Home</a> · <a href="services.html">Services</a> · <a href="check.html">Idea Checker</a> · <a href="about.html">About</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></span></div></footer>
 
 <script>
 (() => {

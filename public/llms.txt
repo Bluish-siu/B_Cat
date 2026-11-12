@@ -2,7 +2,7 @@
 
 > AI-first product and growth studio in Mumbai, India. We build AI agents, RAG chatbots, AI content, AEO and GEO (AI search visibility), brand identities, Android and iOS apps, ERP systems, websites and 3D web experiences.
 
-Branding Catalyst Pvt Ltd was founded in 2019 by Abhishek Trivedi and is based in Mumbai, India. Projects are planned with Catalyst Engine, our AI-assisted build system, and ARC, the assistant on our homepage, gives instant first estimates.
+Branding Catalyst Pvt Ltd was founded in 2019 by Abhishek Trivedi and is based in Mumbai, India (office: B 303, Girgaon Road, Charni Road East, Bhatwadi, Girgaon, Mumbai, Maharashtra 400004). Projects are planned with Catalyst Engine, our AI-assisted build system, and ARC, the assistant on our homepage, gives instant first estimates.
 
 ## Services
 - [AI Agents & Automation](https://bcat-blush.vercel.app/services.html#ai-agents): Digital teammates that qualify leads, answer calls, update your CRM and handle repetitive work 24/7.

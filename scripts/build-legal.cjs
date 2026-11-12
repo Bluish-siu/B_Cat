@@ -77,7 +77,7 @@ ${body}
 `;
 
 const NOTE = `<p class="note">This page is a starting draft written for Branding Catalyst Pvt Ltd. Replace the highlighted items and have it reviewed by your legal advisor before relying on it.</p>`;
-const CONTACT = `Branding Catalyst Pvt Ltd, <span class="ph">[registered office address]</span>, Mumbai, Maharashtra, India · Email: <a href="mailto:hello@brandingcatalyst.in">hello@brandingcatalyst.in</a> · Phone / WhatsApp: +91 90046 29888`;
+const CONTACT = `Branding Catalyst Pvt Ltd, B 303, Girgaon Road, Charni Road East, Bhatwadi, Girgaon, Mumbai, Maharashtra 400004, India · Email: <a href="mailto:hello@brandingcatalyst.in">hello@brandingcatalyst.in</a> · Phone / WhatsApp: +91 90046 29888`;
 
 const privacy = shell('Privacy Policy', 'How Branding Catalyst Pvt Ltd collects, uses and protects personal data shared through this website, forms, WhatsApp and ARC.', 'privacy', `
 <p class="eyebrow">Legal</p>

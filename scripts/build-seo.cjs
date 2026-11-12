@@ -19,7 +19,9 @@ const ORG = {
   phone: '+91-90046-29888',
   email: 'hello@brandingcatalyst.in',
   hrEmail: 'hr@brandingcatalyst.in',
+  street: 'B 303, Girgaon Road, Charni Road East, Bhatwadi, Girgaon', postalCode: '400004',
   city: 'Mumbai', region: 'Maharashtra', country: 'IN',
+  maps: 'https://www.google.com/maps/search/?api=1&query=Branding%20Catalyst%20Pvt%20Ltd%2C%20B%20303%2C%20Girgaon%20Road%2C%20Charni%20Road%20East%2C%20Bhatwadi%2C%20Girgaon%2C%20Mumbai%2C%20Maharashtra%20400004',
   founder: { name: 'Abhishek Trivedi', jobTitle: 'Founder', url: 'https://www.linkedin.com/in/abhishek-r-trivedi/' },
   sameAs: ['https://www.instagram.com/branding_catalyst', 'https://www.linkedin.com/company/branding-cataly/', 'https://www.youtube.com/@brandingcatalyst'],
   knowsAbout: ['Artificial intelligence', 'AI agents', 'Retrieval-augmented generation (RAG)', 'Answer engine optimization (AEO)', 'Generative engine optimization (GEO)', 'Branding', 'Mobile app development', 'ERP software', 'Web development', 'WebGL and 3D web']
@@ -56,7 +58,7 @@ const orgNode = {
   logo: { '@type': 'ImageObject', url: abs('/icon-512.png'), width: 512, height: 512 },
   image: abs('/og-image.jpg'), foundingDate: ORG.foundingDate, founder: { '@id': founderId },
   telephone: ORG.phone, email: ORG.email,
-  address: { '@type': 'PostalAddress', addressLocality: ORG.city, addressRegion: ORG.region, addressCountry: ORG.country },
+  address: { '@type': 'PostalAddress', streetAddress: ORG.street, postalCode: ORG.postalCode, addressLocality: ORG.city, addressRegion: ORG.region, addressCountry: ORG.country }, hasMap: ORG.maps,
   areaServed: [{ '@type': 'Country', name: 'India' }, 'Worldwide'],
   contactPoint: [
     { '@type': 'ContactPoint', contactType: 'sales', telephone: ORG.phone, email: ORG.email, availableLanguage: ['English', 'Hindi'] },
@@ -166,7 +168,7 @@ fs.writeFileSync(path.join(pub, 'llms.txt'), `# ${ORG.name}
 
 > ${ORG.description}
 
-${ORG.legalName} was founded in ${ORG.foundingDate} by ${ORG.founder.name} and is based in ${ORG.city}, India. Projects are planned with Catalyst Engine, our AI-assisted build system, and ARC, the assistant on our homepage, gives instant first estimates.
+${ORG.legalName} was founded in ${ORG.foundingDate} by ${ORG.founder.name} and is based in ${ORG.city}, India (office: ${ORG.street}, ${ORG.city}, ${ORG.region} ${ORG.postalCode}). Projects are planned with Catalyst Engine, our AI-assisted build system, and ARC, the assistant on our homepage, gives instant first estimates.
 
 ## Services
 ${found.services.map(s => `- [${s.name}](${abs('/services.html#' + s.id)}): ${s.desc}`).join('\n')}
