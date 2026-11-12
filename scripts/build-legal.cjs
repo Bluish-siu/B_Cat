@@ -120,7 +120,7 @@ ${NOTE}
 <p>Some of these providers may process data outside India. We may also disclose data where required by law.</p>
 
 <h2>4. How long we keep it</h2>
-<p>We keep enquiry details for as long as needed to respond and, if we work together, for the duration of the project and any period required by law (for example tax and accounting rules). Newsletter details are kept until you unsubscribe. Job applications are kept for up to 12 months so we can consider you for future roles, unless you ask us to delete them sooner. We then delete or anonymise the data. <span class="ph">[Confirm your retention periods.]</span></p>
+<p>We keep enquiry details (including ARC conversations you send us) for up to 2 years if we do not start a project together, so we can follow up on your enquiry. If we work together, we keep them for the duration of the project and any period required by law (for example tax and accounting rules). Newsletter details are kept until you unsubscribe. Job applications are kept for up to 12 months so we can consider you for future roles, unless you ask us to delete them sooner. We then delete or anonymise the data.</p>
 
 <h2>5. Your rights</h2>
 <p>Under the Digital Personal Data Protection Act, 2023 you can:</p>
@@ -147,7 +147,7 @@ ${NOTE}
 <p>We may update this policy from time to time. The "last updated" date above shows when it last changed.</p>
 
 <h2>10. Contact and grievance officer</h2>
-<p>For privacy questions, requests or complaints, contact our grievance officer: <span class="ph">[name of grievance officer]</span>, ${CONTACT}.</p>
+<p>For privacy questions, requests or complaints, contact our grievance officer: Abhishek Trivedi, Founder, ${CONTACT}.</p>
 `);
 
 const terms = shell('Terms of Use', 'Terms for using the Branding Catalyst website, ARC assistant, idea checker and estimates.', 'terms', `
